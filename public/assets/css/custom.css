@@ -1,0 +1,110 @@
+/* Custom CSS */
+
+/*.navbar-inverse {
+    background-color: #375A7F;
+    border-color: #375A7F;
+}*/
+
+.navbar {
+    border-bottom: 1px solid #ddd;
+    /*background-color: #0054a6;*/
+    /*color: #fff;*/
+}
+
+.panel {
+    margin: 1em 0;
+}
+
+.panel-heading {
+    margin: 0;
+}
+
+.page-header {
+    margin: 0
+}
+
+.form-control,
+.btn {
+    border-radius: 2px;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border: 1px solid #999;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Reports */
+.report {
+    margin: 1em 2em;
+}
+
+.report .report-default {
+
+}
+
+/*.report .report-header {
+    text-align: center
+}*/
+
+.report h1, .report h2 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+.report h1 {
+    color: #0054a6;
+}
+
+.report h2 {
+}
+
+.report .report-pagination {
+    text-align: right;
+}
+
+/* Dashboard */
+.dash-btn {
+    font-size: 150%;
+    margin-right: .5em;
+    margin-bottom: .875em;
+}
+
+.dash-dd-menu {
+    margin-top: -1.25em;
+    border-radius: 2px;
+}
+
+.receipt-ID {
+    color: #ed1c24;
+    font-size: 175%;
+    font-family: 'Ubuntu mono' , 'Lucida'; /* Doc ID print (monospace) */
+}
+
+.text-red {
+    color: red;
+}
+
+/* Active Nav Tab */
+.nav > li > a.active, .nav > li > a:focus {
+    text-decoration: none;
+    background-color: #eeeeee;
+}
+
+/* table-strikethrough */
+tr.strikeout td {
+    position: relative;
+    font-style: italic;
+}
+
+tr.strikeout td:before {
+    content: " ";
+    position: absolute;
+    top: 46%;
+    left: 0;
+    border-bottom: 1px solid #111;
+    width: 100%;
+}
