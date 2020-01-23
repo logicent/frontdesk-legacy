@@ -471,6 +471,7 @@ return array(
 		'packages'  => array(
 			array('auth' => PKGPATH.'auth/'),
 			array('orm'	=> PKGPATH.'orm/'),
+			array('email'	=> PKGPATH.'email/'),
 			//'auth','orm'
 		),
 

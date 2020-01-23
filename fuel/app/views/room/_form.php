@@ -30,7 +30,7 @@
 	<div class="form-group">
 		<div class="col-md-2">
 			<?= Form::label('Status', 'status', array('class'=>'control-label')); ?>
-			<?= Form::select('status', Input::post('status', isset($room) ? $room->status : Model_Room::ROOM_STATUS_VACANT), Model_Room::$room_status, array('class' => 'col-md-4 form-control', 'readonly'=>isset($room) ? true : false)); ?>
+			<?= Form::select('status', Input::post('status', isset($room) ? $room->status : Model_Room::ROOM_STATUS_VACANT), Model_Room::$room_status, array('class' => 'col-md-4 form-control', 'readonly' => isset($room) ? true : false)); ?>
 		</div>
 	</div>
 

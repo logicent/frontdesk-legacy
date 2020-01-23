@@ -80,19 +80,20 @@ return array(
 		/**
 		 * Path to sendmail
 		 */
-		'sendmail_path' => '/usr/sbin/sendmail',
+		// 'sendmail_path' => '/usr/sbin/sendmail',
 
 		/**
 		 * SMTP settings
 		 */
                                    // FCB email default server settings here
-//		'smtp'	=> array(
-//			'host' => 'ssl://smtp.gmail.com',
-//			'port'=> 465,
-//			'username'	=> 'dev@pamojamedia.com',
-//			'password'	=> 'dev2014pmea',
-//			'timeout'	=> 5,
-//		),
+		'smtp'	=> array(
+			'host' => 'smtp.sparkpostmail.com',
+            'port'=> 587,
+            'starttls' => true,
+			'username'	=> 'SMTP_Injection',
+			'password'	=> '2ff9363bc2e9395166b5b276e83aef57d6eb91e4',
+			'timeout'	=> 5,
+		),
 
 		/**
 		 * Newline

@@ -47,7 +47,12 @@ class Controller_Users extends Controller_Authenticate{
 						)
                     );
 
-                    //Mailhelper::send(Input::post('fullname'), Input::post('email'));
+                    Mailhelper::send(
+                        Input::post('fullname'), 
+                        Input::post('email'),
+                        'FrontDesk: User Profile Updated',
+                        'Hi,Your user account details have been updated.Administrator'
+                    );
 
                     Session::set_flash('success', e('Added user '.Input::post('username').'.'));
 
@@ -85,25 +90,30 @@ class Controller_Users extends Controller_Authenticate{
 		}
 
 		$val = Model_User::validate('edit');
-
+        
 		if ($val->run())
 		{
 			try {
-                    // create a new user
+                    // update a user
                     Auth::update_user(
                         array(
 	                        'email' => Input::post('email'),
-	                        'password' => Input::post('password'),
-							'old_password' => Input::post('old_password'),
+	                        // 'password' => Input::post('password'),
+							// 'old_password' => Input::post('old_password'),
 	                        'group_id' => Input::post('group_id'),
-							// array(
-							// 	'fullname' => Input::post('fullname'),
-							// 	'mobile' => Input::post('mobile'),
-							// )
-						)
+							array(
+								'fullname' => Input::post('fullname'),
+								'mobile' => Input::post('mobile'),
+							)
+                        ),
                     );
 
-                    //Mailhelper::send(Input::post('fullname'), Input::post('email'));
+                    Mailhelper::send(
+                                    Input::post('fullname'), 
+                                    Input::post('email'),
+                                    'FrontDesk: User Profile Updated',
+                                    'Hi,Your user account details have been updated.Administrator'
+                    );
 
                     Session::set_flash('success', e('Updated user '.Input::post('username').'.'));
 
