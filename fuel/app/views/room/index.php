@@ -9,9 +9,6 @@
 			<div class="btn-group">
 				<?= Html::anchor('room/create', '<i class="fa fa-plus-square-o fa-lg"></i>&ensp;Room', array('class' => 'btn btn-primary')); ?>
 			</div>
-			<div class="btn-group">
-				<?= Html::anchor('room/type', '<i class="fa fa-list-alt fa-lg"></i>&ensp;Types', array('class' => 'btn btn-primary')); ?>
-			</div>
 		</div>
 	</div>
 </div>

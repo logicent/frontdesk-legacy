@@ -24,10 +24,12 @@
 				<!-- <button form="fd_booking" formaction="<?= Uri::create('fd/booking/copy'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-copy"></i></button> -->
 			<!-- </div> -->
 			<!-- <div class="button-group"> -->
-				<?= Html::anchor('front-desk/bookings/?status='.Model_Fd_Booking::GUEST_STATUS_CHECKED_IN, 'Checked In', array('class' => "btn btn-sm btn-info")); ?>
+                <?= Html::anchor('front-desk/bookings/?status='.Model_Fd_Booking::GUEST_STATUS_CHECKED_IN, 
+                                'Checked In', array('id' => 'cin_btn', 'class' => "btn btn-sm btn-info")); ?>
 				<!-- <?php // echo Html::anchor('front-desk/bookings/?status='.Model_Fd_Booking::GUEST_STATUS_STAY_OVER, 'Stay Over', array('class' => 'btn btn-sm btn-info')); ?> -->
 				<!-- <?php //echo Html::anchor('front-desk/bookings/?status='.Model_Fd_Booking::GUEST_STATUS_DUE_OUT, 'Due Out', array('class' => 'btn btn-sm btn-info')); ?> -->
-				<?= Html::anchor('front-desk/bookings/?status='.Model_Fd_Booking::GUEST_STATUS_CHECKED_OUT, 'Checked Out', array('class' => 'btn btn-sm btn-info')); ?>
+                <?= Html::anchor('front-desk/bookings/?status='.Model_Fd_Booking::GUEST_STATUS_CHECKED_OUT, 
+                                'Checked Out', array('id' => 'cout_btn', 'class' => 'btn btn-sm btn-info')); ?>
 			<!-- </div> -->
 		</div>
 	</div>
@@ -52,11 +54,12 @@
 			</tr>
 		</thead>
 		<tbody>
-	<?php foreach ($fd_booking as $item): ?>
+    <?php 
+        foreach ($fd_booking as $item): ?>
 			<tr>
 				<!-- <td><input class="row-sel" type="checkbox"><input class="row-id" type="hidden" name="id[<?= $item->id; ?>]" id="form_id[<?= $item->id; ?>]"></td> -->
 				<td><?= $item->reg_no; ?></td>
-				<td><?= ucwords($item->first_name.' '.$item->last_name); ?></td>
+                <td><?= Html::anchor('fd/booking/edit/'. $item->id, ucwords($item->first_name .' '. $item->last_name), ['class' => 'clickable']) ?></td>
 				<td><?= $item->phone; ?></td>
 				<td><?= $item->room->name; ?></td>
 				<td><?= date('d-M-Y H:i', strtotime($item->checkin)); ?></td>
@@ -64,16 +67,16 @@
 				<td class="text-right"><?= number_format(Model_Rate::find('first', ['where' => ['type_id' => $item->room->rm_type->id]])->charges, 2); ?></td>
 				<!-- <td><?php //echo $item->g_country->iso_code_2; ?></td> -->
 				<td class="text-center">
-					<?= Html::anchor('fd/booking/view/'.$item->id, '<i class="fa fa-eye fa-fw fa-lg"></i>'); ?>
-					<?php if ($item->status != Model_Fd_Booking::GUEST_STATUS_CHECKED_OUT) : ?>
-						<?= Html::anchor('fd/booking/edit/'.$item->id, '<i class="fa fa-edit fa-fw fa-lg"></i>'); ?>
-					<?php endif; ?>
+                    <?= Html::anchor('fd/booking/view/'.$item->id, '<i class="fa fa-eye fa-fw fa-lg"></i>'); ?>
+                    
 					<?php if ($ugroup->id == 5 && $item->status != Model_Fd_Booking::GUEST_STATUS_CHECKED_OUT) : ?>
-						<?= Html::anchor('fd/booking/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-lg"></i>', array('class' => 'text-danger', 'onclick' => "return confirm('Are you sure?')")); ?>
-					<?php endif; ?>
+                        <?= Html::anchor('fd/booking/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-lg"></i>', 
+                                        array('class' => 'text-danger', 'onclick' => "return confirm('Are you sure?')")); ?>
+					<?php endif ?>
 				</td>
 			</tr>
-	<?php endforeach; ?>
+    <?php 
+        endforeach; ?>
 		</tbody>
 	</table>
 </form>
@@ -95,5 +98,20 @@
 		var cbSelected = $(this).is(':checked');
 
 		$(this).siblings('.row-id').val(cbSelected);
-	});
+    });
+    
+    urlParam = window.location.href.slice(window.location.href.indexOf('?') + 1).split('=');
+    
+    if (urlParam[1] == 'CI') 
+    {
+        $('#cin_btn').removeClass('btn-info');
+        $('#cout_btn').addClass('btn-info');
+    }
+    
+    if (urlParam[1] == 'CO') 
+    {
+        $('#cin_btn').addClass('btn-info');
+        $('#cout_btn').removeClass('btn-info');
+    }
+    // Read a page's GET URL variables and return them as an associative array.
 </script>

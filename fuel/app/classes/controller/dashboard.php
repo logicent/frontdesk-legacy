@@ -10,6 +10,17 @@ class Controller_Dashboard extends Controller_Authenticate{
 			Response::redirect('business/create');
 		}
 
+        $room_types = Model_Room_Type::find('all'); 
+        
+        $roomTypeHasUndefinedRate = false;
+        foreach ($room_types as $room_type) {
+            $roomTypeHasUndefinedRate = count($room_type->rates) == 0;
+            if ($roomTypeHasUndefinedRate) {
+                Session::set_flash('warning', "Add accommodation rate for {$room_type->name}");
+                Response::redirect('accommodation/rates');
+            }
+        }
+        
 		$rates = Model_Rate::find('first');
 		if (!$rates) {
 			Session::set_flash('warning', 'Add your accommodation rates to enable bookings.');
@@ -44,17 +55,17 @@ class Controller_Dashboard extends Controller_Authenticate{
 			$data['rollover_required'] = true;
 		else $data['rollover_required'] = false;
 
-		$data['receipts'] = DB::select(DB::expr('FORMAT(SUM(amount), 0) as total_amount'))
+		$data['receipts'] = DB::select(DB::expr('COALESCE(SUM(amount), 0) as total_amount'))
 											->from('cash_receipt')
 											->where('cash_receipt.date', '=', date('Y-m-d'))
 											->execute()->as_array();
 
-		$data['expenses'] = DB::select(DB::expr('FORMAT(SUM(amount), 0) as total_amount'))
+		$data['expenses'] = DB::select(DB::expr('COALESCE(SUM(amount), 0) as total_amount'))
 											->from('cash_payment')
 											->where('cash_payment.date', '=', date('Y-m-d'))
 											->execute()->as_array();
 
-		$data['deposits'] = DB::select(DB::expr('FORMAT(SUM(amount), 0) as total_amount'))
+		$data['deposits'] = DB::select(DB::expr('COALESCE(SUM(amount), 0) as total_amount'))
 											->from('bank_receipt')
 											->where('bank_receipt.date', '=', date('Y-m-d'))
 											->execute()->as_array();

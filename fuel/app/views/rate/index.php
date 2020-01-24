@@ -9,11 +9,6 @@
 			<div class="btn-group">
 				<?= Html::anchor('rate/create', '<i class="fa fa-plus-square-o fa-lg"></i>&ensp;Rate', array('class' => 'pull-right btn btn-primary')); ?>
 			</div>
-			<?php if($ugroup->id == 6 || $ugroup->id == 5) : ?>
-			<div class="btn-group">
-				<?= Html::anchor('rate/type', '<i class="fa fa-list-alt fa-lg"></i>&ensp;Types', array('class' => 'btn btn-primary')); ?>
-			</div>
-			<?php endif; ?>
 		</div>
 	</div>
 </div>

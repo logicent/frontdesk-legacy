@@ -104,21 +104,33 @@ class Controller_Fd_Booking extends Controller_Authenticate
 				// Calculate all amounts due for duration
 				Model_Fd_Booking::setBillingAmounts($fd_booking);
 
-				try {
-					if ($fd_booking and $fd_booking->save())
-					{
-						// Updated Room status based of guest status
-						Model_Fd_Booking::updateRoomStatus($fd_booking->room_id, $fd_booking->status);
-						// Create default invoice for overnight stay
-						Model_Fd_Booking::createSalesInvoice($fd_booking);
-						Session::set_flash('success', 'Added booking #'.$fd_booking->reg_no.'.');
-						Response::redirect('dashboard');
-					}
-				}
-				catch (Fuel\Core\Database_Exception $e)
-				{
-					Session::set_flash('error', $e->getMessage());
-				}
+                try
+                {
+                    DB::start_transaction();
+                
+                    if ($fd_booking and $fd_booking->save())
+                    {
+                        // Updated Room status based of guest status
+                        Model_Fd_Booking::updateRoomStatus($fd_booking->room_id, $fd_booking->status);
+                
+                        // Create default invoice for overnight stay
+                        Model_Fd_Booking::createSalesInvoice($fd_booking);
+                    }
+                
+                    DB::commit_transaction();
+                
+                    Session::set_flash('success', 'Added booking #'.$fd_booking->reg_no.'.');
+                    
+                    Response::redirect('dashboard');
+                }
+                catch (Fuel\Core\Database_Exception $e)
+                {
+                    DB::rollback_transaction();
+                    
+                    Session::set_flash('error', $e->getMessage());
+                
+                    // throw $e;
+                }
 			}
 			else
 			{

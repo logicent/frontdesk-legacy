@@ -9,11 +9,6 @@
 			<div class="btn-group">
 				<?= Html::anchor('room/type/create', '<i class="fa fa-plus"></i>&ensp;Type', array('class' => 'btn btn-primary')); ?>
 			</div>
-			<?php if($ugroup->id == 6 || $ugroup->id == 5) : ?>
-			<div class="btn-group">
-				<?= Html::anchor('room', '<i class="fa fa-th-list"></i>&ensp;Rooms', array('class' => 'btn btn-danger')); ?>
-			</div>
-		<?php endif; ?>
 		</div>
 	</div>
 </div>

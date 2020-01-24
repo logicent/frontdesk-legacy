@@ -7,7 +7,7 @@
 		<?php if($ugroup->id == 6) : ?>
 		<div class="pull-right btn-toolbar">
 			<div class="btn-group">
-				<?= Html::anchor('report', '<i class="fa fa-list-alt fa-fw fa-lg"></i> Reports', array('class' => 'btn btn-warning')); ?>
+				<?= Html::anchor('report', 'Manage Reports', array('class' => 'btn btn-default')); ?>
 			</div>
 			<!-- <div class="btn-group"> -->
 				<?php // echo Html::anchor('#report/period', 'Define Period', array('class' => 'btn btn-info')); ?>

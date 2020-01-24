@@ -40,7 +40,7 @@
 
 	<hr>
 	<div class="form-button">
-		<?= Form::submit('submit', 'Save', array('class' => 'btn btn-success')); ?>
+		<?= Form::submit('submit', 'Save', array('class' => 'btn btn-primary')); ?>
 	</div>
 
 <?= Form::close(); ?>

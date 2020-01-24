@@ -49,21 +49,21 @@
             </div>  <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                <li><a class="<?= Uri::segment(1) == 'dashboard' ? 'active' : '' ?>" href="<?= Uri::create('dashboard'); ?>"><i class="fa fa-th fa-fw"></i>&ensp;Dashboard</a></li>
-                <li><a class="<?= Uri::segment(1) == 'reports' ? 'active' : '' ?>" href="<?= Uri::create('reports'); ?>"><i class="fa fa-file-text fa-fw"></i>&ensp;Reports</a></li>
+                <li><a class="<?= Uri::segment(1) == 'dashboard' ? 'active' : '' ?>" href="<?= Uri::create('dashboard'); ?>"><i class="fa fa-lg fa-th-large fa-fw"></i>&ensp;Dashboard</a></li>
+                <li><a class="<?= Uri::segment(1) == 'reports' ? 'active' : '' ?>" href="<?= Uri::create('reports'); ?>"><i class="fa fa-lg fa-list-alt fa-fw"></i>&ensp;Reports</a></li>
                 <?php if ($ugroup->id == 5 || $ugroup->id == 6) : ?>
-                    <li><a class="<?= Uri::segment(1) == 'users' ? 'active' : '' ?>" href="<?= Uri::create('users'); ?>"><i class="fa fa-users fa-fw"></i>&ensp;Users</a></li>
+                    <li><a class="<?= Uri::segment(1) == 'users' ? 'active' : '' ?>" href="<?= Uri::create('users'); ?>"><i class="fa fa-lg fa-users fa-fw"></i>&ensp;Users</a></li>
                     <!--<li class="active"><a href="#modules">Modules</a></li>-->
-                    <li><a class="<?= Uri::segment(1) == 'settings' ? 'active' : '' ?>" href="<?= Uri::create('settings'); ?>"><i class="fa fa-cog fa-fw"></i>&ensp;Settings</a></li>
+                    <li><a class="<?= Uri::segment(1) == 'settings' ? 'active' : '' ?>" href="<?= Uri::create('settings'); ?>"><i class="fa fa-lg fa-cog fa-fw"></i>&ensp;Settings</a></li>
                 <?php endif; ?>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?= $uname; ?>
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-lg fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="<?= Uri::create('users/edit/'.$uid) ?>"><i class="fa fa-edit fa-fw"></i> Edit Account</a></li>
+                        <li><a href="<?= Uri::create('users/edit/'.$uid) ?>"><i class="fa fa-lg fa-edit fa-fw"></i> My Account</a></li>
                         <li class="divider"></li>
-                        <li><a href="<?= Uri::create('logout') ?>"><i class="fa fa-sign-out fa-fw"></i> Log Out</a></li>
+                        <li><a href="<?= Uri::create('logout') ?>"><i class="fa fa-lg fa-sign-out fa-fw"></i> Log out</a></li>
                     </ul>   <!-- /.dropdown-user -->
                 </li>   <!-- /.dropdown -->
             </ul>   <!-- /.navbar-top-links -->
@@ -81,33 +81,37 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-book fa-fw"></i>&ensp;Guest Register<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-lg fa-book fa-fw"></i>&emsp;Guest Register<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-              				    <li><a href="<?= Uri::create('front-desk/reservations'); ?>"><i class=""></i>&ensp; Reservations</a></li>
-              				    <li><a href="<?= Uri::create('front-desk/bookings'); ?>"><i class=""></i>&ensp; Bookings</a></li>
-                                <li><a href="<?= Uri::create('front-desk/invoices'); ?>"><i class=""></i>&ensp; Folios</a></li>
+              				    <li><a href="<?= Uri::create('front-desk/reservations'); ?>"><i class=""></i>&emsp;Reservations</a></li>
+              				    <li><a href="<?= Uri::create('front-desk/bookings'); ?>"><i class=""></i>&emsp;Bookings</a></li>
+                                <li><a href="<?= Uri::create('front-desk/invoices'); ?>"><i class=""></i>&emsp;Folios</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-money fa-fw"></i>&ensp;Cash Control<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-lg fa-money fa-fw"></i>&emsp;Cash Control<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li><a href="<?= Uri::create('cash-control/receipts'); ?>">&ensp;Cash Receipts</a></li>
-                                <li><a href="<?= Uri::create('cash-control/expenses'); ?>">&ensp;Cash Expenses</a></li>
+                                <li><a href="<?= Uri::create('cash-control/receipts'); ?>">&emsp;Cash Receipts</a></li>
+                                <li><a href="<?= Uri::create('cash-control/expenses'); ?>">&emsp;Cash Expenses</a></li>
               				</ul>
                         </li>
                         <?php if ($ugroup->id == 5 || $ugroup->id == 6) : ?>
 						<li>
-                            <a href="#"><i class="fa fa-bank fa-fw"></i>&ensp;Banking<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-lg fa-bank fa-fw"></i>&emsp;Banking<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li><a href="<?= Uri::create('banking/bank-deposits'); ?>">&ensp;Bank Deposits</a></li>
-                                <li><a href="<?= Uri::create('banking/bank-accounts'); ?>">&ensp;Bank Accounts</a></li>
+                                <li><a href="<?= Uri::create('banking/bank-deposits'); ?>">&emsp;Bank Deposits</a></li>
+                                <li><a href="<?= Uri::create('banking/bank-accounts'); ?>">&emsp;Bank Accounts</a></li>
                             </ul>   <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-building fa-fw"></i>&ensp;Accommodation<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-lg fa-building fa-fw"></i>&emsp;Accommodation<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li><a href="<?= Uri::create('accommodation/rooms'); ?>"><i class=""></i>&ensp;Rooms &amp; Room Types</a></li>
-                                <li><a href="<?= Uri::create('accommodation/rates'); ?>"><i class=""></i>&ensp;Rates &amp; Rate Types</a></li>
+                                <li><a href="<?= Uri::create('accommodation/rooms'); ?>"><i class=""></i>&emsp;Rooms</a></li>
+                                <?php if($ugroup->id == 6 || $ugroup->id == 5) : ?>
+                                    <li><a href="<?= Uri::create('accommodation/room-types'); ?>"><i class=""></i>&emsp;Room Types</a></li>
+                                <?php endif ?>                                
+                                <li><a href="<?= Uri::create('accommodation/rates'); ?>"><i class=""></i>&emsp;Rates</a></li>
+                                <li><a href="<?= Uri::create('accommodation/rate-types'); ?>"><i class=""></i>&emsp;Rate Types</a></li>                                
                             </ul>
                         </li>
                         <?php endif; ?>

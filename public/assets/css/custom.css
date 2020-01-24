@@ -108,3 +108,20 @@ tr.strikeout td:before {
     border-bottom: 1px solid #111;
     width: 100%;
 }
+
+legend {
+    font-size: 16.5px;
+}
+
+textarea.form-control {
+    min-height: 119px;
+}
+
+a {
+    color: #333;
+    font-weight: 500;
+}
+
+a.clickable {
+    font-weight: bold;
+}

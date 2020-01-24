@@ -53,12 +53,43 @@
 		</div>
 	</div>
 
+    <!--<div class="form-group">-->
+        <!--<div class="col-md-4">-->
+            <?php // Form::label('Payment type', 'payment_type', array('class'=>'control-label')); ?>
+            <?php // Form::select('payment_type', Input::post('payment_type', isset($fd_booking) ? $fd_booking->payment_type : ''), Model_Cash_Receipt::$payment_type, array('class' => 'col-md-4 form-control')); ?>
+        <!--</div>-->
+
+        <!--<div class="col-md-offset-2 col-md-6">-->
+            <?php // Form::label('Verify Code', 'verify_code', array('class'=>'control-label')); ?>
+            <?php // Form::input('verify_code', Input::post('verify_code', isset($fd_booking) ? $fd_booking->verify_code : ''), array('class' => 'col-md-4 form-control')); ?>
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="form-group">-->
+        <!--<div class="col-md-4">-->
+            <?php // Form::label('Card type', 'card_type', array('class'=>'control-label')); ?>
+            <?php // Form::select('card_type', Input::post('card_type', isset($fd_booking) ? $fd_booking->card_type : ''), Model_Cash_Receipt::$card_type, array('class' => 'col-md-4 form-control')); ?>
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="form-group">-->
+        <!--<div class="col-md-4">-->
+            <?php // Form::label('Card expire', 'card_expire', array('class'=>'control-label')); ?>
+            <?php // Form::input('card_expire', Input::post('card_expire', isset($fd_booking) ? $fd_booking->card_expire : ''), array('class' => 'col-md-4 form-control')); ?>
+        <!--</div>-->
+        <!--<div class="col-md-offset-2 col-md-6">-->
+            <?php // Form::label('Card no.', 'card_no', array('class'=>'control-label')); ?>
+            <?php // Form::input('card_no', Input::post('card_no', isset($fd_booking) ? $fd_booking->card_no : ''), array('class' => 'col-md-4 form-control')); ?>
+        <!--</div>-->
+    <!--</div>-->
+    
 	<?= Form::hidden('fdesk_user', Input::post('fdesk_user', isset($cash_payment) ? $cash_payment->fdesk_user : $uid)); ?>
-	<hr>
+    
+    <hr>
 
 	<div class="form-group">
 		<div class="col-md-2">
-		<?= Form::submit('submit', isset($cash_payment) ? 'Update' : 'Add expense', array('class' => 'btn btn-primary')); ?>
+    		<?= Form::submit('submit', isset($cash_payment) ? 'Update' : 'Add expense', array('class' => 'btn btn-primary')); ?>
 		</div>
 		<div class="col-md-2">
 			<?php if (isset($cash_payment)): ?>
@@ -67,7 +98,7 @@
 						<a href="<?= Uri::create('cash/receipt/delete/'.$cash_payment->id); ?>" class="btn btn-danger" >Cancel expense</a>
 					</div>
 				</div>
-			<?php endif; ?>
+			<?php endif ?>
 		</div>
 	</div>
 

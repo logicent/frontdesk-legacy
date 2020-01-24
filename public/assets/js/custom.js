@@ -46,4 +46,17 @@ $(function() {
     });
 
     $('.slug').slugify('#form_name');
+
+    current_link = window.location.href;
+
+    $('.nav li a').each(function () {
+        if ($(this).attr('href') == current_link) 
+        {
+            $(this).parent('li').parent('ul').addClass('collapse in');
+
+            $(this).addClass('active');
+            // console.log($(this).attr('href'));
+        }
+    });
+
 });

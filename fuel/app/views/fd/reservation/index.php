@@ -35,7 +35,7 @@
 		<tr>
 			<td><?= $item->res_no; ?></td>
 			<!--<td><?= $item->room->name; ?></td>-->
-			<td><?= ucwords($item->first_name).' '.ucwords($item->last_name); ?></td>
+            <td><?= Html::anchor('fd/reservation/edit/'. $item->id, ucwords($item->first_name .' '. $item->last_name), ['class' => 'clickable']) ?></td>
 			<td><?= $item->pax_adults.'/'.$item->pax_children; ?></td>
 			<td><?= $item->g_country->iso_code_2; ?></td>
 			<td><?= date('M d Y', strtotime($item->checkin)); ?></td>
@@ -43,7 +43,6 @@
 			<!--<td><?php // $item->ratetype->name; ?></td>-->
 			<td class="text-center">
 				<!-- <?php //= Html::anchor('fd/reservation/view/'.$item->id, '<i class="glyphicon glyphicon-eye"></i>'); ?> -->
-				<?= Html::anchor('fd/reservation/edit/'.$item->id, '<i class="fa fa-edit fa-fw fa-lg"></i>'); ?>
 				<?= Html::anchor('fd/reservation/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-lg"></i>',
 										array('class' => 'text-danger', 'onclick' => "return confirm('Are you sure?')")); ?>
 			</td>

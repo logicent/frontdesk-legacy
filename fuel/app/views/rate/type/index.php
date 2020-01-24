@@ -9,9 +9,6 @@
 			<div class="btn-group">
 				<?= Html::anchor('rate/type/create', '<i class="fa fa-plus"></i>&ensp;Type', array('class' => 'btn btn-primary')); ?>
 			</div>
-			<div class="btn-group">
-				<?= Html::anchor('rate', '<i class="fa fa-th-list"></i>&ensp;Rates', array('class' => 'btn btn-danger')); ?>
-			</div>
 		</div>
 	</div>
 </div>

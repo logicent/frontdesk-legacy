@@ -147,13 +147,19 @@
                 <?php // if ($ugroup->id == 6) continue; ?>
 
                 <ul class="dropdown-menu dash-dd-menu" role="menu">
-                  <li><a href="<?= Uri::create("cash/receipt/create/{$guest->bill->id}"); ?>">Receive Money</a></li>
+                <?php 
+                    if (!is_null($guest->bill)) : ?>
+                    <li><a href="<?= Uri::create("cash/receipt/create/{$guest->bill->id}"); ?>">Receive Money</a></li>
+                <?php 
+                    endif ?>
                   <li><a onclick="return confirm('Are you sure?')" href="<?= Uri::create('fd/booking/checkout/'.$guest->id); ?>">Check Out</a></li>
                   <li class="divider"></li>
-                  <?php //if (!is_null($guest->bill)) : ?>
                   <li><a href="<?= Uri::create("fd/booking/edit/$guest->id"); ?>">Edit Booking</a></li>
-                  <li><a href="<?= Uri::create("sales/invoice/edit/{$guest->bill->id}"); ?>">Guest Folio</a></li>
-                  <?php //endif; ?>
+                  <?php 
+                    if (!is_null($guest->bill)) : ?>                  
+                    <li><a href="<?= Uri::create("sales/invoice/edit/{$guest->bill->id}"); ?>">Guest Folio</a></li>
+                  <?php 
+                    endif ?>
                 </ul>
 
                 <?php endforeach; ?>
