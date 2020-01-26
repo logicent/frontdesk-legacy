@@ -15,6 +15,7 @@ return array(
 	'_404_'   => 'dashboard/404',    // The main 404 route
 
 	'login' => 'login/login',
+	'login/forgot-password' => 'login/lostpassword',
 	'logout' => 'login/logout',
 
 	'front-desk/reservations' => 'fd/reservation',
