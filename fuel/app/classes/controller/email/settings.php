@@ -1,4 +1,5 @@
 <?php
+
 class Controller_Email_Settings extends Controller_Authenticate
 {
 

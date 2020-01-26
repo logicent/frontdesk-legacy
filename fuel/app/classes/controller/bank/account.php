@@ -1,6 +1,7 @@
 <?php
-class Controller_Bank_Account extends Controller_Authenticate{
 
+class Controller_Bank_Account extends Controller_Authenticate
+{
 	public function action_index()
 	{
 		$data['bank_accounts'] = Model_Bank_Account::find('all');

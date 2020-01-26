@@ -1,6 +1,7 @@
 <?php
-class Controller_Room_Type extends Controller_Authenticate{
 
+class Controller_Room_Type extends Controller_Authenticate
+{
 	public function action_index()
 	{
 		$data['room_type'] = Model_Room_Type::find('all');

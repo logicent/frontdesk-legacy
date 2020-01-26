@@ -1,7 +1,7 @@
 <?php
 
-class Controller_Cash_Receipt extends Controller_Authenticate{
-
+class Controller_Cash_Receipt extends Controller_Authenticate
+{
 	public function action_index()
 	{
 		// filter by open invoice receipts

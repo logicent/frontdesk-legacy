@@ -1,6 +1,7 @@
 <?php
-class Controller_Report_Period extends Controller_Authenticate{
 
+class Controller_Report_Period extends Controller_Authenticate
+{
 	public function action_index()
 	{
 		$data['report_period'] = Model_Report_Period::find('all');

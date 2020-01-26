@@ -1,6 +1,7 @@
 <?php
-class Controller_Service_Item extends Controller_Authenticate{
 
+class Controller_Service_Item extends Controller_Authenticate
+{
 	public function action_index()
 	{
 		$data['service_items'] = Model_Service_Item::find('all');

@@ -1,12 +1,12 @@
 <?php
-class Controller_Bank_Receipt extends Controller_Authenticate{
 
+class Controller_Bank_Receipt extends Controller_Authenticate
+{
 	public function action_index()
 	{
 		$data['bank_receipts'] = Model_Bank_Receipt::find('all');
 		$this->template->title = "Bank Deposits";
 		$this->template->content = View::forge('bank/receipt/index', $data);
-
 	}
 
 	public function action_view($id = null)
@@ -21,7 +21,6 @@ class Controller_Bank_Receipt extends Controller_Authenticate{
 
 		$this->template->title = "Bank Deposits";
 		$this->template->content = View::forge('bank/receipt/view', $data);
-
 	}
 
 	public function action_create()
@@ -50,7 +49,6 @@ class Controller_Bank_Receipt extends Controller_Authenticate{
 
 					Response::redirect('bank/receipt');
 				}
-
 				else
 				{
 					Session::set_flash('error', 'Could not save bank receipt.');
@@ -64,7 +62,6 @@ class Controller_Bank_Receipt extends Controller_Authenticate{
 
 		$this->template->title = "Bank Deposits";
 		$this->template->content = View::forge('bank/receipt/create');
-
 	}
 
 	public function action_edit($id = null)
@@ -97,13 +94,11 @@ class Controller_Bank_Receipt extends Controller_Authenticate{
 
 				Response::redirect('bank/receipt');
 			}
-
 			else
 			{
 				Session::set_flash('error', 'Could not update bank receipt #' . $id);
 			}
 		}
-
 		else
 		{
 			if (Input::method() == 'POST')
@@ -120,13 +115,11 @@ class Controller_Bank_Receipt extends Controller_Authenticate{
 
 				Session::set_flash('error', $val->error());
 			}
-
 			$this->template->set_global('bank_receipt', $bank_receipt, false);
 		}
 
 		$this->template->title = "Bank Deposits";
 		$this->template->content = View::forge('bank/receipt/edit');
-
 	}
 
 	public function action_delete($id = null)
@@ -139,15 +132,11 @@ class Controller_Bank_Receipt extends Controller_Authenticate{
 
 			Session::set_flash('success', 'Deleted bank receipt #'.$id);
 		}
-
 		else
 		{
 			Session::set_flash('error', 'Could not delete bank receipt #'.$id);
 		}
 
 		Response::redirect('bank/receipt');
-
 	}
-
-
 }
