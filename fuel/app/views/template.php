@@ -13,6 +13,7 @@
                     'vendor/datepicker.css',
                     '../font-awesome/css/font-awesome.min.css', // Glyphicons replacement
                     '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',
+                    'vendor/fullcalendar.min.css',
                     'sb-admin.css', // SB Admin Scripts
                     'custom.css'
             )); ?>
@@ -30,6 +31,8 @@
                                 'plugins/metisMenu/jquery.metisMenu.js',
                                 'plugins/dataTables/jquery.dataTables.js',
                                 'plugins/dataTables/dataTables.bootstrap.js',
+                                'vendor/moment.js',
+                                'vendor/fullcalendar.min.js',
                                 'sb-admin.js', // SB Admin Scripts
                                 'custom.js',
                                 //cdnjs.cloudflare.com/ajax/libs/knockout/3.2.0/knockout-min.js
@@ -50,12 +53,9 @@
 
             <ul class="nav navbar-top-links navbar-right">
                 <li><a class="<?= Uri::segment(1) == 'dashboard' ? 'active' : '' ?>" href="<?= Uri::create('dashboard'); ?>"><i class="fa fa-lg fa-th-large fa-fw"></i>&ensp;Dashboard</a></li>
+                <li><a class="<?= Uri::segment(1) == 'calendar' ? 'active' : '' ?>" href="<?= Uri::create('calendar'); ?>"><i class="fa fa-lg fa-calendar fa-fw"></i>&ensp;Calendar</a></li>
                 <li><a class="<?= Uri::segment(1) == 'reports' ? 'active' : '' ?>" href="<?= Uri::create('reports'); ?>"><i class="fa fa-lg fa-list-alt fa-fw"></i>&ensp;Reports</a></li>
-                <?php if ($ugroup->id == 5 || $ugroup->id == 6) : ?>
-                    <li><a class="<?= Uri::segment(1) == 'users' ? 'active' : '' ?>" href="<?= Uri::create('users'); ?>"><i class="fa fa-lg fa-users fa-fw"></i>&ensp;Users</a></li>
-                    <!--<li class="active"><a href="#modules">Modules</a></li>-->
-                    <li><a class="<?= Uri::segment(1) == 'settings' ? 'active' : '' ?>" href="<?= Uri::create('settings'); ?>"><i class="fa fa-lg fa-cog fa-fw"></i>&ensp;Settings</a></li>
-                <?php endif; ?>
+                <li><a class="<?= Uri::segment(1) == 'help' ? 'active' : '' ?>" href="<?= Uri::create('help'); ?>"><i class="fa fa-lg fa-question-circle fa-fw"></i></a></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?= $uname; ?>
                         <i class="fa fa-lg fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -95,7 +95,8 @@
                                 <li><a href="<?= Uri::create('cash-control/expenses'); ?>">&emsp;Cash Expenses</a></li>
               				</ul>
                         </li>
-                        <?php if ($ugroup->id == 5 || $ugroup->id == 6) : ?>
+                        <?php 
+                            if ($ugroup->id == 5 || $ugroup->id == 6) : ?>
 						<li>
                             <a href="#"><i class="fa fa-lg fa-bank fa-fw"></i>&emsp;Banking<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -107,21 +108,33 @@
                             <a href="#"><i class="fa fa-lg fa-building fa-fw"></i>&emsp;Accommodation<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li><a href="<?= Uri::create('accommodation/rooms'); ?>"><i class=""></i>&emsp;Rooms</a></li>
-                                <?php if($ugroup->id == 6 || $ugroup->id == 5) : ?>
+                                <?php 
+                                    if($ugroup->id == 6 || $ugroup->id == 5) : ?>
                                     <li><a href="<?= Uri::create('accommodation/room-types'); ?>"><i class=""></i>&emsp;Room Types</a></li>
-                                <?php endif ?>                                
+                                <?php 
+                                    endif ?>                                
                                 <li><a href="<?= Uri::create('accommodation/rates'); ?>"><i class=""></i>&emsp;Rates</a></li>
                                 <li><a href="<?= Uri::create('accommodation/rate-types'); ?>"><i class=""></i>&emsp;Rate Types</a></li>                                
                             </ul>
                         </li>
-                        <?php endif; ?>
+                        <li>
+                            <a class="<?= Uri::segment(1) == 'users' ? 'active' : '' ?>" href="<?= Uri::create('users'); ?>">
+                                <i class="fa fa-lg fa-users fa-fw"></i>&emsp;Users</a>
+                        </li>
+                        <li>
+                            <a class="<?= Uri::segment(1) == 'settings' ? 'active' : '' ?>" href="<?= Uri::create('settings'); ?>">
+                                <i class="fa fa-lg fa-cog fa-fw"></i>&emsp;Settings</a>
+                        </li>
+                        <?php 
+                            endif; ?>
                     </ul>   <!-- /#side-menu -->
                 </div>  <!-- /.sidebar-collapse -->
             </div>  <!-- /.navbar-static-side -->
         </nav>
 
         <div id="page-wrapper">
-<?php if (Session::get_flash('success')): ?>
+<?php 
+    if (Session::get_flash('success')): ?>
             <div class="alert alert-success alert-dismissable">
                 <strong>Success</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -129,8 +142,10 @@
                 <?= implode('</p><p>', e((array) Session::get_flash('success'))); ?>
                 </p>
             </div>
-<?php endif; ?>
-<?php if (Session::get_flash('error')): ?>
+<?php 
+    endif; ?>
+<?php 
+    if (Session::get_flash('error')): ?>
             <div class="alert alert-danger alert-dismissable">
                 <strong>Error(s)</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -138,8 +153,10 @@
                 <?= implode('</p><p>', e((array) Session::get_flash('error'))); ?>
                 </p>
             </div>
-<?php endif; ?>
-<?php if (Session::get_flash('warning')): ?>
+<?php 
+    endif; ?>
+<?php 
+    if (Session::get_flash('warning')): ?>
             <div class="alert alert-warning alert-dismissable">
                 <strong>Warning</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -147,8 +164,10 @@
                 <?= implode('</p><p>', e((array) Session::get_flash('warning'))); ?>
                 </p>
             </div>
-<?php endif; ?>
-<?php if (Session::get_flash('info')): ?>
+<?php 
+    endif; ?>
+<?php 
+    if (Session::get_flash('info')): ?>
             <div class="alert alert-info alert-dismissable">
                 <strong>Info</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -156,7 +175,8 @@
                 <?= implode('</p><p>', e((array) Session::get_flash('info'))); ?>
                 </p>
             </div>
-<?php endif; ?>
+<?php 
+    endif; ?>
             <div class="row">
                 <div class="col-lg-12">
 		    <!-- Dashboard and Reports container -->
@@ -181,7 +201,7 @@
 
             <footer class="text-center small">
                 <br><br>
-                <a href="http://fdesk.logicent.co" target="_blank">E1 FrontDesk</a> &copy; 2014-<?= date('Y'); ?> All Rights Reserved.
+                <a href="http://logicent.co/solutions/hotel-front-office.html" target="_blank">E1 FrontDesk</a> &copy; 2014-<?= date('Y'); ?> All Rights Reserved.
             </footer>
         </div>  <!-- /#page-wrapper -->
     </div>  <!-- /#wrapper -->

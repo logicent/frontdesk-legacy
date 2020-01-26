@@ -36,6 +36,12 @@ return array(
 	'banking/bank-deposits' => 'bank/receipt',
 	'banking/bank-accounts' => 'bank/account',
 
+	'settings/business' => 'business',
+	'settings/email' => 'email_settings',
+	'settings/service' => 'service/item',
+
+    'calendar/show-bookings' => 'calendar/show_bookings',
+
 	//'reports/:slug' => 'reports/$1',
 	'reports/show-daily-report' => 'reports/show_daily',
 	'reports/show-monthly-report' => 'reports/show_monthly',
