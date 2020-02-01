@@ -150,9 +150,9 @@
                 <?php 
                     if (!is_null($guest->bill)) : ?>
                     <li><a href="<?= Uri::create("cash/receipt/create/{$guest->bill->id}"); ?>">Receive Money</a></li>
+                    <li><a onclick="return confirm('Are you sure?')" href="<?= Uri::create('fd/booking/checkout/'.$guest->id); ?>">Check Out</a></li>
                 <?php 
                     endif ?>
-                  <li><a onclick="return confirm('Are you sure?')" href="<?= Uri::create('fd/booking/checkout/'.$guest->id); ?>">Check Out</a></li>
                   <li class="divider"></li>
                   <li><a href="<?= Uri::create("fd/booking/edit/$guest->id"); ?>">Edit Booking</a></li>
                   <?php 

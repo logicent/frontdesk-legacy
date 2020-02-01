@@ -373,7 +373,7 @@ class Controller_Fd_Booking extends Controller_Authenticate
 			// }
 
 			// check if guest bill is fully settled
-			if ($fd_booking->bill->balance_due > 0)
+			if ($fd_booking->bill && $fd_booking->bill->balance_due > 0)
 			{
 				Session::set_flash('error', 'Checkout failed. Guest has outstanding balance for stay period.');
 
