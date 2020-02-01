@@ -1,6 +1,7 @@
 <?php
-class Controller_Expense_Claim extends Controller_Authenticate{
 
+class Controller_Expense_Claim extends Controller_Authenticate
+{
 	public function action_index()
 	{
 		$data['expense_claims'] = Model_Expense_Claim::find('all');

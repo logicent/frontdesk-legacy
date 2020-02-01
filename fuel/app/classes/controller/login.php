@@ -36,7 +36,7 @@ class Controller_Login extends Controller_Template
 						$current_user = Model_User::find_by_username(Auth::get_screen_name());
 					}
 					Session::set_flash('success', e('Welcome, '.$current_user->username));
-					Response::redirect('dashboard');
+					Response::redirect_back('dashboard');
 				}
 				else
 				{

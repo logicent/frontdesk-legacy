@@ -1,6 +1,7 @@
 <?php
-class Controller_Sales_Invoice_Item extends Controller_Template{
 
+class Controller_Sales_Invoice_Item extends Controller_Template
+{
 	public function action_index()
 	{
 		$sales_invoice_items = Model_Sales_Invoice_Item::find('all');

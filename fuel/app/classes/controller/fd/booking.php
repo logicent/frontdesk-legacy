@@ -20,7 +20,6 @@ class Controller_Fd_Booking extends Controller_Authenticate
 
 		$this->template->title = "Guest Bookings";
 		$this->template->content = View::forge('fd/booking/index', $data);
-
 	}
 
 	public function action_index_all()
@@ -29,7 +28,6 @@ class Controller_Fd_Booking extends Controller_Authenticate
 
 		$this->template->title = "Guest Booking History";
 		$this->template->content = View::forge('fd/booking/index', $data);
-
 	}
 
 	public function action_view($id = null)
@@ -44,7 +42,6 @@ class Controller_Fd_Booking extends Controller_Authenticate
 
 		$this->template->title = "Guest Booking";
 		$this->template->content = View::forge('fd/booking/view', $data);
-
 	}
 
 	public function action_create($rm_id = null)
@@ -137,7 +134,7 @@ class Controller_Fd_Booking extends Controller_Authenticate
 				Session::set_flash('error', $val->error());
 			}
 		}
-// to be removed when installer or init db script exists for this
+        // to be removed when installer or init db script exists for this
 		$default_service = Model_Service_Item::find('first');
 
 		if (!$default_service)
@@ -152,7 +149,6 @@ class Controller_Fd_Booking extends Controller_Authenticate
 
 		$this->template->title = "Guest Booking";
 		$this->template->content = View::forge('fd/booking/create');
-
 	}
 
 	public function action_copy()
@@ -223,13 +219,11 @@ class Controller_Fd_Booking extends Controller_Authenticate
 
 				Response::redirect('dashboard');
 			}
-
 			else
 			{
 				Session::set_flash('error', 'Could not update booking #' . $id);
 			}
 		}
-
 		else
 		{
 			if (Input::method() == 'POST')
@@ -277,7 +271,6 @@ class Controller_Fd_Booking extends Controller_Authenticate
 
 		$this->template->title = "Guest Booking";
 		$this->template->content = View::forge('fd/booking/edit');
-
 	}
 
 	public function action_delete($id = null)
@@ -305,14 +298,12 @@ class Controller_Fd_Booking extends Controller_Authenticate
 				Session::set_flash('success', 'Delete succeeded.');
 			}
 		}
-
 		else
 		{
 			Session::set_flash('error', 'Could not delete booking #'.$id);
 		}
 
 		Response::redirect('fd/booking');
-
 	}
 
 	public function action_nightaudit($date = null)
@@ -382,7 +373,7 @@ class Controller_Fd_Booking extends Controller_Authenticate
 			// }
 
 			// check if guest bill is fully settled
-			if ($fd_booking->bill->balance_due > 0)
+			if ($fd_booking->bill && $fd_booking->bill->balance_due > 0)
 			{
 				Session::set_flash('error', 'Checkout failed. Guest has outstanding balance for stay period.');
 
@@ -401,7 +392,6 @@ class Controller_Fd_Booking extends Controller_Authenticate
 
 				Response::redirect('dashboard');
 			}
-
 			else
 			{
 				Session::set_flash('error', 'Checkout for booking #' . $fd_booking->reg_no . ' pending.');

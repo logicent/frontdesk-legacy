@@ -1,6 +1,6 @@
 <?php
-class Controller_Users extends Controller_Authenticate{
-
+class Controller_Users extends Controller_Authenticate
+{
 	public function action_index()
 	{
 		$data['users'] = Model_User::find('all', array('where' => array(
@@ -8,7 +8,6 @@ class Controller_Users extends Controller_Authenticate{
 								)));
 		$this->template->title = "Users";
 		$this->template->content = View::forge('users/index', $data);
-
 	}
 
 	public function action_view($id = null)
@@ -20,10 +19,8 @@ class Controller_Users extends Controller_Authenticate{
 			Session::set_flash('error', 'Could not find user #'.$id);
 			Response::redirect('users');
 		}
-
 		$this->template->title = "User";
 		$this->template->content = View::forge('users/view', $data);
-
 	}
 
 	public function action_create()
@@ -46,14 +43,12 @@ class Controller_Users extends Controller_Authenticate{
 							'mobile' => Input::post('mobile'),
 						)
                     );
-
                     Mailhelper::send(
                         Input::post('fullname'), 
                         Input::post('email'),
                         'FrontDesk: User Profile Updated',
-                        'Hi,Your user account details have been updated.Administrator'
+                        'Hi, Your user account details have been updated. Administrator'
                     );
-
                     Session::set_flash('success', e('Added user '.Input::post('username').'.'));
 
 					Response::redirect('users');
@@ -62,7 +57,6 @@ class Controller_Users extends Controller_Authenticate{
 				{
 					Session::set_flash('error', e('User or email already exists'));
 				}
-
 				catch (SimpleUserWrongPassword $e)
 				{
 					Session::set_flash('error', e('Your Old password is invalid'));
@@ -73,10 +67,8 @@ class Controller_Users extends Controller_Authenticate{
 				Session::set_flash('error', $val->error());
 			}
 		}
-
 		$this->template->title = "Users";
 		$this->template->content = View::forge('users/create');
-
 	}
 
 	public function action_edit($id = null)
@@ -107,14 +99,12 @@ class Controller_Users extends Controller_Authenticate{
 							)
                         ),
                     );
-
                     Mailhelper::send(
                                     Input::post('fullname'), 
                                     Input::post('email'),
                                     'FrontDesk: User Profile Updated',
                                     'Hi,Your user account details have been updated.Administrator'
                     );
-
                     Session::set_flash('success', e('Updated user '.Input::post('username').'.'));
 
 					Response::redirect('dashboard');
@@ -123,13 +113,11 @@ class Controller_Users extends Controller_Authenticate{
             {
                 Session::set_flash('error', e('User or email already exists'));
             }
-
 			catch (SimpleUserWrongPassword $e)
 			{
 				Session::set_flash('error', e('Your Old password is invalid'));
 			}
 		}
-
 		else
 		{
 			if (Input::method() == 'POST')
@@ -142,13 +130,10 @@ class Controller_Users extends Controller_Authenticate{
 
 				Session::set_flash('error', $val->error());
 			}
-
 			$this->template->set_global('user', $user, false);
 		}
-
 		$this->template->title = "Users";
 		$this->template->content = View::forge('users/edit');
-
 	}
 
 	public function action_delete($id = null)
@@ -158,25 +143,21 @@ class Controller_Users extends Controller_Authenticate{
 		if ($user = Model_User::find($id))
 		{
 			try {
+                // MUST use softDelete only
 				Auth::delete_user($user->username);
 
 				Session::set_flash('success', 'Deleted user #'.$id);
 			}
-
 			catch (SimpleUserUpdateException $e)
 			{
 				Session::set_flash('error', 'Could not delete user #'.$id);
 			}
 		}
-
 		else
 		{
 			Session::set_flash('error', 'User not found #'.$id);
-		}
-
+        }
+        
 		Response::redirect('users');
-
 	}
-
-
 }

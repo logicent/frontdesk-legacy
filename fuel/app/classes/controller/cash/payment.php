@@ -1,6 +1,7 @@
 <?php
-class Controller_Cash_Payment extends Controller_Authenticate{
 
+class Controller_Cash_Payment extends Controller_Authenticate
+{
 	public function action_index()
 	{
 		$data['cash_payments'] = Model_Cash_Payment::find('all', array('order_by' => array('reference' => 'desc'), 'limit' => 1000));

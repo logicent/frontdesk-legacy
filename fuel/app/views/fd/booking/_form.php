@@ -17,8 +17,8 @@
 		<div class="form-group">
 			<div class="col-md-6">
 				<?= Form::label('Folio no.', 'folio_no', array('class'=>'control-label')); ?>
-				<?= Form::label(Html::anchor(Uri::create(isset($fd_booking) ? 'sales/invoice/edit/'.  $fd_booking->bill->id : null), Input::post('folio_no', isset($fd_booking) ? $fd_booking->bill->invoice_num : 0)), 'folio_no', array('class'=>'form-control')); ?>
-				<?= Form::hidden('folio_no', Input::post('folio_no', isset($fd_booking) ? $fd_booking->bill->invoice_num : 0)); ?>
+				<?= Form::label(Html::anchor(Uri::create($fd_booking->bill ? 'sales/invoice/edit/'.  $fd_booking->bill->id : null), Input::post('folio_no', $fd_booking->bill ? $fd_booking->bill->invoice_num : 0)), 'folio_no', array('class'=>'form-control')); ?>
+				<?= Form::hidden('folio_no', Input::post('folio_no', $fd_booking->bill ? $fd_booking->bill->invoice_num : 0)); ?>
 			</div>
 
 			<div class="col-md-6">

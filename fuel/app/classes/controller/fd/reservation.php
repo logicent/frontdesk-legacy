@@ -1,6 +1,7 @@
 <?php
-class Controller_Fd_Reservation extends Controller_Authenticate{
 
+class Controller_Fd_Reservation extends Controller_Authenticate
+{
 	public function action_index($show_del = false)
 	{
 		if ($show_del)

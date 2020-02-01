@@ -1,6 +1,7 @@
 <?php
-class Controller_Rate_Type extends Controller_Authenticate{
 
+class Controller_Rate_Type extends Controller_Authenticate
+{
 	public function action_index()
 	{
 		$data['rate_type'] = Model_Rate_Type::find('all');
