@@ -62,23 +62,27 @@
 					</tr>
 				</thead>
 				<tbody>
-			<?php foreach ($sales_invoice->receipts as $item): ?>
-					<tr class="<?= $item->amount > 0 ? : 'strikeout' ?>">
-						<td><?= Html::anchor('cash/receipt/edit/'.$item->id, $item->reference); ?></td>
-						<td><?= $item->date; ?></td>
-						<td><?= $item->description; ?></td>
-						<td class="text-right"><?= number_format($item->amount, 2); ?></td>
-						<!-- <td>
-							<div class="btn-toolbar">
-								<div class="btn-group">
-									<?= Html::anchor('cash/receipt/view/'.$item->id, '<i class="fa fa-eye"></i>', array('class' => 'btn btn-small')); ?>
-									<?= Html::anchor('cash/receipt/edit/'.$item->id, '<i class="fa fa-edit"></i>', array('class' => 'btn btn-small')); ?>
-									<?= Html::anchor('cash/receipt/delete/'.$item->id, '<i class="fa fa-trash"></i>', array('class' => 'btn btn-small', 'onclick' => "return confirm('Are you sure?')")); ?>
-								</div>
-							</div>
-						</td> -->
-					</tr>
-			<?php endforeach; ?>
+            <?php 
+                if (isset($sales_invoice)) :
+                    foreach ($sales_invoice->receipts as $item): ?>
+                        <tr class="<?= $item->amount > 0 ? : 'strikeout' ?>">
+                            <td><?= Html::anchor('cash/receipt/edit/'.$item->id, $item->reference); ?></td>
+                            <td><?= $item->date; ?></td>
+                            <td><?= $item->description; ?></td>
+                            <td class="text-right"><?= number_format($item->amount, 2); ?></td>
+                            <!-- <td>
+                                <div class="btn-toolbar">
+                                    <div class="btn-group">
+                                        <?= Html::anchor('cash/receipt/view/'.$item->id, '<i class="fa fa-eye"></i>', array('class' => 'btn btn-small')); ?>
+                                        <?= Html::anchor('cash/receipt/edit/'.$item->id, '<i class="fa fa-edit"></i>', array('class' => 'btn btn-small')); ?>
+                                        <?= Html::anchor('cash/receipt/delete/'.$item->id, '<i class="fa fa-trash"></i>', array('class' => 'btn btn-small', 'onclick' => "return confirm('Are you sure?')")); ?>
+                                    </div>
+                                </div>
+                            </td> -->
+                        </tr>
+                <?php 
+                    endforeach;
+                endif ?>
 				</tbody>
 			</table>
 		</div>
@@ -153,9 +157,11 @@
 		</div>
 		<div class="col-md-6">
 			<div class="pull-right btn-group">
-				<?php if ($sales_invoice->status == 'O') : ?>
-				<a href="<?= Uri::create('cash/receipt/create/'.$sales_invoice->guest->id); ?>" class="btn btn-warning ">Add payment</a>
-				<?php endif ?>
+            <?php 
+                if (isset($sales_invoice) && $sales_invoice->status == 'O') : ?>
+				    <a href="<?= Uri::create('cash/receipt/create/'.$sales_invoice->guest->id); ?>" class="btn btn-warning ">Add payment</a>
+            <?php 
+                endif ?>
 			</div>
 		</div>
 	</div>
