@@ -95,7 +95,7 @@ class Model_Sales_Invoice extends Model_Soft
 	protected static $_belongs_to = array(
 		'guest' => array(
 			'key_from' => 'booking_id',
-			'model_to' => 'Model_Fd_Booking',
+			'model_to' => 'Model_Facility_Booking',
 			'key_to' => 'id',
 			'cascade_save' => false,
 			'cascade_delete' => false,
@@ -112,7 +112,7 @@ class Model_Sales_Invoice extends Model_Soft
 		),
 		'receipts' => array(
 			'key_from' => 'id',
-			'model_to' => 'Model_Cash_Receipt',
+			'model_to' => 'Model_Accounts_Payment_Receipt',
 			'key_to' => 'bill_id',
 			'cascade_save' => true,
 			'cascade_delete' => true,
@@ -139,7 +139,7 @@ class Model_Sales_Invoice extends Model_Soft
 		switch ($bill->balance_due)
 		{
 			case 0:
-				if ($bill->guest->status == Model_Fd_Booking::GUEST_STATUS_CHECKED_OUT)
+				if ($bill->guest->status == Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT)
 					$bill->status = self::INVOICE_STATUS_CLOSED;
 				$bill->paid_status = self::INVOICE_PAID_STATUS_FULL_PAID;
 				break;
@@ -176,7 +176,7 @@ class Model_Sales_Invoice extends Model_Soft
 
 		switch ($booking->status)
 		{
-			case Model_Fd_Booking::GUEST_STATUS_CHECKED_OUT:
+			case Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT:
 				$invoice->status = self::INVOICE_STATUS_CLOSED;
 				break;
 			default:

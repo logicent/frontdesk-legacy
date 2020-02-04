@@ -6,9 +6,8 @@ class Controller_Email_Settings extends Controller_Authenticate
 	public function action_index()
 	{
 		$data['email_settings'] = Model_Email_Setting::find('all');
-		$this->template->title = "Email_settings";
+		$this->template->title = "Email Settings";
 		$this->template->content = View::forge('email/settings/index', $data);
-
 	}
 
 	public function action_view($id = null)
@@ -17,7 +16,7 @@ class Controller_Email_Settings extends Controller_Authenticate
 
 		if ( ! $data['email_setting'] = Model_Email_Setting::find($id))
 		{
-			Session::set_flash('error', 'Could not find email_setting #'.$id);
+			Session::set_flash('error', 'Could not find email settings #'.$id);
 			Response::redirect('email/settings');
 		}
 
@@ -47,9 +46,9 @@ class Controller_Email_Settings extends Controller_Authenticate
 
 				if ($email_setting and $email_setting->save())
 				{
-					Session::set_flash('success', 'Added email_setting #'.$email_setting->id.'.');
+					Session::set_flash('success', 'Added email settings #'.$email_setting->id.'.');
 
-					Response::redirect('email/settings');
+					Response::redirect('settings/email-settings');
 				}
 
 				else
@@ -63,7 +62,7 @@ class Controller_Email_Settings extends Controller_Authenticate
 			}
 		}
 
-		$this->template->title = "Email_Settings";
+		$this->template->title = "Email Settings";
 		$this->template->content = View::forge('email/settings/create');
 
 	}
@@ -74,7 +73,7 @@ class Controller_Email_Settings extends Controller_Authenticate
 
 		if ( ! $email_setting = Model_Email_Setting::find($id))
 		{
-			Session::set_flash('error', 'Could not find email_setting #'.$id);
+			Session::set_flash('error', 'Could not find email settings #'.$id);
 			Response::redirect('email/settings');
 		}
 
@@ -93,14 +92,14 @@ class Controller_Email_Settings extends Controller_Authenticate
 
 			if ($email_setting->save())
 			{
-				Session::set_flash('success', 'Updated email_setting #' . $id);
+				Session::set_flash('success', 'Updated email settings #' . $id);
 
-				Response::redirect('email/settings');
+				Response::redirect('settings/email-settings');
 			}
 
 			else
 			{
-				Session::set_flash('error', 'Could not update email_setting #' . $id);
+				Session::set_flash('error', 'Could not update email settings #' . $id);
 			}
 		}
 
@@ -137,15 +136,15 @@ class Controller_Email_Settings extends Controller_Authenticate
 		{
 			$email_setting->delete();
 
-			Session::set_flash('success', 'Deleted email_setting #'.$id);
+			Session::set_flash('success', 'Deleted email settings #'.$id);
 		}
 
 		else
 		{
-			Session::set_flash('error', 'Could not delete email_setting #'.$id);
+			Session::set_flash('error', 'Could not delete email setting #'.$id);
 		}
 
-		Response::redirect('email/settings');
+		Response::redirect('settings/email-settings');
 
 	}
 

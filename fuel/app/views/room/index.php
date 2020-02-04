@@ -7,7 +7,7 @@
 		<br>
 		<div class="pull-right btn-toolbar">
 			<div class="btn-group">
-				<?= Html::anchor('room/create', '<i class="fa fa-plus-square-o fa-lg"></i>&ensp;Room', array('class' => 'btn btn-primary')); ?>
+				<?= Html::anchor('room/create', 'New', array('class' => 'btn btn-primary')); ?>
 			</div>
 		</div>
 	</div>
@@ -35,7 +35,7 @@
 			<td class="text-center">
 				<?= Html::anchor('room/edit/'.$item->id, '<i class="fa fa-edit fa-fw fa-lg"></i>'); ?>
 				<?= Html::anchor('room/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-lg fa-fw fa-lg"></i>',
-										array('class' => 'text-danger', 'onclick' => "return confirm('Are you sure?')")); ?>
+										array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
 			</td>
 		</tr>
 <?php endforeach; ?>

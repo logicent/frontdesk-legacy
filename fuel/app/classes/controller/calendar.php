@@ -6,14 +6,14 @@ class Controller_Calendar extends Controller_Authenticate
 	public function action_index($show_del = false)
 	{
 		if ($show_del)
-            $data['events'] = Model_Fd_Booking::deleted('all');
+            $data['events'] = Model_Facility_Booking::deleted('all');
         else
         {
             $status = Input::get('status');
             if (!$status)
-                $status = Model_Fd_Booking::GUEST_STATUS_CHECKED_IN;
+                $status = Model_Facility_Booking::GUEST_STATUS_CHECKED_IN;
 
-            $data['events'] = Model_Fd_Booking::find('all', array('where' => array(
+            $data['events'] = Model_Facility_Booking::find('all', array('where' => array(
                 array('status', '=', $status)), 'order_by' => array('reg_no' => 'desc'), 'limit' => 1000));
         }
 
@@ -59,14 +59,14 @@ class Controller_Calendar extends Controller_Authenticate
 	public function action_show_bookings($show_del = false)
 	{
 		if ($show_del)
-            $data['events'] = Model_Fd_Booking::deleted('all');
+            $data['events'] = Model_Facility_Booking::deleted('all');
         else
         {
             $status = Input::get('status');
             if (!$status)
-                $status = Model_Fd_Booking::GUEST_STATUS_CHECKED_IN;
+                $status = Model_Facility_Booking::GUEST_STATUS_CHECKED_IN;
 
-            $data['events'] = Model_Fd_Booking::find('all', array('where' => array(
+            $data['events'] = Model_Facility_Booking::find('all', array('where' => array(
                 array('status', '=', $status)), 'order_by' => array('reg_no' => 'desc'), 'limit' => 1000));
         }
 

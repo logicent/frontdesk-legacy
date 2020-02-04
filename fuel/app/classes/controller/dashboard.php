@@ -39,17 +39,17 @@ class Controller_Dashboard extends Controller_Authenticate{
 		$data['checkins'] = DB::select(DB::expr('COUNT(id) as total_ci'))
 										->from('fd_booking')
 										->where(DB::expr('DATE_FORMAT(checkin, "%Y-%m-%d")'), '=', date('Y-m-d'))
-										->where('status', '=', Model_Fd_Booking::GUEST_STATUS_CHECKED_IN)
+										->where('status', '=', Model_Facility_Booking::GUEST_STATUS_CHECKED_IN)
 										->execute()->as_array();
 		$data['stayovers'] = DB::select(DB::expr('COUNT(id) as total_so'))
 										->from('fd_booking')
 										->where(DB::expr('DATE_FORMAT(checkin, "%Y-%m-%d")'), '!=', date('Y-m-d'))
-										->where('status', '=', Model_Fd_Booking::GUEST_STATUS_CHECKED_IN)
+										->where('status', '=', Model_Facility_Booking::GUEST_STATUS_CHECKED_IN)
 										->execute()->as_array();
 		$data['checkouts'] = DB::select(DB::expr('COUNT(id) as total_co'))
 										->from('fd_booking')
 										->where(DB::expr('DATE_FORMAT(checkout, "%Y-%m-%d")'), '=', date('Y-m-d'))
-										->where('status', '=', Model_Fd_Booking::GUEST_STATUS_CHECKED_OUT)
+										->where('status', '=', Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT)
 										->execute()->as_array();
 		if ($data['stayovers'])
 			$data['rollover_required'] = true;
@@ -87,7 +87,7 @@ class Controller_Dashboard extends Controller_Authenticate{
 
 		$data['room_types'] = Model_Room_Type::find('all', array('related' => array('rooms' => array('order_by' => 'name'),'rates'), 'order_by' => 'name'));
 
-		$data['guest_list'] = Model_Fd_Booking::find('all', array('related' => array('room','bill'), 'where' => array(array('status', '!=', Model_Fd_Booking::GUEST_STATUS_CHECKED_OUT))));
+		$data['guest_list'] = Model_Facility_Booking::find('all', array('related' => array('room','bill'), 'where' => array(array('status', '!=', Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT))));
 
 		$this->template->title = "Dashboard";
 		$this->template->content = View::forge('dashboard', $data);

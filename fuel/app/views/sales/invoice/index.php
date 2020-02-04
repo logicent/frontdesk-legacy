@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-6">
-		<h2>Listing <span class='text-muted'>Guest Folios</span></h2>
+		<h2>Listing <span class='text-muted'>Folios</span></h2>
 	</div>
 
 	<div class="col-md-6">
@@ -38,7 +38,7 @@
 			<td class="text-right"><span class="<?= $item->balance_due > 0 ? 'text-red' : '' ?>"><?= number_format($item->balance_due, 2); ?></span></td>
 			<!--<td class="text-center">
 				<?php //echo Html::anchor('sales/invoice/view/'.$item->id, '<i class="fa fa-eye fa-fw fa-lg"></i>'); ?>
-				<?php //echo Html::anchor('sales/invoice/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-lg"></i>', array('class' => 'text-danger', 'onclick' => "return confirm('Are you sure?')")); ?>
+				<?php //echo Html::anchor('sales/invoice/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-lg"></i>', array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
 			</td>-->
 		</tr>
 <?php endforeach; ?>

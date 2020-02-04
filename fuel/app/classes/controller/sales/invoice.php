@@ -85,7 +85,7 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 			}
 		}
 
-		$booking = Model_Fd_Booking::find($bk_id);
+		$booking = Model_Facility_Booking::find($bk_id);
 		$this->template->set_global('booking', $booking, false);
 
 		// prepare guest invoice item as global variable

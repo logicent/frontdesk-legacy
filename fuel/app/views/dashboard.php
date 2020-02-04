@@ -3,7 +3,7 @@
     <div class="col-lg-4">
         <div class="panel panel-default">
             <div class="panel-heading text-center">
-                Guests
+                Guests Movement
             </div>
             <div class="panel-body">
                 <div class="col-md-4 text-center">
@@ -40,7 +40,7 @@
     <div class="col-lg-4">
         <div class="panel panel-default">
             <div class="panel-heading text-center">
-                Payments
+                Payments Made
             </div>
             <div class="panel-body">
                 <div class="col-md-4">
@@ -77,7 +77,7 @@
     <div class="col-lg-4">
         <div class="panel panel-default">
             <div class="panel-heading text-center">
-                Rooms
+                Rooms Availability
             </div>
             <div class="panel-body">
                 <div class="col-md-4">
@@ -120,7 +120,7 @@
             <a class="btn btn-danger" href="<?= Uri::create("dashboard/nightaudit/".date('Y-m-d', time())); ?>">Run Nightly Audit</a>
         <?php endif; ?>
         <?php if ($rollover_required && $ugroup->id == 5) : ?>
-            <a class="btn btn-danger" href="<?= Uri::create("front-desk/bookings/stayover/".date('Y-m-d', time())); ?>">Run Stay Over</a>
+            <a class="btn btn-danger" href="<?= Uri::create("facility/bookings/stayover/".date('Y-m-d', time())); ?>">Run Stay Over</a>
         <?php endif; ?>
     </div>
 </div>
@@ -150,11 +150,11 @@
                 <?php 
                     if (!is_null($guest->bill)) : ?>
                     <li><a href="<?= Uri::create("cash/receipt/create/{$guest->bill->id}"); ?>">Receive Money</a></li>
-                    <li><a onclick="return confirm('Are you sure?')" href="<?= Uri::create('fd/booking/checkout/'.$guest->id); ?>">Check Out</a></li>
+                    <li><a onclick="return confirm('Are you sure?')" href="<?= Uri::create('facility/booking/checkout/'.$guest->id); ?>">Check Out</a></li>
                 <?php 
                     endif ?>
                   <li class="divider"></li>
-                  <li><a href="<?= Uri::create("fd/booking/edit/$guest->id"); ?>">Edit Booking</a></li>
+                  <li><a href="<?= Uri::create("facility/booking/edit/$guest->id"); ?>">Edit Booking</a></li>
                   <?php 
                     if (!is_null($guest->bill)) : ?>                  
                     <li><a href="<?= Uri::create("sales/invoice/edit/{$guest->bill->id}"); ?>">Guest Folio</a></li>
@@ -175,8 +175,8 @@
                   <?php // if ($ugroup->id == 6) continue; ?>
 
                   <ul class="dropdown-menu dash-dd-menu" role="menu">
-                    <li><a href="<?= Uri::create("fd/booking/create/$room->id"); ?>">New Booking</a></li>
-                    <li><a href="<?= Uri::create("fd/reservation/create/$room->id"); ?>">New Reservation</a></li>
+                    <li><a href="<?= Uri::create("facility/booking/create/$room->id"); ?>">New Booking</a></li>
+                    <li><a href="<?= Uri::create("facility/reservation/create/$room->id"); ?>">New Reservation</a></li>
                     <?php if ($ugroup->id == 5) : ?>
                         <!-- <li class="divider"></li>
                         <li><a href="<?php //= Uri::create("room/block/$room->id"); ?>">Block Room</a></li> -->

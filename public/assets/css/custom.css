@@ -125,3 +125,24 @@ a {
 a.clickable {
     font-weight: bold;
 }
+
+hr {
+    margin-top: 10px;
+    /* margin-bottom: 20px; */
+}
+
+ul > hr {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+ul#side-menu > li {
+    font-size: 14px;
+}
+
+.alert {
+    font-weight: 500;
+}
+.del-btn:hover {
+    color: #f04124;
+}

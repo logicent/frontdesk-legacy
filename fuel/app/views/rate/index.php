@@ -7,7 +7,7 @@
 		<br>
 		<div class="pull-right btn-toolbar">
 			<div class="btn-group">
-				<?= Html::anchor('rate/create', '<i class="fa fa-plus-square-o fa-lg"></i>&ensp;Rate', array('class' => 'pull-right btn btn-primary')); ?>
+				<?= Html::anchor('rate/create', 'New', array('class' => 'pull-right btn btn-primary')); ?>
 			</div>
 		</div>
 	</div>
@@ -33,7 +33,7 @@
 			<td class="text-center">
 				<?= Html::anchor('rate/edit/'.$item->id, '<i class="fa fa-edit fa-fw fa-lg"></i>'); ?>
 				<?= Html::anchor('rate/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-lg"></i>',
-										array('class' => 'text-danger', 'onclick' => "return confirm('Are you sure?')")); ?>
+										array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
 			</td>
 		</tr>
 <?php endforeach; ?>
