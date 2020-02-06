@@ -147,21 +147,20 @@
                 <?php // if ($ugroup->id == 6) continue; ?>
 
                 <ul class="dropdown-menu dash-dd-menu" role="menu">
-                <?php 
-                    if (!is_null($guest->bill)) : ?>
-                    <li><a href="<?= Uri::create("cash/receipt/create/{$guest->bill->id}"); ?>">Receive Money</a></li>
+            <?php 
+                if (!is_null($guest->bill)) : ?>
+                    <li><a href="<?= Uri::create("accounts/payment/receipt/create/{$guest->bill->id}"); ?>">Receive Money</a></li>
                     <li><a onclick="return confirm('Are you sure?')" href="<?= Uri::create('facility/booking/checkout/'.$guest->id); ?>">Check Out</a></li>
-                <?php 
-                    endif ?>
+            <?php 
+                endif ?>
                   <li class="divider"></li>
                   <li><a href="<?= Uri::create("facility/booking/edit/$guest->id"); ?>">Edit Booking</a></li>
-                  <?php 
-                    if (!is_null($guest->bill)) : ?>                  
-                    <li><a href="<?= Uri::create("sales/invoice/edit/{$guest->bill->id}"); ?>">Guest Folio</a></li>
-                  <?php 
-                    endif ?>
+            <?php 
+                if (!is_null($guest->bill)) : ?>
+                    <li><a href="<?= Uri::create("accounts/salesinvoice/edit/{$guest->bill->id}"); ?>">Invoice</a></li>
+            <?php 
+                endif ?>
                 </ul>
-
                 <?php endforeach; ?>
               <?php endif; ?>
 

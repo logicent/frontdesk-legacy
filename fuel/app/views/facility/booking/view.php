@@ -187,7 +187,7 @@
 			<div class="form-group">
 				<!-- <div class="col-md-4">
 					<?= Form::label('Payment type', 'payment_type', array('class'=>'control-label')); ?>
-					<?= Form::select('payment_type', Input::post('payment_type', isset($booking) ? $booking->payment_type : ''), Model_Cash_Receipt::$payment_type, array('class' => 'col-md-4 form-control')); ?>
+					<?= Form::select('payment_type', Input::post('payment_type', isset($booking) ? $booking->payment_type : ''), Model_Accounts_Payment_Receipt::$payment_type, array('class' => 'col-md-4 form-control')); ?>
 				</div> -->
 
 <!--				<div class="col-md-offset-2 col-md-6">
@@ -199,7 +199,7 @@
 			<div class="form-group">
 				<!-- <div class="col-md-4">
 					<?= Form::label('Card type', 'card_type', array('class'=>'control-label')); ?>
-					<?= Form::select('card_type', Input::post('card_type', isset($booking) ? $booking->card_type : ''), Model_Cash_Receipt::$card_type, array('class' => 'col-md-4 form-control')); ?>
+					<?= Form::select('card_type', Input::post('card_type', isset($booking) ? $booking->card_type : ''), Model_Accounts_Payment_Receipt::$card_type, array('class' => 'col-md-4 form-control')); ?>
 				</div>
 			</div>
 

@@ -5,7 +5,7 @@
 			<?= Form::label('Reference', 'reference', array('class'=>'control-label')); ?>
 			<div class="input-group">
 				<span class="input-group-addon">#</span>
-				<?= Form::input('reference', Input::post('reference', isset($cash_receipt) ? $cash_receipt->reference : Model_Cash_Receipt::getNextSerialNumber()), array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
+				<?= Form::input('reference', Input::post('reference', isset($cash_receipt) ? $cash_receipt->reference : Model_Accounts_Payment_Receipt::getNextSerialNumber()), array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
 			</div>
 			<?= Form::hidden('bill_id', Input::post('bill_id', isset($cash_receipt) ? $cash_receipt->bill_id : $bill->id)); ?>
 		</div>

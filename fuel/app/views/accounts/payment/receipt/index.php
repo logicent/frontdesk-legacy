@@ -36,7 +36,7 @@
 					<?= Html::anchor('cash/receipt/edit/'.$item->id, '<i class="fa fa-edit fa-fw fa-lg"></i>', ['class' => 'text-warning']); ?>
 				<?php endif; ?>
 				<?php if ($ugroup->id == 5 && $item->amount > 0) : ?>
-					<?= Html::anchor('cash/receipt/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-lg"></i>', ['class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')"]); ?>
+					<?= Html::anchor('cash/receipt/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>', ['class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')"]); ?>
 				<?php endif; ?>
 			</td>
 		</tr>

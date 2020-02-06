@@ -1,7 +1,7 @@
 <?php
 use Orm\Model_Soft;
 
-class Model_Accounts_Bank_Receipt extends Model_Soft
+class Model_Accounts_Bank_Deposit extends Model_Soft
 {
 	protected static $_properties = array(
 		'id',

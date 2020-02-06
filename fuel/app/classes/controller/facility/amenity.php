@@ -34,6 +34,12 @@ class Controller_Facility_Amenity extends Controller_Authenticate
 			if ($val->run())
 			{
 				$amenity = Model_Facility_Amenity::forge(array(
+					'code' => Input::post('code'),
+					'name' => Input::post('name'),
+					'is_billable' => Input::post('is_billable'),
+					'is_metered' => Input::post('is_metered'),
+					'is_default' => Input::post('is_default'),
+					'fdesk_user' => Input::post('fdesk_user'),                    
 				));
 
 				if ($amenity and $amenity->save())
@@ -73,6 +79,11 @@ class Controller_Facility_Amenity extends Controller_Authenticate
 
 		if ($val->run())
 		{
+            $amenity->code = Input::post('code');
+            $amenity->name = Input::post('name');
+            $amenity->is_billable = Input::post('is_billable');
+            $amenity->is_metered = Input::post('is_metered');
+            $amenity->is_default = Input::post('is_default');
 
 			if ($amenity->save())
 			{
@@ -91,6 +102,11 @@ class Controller_Facility_Amenity extends Controller_Authenticate
 		{
 			if (Input::method() == 'POST')
 			{
+				$amenity->code = $val->validated('code');
+                $amenity->name = $val->validated('name');
+                $amenity->is_billable = $val->validated('is_billable');
+                $amenity->is_metered = $val->validated('is_metered');
+                $amenity->is_default = $val->validated('is_default');
 
 				Session::set_flash('error', $val->error());
 			}

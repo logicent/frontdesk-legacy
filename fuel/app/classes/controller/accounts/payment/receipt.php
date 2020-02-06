@@ -12,12 +12,12 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('cash/receipt');
+		is_null($id) and Response::redirect('accounts/receipts');
 
 		if ( ! $data['cash_receipt'] = Model_Accounts_Payment_Receipt::find($id))
 		{
 			Session::set_flash('error', 'Could not find cash receipt #'.$id);
-			Response::redirect('cash/receipt');
+			Response::redirect('accounts/receipts');
 		}
 
 		$this->template->title = "Receipts";
@@ -55,7 +55,7 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 						// update Invoice and Guest Card
 						Model_Accounts_Payment_Receipt::updateInvoiceSettlement($bill, $cash_receipt->amount);
 						Session::set_flash('success', 'Added cash receipt #'.$cash_receipt->reference.'.');
-						Response::redirect('cash/receipt/view/'.$cash_receipt->id);
+						Response::redirect('accounts/payment/receipt/view/'.$cash_receipt->id);
 					}
 				}
 				catch (Fuel\Core\Database_Exception $e)
@@ -76,12 +76,12 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('cash/receipt');
+		is_null($id) and Response::redirect('accounts/receipts');
 
 		if ( ! $cash_receipt = Model_Accounts_Payment_Receipt::find($id))
 		{
 			Session::set_flash('error', 'Could not find cash receipt #'.$id);
-			Response::redirect('cash/receipt');
+			Response::redirect('accounts/receipts');
 		}
 
 		$val = Model_Accounts_Payment_Receipt::validate('edit');
@@ -103,7 +103,7 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 			{
 				Session::set_flash('success', 'Updated cash receipt #' . $cash_receipt->reference);
 
-				Response::redirect('cash/receipt');
+				Response::redirect('accounts/receipts');
 			}
 
 			else
@@ -139,7 +139,7 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('cash/receipt');
+		is_null($id) and Response::redirect('accounts/receipts');
 
 		if ($cash_receipt = Model_Accounts_Payment_Receipt::find($id))
 		{
@@ -161,7 +161,7 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 			Session::set_flash('error', 'Could not cancel cash receipt #'.$id);
 		}
 
-		Response::redirect('cash/receipt');
+		Response::redirect('accounts/receipts');
 
 	}
 

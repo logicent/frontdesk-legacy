@@ -1,10 +1,12 @@
 <?php
 use Orm\Model;
 
-class Model_Hr_Employeeattendancetool extends Model
+class Model_Accounts_Tax extends Model
 {
 	protected static $_properties = array(
-		'id',
+        'id',
+        'tax_rate',
+        'tax_identifier',
 		'created_at',
 		'updated_at',
 	);
@@ -23,6 +25,9 @@ class Model_Hr_Employeeattendancetool extends Model
 	public static function validate($factory)
 	{
 		$val = Validation::forge($factory);
+		$val->add_field('code', 'Code', 'valid_string');
+        $val->add_field('tax_identifier', 'Tax identifier', 'required');
+        $val->add_field('tax_rate', 'Tax rate', 'required');
 
 		return $val;
 	}

@@ -29,7 +29,7 @@
 			<td class="text-center">
 				<?= Html::anchor('report/view/'.$item->id, '<i class="fa fa-eye fa-fw fa-lg"></i>'); ?>
 				<?= Html::anchor('report/edit/'.$item->id, '<i class="fa fa-edit fa-fw fa-lg"></i>'); ?>
-				<?= Html::anchor('report/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-lg"></i>', ['class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')"]); ?>
+				<?= Html::anchor('report/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>', ['class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')"]); ?>
 			</td>
 		</tr>
 <?php endforeach; ?>

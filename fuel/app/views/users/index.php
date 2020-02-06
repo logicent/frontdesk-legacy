@@ -37,10 +37,9 @@
 			<td><?= $user->group->name; ?></td>
 			<td><?= date('d M Y h:i a', $user->last_login); ?></td>
 			<td class="text-center">
-				<?= Html::anchor('users/view/'.$user->id, '<i class="fa fa-eye fa-fw fa-lg"></i>'); ?>
             <?php 
                 if (($ugroup->id != $user->group_id || $ugroup->id == 6) && ($user->group_id != 6)) : ?>
-					<?= Html::anchor('users/delete/'.$user->id, '<i class="fa fa-trash-o fa-fw fa-lg"></i>',
+					<?= Html::anchor('users/delete/'.$user->id, '<i class="fa fa-trash-o fa-fw"></i>',
 									['class' => 'text-muted del-btn confirm', 'onclick' => "return confirm('Are you sure?')"]); ?> 
             <?php 
                 endif; ?>

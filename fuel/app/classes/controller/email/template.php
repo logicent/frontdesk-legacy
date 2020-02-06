@@ -1,5 +1,5 @@
 <?php
-class Controller_Email_Template extends Controller_Template
+class Controller_Email_Template extends Controller_Authenticate
 {
 
 	public function action_index()

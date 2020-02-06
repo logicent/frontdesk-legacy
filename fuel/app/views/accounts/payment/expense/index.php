@@ -5,12 +5,12 @@
 
 	<div class="col-md-6">
 		<br>
-		<?= Html::anchor('accounts/expenses/create', 'New', array('class' => 'btn btn-primary pull-right')); ?>
+		<?= Html::anchor('accounts/payment/expense/create', 'New', array('class' => 'btn btn-primary pull-right')); ?>
 	</div>
 </div>
 <hr>
 
-<?php if ($cash_payments): ?>
+<?php if ($expenses): ?>
 <table class="table table-bordered table-hover table-striped datatable">
 	<thead>
 		<tr>
@@ -23,17 +23,17 @@
 		</tr>
 	</thead>
 	<tbody>
-<?php foreach ($cash_payments as $item): ?>
+<?php foreach ($expenses as $item): ?>
 		<tr>
-			<td><?= $item->reference; ?></td>
-			<td><?= date('d-M-Y', strtotime($item->date)); ?></td>
+			<td>
+				<?= Html::anchor('accounts/payment/expense/edit/'.$item->id, $item->reference); ?>
+            </td>
+            <td><?= date('d-M-Y', strtotime($item->date)); ?></td>
 			<td><?= $item->payee; ?></td>
 			<td class="text-right"><?= number_format($item->amount, 2); ?></td>
 			<td><?= $item->description; ?></td>
 			<td class="text-center">
-				<!-- <?php // Html::anchor('cash/payment/view/'.$item->id, '<i class="fa fa-eye fa-fw fa-lg"></i>'); ?> -->
-				<?= Html::anchor('accounts/payment/expense/edit/'.$item->id, '<i class="fa fa-edit fa-fw fa-lg"></i>'); ?>
-				<?= Html::anchor('accounts/payment/expense/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-lg"></i>', array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
+				<?= Html::anchor('accounts/payment/expense/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>', array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
 			</td>
 		</tr>
 <?php endforeach; ?>

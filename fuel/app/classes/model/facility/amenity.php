@@ -4,7 +4,12 @@ use Orm\Model;
 class Model_Facility_Amenity extends Model
 {
 	protected static $_properties = array(
-		'id',
+        'id',
+        'code',
+        'name',
+        'is_billable',
+        'is_metered',
+        'is_default',        
 		'created_at',
 		'updated_at',
 	);
@@ -23,7 +28,12 @@ class Model_Facility_Amenity extends Model
 	public static function validate($factory)
 	{
 		$val = Validation::forge($factory);
-
+		$val->add_field('code', 'Code', 'required');
+        $val->add_field('name', 'Name', 'required');
+        $val->add_field('is_billable', 'Is Billable', 'boolean');
+        $val->add_field('is_metered', 'Is Metered', 'boolean');
+        $val->add_field('is_default', 'Is Default', 'boolean');
+        
 		return $val;
 	}
 

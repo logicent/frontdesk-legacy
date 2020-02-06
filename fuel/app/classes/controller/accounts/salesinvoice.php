@@ -1,6 +1,6 @@
 <?php
 
-class Controller_Sales_Invoice extends Controller_Authenticate
+class Controller_Accounts_Salesinvoice extends Controller_Authenticate
 {
 	public function action_index($show_del = false)
 	{
@@ -12,28 +12,32 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 			if (!$status)
 				$status = Model_Sales_Invoice::INVOICE_STATUS_OPEN;
 
-			$data['sales_invoices'] = Model_Sales_Invoice::find('all', array('where' => array(
-				array('status', '=', $status)), 'order_by' => array('invoice_num' => 'desc'), 'limit' => 1000));
+            $data['sales_invoices'] = Model_Sales_Invoice::find('all', 
+                                        array('where' => array(
+                                            array('status', '=', $status)
+                                        ), 
+                                        'order_by' => array('invoice_num' => 'desc'), 
+                                        'limit' => 1000));
 		}
 
 		$data['status'] = $status;
-
-		$this->template->title = "Guest Invoices";
+        
+		$this->template->title = "Invoices";
 		$this->template->content = View::forge('sales/invoice/index', $data);
 
 	}
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('sales/invoice');
+		is_null($id) and Response::redirect('accounts/salesinvoice');
 
 		if ( ! $data['sales_invoice'] = Model_Sales_Invoice::find($id))
 		{
 			Session::set_flash('error', 'Could not find guest invoice #'.$id);
-			Response::redirect('sales/invoice');
+			Response::redirect('accounts/salesinvoice');
 		}
 
-		$this->template->title = "Guest Invoice";
+		$this->template->title = "Invoice";
 		$this->template->content = View::forge('sales/invoice/view', $data);
 
 	}
@@ -71,7 +75,7 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 				{
 					Session::set_flash('success', 'Added guest invoice #'.$sales_invoice->id.'.');
 
-					Response::redirect('sales/invoice');
+					Response::redirect('accounts/salesinvoice');
 				}
 
 				else
@@ -96,19 +100,19 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 		$services = DB::select('id','item')->from('service_item')->execute()->as_array();
 		$this->template->set_global('serviceItems', json_encode($services), false);
 
-		$this->template->title = "Guest Invoices";
+		$this->template->title = "Invoices";
 		$this->template->content = View::forge('sales/invoice/create');
 
 	}
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('sales/invoice');
+		is_null($id) and Response::redirect('accounts/salesinvoice');
 
 		if ( ! $sales_invoice = Model_Sales_Invoice::find($id))
 		{
 			Session::set_flash('error', 'Could not find guest invoice #'.$id);
-			Response::redirect('sales/invoice');
+			Response::redirect('accounts/salesinvoice');
 		}
 
 		$val = Model_Sales_Invoice::validate('edit');
@@ -141,7 +145,7 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 			{
 				Session::set_flash('success', 'Updated guest invoice #' . $id);
 
-				Response::redirect('sales/invoice');
+				Response::redirect('accounts/salesinvoice');
 			}
 
 			else
@@ -178,14 +182,14 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 			$this->template->set_global('sales_invoice', $sales_invoice, false);
 		}
 
-		$this->template->title = "Guest Invoices";
+		$this->template->title = "Invoices";
 		$this->template->content = View::forge('sales/invoice/edit');
 
 	}
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('sales/invoice');
+		is_null($id) and Response::redirect('accounts/salesinvoice');
 
 		if ($sales_invoice = Model_Sales_Invoice::find($id))
 		{
@@ -202,7 +206,7 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 			Session::set_flash('error', 'Could not delete guest invoice #'.$id);
 		}
 
-		Response::redirect('sales/invoice');
+		Response::redirect('accounts/salesinvoice');
 
 	}
 

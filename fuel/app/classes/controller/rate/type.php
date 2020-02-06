@@ -12,12 +12,12 @@ class Controller_Rate_Type extends Controller_Authenticate
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('rate_type');
+		is_null($id) and Response::redirect('rate/type');
 
 		if ( ! $data['rate_type'] = Model_Rate_Type::find($id))
 		{
 			Session::set_flash('error', 'Could not find rate #'.$id);
-			Response::redirect('rate_type');
+			Response::redirect('facilities/rate-types');
 		}
 
 		$this->template->title = "Rate Types";
@@ -42,7 +42,7 @@ class Controller_Rate_Type extends Controller_Authenticate
 				{
 					Session::set_flash('success', 'Added rate type #'.$rate_type->name.'.');
 
-					Response::redirect('rate_type');
+					Response::redirect('facilities/rate-types');
 				}
 
 				else
@@ -63,12 +63,12 @@ class Controller_Rate_Type extends Controller_Authenticate
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('rate_type');
+		is_null($id) and Response::redirect('facilities/rate-types');
 
 		if ( ! $rate_type = Model_Rate_Type::find($id))
 		{
 			Session::set_flash('error', 'Could not find rate #'.$id);
-			Response::redirect('rate_type');
+			Response::redirect('facilities/rate-types');
 		}
 
 		$val = Model_Rate_Type::validate('edit');
@@ -82,7 +82,7 @@ class Controller_Rate_Type extends Controller_Authenticate
 			{
 				Session::set_flash('success', 'Updated rate type #' . $id);
 
-				Response::redirect('rate_type');
+				Response::redirect('facilities/rate-types');
 			}
 
 			else
@@ -129,7 +129,7 @@ class Controller_Rate_Type extends Controller_Authenticate
 			Session::set_flash('error', 'Could not delete rate type #'.$id);
 		}
 
-		Response::redirect('rate_type');
+		Response::redirect('facilities/rate-types');
 
 	}
 

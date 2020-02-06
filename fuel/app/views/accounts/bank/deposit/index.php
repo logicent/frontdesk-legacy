@@ -10,7 +10,7 @@
 </div>
 <hr>
 
-<?php if ($bank_receipts): ?>
+<?php if ($bank_deposits): ?>
 <table class="table table-bordered table-hover table-striped datatable">
 	<thead>
 		<tr>
@@ -23,17 +23,17 @@
 		</tr>
 	</thead>
 	<tbody>
-<?php foreach ($bank_receipts as $item): ?>
+<?php foreach ($bank_deposits as $item): ?>
 		<tr>
-			<td><?= $item->reference; ?></td>
+			<td>
+				<?= Html::anchor('accounts/bank/deposit/edit/'.$item->id, $item->reference); ?>
+            </td>
 			<td><?= $item->date; ?></td>
 			<td><?= $item->amount; ?></td>
 			<td><?= $item->bank_account_id; ?></td>
 			<td><?= $item->description; ?></td>
 			<td class="text-center">
-				<!-- <?php // Html::anchor('bank/receipt/view/'.$item->id, '<i class="fa fa-eye fa-fw fa-lg"></i>'); ?> -->
-				<?= Html::anchor('bank/receipt/edit/'.$item->id, '<i class="fa fa-edit fa-fw fa-lg"></i>'); ?>
-				<?= Html::anchor('bank/receipt/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-lg"></i>', array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
+				<?= Html::anchor('accounts/bank/deposit/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>', array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
 			</td>
 		</tr>
 <?php endforeach; ?>

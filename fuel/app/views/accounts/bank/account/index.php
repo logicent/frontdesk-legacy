@@ -24,14 +24,14 @@
 	<tbody>
 <?php foreach ($bank_accounts as $item): ?>
 		<tr>
-			<td><?= $item->name; ?></td>
+			<td>
+                <?= Html::anchor('accounts/bank/account/edit/'.$item->id, $item->name); ?>
+            </td>
 			<td><?= $item->account_number; ?></td>
 			<td><?= $item->financial_institution; ?></td>
 			<td><?= $item->last_statement_date; ?></td>
 			<td class="text-center">
-				<!-- <?php // Html::anchor('bank/account/view/'.$item->id, '<i class="fa fa-eye fa-fw fa-lg"></i>'); ?> -->
-				<?= Html::anchor('bank/account/edit/'.$item->id, '<i class="fa fa-edit fa-fw fa-lg"></i>'); ?>
-				<?= Html::anchor('bank/account/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-lg"></i>', array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
+				<?= Html::anchor('accounts/bank/account/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>', array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
 			</td>
 		</tr>
 <?php endforeach; ?>

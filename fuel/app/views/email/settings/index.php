@@ -35,7 +35,7 @@
 			<td class="text-center">
 				<?= Html::anchor('email/settings/edit/'.$item->id, '<i class="fa fa-edit fa-fw fa-lg"></i>',
 																array('class' => 'btn btn-sm')); ?>
-				<?= Html::anchor('email/settings/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-lg"></i>',
+				<?= Html::anchor('email/settings/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>',
 																array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
 			</td>
 		</tr>

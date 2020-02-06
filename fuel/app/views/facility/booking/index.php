@@ -70,7 +70,7 @@
                     <?= Html::anchor('facility/booking/view/'.$item->id, '<i class="fa fa-eye fa-fw fa-lg"></i>'); ?>
                     
 					<?php if ($ugroup->id == 5 && $item->status != Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT) : ?>
-                        <?= Html::anchor('facility/booking/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-lg"></i>', 
+                        <?= Html::anchor('facility/booking/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>', 
                                         array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
 					<?php endif ?>
 				</td>

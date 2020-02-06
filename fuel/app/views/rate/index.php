@@ -27,12 +27,13 @@
 	<tbody>
 <?php foreach ($rate as $item): ?>
 		<tr>
-			<td><?= $item->room_type->name; ?></td>
+			<td>
+                <?= Html::anchor('rate/edit/'.$item->id, $item->room_type->name); ?>
+            </td>
 			<td><?= $item->rate_type->name; ?></td>
 			<td class="text-right"><?= number_format($item->charges, 2); ?></td>
 			<td class="text-center">
-				<?= Html::anchor('rate/edit/'.$item->id, '<i class="fa fa-edit fa-fw fa-lg"></i>'); ?>
-				<?= Html::anchor('rate/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-lg"></i>',
+				<?= Html::anchor('rate/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>',
 										array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
 			</td>
 		</tr>

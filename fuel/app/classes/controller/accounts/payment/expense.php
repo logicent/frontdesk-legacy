@@ -4,7 +4,7 @@ class Controller_Accounts_Payment_Expense extends Controller_Authenticate
 {
 	public function action_index()
 	{
-		$data['cash_payments'] = Model_Accounts_Payment_Expense::find('all', array('order_by' => array('reference' => 'desc'), 'limit' => 1000));
+		$data['expenses'] = Model_Accounts_Payment_Expense::find('all', array('order_by' => array('reference' => 'desc'), 'limit' => 1000));
 		$this->template->title = "Expenses";
 		$this->template->content = View::forge('accounts/payment/expense/index', $data);
 
@@ -12,12 +12,12 @@ class Controller_Accounts_Payment_Expense extends Controller_Authenticate
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('payment/expense');
+		is_null($id) and Response::redirect('accounts/expenses');
 
-		if ( ! $data['cash_payment'] = Model_Accounts_Payment_Expense::find($id))
+		if ( ! $data['expense'] = Model_Accounts_Payment_Expense::find($id))
 		{
 			Session::set_flash('error', 'Could not find cash expense #'.$id);
-			Response::redirect('payment/expense');
+			Response::redirect('accounts/expenses');
 		}
 
 		$this->template->title = "Expenses";
@@ -49,7 +49,7 @@ class Controller_Accounts_Payment_Expense extends Controller_Authenticate
 					if ($expense and $expense->save())
 					{
 						Session::set_flash('success', 'Added cash expense #'.$expense->id.'.');
-						Response::redirect('payment/expense');
+						Response::redirect('accounts/expenses');
 					}
 				}
 				catch (Fuel\Core\Database_Exception $e) {
@@ -69,12 +69,12 @@ class Controller_Accounts_Payment_Expense extends Controller_Authenticate
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('payment/expense');
+		is_null($id) and Response::redirect('accounts/expenses');
 
 		if ( ! $expense = Model_Accounts_Payment_Expense::find($id))
 		{
 			Session::set_flash('error', 'Could not find cash expense #'.$id);
-			Response::redirect('payment/expense');
+			Response::redirect('accounts/expenses');
 		}
 
 		$val = Model_Accounts_Payment_Expense::validate('edit');
@@ -95,7 +95,7 @@ class Controller_Accounts_Payment_Expense extends Controller_Authenticate
 			{
 				Session::set_flash('success', 'Updated cash expense #' . $id);
 
-				Response::redirect('payment/expense');
+				Response::redirect('accounts/expenses');
 			}
 
 			else
@@ -121,7 +121,7 @@ class Controller_Accounts_Payment_Expense extends Controller_Authenticate
 				Session::set_flash('error', $val->error());
 			}
 
-			$this->template->set_global('cash_payment', $expense, false);
+			$this->template->set_global('expense', $expense, false);
 		}
 
 		$this->template->title = "Expenses";
@@ -131,7 +131,7 @@ class Controller_Accounts_Payment_Expense extends Controller_Authenticate
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('payment/expense');
+		is_null($id) and Response::redirect('accounts/expenses');
 
 		if ($expense = Model_Accounts_Payment_Expense::find($id))
 		{
@@ -145,7 +145,7 @@ class Controller_Accounts_Payment_Expense extends Controller_Authenticate
 			Session::set_flash('error', 'Could not delete cash expense #'.$id);
 		}
 
-		Response::redirect('payment/expense');
+		Response::redirect('accounts/expenses');
 
 	}
 

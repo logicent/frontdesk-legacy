@@ -28,13 +28,12 @@
 	<tbody>
 <?php foreach ($room as $item): ?>
 		<tr>
-			<td><?= $item->name; ?></td>
+			<td><?= Html::anchor('room/edit/'.$item->id, $item->name); ?></td>
 			<td><?= $item->rm_type->name; ?></td>
 			<td><span class=""><?= strtoupper($item->status); ?></span></td>
 			<!--<td><?php //echo $item->hk_status; ?></td>-->
 			<td class="text-center">
-				<?= Html::anchor('room/edit/'.$item->id, '<i class="fa fa-edit fa-fw fa-lg"></i>'); ?>
-				<?= Html::anchor('room/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-lg fa-fw fa-lg"></i>',
+				<?= Html::anchor('room/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-fw fa-lg"></i>',
 										array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
 			</td>
 		</tr>

@@ -12,12 +12,12 @@ class Controller_Accounts_Bank_Account extends Controller_Authenticate
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('bank/account');
+		is_null($id) and Response::redirect('accounts/bank-accounts');
 
 		if ( ! $data['bank_account'] = Model_Accounts_Bank_Account::find($id))
 		{
 			Session::set_flash('error', 'Could not find bank account #'.$id);
-			Response::redirect('bank/account');
+			Response::redirect('accounts/bank-accounts');
 		}
 
 		$this->template->title = "Bank Accounts";
@@ -47,7 +47,7 @@ class Controller_Accounts_Bank_Account extends Controller_Authenticate
 				{
 					Session::set_flash('success', 'Added bank account #'.$bank_account->account_number.'.');
 
-					Response::redirect('bank/account');
+					Response::redirect('accounts/bank-accounts');
 				}
 
 				else
@@ -68,12 +68,12 @@ class Controller_Accounts_Bank_Account extends Controller_Authenticate
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('bank/account');
+		is_null($id) and Response::redirect('accounts/bank-accounts');
 
 		if ( ! $bank_account = Model_Accounts_Bank_Account::find($id))
 		{
 			Session::set_flash('error', 'Could not find bank account #'.$id);
-			Response::redirect('bank/account');
+			Response::redirect('accounts/bank-accounts');
 		}
 
 		$val = Model_Accounts_Bank_Account::validate('edit');
@@ -92,7 +92,7 @@ class Controller_Accounts_Bank_Account extends Controller_Authenticate
 			{
 				Session::set_flash('success', 'Updated bank account #' . $id);
 
-				Response::redirect('bank/account');
+				Response::redirect('accounts/bank-accounts');
 			}
 
 			else
@@ -126,7 +126,7 @@ class Controller_Accounts_Bank_Account extends Controller_Authenticate
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('bank/account');
+		is_null($id) and Response::redirect('accounts/bank-accounts');
 
 		if ($bank_account = Model_Accounts_Bank_Account::find($id))
 		{
@@ -144,7 +144,7 @@ class Controller_Accounts_Bank_Account extends Controller_Authenticate
 			Session::set_flash('error', 'Could not delete bank account #'.$id);
 		}
 
-		Response::redirect('bank/account');
+		Response::redirect('accounts/bank-accounts');
 
 	}
 

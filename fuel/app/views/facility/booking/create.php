@@ -4,4 +4,5 @@
 
 <br>
 
-<?= render('facility/booking/_form'); ?>
+<?= render(__DIR__ . '/_form'); ?>
+

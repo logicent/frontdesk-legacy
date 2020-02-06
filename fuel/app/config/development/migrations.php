@@ -44,7 +44,7 @@ return array(
         35 => '021_create_summary',
         36 => '022_create_email_settings',
         37 => '033_create_accounts_taxescharges',
-        38 => '034_create_accounts_paymentmethods',
+        38 => '034_create_accounts_payment_methods',
         39 => '035_create_facility_amenities',
         40 => '036_create_email_templates',
         41 => '037_create_letter_templates',

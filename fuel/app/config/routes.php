@@ -19,18 +19,17 @@ return array(
 
 	'registers/reservations' => 'facility/reservation',
 	'registers/bookings'     => 'facility/booking',
-	'registers/folios'       => 'sales/invoice',
+	// 'registers/folios'     => 'sales/invoice',
 	'registers/stayover/:date'   => 'facility/stayover/$1',
     'registers/nightaudit/:date' => 'facility/nightaudit/$1',
 
 	'accounts/bank-accounts'    => 'accounts/bank/account',
-	'accounts/bank-deposits'    => 'accounts/bank/receipt',
+	'accounts/bank-deposits'    => 'accounts/bank/deposit',
+	'accounts/invoices'         => 'accounts/salesinvoice',
 	'accounts/receipts'         => 'accounts/payment/receipt',
 	'accounts/expenses'         => 'accounts/payment/expense',
-	'accounts/taxes-charges'    => 'accounts/taxescharges',
-	'accounts/taxes-charges/create' => 'accounts/taxescharges/create',
-	'accounts/payment-methods' => 'accounts/paymentmethod',
-	'accounts/expenses/create' => 'accounts/payment/expense/create',
+	'accounts/taxes'            => 'accounts/tax',
+	'accounts/payment-methods'  => 'accounts/payment/method',
 
     // 'accounts/receipt/to-print/:id' => 'payment/receipt/to_print/$1',
 
