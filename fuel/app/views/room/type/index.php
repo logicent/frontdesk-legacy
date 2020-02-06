@@ -7,7 +7,7 @@
 		<br>
 		<div class="pull-right btn-toolbar">
 			<div class="btn-group">
-				<?= Html::anchor('room/type/create', '<i class="fa fa-plus"></i>&ensp;Type', array('class' => 'btn btn-primary')); ?>
+				<?= Html::anchor('room/type/create', 'New', array('class' => 'btn btn-primary')); ?>
 			</div>
 		</div>
 	</div>
@@ -24,18 +24,19 @@
 		</tr>
 	</thead>
 	<tbody>
-<?php foreach ($room_type as $item): ?>		<tr>
-
-			<td><?= $item->name; ?></td>
+<?php foreach ($room_type as $item): ?>		
+        <tr>
+			<td>
+                <?= Html::anchor('room/type/edit/'.$item->id, $item->name); ?>
+            </td>
 			<td><?= $item->description; ?></td>
 			<td class="text-center">
-				<?= Html::anchor('room/type/edit/'.$item->id, '<i class="fa fa-edit fa-fw fa-lg"></i>',
-										array('class' => 'btn btn-sm')); ?>
-				<?= Html::anchor('room/type/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-lg icon-white"></i>',
-										array('class' => 'text-danger', 'onclick' => "return confirm('Are you sure?')")); ?>
+				<?= Html::anchor('room/type/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw icon-white"></i>',
+										array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
 			</td>
 		</tr>
-<?php endforeach; ?>	</tbody>
+<?php endforeach; ?>	
+    </tbody>
 </table>
 
 <?php else: ?>

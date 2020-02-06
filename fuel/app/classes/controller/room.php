@@ -123,7 +123,7 @@ class Controller_Room extends Controller_Authenticate{
 
 		if ($room = Model_Room::find($id))
 		{
-			$booking = Model_Fd_Booking::find('first', array('where' => array('room_id' => $id)));
+			$booking = Model_Facility_Booking::find('first', array('where' => array('room_id' => $id)));
 			if ($booking)
 				Session::set_flash('error', 'Can not delete Room used in booking(s).');
 			else

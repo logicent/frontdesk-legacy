@@ -31,7 +31,7 @@
 												array('class' => 'btn btn-small')); */ ?>
 						<?php /* Html::anchor('sales/invoice/item/edit/'.$item->id, '<i class="fa fa-edit fa-fw fa-lg"></i>',
 												array('class' => 'btn btn-small')); */ ?>
-						<?php /* Html::anchor('sales/invoice/item/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-lg"></i>',
+						<?php /* Html::anchor('sales/invoice/item/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>',
 												array('class' => 'btn btn-small', 'onclick' => "return confirm('Are you sure?')")); */ ?>
 					</div>
 				</div>
