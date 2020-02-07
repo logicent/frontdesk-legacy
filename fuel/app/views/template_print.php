@@ -5,11 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E1 FrontDesk &ndash; <?= $title; ?></title>
     <!-- Core CSS -->
-    <?= Asset::css(array('vendor/bootstrap.min.css',
-                                // 'vendor/united.bootstrap.min.css',
-                                '../font-awesome/css/font-awesome.min.css', // Glyphicons replacement
-                                'custom.css'
-                        )); ?>
+    <?= Asset::css(
+                array(
+                    '//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css',
+                    // 'vendor/yeti.bootstrap.min.css',
+                    'vendor/united.bootstrap.min.css',
+                    // '../font-awesome/css/font-awesome.css',
+                    '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
+                    'custom.css'
+                )); ?>
 </head>
 <body>
     <div id="wrapper">

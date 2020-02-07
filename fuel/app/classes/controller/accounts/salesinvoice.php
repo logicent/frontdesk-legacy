@@ -29,12 +29,12 @@ class Controller_Accounts_Salesinvoice extends Controller_Authenticate
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('accounts/salesinvoice');
+		is_null($id) and Response::redirect('accounts/sales-invoices');
 
 		if ( ! $data['sales_invoice'] = Model_Sales_Invoice::find($id))
 		{
 			Session::set_flash('error', 'Could not find guest invoice #'.$id);
-			Response::redirect('accounts/salesinvoice');
+			Response::redirect('accounts/sales-invoices');
 		}
 
 		$this->template->title = "Invoice";
@@ -75,7 +75,7 @@ class Controller_Accounts_Salesinvoice extends Controller_Authenticate
 				{
 					Session::set_flash('success', 'Added guest invoice #'.$sales_invoice->id.'.');
 
-					Response::redirect('accounts/salesinvoice');
+					Response::redirect('accounts/sales-invoices');
 				}
 
 				else
@@ -107,12 +107,12 @@ class Controller_Accounts_Salesinvoice extends Controller_Authenticate
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('accounts/salesinvoice');
+		is_null($id) and Response::redirect('accounts/sales-invoices');
 
 		if ( ! $sales_invoice = Model_Sales_Invoice::find($id))
 		{
 			Session::set_flash('error', 'Could not find guest invoice #'.$id);
-			Response::redirect('accounts/salesinvoice');
+			Response::redirect('accounts/sales-invoices');
 		}
 
 		$val = Model_Sales_Invoice::validate('edit');
@@ -145,7 +145,7 @@ class Controller_Accounts_Salesinvoice extends Controller_Authenticate
 			{
 				Session::set_flash('success', 'Updated guest invoice #' . $id);
 
-				Response::redirect('accounts/salesinvoice');
+				Response::redirect('accounts/sales-invoices');
 			}
 
 			else
@@ -189,7 +189,7 @@ class Controller_Accounts_Salesinvoice extends Controller_Authenticate
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('accounts/salesinvoice');
+		is_null($id) and Response::redirect('accounts/sales-invoices');
 
 		if ($sales_invoice = Model_Sales_Invoice::find($id))
 		{
@@ -206,7 +206,7 @@ class Controller_Accounts_Salesinvoice extends Controller_Authenticate
 			Session::set_flash('error', 'Could not delete guest invoice #'.$id);
 		}
 
-		Response::redirect('accounts/salesinvoice');
+		Response::redirect('accounts/sales-invoices');
 
 	}
 

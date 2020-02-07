@@ -19,7 +19,7 @@ class Controller_Reports extends Controller_Authenticate
 
 		$data = array_merge($data, Model_Report_Creator::generate($slug, $date));
 
-		$view = View::forge('template_hc');
+		$view = View::forge('template_print');
 		$view->title = $data['report']->name . ' Report';
 
 		switch ($slug)
@@ -46,7 +46,7 @@ class Controller_Reports extends Controller_Authenticate
 		$data['report']->date_of = $date;
 		$data = array_merge($data, Model_Report_Creator::generateMonthly($slug, $date), array('date' => $date));
 
-		$view = View::forge('template_hc');
+		$view = View::forge('template_print');
 		$view->title = $data['report']->name . ' Report';
 
 		switch ($slug)

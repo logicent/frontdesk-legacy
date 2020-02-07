@@ -8,7 +8,7 @@
             <div class="panel-body">
                 <div class="col-md-4 text-center">
                     <div class="text-center">
-                        <p class="text-muted small">CI</p>
+                        <p class="text-muted">CI</p>
                         <p class="text-center lead">
                             <?= $checkins[0]['total_ci'] ?>
                         </p>
@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="text-center">
-                        <p class="text-muted small">SO</p>
+                        <p class="text-muted">SO</p>
                         <p class="text-center lead">
                             <?= $stayovers[0]['total_so'] ?>
                         </p>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="text-center">
-                        <p class="text-muted small">CO</p>
+                        <p class="text-muted">CO</p>
                         <p class="text-center lead">
                             <?= $checkouts[0]['total_co'] ?>
                         </p>
@@ -32,7 +32,7 @@
                 </div>
             </div>
             <!-- <div class="panel-footer text-center ">
-                <span class="text-muted small">TODAY</span>
+                <span class="text-muted">TODAY</span>
             </div> -->
         </div>
     </div>
@@ -45,7 +45,7 @@
             <div class="panel-body">
                 <div class="col-md-4">
                     <div class="text-center">
-                        <p class="text-muted small">Rec.</p>
+                        <p class="text-muted">Rec</p>
                         <p class="text-center lead">
                             <?= $receipts[0]['total_amount'] ?>
                         </p>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="text-center">
-                        <p class="text-muted small">Exp.</p>
+                        <p class="text-muted">Exp</p>
                         <p class="text-center lead">
                             <?= $expenses[0]['total_amount'] ?>
                         </p>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="text-center">
-                        <p class="text-muted small">Dep.</p>
+                        <p class="text-muted">Dep</p>
                         <p class="text-center lead">
                             <?= $deposits[0]['total_amount'] ?>
                         </p>
@@ -69,7 +69,7 @@
                 </div>
             </div>
             <!-- <div class="panel-footer text-center ">
-                <span class="text-muted small">TODAY</span>
+                <span class="text-muted">TODAY</span>
             </div> -->
         </div>
     </div>
@@ -82,7 +82,7 @@
             <div class="panel-body">
                 <div class="col-md-4">
                     <div class="text-center">
-                        <p class="text-muted small">OCC</p>
+                        <p class="text-muted">OCC</p>
                         <p class="text-center lead">
                             <?= $rooms_occupied[0]['count'] ?>
                         </p>
@@ -90,7 +90,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="text-center">
-                        <p class="text-muted small">VAC</p>
+                        <p class="text-muted">VAC</p>
                         <p class="text-center lead">
                             <?= $rooms_vacant[0]['count'] ?>
                         </p>
@@ -98,7 +98,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="text-center">
-                        <p class="text-muted small">BLO</p>
+                        <p class="text-muted">BLO</p>
                         <p class="text-center lead">
                             <?= $rooms_blocked[0]['count'] ?>
                         </p>
@@ -106,7 +106,7 @@
                 </div>
             </div>
             <!-- <div class="panel-footer text-center ">
-                <span class="text-muted small">TODAY</span>
+                <span class="text-muted">TODAY</span>
             </div> -->
         </div>
     </div>

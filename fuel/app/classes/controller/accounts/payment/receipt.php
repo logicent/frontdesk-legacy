@@ -12,12 +12,12 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('accounts/receipts');
+		is_null($id) and Response::redirect('accounts/sales-receipts');
 
 		if ( ! $data['payment_receipt'] = Model_Accounts_Payment_Receipt::find($id))
 		{
 			Session::set_flash('error', 'Could not find cash receipt #'.$id);
-			Response::redirect('accounts/receipts');
+			Response::redirect('accounts/sales-receipts');
 		}
 
 		$this->template->title = "Receipts";
@@ -76,12 +76,12 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('accounts/receipts');
+		is_null($id) and Response::redirect('accounts/sales-receipts');
 
 		if ( ! $payment_receipt = Model_Accounts_Payment_Receipt::find($id))
 		{
 			Session::set_flash('error', 'Could not find cash receipt #'.$id);
-			Response::redirect('accounts/receipts');
+			Response::redirect('accounts/sales-receipts');
 		}
 
 		$val = Model_Accounts_Payment_Receipt::validate('edit');
@@ -103,7 +103,7 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 			{
 				Session::set_flash('success', 'Updated cash receipt #' . $payment_receipt->reference);
 
-				Response::redirect('accounts/receipts');
+				Response::redirect('accounts/sales-receipts');
 			}
 
 			else
@@ -139,7 +139,7 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('accounts/receipts');
+		is_null($id) and Response::redirect('accounts/sales-receipts');
 
 		if ($payment_receipt = Model_Accounts_Payment_Receipt::find($id))
 		{
@@ -161,7 +161,7 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 			Session::set_flash('error', 'Could not cancel cash receipt #'.$id);
 		}
 
-		Response::redirect('accounts/receipts');
+		Response::redirect('accounts/sales-receipts');
 
 	}
 
@@ -169,7 +169,7 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 	{
 		$data['receipt'] = Model_Accounts_Payment_Receipt::find($id);
 
-		$view = View::forge('template_hc');
+		$view = View::forge('template_print');
 		$view->title = 'Receipt';
 		$view->content = View::forge('document/payment_receipt', $data);
 

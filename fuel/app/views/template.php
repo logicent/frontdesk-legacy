@@ -11,7 +11,7 @@
                 'vendor/united.bootstrap.min.css',
                 'vendor/fuelux.min.css',
                 'vendor/datepicker.css',
-                '../font-awesome/css/font-awesome.min.css', // Glyphicons replacement
+                // '../font-awesome/css/font-awesome.min.css', // Glyphicons replacement
                 '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
                 'vendor/fullcalendar.min.css',
                 'sb-admin.css', // SB Admin Scripts
@@ -106,8 +106,8 @@
                             <li>
                                 <a href="#"><i class="fa fa-lg fa-money fa-fw"></i>&emsp;Accounts<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
-                                    <li><a href="<?= Uri::create('accounts/invoices'); ?>"><i class=""></i>&emsp;Invoices</a></li>
-                                    <li><a href="<?= Uri::create('accounts/receipts'); ?>">&emsp;Receipts</a></li>
+                                    <li><a href="<?= Uri::create('accounts/sales-invoices'); ?>"><i class=""></i>&emsp;Sales Invoices</a></li>
+                                    <li><a href="<?= Uri::create('accounts/sales-receipts'); ?>">&emsp;Sales Receipts</a></li>
                                     <li><a href="<?= Uri::create('accounts/expenses'); ?>">&emsp;Expenses</a></li>
                                     <hr>
                                     <li><a href="<?= Uri::create('accounts/bank-deposits'); ?>">&emsp;Bank Deposits</a></li>

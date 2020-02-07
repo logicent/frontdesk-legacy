@@ -14,8 +14,9 @@ return array(
 	'_root_'  => 'dashboard/index',  // The default route
 	'_404_'   => 'dashboard/404',    // The main 404 route
 
-	'login'     => 'login/login',
-	'logout'    => 'login/logout',
+	'login' => 'login/login',
+	'login/forgot-password' => 'login/lostpassword',
+	'logout' => 'login/logout',
 
 	'registers/reservations' => 'facility/reservation',
 	'registers/bookings'     => 'facility/booking',
@@ -25,8 +26,8 @@ return array(
 
 	'accounts/bank-accounts'    => 'accounts/bank/account',
 	'accounts/bank-deposits'    => 'accounts/bank/deposit',
-	'accounts/invoices'         => 'accounts/salesinvoice',
-	'accounts/receipts'         => 'accounts/payment/receipt',
+	'accounts/sales-invoices'         => 'accounts/salesinvoice',
+	'accounts/sales-receipts'         => 'accounts/payment/receipt',
 	'accounts/expenses'         => 'accounts/payment/expense',
 	'accounts/taxes'            => 'accounts/tax',
 	'accounts/payment-methods'  => 'accounts/payment/method',
