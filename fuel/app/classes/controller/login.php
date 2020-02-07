@@ -36,7 +36,7 @@ class Controller_Login extends Controller_Template
 						$current_user = Model_User::find_by_username(Auth::get_screen_name());
 					}
 					Session::set_flash('success', e('Welcome, '.$current_user->username));
-					Response::redirect('dashboard');
+					Response::redirect_back('dashboard');
 				}
 				else
 				{
@@ -44,6 +44,11 @@ class Controller_Login extends Controller_Template
 				}
 			}
 		}
+
+        $business = Model_Business::find('first');
+        // run test without business record to see if error occurs
+        // is_null($business) and Response::redirect('business/create'); // should go to installer/setup
+        $this->template->set_global('business', $business, false);
 
 		$this->template->title = 'Login';
 		$this->template->content = View::forge('login/login', array('val' => $val), false);

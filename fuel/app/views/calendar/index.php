@@ -32,7 +32,7 @@
             events: function(start, end, timezone, callback) 
             {
                 $.ajax({
-                    url: '/calendar/show-bookings',
+                    url: '/calendar/show-reservations',
                     dataType: 'json',
                     data: {
                         // start: start.unix(),

@@ -22,9 +22,9 @@ class Controller_Business extends Controller_Authenticate
 			try {
 				// upload and save the file
 				$file = Filehelper::upload();
-				// $business->business_logo = Input::post('business_logo');
-				// Kint::dump($file); exit;
-				$business->business_logo = 'uploads'.DS.$file['name'];
+                // Debug::dump($file); exit;
+                if (!empty($file['saved_as']))
+				    $business->business_logo = 'uploads'.DS.$file['name'];
 
 				if ($business->save())
 				{
@@ -52,6 +52,11 @@ class Controller_Business extends Controller_Authenticate
 			{
 				// upload and save the file
 				$file = Filehelper::upload();
+                // Debug::dump($file); exit;
+                if (!empty($file['saved_as']))
+				    $business->business_logo = 'uploads'.DS.$file['name'];
+                else 
+                    $business->business_logo = $val->validated('business_logo');
 
 				$business->business_name = $val->validated('business_name');
 				$business->trading_name = $val->validated('trading_name');
@@ -60,10 +65,9 @@ class Controller_Business extends Controller_Authenticate
 				$business->tax_rate = $val->validated('tax_rate');
 				$business->currency_symbol = $val->validated('currency_symbol');
 				$business->email_address = $val->validated('email_address');
-				// $business->business_logo = $val->validated('business_logo');
-				if ($file['name'] ==! null)
-	                $business->business_logo = 'uploads'.DS.$file['name'];
-	            else $business->business_logo = Input::post('business_logo');
+				// if ($file['name'] ==! null)
+	            //     $business->business_logo = 'uploads'.DS.$file['name'];
+	            // else $business->business_logo = Input::post('business_logo');
 
 				Session::set_flash('error', $val->error());
 			}
@@ -75,7 +79,7 @@ class Controller_Business extends Controller_Authenticate
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('business');
+		is_null($id) and Response::redirect('settings/business-detail');
 
 		if ( ! $data['business'] = Model_Business::find($id))
 		{

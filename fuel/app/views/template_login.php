@@ -37,6 +37,15 @@
                     </div>
             <?php 
                 endif ?>
+                    <div class="text-center">
+                <?php
+                    if (!empty($business->business_logo)) :
+                        echo Html::img($business->business_logo, ['style' => 'max-width: 240px']) ;
+                    else : ?>
+                        <span class="lead"><?= isset($business) ? $business->trading_name : '' ?></span>
+                <?php 
+                    endif ?>
+                    </div>                
                     <div class="login-panel panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title text-center">E1 FrontDesk</h3>

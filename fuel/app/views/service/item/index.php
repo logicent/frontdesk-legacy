@@ -5,7 +5,7 @@
 
 	<div class="col-md-6">
 		<br>
-		<?= Html::anchor('service/item/create', 'New Service item', array('class' => 'pull-right btn btn-info')); ?>
+		<?= Html::anchor('service/item/create', 'New', array('class' => 'pull-right btn btn-primary')); ?>
 	</div>
 </div>
 <hr>
@@ -24,17 +24,15 @@
 	<tbody>
 <?php foreach ($service_items as $item): ?>
 		<tr>
-			<td><?= $item->item; ?></td>
+			<td>
+                <?= Html::anchor('service/item/edit/'.$item->id, $item->item, ['class' => 'clickable']); ?>
+            </td>
 			<td><?= $item->description; ?></td>
 			<td><?= $item->qty; ?></td>
 			<td><?= $item->unit_price; ?></td>
 			<td class="text-center">
-				<?= Html::anchor('service/item/view/'.$item->id, '<i class="fa fa-eye fa-fw fa-lg"></i>',
-																array('class' => 'btn btn-sm')); ?>
-				<?= Html::anchor('service/item/edit/'.$item->id, '<i class="fa fa-edit fa-fw fa-lg"></i>',
-																array('class' => 'btn btn-sm')); ?>
-				<?= Html::anchor('service/item/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-lg"></i>',
-																array('class' => 'text-danger', 'onclick' => "return confirm('Are you sure?')")); ?>
+				<?= Html::anchor('service/item/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>',
+                                array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
 			</td>
 		</tr>
 <?php endforeach; ?>

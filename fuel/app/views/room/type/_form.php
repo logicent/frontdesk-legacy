@@ -1,9 +1,8 @@
 <?= Form::open(array("class"=>"form-horizontal")); ?>
 
 	<div class="form-group">
-		<div class="col-md-4">
+		<div class="col-md-6">
 		<?= Form::label('Name', 'name', array('class'=>'control-label')); ?>
-
 		<?= Form::input('name', Input::post('name', isset($room_type) ? $room_type->name : ''),
 							   array('class' => 'col-md-4 form-control', 'autofocus' => true)); ?>
 		</div>
@@ -12,12 +11,10 @@
 	<div class="form-group">
 		<div class="col-md-6">
 		<?= Form::label('Description', 'description', array('class'=>'control-label')); ?>
-
-		<?= Form::input('description', Input::post('description', isset($room_type) ? $room_type->description : ''),
-							   array('class' => 'col-md-4 form-control')); ?>
+        <?= Form::textarea('description', Input::post('description', isset($room_type) ? $room_type->description : ''),
+                                                array('class' => 'col-md-4 form-control', 'rows' => 4)); ?>        
 		</div>
 	</div>
-
 	<hr>
 
 	<div class="form-group">

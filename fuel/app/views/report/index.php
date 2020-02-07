@@ -5,7 +5,7 @@
 
 	<div class="col-md-6">
 		<br>
-		<?= Html::anchor('report/create', '<i class="fa fa-plus-square-o fa-lg"></i>&ensp;Report', array('class' => 'pull-right btn btn-primary')); ?>
+		<?= Html::anchor('report/builder/create', 'New', array('class' => 'pull-right btn btn-primary')); ?>
 	</div>
 </div>
 <hr>
@@ -23,13 +23,13 @@
 	<tbody>
 <?php foreach ($report as $item): ?>
 		<tr>
-			<td><?= $item->name; ?></td>
+			<td>
+            <?= Html::anchor('report/builder/edit/'.$item->id, $item->name, ['class' => 'clickable']); ?>
 			<td><?= $item->type == 'm' ? 'Monthly' : 'Daily'; ?></td>
 			<td><?= $item->activated == 1 ? '<span class="label label-success"><b>Yes</b></span>' : '<span class="label label-danger"><b>No</b></span>' //$item->activated; ?></td>
 			<td class="text-center">
-				<?= Html::anchor('report/view/'.$item->id, '<i class="fa fa-eye fa-fw fa-lg"></i>'); ?>
-				<?= Html::anchor('report/edit/'.$item->id, '<i class="fa fa-edit fa-fw fa-lg"></i>'); ?>
-				<?= Html::anchor('report/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-lg"></i>', ['class' => 'text-danger', 'onclick' => "return confirm('Are you sure?')"]); ?>
+				<?= Html::anchor('report/builder/view/'.$item->id, '<i class="fa fa-eye fa-fw"></i>', ['class' => 'text-muted vw-btn']); ?>
+				<?= Html::anchor('report/builder/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>', ['class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')"]); ?>
 			</td>
 		</tr>
 <?php endforeach; ?>
@@ -37,6 +37,6 @@
 </table>
 
 <?php else: ?>
-<p>No Reports.</p>
+<p>No Reports found.</p>
 
 <?php endif; ?>

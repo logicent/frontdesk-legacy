@@ -7,7 +7,7 @@
 		<?php if($ugroup->id == 6) : ?>
 		<div class="pull-right btn-toolbar">
 			<div class="btn-group">
-				<?= Html::anchor('report', 'Manage Reports', array('class' => 'btn btn-default')); ?>
+				<?= Html::anchor('report-builder', 'Manage Reports', array('class' => 'btn btn-sm btn-default')); ?>
 			</div>
 			<!-- <div class="btn-group"> -->
 				<?php // echo Html::anchor('#report/period', 'Define Period', array('class' => 'btn btn-info')); ?>
@@ -49,7 +49,7 @@
 
 					<div class="col-md-4">
 						<label class="control-label">&nbsp;</label>
-						<button class="form-control btn btn-info">Generate</button>
+						<button class="form-control btn btn-primary">Generate</button>
 						<!-- <a class="form-control btn btn-default" href="<?= Uri::create('reports/show'); ?>" target="_blank" >Generate</a> -->
 					</div>
 					<?= Form::close(); ?>
@@ -86,7 +86,7 @@
 
 					<div class="col-md-4">
 						<label class="control-label">&nbsp;</label>
-						<button class="form-control btn btn-info">Generate</button>
+						<button class="form-control btn btn-primary">Generate</button>
 					</div>
 					<?= Form::close(); ?>
 				</div>

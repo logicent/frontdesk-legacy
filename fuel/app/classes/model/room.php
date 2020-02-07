@@ -72,6 +72,16 @@ class Model_Room extends Model
 		)
 	);
 
+    protected static $_has_many = array(
+		'reservations' => array(
+			'key_from' => 'id',
+			'model_to' => 'Model_Facility_Reservation',
+			'key_to' => 'room_id',
+			'cascade_save' => false,
+			'cascade_delete' => false,
+		)
+    );
+    
 	public static function hasOpenReservations()
 	{
 
@@ -81,7 +91,7 @@ class Model_Room extends Model
 	{
 		// bookings per room over period
 		$rm_history = Model_Guest_Register::find('all', array('related' => array('room', 'bill'),
-															  'order_by' => array('room_id', 'checkin')));
+                                            'order_by' => array('room_id', 'checkin')));
 
 	}
 }

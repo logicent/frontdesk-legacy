@@ -7,7 +7,7 @@
 		<br>
 		<div class="pull-right btn-toolbar">
 			<div class="btn-group">
-				<?= Html::anchor('room/create', '<i class="fa fa-plus-square-o fa-lg"></i>&ensp;Room', array('class' => 'btn btn-primary')); ?>
+				<?= Html::anchor('room/create', 'New', array('class' => 'btn btn-primary')); ?>
 			</div>
 		</div>
 	</div>
@@ -28,14 +28,13 @@
 	<tbody>
 <?php foreach ($room as $item): ?>
 		<tr>
-			<td><?= $item->name; ?></td>
+			<td><?= Html::anchor('room/edit/'.$item->id, $item->name, ['class' => 'clickable']); ?></td>
 			<td><?= $item->rm_type->name; ?></td>
 			<td><span class=""><?= strtoupper($item->status); ?></span></td>
 			<!--<td><?php //echo $item->hk_status; ?></td>-->
 			<td class="text-center">
-				<?= Html::anchor('room/edit/'.$item->id, '<i class="fa fa-edit fa-fw fa-lg"></i>'); ?>
-				<?= Html::anchor('room/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-lg fa-fw fa-lg"></i>',
-										array('class' => 'text-danger', 'onclick' => "return confirm('Are you sure?')")); ?>
+				<?= Html::anchor('room/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-fw"></i>',
+                                array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
 			</td>
 		</tr>
 <?php endforeach; ?>

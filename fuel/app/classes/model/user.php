@@ -45,6 +45,8 @@ class Model_User extends Model_Soft
 		$val->add_field('previous_login', 'Previous Login', 'max_length[25]');
 		$val->add_field('login_hash', 'Login Hash', 'max_length[255]');
 		$val->add_field('user_id', 'User Id', 'valid_string[numeric]');
+		$val->add_field('fullname', 'Full Name', 'required|max_length[140]');
+		// $val->add_field('mobile', 'Mobile Phone', 'required|max_length[20]');
 
 		return $val;
 	}

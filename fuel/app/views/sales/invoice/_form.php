@@ -3,36 +3,43 @@
 	<div class="form-group">
 		<div class="col-md-2">
 			<?= Form::label('Folio no.', 'invoice_num', array('class'=>'control-label')); ?>
-			<?= Form::input('invoice_num', Input::post('invoice_num', isset($sales_invoice) ? $sales_invoice->invoice_num : Model_Sales_Invoice::getNextSerialNumber()), array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
+            <?= Form::input('invoice_num', Input::post('invoice_num', isset($sales_invoice) ? $sales_invoice->invoice_num : 
+                Model_Sales_Invoice::getNextSerialNumber()), array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
 		</div>
 
 		<div class="col-md-2">
 			<?= Form::label('Status', 'status', array('class'=>'control-label')); ?>
 			<?= Form::hidden('status', Input::post('status', isset($sales_invoice) ? $sales_invoice->status : '')); ?>
-			<?= Form::select('status_list', Input::post('status_list', isset($sales_invoice) ? $sales_invoice->status : ''), Model_Sales_Invoice::$invoice_status, array('class' => 'col-md-4 form-control', 'disabled' => true)); ?>
+            <?= Form::select('status_list', Input::post('status_list', isset($sales_invoice) ? $sales_invoice->status : ''), 
+                    Model_Sales_Invoice::$invoice_status, array('class' => 'col-md-4 form-control', 'disabled' => true)); ?>
 		</div>
 
 		<div class="col-md-offset-4 col-md-4">
 			<?= Form::label('Guest', 'booking_id', array('class'=>'control-label')); ?>
-			<?= Form::hidden('booking_id', Input::post('booking_id', isset($sales_invoice) ? $sales_invoice->booking_id : $booking->id), array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
-			<?= Form::select('guest_id', Input::post('guest_id', isset($sales_invoice) ? $sales_invoice->booking_id : $booking->id), Model_Fd_Booking::listOptions(true), array('class' => 'col-md-4 form-control', 'disabled' => true)); ?>
+            <?= Form::hidden('booking_id', Input::post('booking_id', isset($sales_invoice) ? $sales_invoice->booking_id : $booking->id), 
+                    array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
+            <?= Form::select('guest_id', Input::post('guest_id', isset($sales_invoice) ? $sales_invoice->booking_id : $booking->id), 
+                    Model_Facility_Booking::listOptions(true), array('class' => 'col-md-4 form-control', 'disabled' => true)); ?>
 		</div>
 	</div>
 
 	<div class="form-group">
 		<div class="col-md-2">
 			<?= Form::label('Issue date', 'issue_date', array('class'=>'control-label')); ?>
-			<?= Form::input('issue_date', Input::post('issue_date', isset($sales_invoice) ? $sales_invoice->issue_date : ''), array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
+            <?= Form::input('issue_date', Input::post('issue_date', isset($sales_invoice) ? $sales_invoice->issue_date : ''), 
+                    array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
 		</div>
 
 		<div class="col-md-2">
 			<?= Form::label('Due date', 'due_date', array('class'=>'control-label')); ?>
-			<?= Form::input('due_date', Input::post('due_date', isset($sales_invoice) ? $sales_invoice->due_date : ''), array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
+            <?= Form::input('due_date', Input::post('due_date', isset($sales_invoice) ? $sales_invoice->due_date : ''), 
+                    array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
 		</div>
 
 		<div class="col-md-offset-4 col-md-4">
 			<?= Form::label('Billing address', 'billing_address', array('class'=>'control-label')); ?>
-			<?= Form::textarea('billing_address', Input::post('billing_address', isset($sales_invoice) ? $sales_invoice->billing_address : $booking->address), array('class' => 'col-md-4 form-control')); ?>
+            <?= Form::textarea('billing_address', Input::post('billing_address', isset($sales_invoice) ? $sales_invoice->billing_address : $booking->address), 
+                    array('class' => 'col-md-4 form-control')); ?>
 		</div>
 	</div>
 
@@ -62,23 +69,28 @@
 					</tr>
 				</thead>
 				<tbody>
-			<?php foreach ($sales_invoice->receipts as $item): ?>
-					<tr class="<?= $item->amount > 0 ? : 'strikeout' ?>">
-						<td><?= Html::anchor('cash/receipt/edit/'.$item->id, $item->reference); ?></td>
-						<td><?= $item->date; ?></td>
-						<td><?= $item->description; ?></td>
-						<td class="text-right"><?= number_format($item->amount, 2); ?></td>
-						<!-- <td>
-							<div class="btn-toolbar">
-								<div class="btn-group">
-									<?= Html::anchor('cash/receipt/view/'.$item->id, '<i class="fa fa-eye"></i>', array('class' => 'btn btn-small')); ?>
-									<?= Html::anchor('cash/receipt/edit/'.$item->id, '<i class="fa fa-edit"></i>', array('class' => 'btn btn-small')); ?>
-									<?= Html::anchor('cash/receipt/delete/'.$item->id, '<i class="fa fa-trash"></i>', array('class' => 'btn btn-small', 'onclick' => "return confirm('Are you sure?')")); ?>
-								</div>
-							</div>
-						</td> -->
-					</tr>
-			<?php endforeach; ?>
+            <?php 
+                if (isset($sales_invoice)) :
+                    foreach ($sales_invoice->receipts as $item): ?>
+                        <tr class="<?= $item->amount > 0 ? : 'strikeout' ?>">
+                            <td><?= Html::anchor('cash/receipt/edit/'.$item->id, $item->reference); ?></td>
+                            <td><?= $item->date; ?></td>
+                            <td><?= $item->description; ?></td>
+                            <td class="text-right"><?= number_format($item->amount, 2); ?></td>
+                            <!-- <td>
+                                <div class="btn-toolbar">
+                                    <div class="btn-group">
+                                        <?= Html::anchor('cash/receipt/view/'.$item->id, '<i class="fa fa-eye"></i>', array('class' => 'btn btn-small')); ?>
+                                        <?= Html::anchor('cash/receipt/edit/'.$item->id, '<i class="fa fa-edit"></i>', array('class' => 'btn btn-small')); ?>
+                                        <?= Html::anchor('cash/receipt/delete/'.$item->id, '<i class="fa fa-trash"></i>', array('class' => 'btn btn-small', 
+                                                'onclick' => "return confirm('Are you sure?')")); ?>
+                                    </div>
+                                </div>
+                            </td> -->
+                        </tr>
+                <?php 
+                    endforeach;
+                endif ?>
 				</tbody>
 			</table>
 		</div>
@@ -95,24 +107,28 @@
 			<div class="row">
 				<div class="col-md-6">
 					<?= Form::label('Amount Due', 'amount_due', array('class'=>'control-label')); ?>
-					<?= Form::input('amount_due', Input::post('amount_due', isset($sales_invoice) ? $sales_invoice->amount_due : 0), array('class' => 'col-md-4 form-control text-right', 'readonly' => true)); ?>
+                    <?= Form::input('amount_due', Input::post('amount_due', isset($sales_invoice) ? $sales_invoice->amount_due : 0), 
+                            array('class' => 'col-md-4 form-control text-right', 'readonly' => true)); ?>
 				</div>
 
 				<div class="col-md-6">
 					<?= Form::label('Amount Paid', 'amount_paid', array('class'=>'control-label')); ?>
-					<?= Form::input('amount_paid', Input::post('amount_paid', isset($sales_invoice) ? $sales_invoice->amount_paid : 0), array('class' => 'col-md-4 form-control text-right', 'readonly' => true)); ?>
+                    <?= Form::input('amount_paid', Input::post('amount_paid', isset($sales_invoice) ? $sales_invoice->amount_paid : 0), 
+                            array('class' => 'col-md-4 form-control text-right', 'readonly' => true)); ?>
 				</div>
 
 				<div class="col-md-6">
 					<?= Form::label('Discount Amount', 'disc_total', array('class'=>'control-label')); ?>
-					<?= Form::input('disc_total', Input::post('disc_total', isset($sales_invoice) ? $sales_invoice->disc_total : 0), array('class' => 'col-md-4 form-control text-right')); ?>
+                    <?= Form::input('disc_total', Input::post('disc_total', isset($sales_invoice) ? $sales_invoice->disc_total : 0), 
+                            array('class' => 'col-md-4 form-control text-right')); ?>
 				</div>
 
 				<?= Form::hidden('tax_total', Input::post('tax_total', isset($sales_invoice) ? $sales_invoice->tax_total : 0.0)); ?>
 
 				<div class="col-md-6">
 					<?= Form::label('Balance Due', 'balance_due', array('class'=>'control-label')); ?>
-					<?= Form::input('balance_due', Input::post('balance_due', isset($sales_invoice) ? $sales_invoice->balance_due : 0), array('class' => 'col-md-4 form-control text-right text-red', 'readonly' => true)); ?>
+                    <?= Form::input('balance_due', Input::post('balance_due', isset($sales_invoice) ? $sales_invoice->balance_due : 0), 
+                            array('class' => 'col-md-4 form-control text-right text-red', 'readonly' => true)); ?>
 				</div>
 			</div>
 		</div>
@@ -129,12 +145,14 @@
 				<div class="col-md-6">
 					<?= Form::label('Paid Status', 'paid_status', array('class'=>'control-label')); ?>
 					<?= Form::hidden('paid_status', Input::post('paid_status', isset($sales_invoice) ? $sales_invoice->paid_status : '')); ?>
-					<?= Form::select('paid_status_list', Input::post('paid_status_list', isset($sales_invoice) ? $sales_invoice->paid_status : ''), Model_Sales_Invoice::$invoice_paid_status, array('class' => 'col-md-4 form-control', 'disabled' => true)); ?>
+                    <?= Form::select('paid_status_list', Input::post('paid_status_list', isset($sales_invoice) ? $sales_invoice->paid_status : ''), 
+                            Model_Sales_Invoice::$invoice_paid_status, array('class' => 'col-md-4 form-control', 'disabled' => true)); ?>
 				</div>
 
 				<div class="col-md-6">
 					<?= Form::label('Advance Paid', 'advance_paid', array('class'=>'control-label')); ?>
-					<?= Form::input('advance_paid', Input::post('advance_paid', isset($sales_invoice) ? $sales_invoice->advance_paid : ''), array('class' => 'col-md-4 form-control text-right', 'readonly' => true)); ?>
+                    <?= Form::input('advance_paid', Input::post('advance_paid', isset($sales_invoice) ? $sales_invoice->advance_paid : ''), 
+                            array('class' => 'col-md-4 form-control text-right', 'readonly' => true)); ?>
 				</div>
 			<!-- <div class="form-group">
 				<div class="col-md-3">
@@ -153,9 +171,11 @@
 		</div>
 		<div class="col-md-6">
 			<div class="pull-right btn-group">
-				<?php if ($sales_invoice->status == 'O') : ?>
-				<a href="<?= Uri::create('cash/receipt/create/'.$sales_invoice->guest->id); ?>" class="btn btn-warning ">Add payment</a>
-				<?php endif ?>
+            <?php 
+                if (isset($sales_invoice) && $sales_invoice->status == 'O') : ?>
+				    <a href="<?= Uri::create('cash/receipt/create/'.$sales_invoice->guest->id); ?>" class="btn btn-warning ">Add payment</a>
+            <?php 
+                endif ?>
 			</div>
 		</div>
 	</div>
