@@ -210,6 +210,27 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 
 	}
 
+    public function action_list_by($room = null)
+	{
+        $room = Input::get('room');
+        
+        $data['reservation'] = Model_Facility_Reservation::find('all', 
+            array(
+                'where' => 
+                    array(
+                        array('status', '=', 'Open'),
+                        'room_id' => $room
+                    ), 
+                'order_by' => array('res_no' => 'desc'), 
+                'limit' => 1000
+            )
+        );
+        
+		$this->template->title = "Guest Reservations";
+		$this->template->content = View::forge('facility/reservation/index', $data);
+
+	}
+
 	public function action_confirm($id = null)
 	{
 		echo "Not implemented yet";
