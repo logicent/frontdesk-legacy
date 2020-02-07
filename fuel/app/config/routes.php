@@ -25,8 +25,8 @@ return array(
 
 	'accounts/bank-accounts'    => 'accounts/bank/account',
 	'accounts/bank-deposits'    => 'accounts/bank/deposit',
-	'accounts/invoices'         => 'accounts/salesinvoice',
-	'accounts/receipts'         => 'accounts/payment/receipt',
+	'accounts/sales-invoices'         => 'accounts/salesinvoice',
+	'accounts/sales-receipts'         => 'accounts/payment/receipt',
 	'accounts/expenses'         => 'accounts/payment/expense',
 	'accounts/taxes'            => 'accounts/tax',
 	'accounts/payment-methods'  => 'accounts/payment/method',
