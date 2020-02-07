@@ -45,6 +45,11 @@ class Controller_Login extends Controller_Template
 			}
 		}
 
+        $business = Model_Business::find('first');
+        // run test without business record to see if error occurs
+        // is_null($business) and Response::redirect('business/create'); // should go to installer/setup
+        $this->template->set_global('business', $business, false);
+
 		$this->template->title = 'Login';
 		$this->template->content = View::forge('login', array('val' => $val), false);
 	}

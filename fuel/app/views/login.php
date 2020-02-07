@@ -7,11 +7,12 @@
     <title>E1 FrontDesk</title>
 
     <!-- Core CSS -->
-    <?= Asset::css(array('vendor/bootstrap.min.css',
-                                'vendor/yeti.bootstrap.min.css',
-                                '../font-awesome/css/font-awesome.css',
-                                'sb-admin.css' // SB Admin Scripts
-                            )); ?>
+    <?= Asset::css(
+                    array('vendor/bootstrap.min.css',
+                        'vendor/yeti.bootstrap.min.css',
+                        '../font-awesome/css/font-awesome.css',
+                        'sb-admin.css' // SB Admin Scripts
+                    )); ?>
 </head>
 
 <body>
@@ -34,11 +35,20 @@
                         </p>
                     </div>
 <?php endif; ?>
+                <div class="text-center">
+            <?php
+                if (!empty($business->business_logo)) :
+                    echo Html::img($business->business_logo, ['style' => 'max-width: 240px']) ;
+                else : ?>
+                    <span class="lead"><?= isset($business) ? $business->trading_name : '' ?></span>
+            <?php 
+                endif ?>
+                </div>   
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title text-center">E1 FrontDesk</h3>
                     </div>
-
+                    
                     <div class="panel-body">
                         <form role="form" accept-charset="utf-8" action="<?php //echo Uri::create('login'); ?>" method="post">
                             <fieldset>
