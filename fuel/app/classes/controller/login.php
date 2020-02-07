@@ -141,14 +141,15 @@ class Controller_Login extends Controller_Template
                         // use a view file to generate the email message
                         $email->html_body(
                             // Theme::instance()->view('login/lostpassword')
-                            View::forge('login/lostpassword')
+                            View::forge('login/mail_lostpassword')
                                 ->set('url', Uri::create('login/lostpassword/' . base64_encode($hash) . '/'), false)
                                 ->set('user', $user, false)
                                 ->render()
                         );
 
                         // give it a subject
-                        $email->subject(__('login.password-recovery'));
+                        // $email->subject(__('login.password-recovery'));
+                        $email->subject('FrontDesk Password Reset');
 
                         // add from- and to address
                         // $from = Config::get('application.email-addresses.from.website', 'support@logicent.co');
@@ -224,7 +225,7 @@ class Controller_Login extends Controller_Template
                     {
                         // \Messages::info(__('login.password-recovery-accepted'));
                         Session::set_flash('info', 'Password recovery accepted');
-                        Response::redirect('profile');
+                        Response::redirect('users/edit/' . $user->id);
                     }
                 }
             }
