@@ -31,7 +31,7 @@ return array(
 	'accounts/taxes'            => 'accounts/tax',
 	'accounts/payment-methods'  => 'accounts/payment/method',
 
-    // 'accounts/receipt/to-print/:id' => 'payment/receipt/to_print/$1',
+    'accounts/payment/receipt/to-print/:id' => 'accounts/payment/receipt/to_print/$1',
 
 	'facilities/rooms'      => 'room',
 	'facilities/room-types' => 'room/type',
@@ -54,6 +54,9 @@ return array(
 	'settings/roles'            => 'role',
 
     'calendar/show-bookings'    => 'calendar/show_bookings',
+    'calendar/show-reservations'    => 'calendar/show_reservations',
+
+    'report-builder' => 'report/builder',
 
 	//'reports/:slug' => 'reports/$1',
 	'reports/show-daily-report' => 'reports/show_daily',

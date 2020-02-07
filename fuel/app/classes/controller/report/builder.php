@@ -1,21 +1,21 @@
 <?php
-class Controller_Report extends Controller_Authenticate{
+class Controller_Report_Builder extends Controller_Authenticate{
 
 	public function action_index()
 	{
-		$data['report'] = Model_Report::find('all');
+		$data['report'] = Model_Report_Builder::find('all');
 		$this->template->title = "Report";
 		$this->template->content = View::forge('report/index', $data);
 	}
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('report');
+		is_null($id) and Response::redirect('report-builder');
 
-		if ( ! $data['report'] = Model_Report::find($id))
+		if ( ! $data['report'] = Model_Report_Builder::find($id))
 		{
 			Session::set_flash('error', 'Could not find report #'.$id);
-			Response::redirect('report');
+			Response::redirect('report-builder');
 		}
 
 		$this->template->title = "Report";
@@ -26,11 +26,11 @@ class Controller_Report extends Controller_Authenticate{
 	{
 		if (Input::method() == 'POST')
 		{
-			$val = Model_Report::validate('create');
+			$val = Model_Report_Builder::validate('create');
 
 			if ($val->run())
 			{
-				$report = Model_Report::forge(array(
+				$report = Model_Report_Builder::forge(array(
 					'name' => Input::post('name'),
 					'slug' => Input::post('slug'),
 					'type' => Input::post('type'),
@@ -41,7 +41,7 @@ class Controller_Report extends Controller_Authenticate{
 					if ($report and $report->save())
 					{
 						Session::set_flash('success', 'Added report #'.$report->name.'.');
-						Response::redirect('report');
+						Response::redirect('report-builder');
 					}
 					else
 					{
@@ -64,15 +64,15 @@ class Controller_Report extends Controller_Authenticate{
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('report');
+		is_null($id) and Response::redirect('report-builder');
 
-		if ( ! $report = Model_Report::find($id))
+		if ( ! $report = Model_Report_Builder::find($id))
 		{
 			Session::set_flash('error', 'Could not find report #'.$id);
-			Response::redirect('report');
+			Response::redirect('report-builder');
 		}
 
-		$val = Model_Report::validate('edit');
+		$val = Model_Report_Builder::validate('edit');
 
 		if ($val->run())
 		{
@@ -85,7 +85,7 @@ class Controller_Report extends Controller_Authenticate{
 			{
 				Session::set_flash('success', 'Updated report #' . $id);
 
-				Response::redirect('report');
+				Response::redirect('report-builder');
 			}
 
 			else
@@ -116,9 +116,9 @@ class Controller_Report extends Controller_Authenticate{
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('report');
+		is_null($id) and Response::redirect('report-builder');
 
-		if ($report = Model_Report::find($id))
+		if ($report = Model_Report_Builder::find($id))
 		{
 			$report->delete();
 
@@ -130,7 +130,7 @@ class Controller_Report extends Controller_Authenticate{
 			Session::set_flash('error', 'Could not delete report #'.$id);
 		}
 
-		Response::redirect('report');
+		Response::redirect('report-builder');
 
 	}
 

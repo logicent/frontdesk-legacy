@@ -26,7 +26,7 @@
 <?php foreach ($expenses as $item): ?>
 		<tr>
 			<td>
-				<?= Html::anchor('accounts/payment/expense/edit/'.$item->id, $item->reference); ?>
+				<?= Html::anchor('accounts/payment/expense/edit/'.$item->id, $item->reference, ['class' => 'clickable']); ?>
             </td>
             <td><?= date('d-M-Y', strtotime($item->date)); ?></td>
 			<td><?= $item->payee; ?></td>

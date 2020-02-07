@@ -2,15 +2,15 @@
 
 namespace Fuel\Migrations;
 
-class Create_bank_receipt
+class Create_expense
 {
 	public function up()
 	{
-		\DBUtil::create_table('bank_receipt', array(
+		\DBUtil::create_table('expense', array(
 			'id' => array('constraint' => 11, 'type' => 'int', 'auto_increment' => true, 'unsigned' => true),
-			'reference' => array('constraint' => 20, 'type' => 'varchar'),
+			'reference' => array('constraint' => 11, 'type' => 'int'),
 			'date' => array('type' => 'date'),
-			'payer' => array('constraint' => 50, 'type' => 'varchar'),
+			'payee' => array('constraint' => 50, 'type' => 'varchar'),
 			'gl_account_id' => array('constraint' => 11, 'type' => 'int'),
 			'amount' => array('type' => 'decimal'),
 			'tax_id' => array('constraint' => 11, 'type' => 'int'),
@@ -26,6 +26,6 @@ class Create_bank_receipt
 
 	public function down()
 	{
-		\DBUtil::drop_table('bank_receipt');
+		\DBUtil::drop_table('expense');
 	}
 }

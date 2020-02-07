@@ -7,7 +7,7 @@
 </div>
 <p class="text-center"><?= $business->address; ?></p>
 <!-- <br> -->
-<p class="text-center"><span class="badge label-default">Cash Receipt</span></p>
+<p class="text-center"><span class="badge label-default">Payment Receipt</span></p>
 <hr>
 
 <div class="row">
@@ -15,7 +15,7 @@
         <div><strong>No. :&emsp;</strong><span class="receipt-ID"><?= $receipt->reference; ?><span></div>
     </div>
     <div class="col-md-6 col-sm-6 col-xs-6">
-        <div class="text-right"><strong>Date:&emsp;</strong><?= date('d-M-Y', time($receipt->date)); ?></div>
+        <div class="text-right"><strong>Date:&emsp;</strong><?= date('d-M-Y', strtotime($receipt->date)); ?></div>
     </div>
 </div>
 <hr>

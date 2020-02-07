@@ -19,6 +19,8 @@ class Model_Accounts_Payment_Expense extends Model_Soft
 		'deleted_at'
 	);
 
+	protected static $_table_name = 'expense';
+
 	protected static $_soft_delete = array(
 		//'deleted_field' => 'deleted',
 		'mysql_timestamp' => true,
@@ -50,7 +52,7 @@ class Model_Accounts_Payment_Expense extends Model_Soft
 		return $val;
 	}
 
-	protected static $_table_name = 'cash_payment';
+	// protected static $_table_name = 'cash_payment';
 
 	public static function getNextSerialNumber()
 	{

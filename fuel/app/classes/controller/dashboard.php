@@ -16,15 +16,15 @@ class Controller_Dashboard extends Controller_Authenticate{
         foreach ($room_types as $room_type) {
             $roomTypeHasUndefinedRate = count($room_type->rates) == 0;
             if ($roomTypeHasUndefinedRate) {
-                Session::set_flash('warning', "Add accommodation rate for {$room_type->name}");
-                Response::redirect('accommodation/rates');
+                Session::set_flash('warning', "Add facilities rate for {$room_type->name}");
+                Response::redirect('facilities/rates');
             }
         }
         
 		$rates = Model_Rate::find('first');
 		if (!$rates) {
-			Session::set_flash('warning', 'Add your accommodation rates to enable bookings.');
-			Response::redirect('accommodation/rates');
+			Session::set_flash('warning', 'Add your facilities rates to enable bookings.');
+			Response::redirect('facilities/rates');
 		}
 
 		// perform night audit
@@ -37,17 +37,17 @@ class Controller_Dashboard extends Controller_Authenticate{
 
 		// perform stay over switch
 		$data['checkins'] = DB::select(DB::expr('COUNT(id) as total_ci'))
-										->from('fd_booking')
+										->from('facility_booking')
 										->where(DB::expr('DATE_FORMAT(checkin, "%Y-%m-%d")'), '=', date('Y-m-d'))
 										->where('status', '=', Model_Facility_Booking::GUEST_STATUS_CHECKED_IN)
 										->execute()->as_array();
 		$data['stayovers'] = DB::select(DB::expr('COUNT(id) as total_so'))
-										->from('fd_booking')
+										->from('facility_booking')
 										->where(DB::expr('DATE_FORMAT(checkin, "%Y-%m-%d")'), '!=', date('Y-m-d'))
 										->where('status', '=', Model_Facility_Booking::GUEST_STATUS_CHECKED_IN)
 										->execute()->as_array();
 		$data['checkouts'] = DB::select(DB::expr('COUNT(id) as total_co'))
-										->from('fd_booking')
+										->from('facility_booking')
 										->where(DB::expr('DATE_FORMAT(checkout, "%Y-%m-%d")'), '=', date('Y-m-d'))
 										->where('status', '=', Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT)
 										->execute()->as_array();
@@ -56,18 +56,18 @@ class Controller_Dashboard extends Controller_Authenticate{
 		else $data['rollover_required'] = false;
 
 		$data['receipts'] = DB::select(DB::expr('COALESCE(SUM(amount), 0) as total_amount'))
-											->from('cash_receipt')
-											->where('cash_receipt.date', '=', date('Y-m-d'))
+											->from('sales_payment')
+											->where('sales_payment.date', '=', date('Y-m-d'))
 											->execute()->as_array();
 
 		$data['expenses'] = DB::select(DB::expr('COALESCE(SUM(amount), 0) as total_amount'))
-											->from('cash_payment')
-											->where('cash_payment.date', '=', date('Y-m-d'))
+											->from('expense')
+											->where('expense.date', '=', date('Y-m-d'))
 											->execute()->as_array();
 
 		$data['deposits'] = DB::select(DB::expr('COALESCE(SUM(amount), 0) as total_amount'))
-											->from('bank_receipt')
-											->where('bank_receipt.date', '=', date('Y-m-d'))
+											->from('bank_deposit')
+											->where('bank_deposit.date', '=', date('Y-m-d'))
 											->execute()->as_array();
 
 		$data['rooms_occupied'] = DB::select(DB::expr('COUNT(id) as count'))

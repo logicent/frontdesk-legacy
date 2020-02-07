@@ -21,8 +21,8 @@
 	<tbody>
 <?php foreach ($taxes as $item): ?>		
         <tr>
-            <td><?= Html::anchor('accounts/tax/edit/'.$item->id, $item->tax_identifier); ?></td>
-            <td><?= $item->tax_rate ?></td>
+            <td><?= Html::anchor('accounts/tax/edit/'.$item->id, $item->tax_identifier, ['class' => 'clickable']); ?></td>
+            <td><?= $item->tax_rate . '%' ?></td>
 			<td>
 				<div class="btn-toolbar">
 					<div class="btn-group">

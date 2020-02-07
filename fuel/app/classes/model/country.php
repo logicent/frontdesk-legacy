@@ -31,7 +31,8 @@ class Model_Country extends \Orm\Model
 
 	public static function getDefaultCountry()
 	{
-		return self::find('first', array('where' => array('iso_code_2' => 'KE')))->id;
+		$defaultCountry = self::find('first', array('where' => array('iso_code_2' => 'KE')));
+		return ($defaultCountry) ? $defaultCountry->id : null;
 	}
 	
 }

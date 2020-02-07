@@ -26,15 +26,16 @@
 	<tbody>
 <?php foreach ($email_settings as $item): ?>		<tr>
 
-			<td><?php echo $item->smtp_host; ?></td>
+			<td>
+                <?= Html::anchor('email/settings/edit/'.$item->id, $item->smtp_host,
+                                array('class' => 'clickable')); ?>
+            </td>
 			<td><?php echo $item->smtp_username; ?></td>
 			<td><?php echo $item->smtp_password; ?></td>
 			<td><?php echo $item->smtp_port; ?></td>
 			<td><?php echo $item->smtp_starttls; ?></td>
 			<td><?php echo $item->smtp_timeout; ?></td>
 			<td class="text-center">
-				<?= Html::anchor('email/settings/edit/'.$item->id, '<i class="fa fa-edit fa-fw fa-lg"></i>',
-																array('class' => 'btn btn-sm')); ?>
 				<?= Html::anchor('email/settings/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>',
 																array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
 			</td>

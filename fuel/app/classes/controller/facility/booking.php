@@ -90,14 +90,13 @@ class Controller_Facility_Booking extends Controller_Authenticate
 				));
 
 				// Check if room is assigned or guest is registered already
-				$booking = Model_Facility_Booking::find('first', array('where' => array('room_id' => $booking->room_id, 'status' => Model_Facility_Booking::GUEST_STATUS_CHECKED_IN)));
-				if ($booking)
+				$hasBooking = Model_Facility_Booking::find('first', array('where' => array('room_id' => $booking->room_id, 'status' => Model_Facility_Booking::GUEST_STATUS_CHECKED_IN)));
+				if ($hasBooking)
 				{
 					Session::set_flash('warning', 'Room is already assigned to a guest booking.');
 
 					Response::redirect('dashboard');
 				}
-
 				// Calculate all amounts due for duration
 				Model_Facility_Booking::setBillingAmounts($booking);
 

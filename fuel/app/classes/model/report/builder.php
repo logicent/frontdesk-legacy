@@ -1,7 +1,7 @@
 <?php
 use Orm\Model;
 
-class Model_Report extends Model
+class Model_Report_Builder extends Model
 {
 	const REPORT_TYPE_HOURLY = 'h';
 	const REPORT_TYPE_DAILY = 'd';

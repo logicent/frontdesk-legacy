@@ -1,7 +1,7 @@
-<h2>Editing <span class='muted'>Amenity</span></h2>
+<h2 class="page-header">Editing <span class='text-muted'>Amenity</span>&nbsp;
+<span><?= Html::anchor('facility/amenities', '<i class="fa fa-level-down fa-fw fa-rotate-180"></i> Back to List', array('class' => 'btn btn-xs')); ?></span>
+</h2>
 <br>
 
-<?php echo render('facility/amenity/_form'); ?>
-<p>
-	<?php echo Html::anchor('facility/amenity/view/'.$amenity->id, 'View'); ?> |
-	<?php echo Html::anchor('facility/amenity', 'Back'); ?></p>
+<?= render(__DIR__ . '/_form'); ?>
+

@@ -4,7 +4,7 @@ class Controller_Reports extends Controller_Authenticate
 {
 	public function action_index()
 	{
-		$data['reports'] = Model_Report::find('all', array('where' => array('activated' => true)));
+		$data['reports'] = Model_Report_Builder::find('all', array('where' => array('activated' => true)));
 
 		$this->template->title = 'Reports';
 		$this->template->content = View::forge('reports/index', $data);
@@ -14,7 +14,7 @@ class Controller_Reports extends Controller_Authenticate
 	{
 		$slug = Input::post('rpt_name');
 		$date = Input::post('rpt_date');
-		$data['report'] = Model_Report::find('first', array('where' => array('slug' => $slug)));
+		$data['report'] = Model_Report_Builder::find('first', array('where' => array('slug' => $slug)));
 		$data['report']->date_of = date("dS M, Y", strtotime($date));
 
 		$data = array_merge($data, Model_Report_Creator::generate($slug, $date));
@@ -42,7 +42,7 @@ class Controller_Reports extends Controller_Authenticate
 	{
 		$slug = Input::post('rpt_name');
 		$date = Input::post('rpt_period');
-		$data['report'] = Model_Report::find('first', array('where' => array('slug' => $slug)));
+		$data['report'] = Model_Report_Builder::find('first', array('where' => array('slug' => $slug)));
 		$data['report']->date_of = $date;
 		$data = array_merge($data, Model_Report_Creator::generateMonthly($slug, $date), array('date' => $date));
 

@@ -24,7 +24,7 @@ array('class' => 'col-md-4 form-control')); ?>
 			<div class="col-md-6">
 				<?= Form::label('Phone', 'phone', array('class'=>'control-label')); ?>
 				<?= Form::input('phone', Input::post('phone', isset($reservation) ? $reservation->phone : ''),
-array('class' => 'col-md-4 form-control')); ?>
+                                array('class' => 'col-md-4 form-control')); ?>
 			</div>
 		</div>
 
@@ -37,16 +37,17 @@ array('class' => 'col-md-4 form-control')); ?>
 
 			<div class="col-md-6">
 				<?= Form::label('Country', 'country', array('class'=>'control-label')); ?>
-				<?= Form::select('country', Input::post('country', isset($reservation) ? $reservation->country : Model_Country::getDefaultCountry()), Model_Country::listOptions(false, ''), array('class' => 'col-md-4 form-control')); ?>
+                <?= Form::select('country', Input::post('country', isset($reservation) ? $reservation->country : 
+                                Model_Country::getDefaultCountry()), Model_Country::listOptions(false, ''), 
+                                array('class' => 'col-md-4 form-control')); ?>
 			</div>
 		</div>
-
 
 		<div class="form-group">
 			<div class="col-md-12">
 			<?= Form::label('Address', 'address', array('class'=>'control-label')); ?>
 			<?= Form::textarea('address', Input::post('address', isset($reservation) ? $reservation->address : ''),
-array('class' => 'col-md-4 form-control', 'rows' => 4)); ?>
+                                array('class' => 'col-md-4 form-control', 'rows' => 4)); ?>
 			</div>
 		</div>
 

@@ -95,7 +95,7 @@
 			<?php if (isset($expense)): ?>
 				<div class="pull-right btn-toolbar">
 					<div class="btn-group">
-						<a href="<?= Uri::create('cash/receipt/delete/'.$expense->id); ?>" class="btn btn-danger" >Cancel expense</a>
+						<a href="<?= Uri::create('accounts/payment/expense/delete/'.$expense->id); ?>" class="btn btn-danger" >Cancel expense</a>
 					</div>
 				</div>
 			<?php endif ?>

@@ -27,7 +27,7 @@
 <?php foreach ($rate_type as $item): ?>
 		<tr>
 			<td>
-                <?= Html::anchor('rate/type/edit/'.$item->id, $item->name); ?>
+                <?= Html::anchor('rate/type/edit/'.$item->id, $item->name, ['class' => 'clickable']); ?>
             </td>
 			<td><?= $item->description; ?></td>
 			<td class="text-center">

@@ -15,23 +15,28 @@
 <hr>
 
 <?php if ($amenities): ?>
-<table class="table table-striped">
+<table class="table table-bordered table-hover">
 	<thead>
 		<tr>
-            <th>Code</th>
 			<th>Name</th>
+            <th>Code</th>
+			<th>&nbsp;</th>
 		</tr>
 	</thead>
 	<tbody>
 <?php foreach ($amenities as $item): ?>
         <tr>
+            <td>
+                <?= Html::anchor('facility/amenity/edit/'.$item->id, $item->name, ['class' => 'clickable']) ?>
+            </td>
+            <td><?= $item->code ?></td>
 			<td>
 				<div class="btn-toolbar">
 					<div class="btn-group">
-						<?= Html::anchor('facility/amenity/view/'.$item->id, '<i class="icon-eye-open"></i> View', array('class' => 'btn btn-default btn-sm')); ?>						<?php echo Html::anchor('facility/amenity/edit/'.$item->id, '<i class="icon-wrench"></i> Edit', array('class' => 'btn btn-default btn-sm')); ?>						<?php echo Html::anchor('facility/amenity/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Delete', array('class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('Are you sure?')")); ?>
+                        <?= Html::anchor('facility/amenity/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>', 
+                                        array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")) ?>
                     </div>
 				</div>
-
 			</td>
 		</tr>
 <?php endforeach; ?>

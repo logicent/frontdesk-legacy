@@ -2,11 +2,11 @@
 
 namespace Fuel\Migrations;
 
-class Create_fd_booking
+class Create_facility_booking
 {
 	public function up()
 	{
-		\DBUtil::create_table('fd_booking', array(
+		\DBUtil::create_table('facility_booking', array(
 			'id' => array('constraint' => 11, 'type' => 'int', 'auto_increment' => true, 'unsigned' => true),
 			'reg_no' => array('constraint' => 11, 'type' => 'int'),
 			'folio_no' => array('constraint' => 11, 'type' => 'int', 'null' => true),
@@ -51,6 +51,6 @@ class Create_fd_booking
 
 	public function down()
 	{
-		\DBUtil::drop_table('fd_booking');
+		\DBUtil::drop_table('facility_booking');
 	}
 }

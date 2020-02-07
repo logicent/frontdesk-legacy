@@ -41,19 +41,22 @@ class Controller_Calendar extends Controller_Authenticate
 	public function action_show_reservations($show_del = false)
 	{
 		if ($show_del)
-			$data['events'] = Model_Fd_Reservation::deleted('all');
+			$data['events'] = Model_Facility_Reservation::deleted('all');
 		else
 		{
 			$status = Input::get('status');
 			if (!$status)
-				$status = Model_Fd_Reservation::RESERVATION_STATUS_OPEN;
+				$status = Model_Facility_Reservation::RESERVATION_STATUS_OPEN;
 
-			$data['events'] = Model_Fd_Reservation::find('all', array('where' => array(
+			$data['events'] = Model_Facility_Reservation::find('all', array('where' => array(
 				array('status', '=', $status)), 'order_by' => array('res_no' => 'desc'), 'limit' => 1000));
-		}
-
-		$data['status'] = $status;        
-        // return json data of open reservations (current period)
+        }
+        
+        $data['status'] = $status;
+        
+        $data['events'] = $this->prepare_calendar_data($data['events']);
+        
+        return $data['events'];
 	}
 
 	public function action_show_bookings($show_del = false)

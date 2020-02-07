@@ -67,7 +67,7 @@
 				<td class="text-right"><?= number_format(Model_Rate::find('first', ['where' => ['type_id' => $item->room->rm_type->id]])->charges, 2); ?></td>
 				<!-- <td><?php //echo $item->g_country->iso_code_2; ?></td> -->
 				<td class="text-center">
-                    <?= Html::anchor('facility/booking/view/'.$item->id, '<i class="fa fa-eye fa-fw fa-lg"></i>'); ?>
+                    <?= Html::anchor('facility/booking/view/'.$item->id, '<i class="fa fa-eye fa-fw"></i>', ['class' => 'text-muted']); ?>
                     
 					<?php if ($ugroup->id == 5 && $item->status != Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT) : ?>
                         <?= Html::anchor('facility/booking/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>', 

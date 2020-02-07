@@ -32,6 +32,8 @@ class Model_Accounts_Payment_Receipt extends Model_Soft
 		'deleted_at'
 	);
 
+	protected static $_table_name = 'sales_payment';
+
 	protected static $_soft_delete = array(
 		//'deleted_field' => 'deleted',
 		'mysql_timestamp' => true,
@@ -66,7 +68,7 @@ class Model_Accounts_Payment_Receipt extends Model_Soft
 		return $val;
 	}
 
-	protected static $_table_name = 'cash_receipt';
+	// protected static $_table_name = 'cash_receipt';
 
 	protected static $_belongs_to = array(
 		'invoice' => array(
