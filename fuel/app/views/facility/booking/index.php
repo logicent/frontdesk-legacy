@@ -42,8 +42,8 @@
 		<thead>
 			<tr>
 				<!-- <th><input name="_id" type="checkbox" id="list_sel"></th> -->
-				<th>Reg no.</th>
 				<th>Guest name</th>
+				<th>Reg no.</th>
 				<th>Phone no.</th>
 				<th>Room no.</th>
 				<th>Check in</th>
@@ -58,8 +58,8 @@
         foreach ($booking as $item): ?>
 			<tr>
 				<!-- <td><input class="row-sel" type="checkbox"><input class="row-id" type="hidden" name="id[<?= $item->id; ?>]" id="form_id[<?= $item->id; ?>]"></td> -->
-				<td><?= $item->reg_no; ?></td>
                 <td><?= Html::anchor('facility/booking/edit/'. $item->id, ucwords($item->first_name .' '. $item->last_name), ['class' => 'clickable']) ?></td>
+				<td><?= $item->reg_no; ?></td>
 				<td><?= $item->phone; ?></td>
 				<td><?= $item->room->name; ?></td>
 				<td><?= date('d-M-Y H:i', strtotime($item->checkin)); ?></td>

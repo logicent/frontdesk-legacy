@@ -19,8 +19,8 @@
 <table class="table table-bordered table-hover table-striped datatable">
 	<thead>
 		<tr>
-			<th>Res no.</th>
 			<th>Guest</th>
+			<th>Res no.</th>
 			<th>Pax (A/C)</th>
 			<th>Country</th>
 			<th>Checkin</th>
@@ -31,9 +31,9 @@
 	<tbody>
 <?php foreach ($reservation as $item): ?>
 		<tr>
-			<td><?= $item->room->name . '-' . $item->res_no; ?></td>
             <td><?= Html::anchor('facility/reservation/edit/'. $item->id, 
                                 ucwords($item->first_name .' '. $item->last_name), ['class' => 'clickable']) ?></td>
+			<td><?= $item->room->name . '-' . $item->res_no; ?></td>
 			<td><?= $item->pax_adults.'/'.$item->pax_children; ?></td>
 			<td><?= $item->g_country->iso_code_2; ?></td>
 			<td><?= date('M d Y', strtotime($item->checkin)); ?></td>
