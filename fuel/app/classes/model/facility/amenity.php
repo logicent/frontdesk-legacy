@@ -30,9 +30,9 @@ class Model_Facility_Amenity extends Model
 		$val = Validation::forge($factory);
 		$val->add_field('code', 'Code', 'required');
         $val->add_field('name', 'Name', 'required');
-        $val->add_field('is_billable', 'Is Billable', 'boolean');
-        $val->add_field('is_metered', 'Is Metered', 'boolean');
-        $val->add_field('is_default', 'Is Default', 'boolean');
+        // $val->add_field('is_billable', 'Is Billable', '');
+        // $val->add_field('is_metered', 'Is Metered', '');
+        // $val->add_field('is_default', 'Is Default', '');
         
 		return $val;
 	}

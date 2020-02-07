@@ -21,7 +21,7 @@
 	<tbody>
     <?php foreach ($payment_methods as $item): ?>	
         <tr>
-            <td><?= Html::anchor('accounts/payment/method/edit/'.$item->id, $item->name, ['class' => '']) ?></td>
+            <td><?= Html::anchor('accounts/payment/method/edit/'.$item->id, $item->name, ['class' => 'clickable']) ?></td>
             <td><?= $item->code ?></td>
             <td>
                 <div class="btn-toolbar">

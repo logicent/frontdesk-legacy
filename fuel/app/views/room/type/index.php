@@ -26,8 +26,8 @@
 	<tbody>
 <?php foreach ($room_type as $item): ?>		
         <tr>
-			<td>
-                <?= Html::anchor('room/type/edit/'.$item->id, $item->name); ?>
+			<td class="col-md-4">
+                <?= Html::anchor('room/type/edit/'.$item->id, $item->name, ['class' => 'clickable']); ?>
             </td>
 			<td><?= $item->description; ?></td>
 			<td class="text-center">

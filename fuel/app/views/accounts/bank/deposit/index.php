@@ -26,11 +26,11 @@
 <?php foreach ($bank_deposits as $item): ?>
 		<tr>
 			<td>
-				<?= Html::anchor('accounts/bank/deposit/edit/'.$item->id, $item->reference); ?>
+				<?= Html::anchor('accounts/bank/deposit/edit/'.$item->id, $item->reference, ['class' => 'clickable']); ?>
             </td>
 			<td><?= $item->date; ?></td>
 			<td><?= $item->amount; ?></td>
-			<td><?= $item->bank_account_id; ?></td>
+			<td><?= $item->bank_account->account_number; ?></td>
 			<td><?= $item->description; ?></td>
 			<td class="text-center">
 				<?= Html::anchor('accounts/bank/deposit/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>', array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>

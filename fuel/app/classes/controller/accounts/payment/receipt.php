@@ -5,7 +5,7 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 	public function action_index()
 	{
 		// filter by open invoice receipts
-		$data['cash_receipts'] = Model_Accounts_Payment_Receipt::find('all', array('order_by' => array('reference' => 'desc'), 'limit' => 1000));
+		$data['payment_receipts'] = Model_Accounts_Payment_Receipt::find('all', array('order_by' => array('reference' => 'desc'), 'limit' => 1000));
 		$this->template->title = "Receipts";
 		$this->template->content = View::forge('accounts/payment/receipt/index', $data);
 	}
@@ -14,7 +14,7 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('accounts/receipts');
 
-		if ( ! $data['cash_receipt'] = Model_Accounts_Payment_Receipt::find($id))
+		if ( ! $data['payment_receipt'] = Model_Accounts_Payment_Receipt::find($id))
 		{
 			Session::set_flash('error', 'Could not find cash receipt #'.$id);
 			Response::redirect('accounts/receipts');
@@ -36,7 +36,7 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 
 			if ($val->run())
 			{
-				$cash_receipt = Model_Accounts_Payment_Receipt::forge(array(
+				$payment_receipt = Model_Accounts_Payment_Receipt::forge(array(
 					'reference' => Input::post('reference'),
 					'bill_id' => Input::post('bill_id'),
 					'date' => Input::post('date'),
@@ -50,12 +50,12 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 				));
 
 				try {
-					if ($cash_receipt and $cash_receipt->save())
+					if ($payment_receipt and $payment_receipt->save())
 					{
 						// update Invoice and Guest Card
-						Model_Accounts_Payment_Receipt::updateInvoiceSettlement($bill, $cash_receipt->amount);
-						Session::set_flash('success', 'Added cash receipt #'.$cash_receipt->reference.'.');
-						Response::redirect('accounts/payment/receipt/view/'.$cash_receipt->id);
+						Model_Accounts_Payment_Receipt::updateInvoiceSettlement($bill, $payment_receipt->amount);
+						Session::set_flash('success', 'Added cash receipt #'.$payment_receipt->reference.'.');
+						Response::redirect('accounts/payment/receipt/view/'.$payment_receipt->id);
 					}
 				}
 				catch (Fuel\Core\Database_Exception $e)
@@ -78,7 +78,7 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('accounts/receipts');
 
-		if ( ! $cash_receipt = Model_Accounts_Payment_Receipt::find($id))
+		if ( ! $payment_receipt = Model_Accounts_Payment_Receipt::find($id))
 		{
 			Session::set_flash('error', 'Could not find cash receipt #'.$id);
 			Response::redirect('accounts/receipts');
@@ -88,20 +88,20 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 
 		if ($val->run())
 		{
-			$cash_receipt->reference = Input::post('reference');
-			$cash_receipt->bill_id = Input::post('bill_id');
-			$cash_receipt->date = Input::post('date');
-			$cash_receipt->payer = Input::post('payer');
-			$cash_receipt->gl_account_id = Input::post('gl_account_id');
-			$cash_receipt->amount = Input::post('amount');
-			$cash_receipt->tax_id = Input::post('tax_id');
-			$cash_receipt->bank_account_id = Input::post('bank_account_id');
-			$cash_receipt->description = Input::post('description');
-			$cash_receipt->fdesk_user = Input::post('fdesk_user');
+			$payment_receipt->reference = Input::post('reference');
+			$payment_receipt->bill_id = Input::post('bill_id');
+			$payment_receipt->date = Input::post('date');
+			$payment_receipt->payer = Input::post('payer');
+			$payment_receipt->gl_account_id = Input::post('gl_account_id');
+			$payment_receipt->amount = Input::post('amount');
+			$payment_receipt->tax_id = Input::post('tax_id');
+			$payment_receipt->bank_account_id = Input::post('bank_account_id');
+			$payment_receipt->description = Input::post('description');
+			$payment_receipt->fdesk_user = Input::post('fdesk_user');
 
-			if ($cash_receipt->save())
+			if ($payment_receipt->save())
 			{
-				Session::set_flash('success', 'Updated cash receipt #' . $cash_receipt->reference);
+				Session::set_flash('success', 'Updated cash receipt #' . $payment_receipt->reference);
 
 				Response::redirect('accounts/receipts');
 			}
@@ -116,21 +116,21 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 		{
 			if (Input::method() == 'POST')
 			{
-				$cash_receipt->reference = $val->validated('reference');
-				$cash_receipt->bill_id = $val->validated('bill_id');
-				$cash_receipt->date = $val->validated('date');
-				$cash_receipt->payer = $val->validated('payer');
-				$cash_receipt->gl_account_id = $val->validated('gl_account_id');
-				$cash_receipt->amount = $val->validated('amount');
-				$cash_receipt->tax_id = $val->validated('tax_id');
-				$cash_receipt->bank_account_id = $val->validated('bank_account_id');
-				$cash_receipt->description = $val->validated('description');
-				$cash_receipt->fdesk_user = $val->validated('fdesk_user');
+				$payment_receipt->reference = $val->validated('reference');
+				$payment_receipt->bill_id = $val->validated('bill_id');
+				$payment_receipt->date = $val->validated('date');
+				$payment_receipt->payer = $val->validated('payer');
+				$payment_receipt->gl_account_id = $val->validated('gl_account_id');
+				$payment_receipt->amount = $val->validated('amount');
+				$payment_receipt->tax_id = $val->validated('tax_id');
+				$payment_receipt->bank_account_id = $val->validated('bank_account_id');
+				$payment_receipt->description = $val->validated('description');
+				$payment_receipt->fdesk_user = $val->validated('fdesk_user');
 
 				Session::set_flash('error', $val->error());
 			}
 
-			$this->template->set_global('cash_receipt', $cash_receipt, false);
+			$this->template->set_global('payment_receipt', $payment_receipt, false);
 		}
 
 		$this->template->title = "Receipts";
@@ -141,20 +141,20 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('accounts/receipts');
 
-		if ($cash_receipt = Model_Accounts_Payment_Receipt::find($id))
+		if ($payment_receipt = Model_Accounts_Payment_Receipt::find($id))
 		{
 			// prepare transaction reversal amount
-			$reverse_amount = -1 * $cash_receipt->amount;
+			$reverse_amount = -1 * $payment_receipt->amount;
 			// unset the receipt amount
-			$cash_receipt->amount = 0;
-			if ($cash_receipt->save()) // save to preserve audit trail or soft_delete after save
+			$payment_receipt->amount = 0;
+			if ($payment_receipt->save()) // save to preserve audit trail or soft_delete after save
 			{
 				// update Invoice and Guest Card
-				Model_Accounts_Payment_Receipt::updateInvoiceSettlement($cash_receipt->invoice, $reverse_amount);
+				Model_Accounts_Payment_Receipt::updateInvoiceSettlement($payment_receipt->invoice, $reverse_amount);
 			}
 			//if (is_null(Model_Accounts_Payment_Receipt::find($id)))
 				// updateInvoiceSettlement
-			Session::set_flash('success', 'Canceled cash receipt #'.$cash_receipt->reference);
+			Session::set_flash('success', 'Canceled cash receipt #'.$payment_receipt->reference);
 		}
 		else
 		{
@@ -171,7 +171,7 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 
 		$view = View::forge('template_hc');
 		$view->title = 'Receipt';
-		$view->content = View::forge('document/cash_receipt', $data);
+		$view->content = View::forge('document/payment_receipt', $data);
 
 		return new Response($view);
 	}

@@ -9,7 +9,7 @@
 </div>
 <hr>
 
-<?php if ($cash_receipts): ?>
+<?php if ($payment_receipts): ?>
 <table class="table table-bordered table-hover table-striped datatable">
 	<thead>
 		<tr>
@@ -21,22 +21,23 @@
 		</tr>
 	</thead>
 	<tbody>
-<?php foreach ($cash_receipts as $item): ?>
+<?php foreach ($payment_receipts as $item): ?>
 		<tr class="<?= $item->amount > 0 ? : 'strikeout text-muted' ?>">
-			<td><?= $item->reference; ?></td>
+			<td>
+                <?php if ($item->amount > 0) : ?>
+					<?= Html::anchor('accounts/payment/receipt/edit/'.$item->id, $item->reference, ['class' => 'clickable']); ?>
+				<?php endif; ?>
+            </td>
 			<td><?= date('d-M-Y', strtotime($item->date)); ?></td>
 			<td><?= $item->payer; ?></td>
 			<td class="text-right"><?= number_format($item->amount, 2); ?></td>
 			<td class="text-center">
 				<?php // Html::anchor('cash/receipt/view/'.$item->id, '<i class="fa fa-eye fa-fw fa-lg"></i>'); ?>
 				<?php if ($item->amount > 0) : ?>
-					<?= Html::anchor('front-desk/receipts/to-print/'.$item->id, '<i class="fa fa-print fa-fw fa-lg"></i>', ['class' => 'text-muted', 'target' => '_blank']); ?>
-				<?php endif; ?>
-				<?php if ($item->amount > 0) : ?>
-					<?= Html::anchor('cash/receipt/edit/'.$item->id, '<i class="fa fa-edit fa-fw fa-lg"></i>', ['class' => 'text-warning']); ?>
+					<?= Html::anchor('accounts/payment/receipt/to-print/'.$item->id, '<i class="fa fa-print fa-fw"></i>', ['class' => 'text-muted', 'target' => '_blank']); ?>
 				<?php endif; ?>
 				<?php if ($ugroup->id == 5 && $item->amount > 0) : ?>
-					<?= Html::anchor('cash/receipt/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>', ['class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')"]); ?>
+					<?= Html::anchor('accounts/payment/receipt/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>', ['class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')"]); ?>
 				<?php endif; ?>
 			</td>
 		</tr>

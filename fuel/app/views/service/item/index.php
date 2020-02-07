@@ -25,14 +25,14 @@
 <?php foreach ($service_items as $item): ?>
 		<tr>
 			<td>
-                <?= Html::anchor('service/item/edit/'.$item->id, $item->item); ?>
+                <?= Html::anchor('service/item/edit/'.$item->id, $item->item, ['class' => 'clickable']); ?>
             </td>
 			<td><?= $item->description; ?></td>
 			<td><?= $item->qty; ?></td>
 			<td><?= $item->unit_price; ?></td>
 			<td class="text-center">
 				<?= Html::anchor('service/item/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>',
-																array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
+                                array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
 			</td>
 		</tr>
 <?php endforeach; ?>

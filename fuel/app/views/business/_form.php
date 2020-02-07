@@ -25,7 +25,10 @@
                     <?= Form::input('business_logo', Input::post('business_logo', isset($business) ? $business->business_logo : ''),
                             array('id' => 'logo_path', 'class' => 'col-md-4 form-control', 'readonly' => true)); ?>
                     <span id="rm_img" class="input-group-addon">
-                        <?= Html::anchor(Uri::create('business/remove_img/' . $business->id), '<i class="fa fa-trash-o text-red"></i>') ?>
+                        <?php 
+                        if ($business) :
+                            echo Html::anchor(Uri::create('business/remove_img/' . $business->id), '<i class="fa fa-trash-o text-red"></i>');
+                        endif ?>
                     </span>
                 </div>
             </div>

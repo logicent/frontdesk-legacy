@@ -4,6 +4,3 @@
 <br>
 
 <?= render(__DIR__ . '/_form'); ?>
-<!--
-<?= Html::anchor('cash/receipt/view/'.$cash_receipt->id, 'View'); ?>
--->

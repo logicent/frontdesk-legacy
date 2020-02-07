@@ -28,7 +28,7 @@
 <?php foreach ($rate as $item): ?>
 		<tr>
 			<td>
-                <?= Html::anchor('rate/edit/'.$item->id, $item->room_type->name); ?>
+                <?= Html::anchor('rate/edit/'.$item->id, $item->room_type->name, ['class' => 'clickable']); ?>
             </td>
 			<td><?= $item->rate_type->name; ?></td>
 			<td class="text-right"><?= number_format($item->charges, 2); ?></td>

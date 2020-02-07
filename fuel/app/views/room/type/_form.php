@@ -11,8 +11,8 @@
 	<div class="form-group">
 		<div class="col-md-6">
 		<?= Form::label('Description', 'description', array('class'=>'control-label')); ?>
-		<?= Form::input('description', Input::post('description', isset($room_type) ? $room_type->description : ''),
-							   array('class' => 'col-md-4 form-control')); ?>
+        <?= Form::textarea('description', Input::post('description', isset($room_type) ? $room_type->description : ''),
+                                                array('class' => 'col-md-4 form-control', 'rows' => 4)); ?>        
 		</div>
 	</div>
 	<hr>

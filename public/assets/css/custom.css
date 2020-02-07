@@ -146,3 +146,12 @@ ul#side-menu > li {
 .del-btn:hover {
     color: #f04124;
 }
+
+.label.floating {
+    background-color: #ed1c24;
+    position: absolute;
+    top: -0.75em;
+    left: -0.85em;
+    font-size: 10px;
+    border-radius: 7px;
+}

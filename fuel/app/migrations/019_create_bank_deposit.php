@@ -2,15 +2,15 @@
 
 namespace Fuel\Migrations;
 
-class Create_cash_payment
+class Create_bank_deposit
 {
 	public function up()
 	{
-		\DBUtil::create_table('cash_payment', array(
+		\DBUtil::create_table('bank_deposit', array(
 			'id' => array('constraint' => 11, 'type' => 'int', 'auto_increment' => true, 'unsigned' => true),
-			'reference' => array('constraint' => 11, 'type' => 'int'),
+			'reference' => array('constraint' => 20, 'type' => 'varchar'),
 			'date' => array('type' => 'date'),
-			'payee' => array('constraint' => 50, 'type' => 'varchar'),
+			'payer' => array('constraint' => 50, 'type' => 'varchar'),
 			'gl_account_id' => array('constraint' => 11, 'type' => 'int'),
 			'amount' => array('type' => 'decimal'),
 			'tax_id' => array('constraint' => 11, 'type' => 'int'),
@@ -26,6 +26,6 @@ class Create_cash_payment
 
 	public function down()
 	{
-		\DBUtil::drop_table('cash_payment');
+		\DBUtil::drop_table('bank_deposit');
 	}
 }

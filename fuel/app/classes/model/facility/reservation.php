@@ -89,7 +89,7 @@ class Model_Facility_Reservation extends Model_Soft
 		return $val;
 	}
 
-	protected static $_table_name = 'fd_reservation';
+	protected static $_table_name = 'facility_reservation';
 
 	protected static $_has_one = array(
 		'room' => array(
@@ -120,5 +120,6 @@ class Model_Facility_Reservation extends Model_Soft
 		if (self::find('last'))
 			return self::find('last')->res_no + 1; // reference
 		else return 1; // initial record
-	}
+    }
+    
 }

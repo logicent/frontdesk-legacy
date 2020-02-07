@@ -25,7 +25,7 @@
 <?php foreach ($bank_accounts as $item): ?>
 		<tr>
 			<td>
-                <?= Html::anchor('accounts/bank/account/edit/'.$item->id, $item->name); ?>
+                <?= Html::anchor('accounts/bank/account/edit/'.$item->id, $item->name, ['class' => 'clickable']); ?>
             </td>
 			<td><?= $item->account_number; ?></td>
 			<td><?= $item->financial_institution; ?></td>

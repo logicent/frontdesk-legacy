@@ -116,96 +116,124 @@
 <!-- Rooms Board -->
 <div class="row">
     <div class="col-md-12">
-        <?php if ($audit_required && $ugroup->id == 5) : ?>
+    <?php 
+        if ($audit_required && $ugroup->id == 5) : ?>
             <a class="btn btn-danger" href="<?= Uri::create("dashboard/nightaudit/".date('Y-m-d', time())); ?>">Run Nightly Audit</a>
-        <?php endif; ?>
-        <?php if ($rollover_required && $ugroup->id == 5) : ?>
+    <?php 
+        endif;
+        if ($rollover_required && $ugroup->id == 5) : ?>
             <a class="btn btn-danger" href="<?= Uri::create("facility/bookings/stayover/".date('Y-m-d', time())); ?>">Run Stay Over</a>
-        <?php endif; ?>
+    <?php 
+        endif; ?>
     </div>
 </div>
 
-<?php foreach($room_types as $rt) : ?>
-    <?php $occupied_count = $vacant_count = $blocked_count = 0; ?>
+<?php 
+    foreach($room_types as $rt) :
+        $occupied_count = $vacant_count = $blocked_count = 0; ?>
+
     <div class="panel panel-default dash-panel text-center">
-        <?php $rate_amount = DB::select('charges')->from('rate')->where('type_id', $rt->id)->execute()->as_array(); ?>
+
+    <?php 
+        $rate_amount = DB::select('charges')->from('rate')->where('type_id', $rt->id)->execute()->as_array(); ?>
+
         <h3 class="panel-heading"><?= $rt->name . '<span class="small">&nbsp;@&nbsp;'. $business->currency_symbol . '&nbsp;' . $rate_amount[0]['charges']. '</span>'; ?></h3>
         <!-- <br> -->
         <div class="panel-body">
-        <?php foreach($rt->rooms as $room) : ?>
-          <div class="btn-group dash-btn-group">
-              <?php if ($room->status == Model_Room::ROOM_STATUS_OCCUPIED) : ?>
-                  <?php $occupied_count += 1 ?>
-                  <?php foreach($guest_list as $guest) : ?>
-                      <?php if ($guest->room_id != $room->id) continue; ?>
-                <!--<button type="button" class="btn btn-warning"><?= $room->name;?></button>-->
-                <button type="button" class="btn btn-warning dropdown-toggle dash-btn" data-toggle="dropdown">
-                  <?= $room->name;?>
-                  <!-- <span class="caret"></span> -->
+    
+        <?php 
+            foreach($rt->rooms as $room) :
+            // check if room has reservations
+            $resMarker = '';
+            if (count($room->reservations) > 0) :
+                $resMarker = "<label class='label label-default floating'>" . count($room->reservations) . "</label>";
+            endif ?>
+
+            <div class="btn-group dash-btn-group">
+            <?php 
+                if ($room->status == Model_Room::ROOM_STATUS_OCCUPIED) :
+                    $occupied_count += 1;
+                    foreach($guest_list as $guest) :
+                        if ($guest->room_id != $room->id) continue; ?>
+                        <!--<button type="button" class="btn btn-warning"><?= $room->name;?></button>-->
+                        <button type="button" class="btn btn-warning dropdown-toggle dash-btn" data-toggle="dropdown">
+                        <?= $room->name ?>
+                        <?= $resMarker ?>
+                        <!-- <span class="caret"></span> -->
+                        </button>
+
+                        <?php // if ($ugroup->id == 6) continue; ?>
+
+                        <ul class="dropdown-menu dash-dd-menu" role="menu">
+                    <?php 
+                        if (!is_null($guest->bill)) : ?>
+                            <li><a href="<?= Uri::create("accounts/payment/receipt/create/{$guest->bill->id}"); ?>">Receive Money</a></li>
+                            <li><a onclick="return confirm('Are you sure?')" href="<?= Uri::create('facility/booking/checkout/'.$guest->id); ?>">Check Out</a></li>
+                    <?php 
+                        endif ?>
+                        <li class="divider"></li>
+                        <li><a href="<?= Uri::create("facility/booking/edit/$guest->id"); ?>">Edit Booking</a></li>
+                    <?php 
+                        if (!is_null($guest->bill)) : ?>
+                            <li><a href="<?= Uri::create("accounts/salesinvoice/edit/{$guest->bill->id}"); ?>">Invoice</a></li>
+                    <?php 
+                        endif ?>
+                        </ul>
+                        <?php 
+                    endforeach;
+                endif; ?>
+
+            <?php 
+                if ($room->status == Model_Room::ROOM_STATUS_VACANT) :
+                    $vacant_count += 1; ?>
+                <button type="button" class="btn btn-success dropdown-toggle dash-btn" data-toggle="dropdown">
+                    <?= $room->name ?>
+                    <?= $resMarker ?>
+                <!-- <span class="caret"></span> -->
                 </button>
 
                 <?php // if ($ugroup->id == 6) continue; ?>
 
                 <ul class="dropdown-menu dash-dd-menu" role="menu">
-            <?php 
-                if (!is_null($guest->bill)) : ?>
-                    <li><a href="<?= Uri::create("accounts/payment/receipt/create/{$guest->bill->id}"); ?>">Receive Money</a></li>
-                    <li><a onclick="return confirm('Are you sure?')" href="<?= Uri::create('facility/booking/checkout/'.$guest->id); ?>">Check Out</a></li>
-            <?php 
-                endif ?>
-                  <li class="divider"></li>
-                  <li><a href="<?= Uri::create("facility/booking/edit/$guest->id"); ?>">Edit Booking</a></li>
-            <?php 
-                if (!is_null($guest->bill)) : ?>
-                    <li><a href="<?= Uri::create("accounts/salesinvoice/edit/{$guest->bill->id}"); ?>">Invoice</a></li>
-            <?php 
-                endif ?>
-                </ul>
-                <?php endforeach; ?>
-              <?php endif; ?>
-
-              <?php if ($room->status == Model_Room::ROOM_STATUS_VACANT) : ?>
-                  <?php $vacant_count += 1 ?>
-                  <button type="button" class="btn btn-success dropdown-toggle dash-btn" data-toggle="dropdown">
-                    <?= $room->name; ?>
-                    <!-- <span class="caret"></span> -->
-                  </button>
-
-                  <?php // if ($ugroup->id == 6) continue; ?>
-
-                  <ul class="dropdown-menu dash-dd-menu" role="menu">
                     <li><a href="<?= Uri::create("facility/booking/create/$room->id"); ?>">New Booking</a></li>
                     <li><a href="<?= Uri::create("facility/reservation/create/$room->id"); ?>">New Reservation</a></li>
-                    <?php if ($ugroup->id == 5) : ?>
-                        <!-- <li class="divider"></li>
-                        <li><a href="<?php //= Uri::create("room/block/$room->id"); ?>">Block Room</a></li> -->
-                    <?php endif ?>
-                  </ul>
-              <?php endif; ?>
+                <?php 
+                    if ($ugroup->id == 5) : ?>
+                    <!-- <li class="divider"></li>
+                    <li><a href="<?php //= Uri::create("room/block/$room->id"); ?>">Block Room</a></li> -->
+                <?php 
+                    endif ?>
+                </ul>
+            <?php endif; ?>
 
-              <?php if ($room->status == Model_Room::ROOM_STATUS_BLOCKED) : ?>
-                  <?php $blocked_count += 1 ?>
-                  <button type="button" class="btn btn-default dropdown-toggle dash-btn" data-toggle="dropdown">
+            <?php 
+                if ($room->status == Model_Room::ROOM_STATUS_BLOCKED) :
+                    $blocked_count += 1; ?>
+                <button type="button" class="btn btn-default dropdown-toggle dash-btn" data-toggle="dropdown">
                     <?= $room->name ?>
-                    <!-- <span class="caret"></span> -->
-                  </button>
-                  <?php if ($ugroup->id == 5) : ?>
-                      <ul class="dropdown-menu dash-dd-menu" role="menu">
+                <!-- <span class="caret"></span> -->
+                </button>
+            <?php 
+                if ($ugroup->id == 5) : ?>
+                    <ul class="dropdown-menu dash-dd-menu" role="menu">
                         <li><a href="<?= Uri::create("room/unblock/$room->id"); ?>">Unblock Room</a></li>
-                      </ul>
-                  <?php endif; ?>
-              <?php endif; ?>
+                    </ul>
+            <?php 
+                endif; ?>
+        <?php 
+            endif; ?>
 
-          </div><!-- /.btn-group -->
+            </div><!-- /.btn-group -->
         <?php endforeach; ?>
         </div><!-- /.panel-body -->
         <div class="panel-footer">
             <div class="text-muted">
-                <i class="fa fa-circle fa-fw text-success"></i> Vacant: <span class="label label-default"><?= $vacant_count ?></span>&ensp;|&nbsp;
-                <i class="fa fa-circle fa-fw text-warning"></i> Occupied: <span class="label label-default"><?= $occupied_count ?></span>&ensp;|&nbsp;
-                <i class="fa fa-circle fa-fw text-default"></i> Blocked: <span class="label label-default"><?= $blocked_count ?></span>&ensp;|&nbsp;
-                Total: <span class="label label-default"><?= count($rt->rooms) ?></span>
+                <i class="fa fa-circle fa-fw text-success"></i> Vacant: <span><?= $vacant_count ?></span>&emsp; | &ensp;
+                <i class="fa fa-circle fa-fw text-warning"></i> Occupied: <span><?= $occupied_count ?></span>&emsp; | &ensp;
+                <i class="fa fa-circle fa-fw text-default"></i> Blocked: <span><?= $blocked_count ?></span>&emsp; | &ensp;
+                Total: <span><?= count($rt->rooms) ?></span>
             </div>
         </div><!-- /.panel-body -->
-      </div><!-- /.panel -->
-<?php endforeach; ?>
+    </div><!-- /.panel -->
+<?php 
+    endforeach; ?>

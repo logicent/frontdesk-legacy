@@ -130,7 +130,7 @@ class Model_Facility_Booking extends Model_Soft
 		return $val;
 	}
 
-	protected static $_table_name = 'fd_booking';
+	protected static $_table_name = 'facility_booking';
 
 	// public static function after_save($this)
 	// {// updated related table data if save succeeded

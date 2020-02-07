@@ -50,10 +50,10 @@ class Model_Accounts_Bank_Deposit extends Model_Soft
 		return $val;
 	}
 
-	protected static $_table_name = 'bank_receipt';
+	protected static $_table_name = 'bank_deposit';
 
 	protected static $_belongs_to = array(
-		'invoice' => array(
+		'bank_account' => array(
 			'key_from' => 'bank_account_id',
 			'model_to' => 'Model_Accounts_Bank_Account',
 			'key_to' => 'id',

@@ -95,7 +95,7 @@ class Controller_Users extends Controller_Authenticate
 	                        'group_id' => Input::post('group_id'),
 							array(
 								'fullname' => Input::post('fullname'),
-								'mobile' => Input::post('mobile'),
+								// 'mobile' => Input::post('mobile'),
 							)
                         ),
                     );

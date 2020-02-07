@@ -2,11 +2,11 @@
 
 namespace Fuel\Migrations;
 
-class Create_cash_receipt
+class Create_sales_payment
 {
 	public function up()
 	{
-		\DBUtil::create_table('cash_receipt', array(
+		\DBUtil::create_table('sales_payment', array(
 			'id' => array('constraint' => 11, 'type' => 'int', 'auto_increment' => true, 'unsigned' => true),
 			'reference' => array('constraint' => 11, 'type' => 'int'),
 			'bill_id' => array('constraint' => 11, 'type' => 'int'),
@@ -27,6 +27,6 @@ class Create_cash_receipt
 
 	public function down()
 	{
-		\DBUtil::drop_table('cash_receipt');
+		\DBUtil::drop_table('sales_payment');
 	}
 }
