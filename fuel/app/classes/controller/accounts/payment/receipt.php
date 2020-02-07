@@ -169,7 +169,7 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 	{
 		$data['receipt'] = Model_Accounts_Payment_Receipt::find($id);
 
-		$view = View::forge('template_hc');
+		$view = View::forge('template_print');
 		$view->title = 'Receipt';
 		$view->content = View::forge('document/payment_receipt', $data);
 

@@ -11,7 +11,7 @@
                 'vendor/united.bootstrap.min.css',
                 'vendor/fuelux.min.css',
                 'vendor/datepicker.css',
-                '../font-awesome/css/font-awesome.min.css', // Glyphicons replacement
+                // '../font-awesome/css/font-awesome.min.css', // Glyphicons replacement
                 '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
                 'vendor/fullcalendar.min.css',
                 'sb-admin.css', // SB Admin Scripts

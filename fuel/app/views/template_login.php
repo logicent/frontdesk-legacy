@@ -7,9 +7,11 @@
         <!-- Core CSS -->
         <?= Asset::css(
                 array(
-                    'vendor/bootstrap.min.css',
-                    'vendor/yeti.bootstrap.min.css',
-                    '../font-awesome/css/font-awesome.css',
+                    '//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css',
+                    // 'vendor/yeti.bootstrap.min.css',
+                    'vendor/united.bootstrap.min.css',
+                    // '../font-awesome/css/font-awesome.css',
+                    '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
                     'sb-admin.css' // SB Admin Scripts
                 )); ?>
     </head>
@@ -65,7 +67,8 @@
 
         <!-- Core Scripts -->
         <?= Asset::js(
-                array('vendor/jquery-1.10.2.js',
+                array(
+                    '//code.jquery.com/jquery-3.4.1.js',
                     'vendor/bootstrap.min.js',
                     'plugins/metisMenu/jquery.metisMenu.js',
                     'sb-admin.js' // SB Admin Scripts
