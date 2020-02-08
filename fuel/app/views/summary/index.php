@@ -1,7 +1,7 @@
 <h2>Listing <span class='muted'>Summaries</span></h2>
 <br>
 <?php if ($summaries): ?>
-<table class="table table-striped">
+<table class="table">
 	<thead>
 		<tr>
 			<th>Reference</th>

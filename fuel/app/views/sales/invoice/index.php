@@ -6,8 +6,8 @@
 	<div class="col-md-6">
 		<br>
 		<div class="pull-right btn-group">
-			<?= Html::anchor('accounts/sales-invoices/?status='.Model_Sales_Invoice::INVOICE_STATUS_OPEN, 'Open', array('class' => 'btn btn-sm btn-info')); ?>
-			<?= Html::anchor('accounts/sales-invoices/?status='.Model_Sales_Invoice::INVOICE_STATUS_CLOSED, 'Closed', array('class' => 'btn btn-sm btn-info')); ?>
+			<?= Html::anchor('accounts/sales-invoices/?status='.Model_Sales_Invoice::INVOICE_STATUS_OPEN, 'Open', array('class' => 'btn btn-sm btn-default')); ?>
+			<?= Html::anchor('accounts/sales-invoices/?status='.Model_Sales_Invoice::INVOICE_STATUS_CLOSED, 'Closed', array('class' => 'btn btn-sm btn-default')); ?>
 			<!-- <?= Html::anchor('accounts/sales-invoices/?status='.Model_Sales_Invoice::INVOICE_STATUS_CANCELED, 'Canceled', array('class' => 'btn btn-sm btn-danger')); ?> -->
 		</div>
 	</div>
@@ -15,7 +15,7 @@
 <hr>
 
 <?php if ($sales_invoices): ?>
-<table class="table table-bordered table-hover table-striped datatable">
+<table class="table table-hover datatable">
 	<thead>
 		<tr>
 			<th>Guest name</th>

@@ -1,7 +1,7 @@
 <!-- <h4>Items <span class='text-muted'>billed</span></h4> -->
 
 <?php if ($sales_invoice_items): ?>
-<table class="table table-bordered table-striped table-hover">
+<table class="table table-hover">
 	<thead>
 		<tr>
 			<th>Item</th>

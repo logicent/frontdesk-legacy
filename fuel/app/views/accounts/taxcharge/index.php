@@ -10,7 +10,7 @@
 <hr>
 
 <?php if ($taxes): ?>
-<table class="table table-bordered table-hover table-striped datatable">
+<table class="table table-hover datatable">
 	<thead>
 		<tr>
             <th>Tax identifier</th>

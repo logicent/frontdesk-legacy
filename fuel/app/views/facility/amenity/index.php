@@ -15,7 +15,7 @@
 <hr>
 
 <?php if ($amenities): ?>
-<table class="table table-bordered table-hover">
+<table class="table table-hover datatable">
 	<thead>
 		<tr>
 			<th>Name</th>

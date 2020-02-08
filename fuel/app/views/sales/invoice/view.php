@@ -29,4 +29,4 @@
 	<?= $sales_invoice->notes; ?></p>
 
 <?= Html::anchor('sales/invoice/edit/'.$sales_invoice->id, 'Edit'); ?> |
-<?= Html::anchor('sales/invoice', 'Back'); ?>
+<?= Html::anchor('accounts/sales-invoices', 'Back'); ?>

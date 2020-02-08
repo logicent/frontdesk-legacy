@@ -12,10 +12,10 @@
 			      <span class="caret"></span>
 			    </button>
 			    <ul class="dropdown-menu">
-					<li><?php // echo Html::anchor('front-desk/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_STAY_OVER, 'Stay Over', array('class' => 'btn btn-sm btn-info')); ?></li>
-					<li><?php // echo Html::anchor('front-desk/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_CHECKED_IN, 'Checked In', array('class' => "btn btn-sm btn-info")); ?></li>
-					<li><?php // echo Html::anchor('front-desk/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_DUE_OUT, 'Due Out', array('class' => 'btn btn-sm btn-info')); ?></li>
-					<li><?php // echo Html::anchor('front-desk/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT, 'Checked Out', array('class' => 'btn btn-sm btn-info')); ?></li>
+					<li><?php // echo Html::anchor('registers/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_STAY_OVER, 'Stay Over', array('class' => 'btn btn-sm btn-default')); ?></li>
+					<li><?php // echo Html::anchor('registers/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_CHECKED_IN, 'Checked In', array('class' => "btn btn-sm btn-default")); ?></li>
+					<li><?php // echo Html::anchor('registers/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_DUE_OUT, 'Due Out', array('class' => 'btn btn-sm btn-default')); ?></li>
+					<li><?php // echo Html::anchor('registers/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT, 'Checked Out', array('class' => 'btn btn-sm btn-default')); ?></li>
 			    </ul>
 			</label>
 	  	</div> -->
@@ -24,12 +24,12 @@
 				<!-- <button form="fd_booking" formaction="<?= Uri::create('facility/booking/copy'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-copy"></i></button> -->
 			<!-- </div> -->
 			<!-- <div class="button-group"> -->
-                <?= Html::anchor('front-desk/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_CHECKED_IN, 
-                                'Checked In', array('id' => 'cin_btn', 'class' => "btn btn-sm btn-info")); ?>
-				<!-- <?php // echo Html::anchor('front-desk/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_STAY_OVER, 'Stay Over', array('class' => 'btn btn-sm btn-info')); ?> -->
-				<!-- <?php //echo Html::anchor('front-desk/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_DUE_OUT, 'Due Out', array('class' => 'btn btn-sm btn-info')); ?> -->
-                <?= Html::anchor('front-desk/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT, 
-                                'Checked Out', array('id' => 'cout_btn', 'class' => 'btn btn-sm btn-info')); ?>
+                <?= Html::anchor('registers/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_CHECKED_IN, 
+                                'Checked In', array('id' => 'cin_btn', 'class' => "btn btn-sm btn-default")); ?>
+				<!-- <?php // echo Html::anchor('registers/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_STAY_OVER, 'Stay Over', array('class' => 'btn btn-sm btn-default')); ?> -->
+				<!-- <?php //echo Html::anchor('registers/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_DUE_OUT, 'Due Out', array('class' => 'btn btn-sm btn-default')); ?> -->
+                <?= Html::anchor('registers/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT, 
+                                'Checked Out', array('id' => 'cout_btn', 'class' => 'btn btn-sm btn-default')); ?>
 			<!-- </div> -->
 		</div>
 	</div>
@@ -38,7 +38,7 @@
 
 <?php if ($booking): ?>
 <form id="fd_booking" enctype="multipart/form-data" method="post" action="<?= Uri::create('facility/booking/copy'); ?>">
-	<table class="table table-bordered table-hover table-striped datatable">
+	<table class="table table-hover datatable">
 		<thead>
 			<tr>
 				<!-- <th><input name="_id" type="checkbox" id="list_sel"></th> -->
@@ -104,14 +104,14 @@
     
     if (urlParam[1] == 'CI') 
     {
-        $('#cin_btn').removeClass('btn-info');
-        $('#cout_btn').addClass('btn-info');
+        $('#cin_btn').removeClass('btn-default');
+        $('#cout_btn').addClass('btn-default');
     }
     
     if (urlParam[1] == 'CO') 
     {
-        $('#cin_btn').addClass('btn-info');
-        $('#cout_btn').removeClass('btn-info');
+        $('#cin_btn').addClass('btn-default');
+        $('#cout_btn').removeClass('btn-default');
     }
     // Read a page's GET URL variables and return them as an associative array.
 </script>

@@ -11,7 +11,7 @@
 <hr>
 
 <?php if ($service_items): ?>
-<table class="table table-bordered table-hover table-striped datatable">
+<table class="table table-hover datatable">
 	<thead>
 		<tr>
 			<th>Item</th>
