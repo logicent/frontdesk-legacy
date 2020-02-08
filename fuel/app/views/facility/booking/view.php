@@ -227,7 +227,7 @@
 		<?php if ($booking->status == 'CI') : ?>
 			<a href="<?= Uri::create('facility/booking/edit/'.$booking->id); ?>" class="btn btn-primary" >Edit booking</a>
 		<?php endif ?>
-		<a href="<?= Uri::create('front-desk/bookings'); ?>" class="btn btn-primary">Close</a>
+		<a href="<?= Uri::create('registers/bookings'); ?>" class="btn btn-primary">Close</a>
 	</div>
 
 	<div class="col-md-6">
@@ -235,22 +235,22 @@
 		<div class="pull-right btn-toolbar">
 			<?php if (!$booking->bill): ?>
 				<div class="btn-group">
-					<a href="<?= Uri::create('sales/invoice/create/'.$booking->id); ?>" class="btn btn-warning" >Create invoice</a>
+					<a href="<?= Uri::create('sales/invoice/create/'.$booking->id); ?>" class="btn btn-default" >Create invoice</a>
 				</div>
 			<?php endif; ?>
 
 			<?php if ($booking->status == 'CI') : ?>
 				<div class="btn-group">
-					<a href="<?= Uri::create('sales/invoice/edit/'.$booking->id); ?>" class="btn btn-warning" >Edit invoice</a>
+					<a href="<?= Uri::create('sales/invoice/edit/'.$booking->id); ?>" class="btn btn-default" >Edit invoice</a>
 				</div>
 			<?php endif; ?>
 
 			<?php if ($booking->status == 'CI') : ?>
 				<div class="btn-group">
-					<a href="<?= Uri::create('cash/receipt/create/'.$booking->id); ?>" class="btn btn-warning">Receive money</a>
+					<a href="<?= Uri::create('cash/receipt/create/'.$booking->id); ?>" class="btn btn-default">Receive money</a>
 				</div>
 				<div class="btn-group">
-					<a href="<?= Uri::create('facility/booking/checkout/'.$booking->id); ?>" class="btn btn-warning">Check out</a>
+					<a href="<?= Uri::create('facility/booking/checkout/'.$booking->id); ?>" class="btn btn-default">Check out</a>
 				</div>
 			<?php endif; ?>
 		</div>

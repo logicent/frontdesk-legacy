@@ -58,7 +58,7 @@
 		</div>
 
 		<div id="receipts" class="tab-pane fade">
-			<table class="table table-bordered table-striped table-hover">
+			<table class="table table-hover">
 				<thead>
 					<tr>
 						<th>Receipt No.</th>
@@ -173,7 +173,7 @@
 			<div class="pull-right btn-group">
             <?php 
                 if (isset($sales_invoice) && $sales_invoice->status == 'O') : ?>
-				    <a href="<?= Uri::create('cash/receipt/create/'.$sales_invoice->guest->id); ?>" class="btn btn-warning ">Add payment</a>
+				    <a href="<?= Uri::create('cash/receipt/create/'.$sales_invoice->guest->id); ?>" class="btn btn-default ">Add payment</a>
             <?php 
                 endif ?>
 			</div>

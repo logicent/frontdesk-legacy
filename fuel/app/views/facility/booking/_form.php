@@ -190,21 +190,21 @@
 		<div class="pull-right btn-toolbar">
 			<?php if (!empty($booking->bill)): ?>
 				<div class="btn-group">
-					<a href="<?= Uri::create('cash/receipt/create/'.$booking->id); ?>" class="btn btn-warning">Receive money</a>
+					<a href="<?= Uri::create('cash/receipt/create/'.$booking->id); ?>" class="btn btn-default">Receive money</a>
                 </div>
                 
 				<div class="btn-group">
-					<a href="<?= Uri::create('facility/booking/checkout/'.$booking->id); ?>" class="btn btn-warning">Check out</a>
+					<a href="<?= Uri::create('facility/booking/checkout/'.$booking->id); ?>" class="btn btn-default">Check out</a>
 				</div>
 			<?php endif ?>
 
 			<?php if (!$booking->bill): ?>
 				<div class="btn-group">
-					<a href="<?= Uri::create('sales/invoice/create/'.$booking->id); ?>" class="btn btn-warning" >Create folio</a>
+					<a href="<?= Uri::create('sales/invoice/create/'.$booking->id); ?>" class="btn btn-default" >Create folio</a>
 				</div>
 			<?php else: ?>
 				<div class="btn-group">
-					<a href="<?= Uri::create('sales/invoice/edit/'.$booking->bill->id); ?>" class="btn btn-warning" >Edit folio</a>
+					<a href="<?= Uri::create('sales/invoice/edit/'.$booking->bill->id); ?>" class="btn btn-default" >Edit folio</a>
 				</div>
 			<?php endif ?>
 		</div>

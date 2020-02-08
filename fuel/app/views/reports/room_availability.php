@@ -1,7 +1,7 @@
 <?= render('reports/header', array('report'=>$report)); ?>
 <!-- body -->
 
-<table class="table table-bordered">
+<table class="table">
     <thead>
         <tr>
             <th>Description</th>

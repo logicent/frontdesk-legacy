@@ -15,7 +15,7 @@
 <hr>
 
 <?php if ($room_type): ?>
-<table class="table table-bordered table-hover">
+<table class="table table-hover datatable">
 	<thead>
 		<tr>
 			<th>Name</th>

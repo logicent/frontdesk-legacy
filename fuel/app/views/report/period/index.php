@@ -1,7 +1,7 @@
 <h2>Listing <span class='muted'>Report_period</span></h2>
 <br>
 <?php if ($report_period): ?>
-<table class="table table-striped">
+<table class="table">
 	<thead>
 		<tr>
 			<th>From date</th>

@@ -1,7 +1,7 @@
 <h2>Listing <span class='muted'>Units</span></h2>
 <br>
 <?php if ($units): ?>
-<table class="table table-striped">
+<table class="table">
 	<thead>
 		<tr>
 			<th>&nbsp;</th>

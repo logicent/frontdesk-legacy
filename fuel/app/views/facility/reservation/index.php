@@ -6,17 +6,17 @@
 	<div class="col-md-6">
 		<br>
 		<div class="pull-right btn-group">
-			<?php // echo Html::anchor('front-desk/reservations/?status='.Model_Facility_Reservation::RESERVATION_STATUS_OPEN, 'Open', array('class' => 'btn btn-sm btn-info')); ?>
-			<?php // echo Html::anchor('front-desk/reservations/?status='.Model_Facility_Reservation::RESERVATION_STATUS_BOOKED, 'Booked', array('class' => 'btn btn-sm btn-info')); ?>
-			<?php // echo Html::anchor('front-desk/reservations/?status='.Model_Facility_Reservation::RESERVATION_STATUS_NOSHOW, 'No Show', array('class' => 'btn btn-sm btn-info')); ?>
-			<?php // echo Html::anchor('front-desk/reservations/?status='.Model_Facility_Reservation::RESERVATION_STATUS_VOID, 'Void', array('class' => 'btn btn-sm btn-info')); ?>
+			<?php // echo Html::anchor('registers/reservations/?status='.Model_Facility_Reservation::RESERVATION_STATUS_OPEN, 'Open', array('class' => 'btn btn-sm btn-default')); ?>
+			<?php // echo Html::anchor('registers/reservations/?status='.Model_Facility_Reservation::RESERVATION_STATUS_BOOKED, 'Booked', array('class' => 'btn btn-sm btn-default')); ?>
+			<?php // echo Html::anchor('registers/reservations/?status='.Model_Facility_Reservation::RESERVATION_STATUS_NOSHOW, 'No Show', array('class' => 'btn btn-sm btn-default')); ?>
+			<?php // echo Html::anchor('registers/reservations/?status='.Model_Facility_Reservation::RESERVATION_STATUS_VOID, 'Void', array('class' => 'btn btn-sm btn-default')); ?>
 		</div>
 	</div>
 </div>
 <hr>
 
 <?php if ($reservation): ?>
-<table class="table table-bordered table-hover table-striped datatable">
+<table class="table table-hover datatable">
 	<thead>
 		<tr>
 			<th>Guest</th>

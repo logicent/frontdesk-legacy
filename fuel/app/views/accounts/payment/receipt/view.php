@@ -52,11 +52,11 @@
 
 	<div class="form-group">
 		<!-- <div class="col-md-2">
-			<a class="btn btn-warning" href="<?php //= Uri::create('cash/receipt/edit/'.$payment_receipt->id); ?>" target="_blank"> <i class="fa fa-edit fa-fw fa-lg"></i> Edit</a>
+			<a class="btn btn-default" href="<?php //= Uri::create('cash/receipt/edit/'.$payment_receipt->id); ?>" target="_blank"> <i class="fa fa-edit fa-fw fa-lg"></i> Edit</a>
 		</div> -->
 		<div class="col-md-2">
 			<?php if (isset($payment_receipt)) : ?>
-				<a class="btn btn-warning" href="<?= Uri::create('accounts/payment/receipt/to-print/'.$payment_receipt->id); ?>" target="_blank"> <i class="glyphicon glyphicon-print"></i> &ensp;Print</a>
+				<a class="btn btn-default" href="<?= Uri::create('accounts/payment/receipt/to-print/'.$payment_receipt->id); ?>" target="_blank"> <i class="glyphicon glyphicon-print"></i> &ensp;Print</a>
 			<?php endif; ?>
 		</div>
 	</div>

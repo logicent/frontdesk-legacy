@@ -167,3 +167,61 @@ a.floating:hover {
     transform: scale(1.3);
     background-color: #ed1c24 !important;
 }
+
+table {
+    border: 1px solid #dddddd;
+}
+
+/* .table-hover tr:hover {
+    background-color: #f7fafc;
+} */
+
+.table>thead>tr>th {
+    /* vertical-align: bottom; */
+    border-bottom: 1px solid #dddddd;
+}
+/* .list-row-head */
+thead tr {
+    background-color: #f7fafc;
+    border-bottom: 1px solid #d1d8dd !important;
+}
+
+thead tr th {
+    color: #8D99A6 !important;
+    font-size: 97.5%;
+    font-weight: normal;
+}
+
+tbody tr {
+    /* height: 40px; */
+    cursor: pointer;
+}
+
+tbody tr td {
+    /* padding: 12px 15px; */
+    font-size: 97.5%;
+}
+
+a.active {
+    color: #97310e;
+}
+
+.btn-default {
+    background-color: #f0f4f7;
+    color: #36414c;
+    border-color: transparent;
+}
+
+/* a.btn-default:hover {
+    background-color: #f0f4f7;
+} */
+
+h2, .h2 {
+    font-size: 24px;
+}
+
+label {
+    color: #8d99a6;
+    font-weight: normal;
+    font-size: 97.5%;
+}

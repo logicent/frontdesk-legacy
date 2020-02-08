@@ -10,7 +10,7 @@
 				<?= Html::anchor('report-builder', 'Manage Reports', array('class' => 'btn btn-sm btn-default')); ?>
 			</div>
 			<!-- <div class="btn-group"> -->
-				<?php // echo Html::anchor('#report/period', 'Define Period', array('class' => 'btn btn-info')); ?>
+				<?php // echo Html::anchor('#report/period', 'Define Period', array('class' => 'btn btn-default')); ?>
 			<!-- </div> -->
 		</div>
 		<?php endif; ?>

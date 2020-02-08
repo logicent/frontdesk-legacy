@@ -11,7 +11,7 @@
 <hr>
 
 <?php if ($email_settings): ?>
-<table class="table table-striped">
+<table class="table">
 	<thead>
 		<tr>
 			<th>Smtp host</th>

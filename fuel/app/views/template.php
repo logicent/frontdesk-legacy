@@ -210,7 +210,7 @@
                         </div>
             <?php else: ?>
                         <!--<h1 class="page-header"><?= $title; ?></h1>-->
-                        <div class="panel panel-default">
+                        <div class="panel"><!-- panel-default -->
                             <div class="panel-body">
                                 <?= $content; ?>
                             </div>

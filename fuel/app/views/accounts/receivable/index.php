@@ -1,7 +1,7 @@
 <h2>Listing <span class='muted'>Receivables</span></h2>
 <br>
 <?php if ($receivables): ?>
-<table class="table table-striped">
+<table class="table">
 	<thead>
 		<tr>
 			<th>&nbsp;</th>

@@ -154,7 +154,7 @@ $reservation->pax_children : Model_Facility_Booking::getColumnDefault('pax_child
 		<?php if (isset($reservation)): ?>
 		<div class="pull-right btn-toolbar">
 			<div class="btn-group">
-				<!-- <a href="<?php // echo Uri::create('facility/reservation/confirm/'.$reservation->id); ?>" class="btn btn-warning">Confirm booking</a> -->
+				<!-- <a href="<?php // echo Uri::create('facility/reservation/confirm/'.$reservation->id); ?>" class="btn btn-default">Confirm booking</a> -->
 			</div>
 		</div>
 		<?php endif; ?>

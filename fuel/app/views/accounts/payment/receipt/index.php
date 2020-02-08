@@ -4,13 +4,13 @@
 	</div>
 	<div class="col-md-6">
 		<br>
-		<?php //echo Html::anchor('cash/receipt/create', 'New Cash Receipt', array('class' => 'pull-right btn btn-info')); ?>
+		<?php //echo Html::anchor('cash/receipt/create', 'New Cash Receipt', array('class' => 'pull-right btn btn-default')); ?>
 	</div>
 </div>
 <hr>
 
 <?php if ($payment_receipts): ?>
-<table class="table table-bordered table-hover table-striped datatable">
+<table class="table table-hover datatable">
 	<thead>
 		<tr>
 			<th>Reference</th>

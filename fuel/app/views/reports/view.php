@@ -2,7 +2,7 @@
 
 <!-- detail -->
 
-<table class="table table-striped">
+<table class="table">
     <thead>
         <tr>
             <?php foreach($column_headers as $ch) : ?>
@@ -44,7 +44,7 @@
         <?php if (!empty($summary_rows)) : ?>
             <p class="lead">Summary</p>
         <?php endif ?>
-        <table class="table table-bordered small">
+        <table class="table small">
             <thead>
                 <tr>
                     <?php foreach($summary_cols as $ch) : ?>
