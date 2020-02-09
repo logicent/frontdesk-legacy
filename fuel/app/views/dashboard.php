@@ -156,7 +156,7 @@
                     foreach($guest_list as $guest) :
                         if ($guest->room_id != $room->id) continue; ?>
                         <?= $resMarker ?>
-                        <button type="button" class="btn btn-default dropdown-toggle dash-btn" data-toggle="dropdown">
+                        <button type="button" class="btn btn-warning dropdown-toggle dash-btn" data-toggle="dropdown">
                             <?= $room->name ?>
                         </button>
 
