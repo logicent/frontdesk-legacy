@@ -33,7 +33,6 @@
                 <?= Form::label('Is metered', 'is_metered', array('class'=>'control-label')); ?>
             </div>
         </div>
-
         
         <div class="form-group">
             <div class="col-md-6">

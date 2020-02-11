@@ -11,7 +11,7 @@ class Create_expense
 			'reference' => array('constraint' => 11, 'type' => 'int'),
 			'date' => array('type' => 'date'),
 			'payee' => array('constraint' => 50, 'type' => 'varchar'),
-			'gl_account_id' => array('constraint' => 11, 'type' => 'int'),
+			'gl_account_id' => array('constraint' => 11, 'type' => 'int', 'null' => true),
 			'amount' => array('type' => 'decimal'),
 			'tax_id' => array('constraint' => 11, 'type' => 'int'),
 			'bank_account_id' => array('constraint' => 11, 'type' => 'int'),

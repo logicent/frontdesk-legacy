@@ -11,7 +11,7 @@ class Create_bank_deposit
 			'reference' => array('constraint' => 20, 'type' => 'varchar'),
 			'date' => array('type' => 'date'),
 			'payer' => array('constraint' => 50, 'type' => 'varchar'),
-			'gl_account_id' => array('constraint' => 11, 'type' => 'int'),
+			'gl_account_id' => array('constraint' => 11, 'type' => 'int', 'null' => true),
 			'amount' => array('type' => 'decimal'),
 			'tax_id' => array('constraint' => 11, 'type' => 'int'),
 			'bank_account_id' => array('constraint' => 11, 'type' => 'int'),

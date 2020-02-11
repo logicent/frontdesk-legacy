@@ -7,9 +7,9 @@ class Model_Facility_Amenity extends Model
         'id',
         'code',
         'name',
-        'is_billable',
-        'is_metered',
-        'is_default',        
+        // 'is_billable',
+        // 'is_metered',
+        // 'is_default',        
 		'created_at',
 		'updated_at',
 	);

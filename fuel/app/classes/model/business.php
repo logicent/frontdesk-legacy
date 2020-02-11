@@ -9,7 +9,7 @@ class Model_Business extends Model
 		'trading_name',
 		'address',
 		'tax_identifier',
-		'tax_rate',
+		'property_type',
 		'currency_symbol',
 		'email_address',
 		'business_logo',
@@ -19,14 +19,14 @@ class Model_Business extends Model
 	public static function validate($factory)
 	{
 		$val = Validation::forge($factory);
-		$val->add_field('business_name', 'Business Name', 'required|max_length[150]');
-		$val->add_field('trading_name', 'Trading Name', 'required|max_length[150]');
+		$val->add_field('business_name', 'Business Name', 'required|max_length[140]');
+		$val->add_field('trading_name', 'Trading Name', 'required|max_length[140]');
 		$val->add_field('address', 'Address', 'max_length[255]');
 		$val->add_field('tax_identifier', 'Tax Identifier', 'max_length[20]');
-		$val->add_field('tax_rate', 'Tax Rate', 'valid_string[]');
+		$val->add_field('property_type', 'Property Rate', 'valid_string');
 		$val->add_field('currency_symbol', 'Currency Symbol', 'max_length[3]');
-		$val->add_field('email_address', 'Email Address', 'max_length[50]');
-		$val->add_field('business_logo', 'Business Logo', 'max_length[255]');
+		$val->add_field('email_address', 'Email Address', 'max_length[140]');
+		$val->add_field('business_logo', 'Business Logo', 'max_length[140]');
 
 		return $val;
 	}

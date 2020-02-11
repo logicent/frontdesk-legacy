@@ -24,11 +24,11 @@
 
 		<div class="form-group">
             <label>
-                <input id="activated" name="activated" type="hidden" value="<?= isset($report) ? $report->activated : null; ?>">
-                <?= Form::checkbox('activated_chk', Input::post('activated',
-                                        isset($report) ? $report->activated : null),
-                                        isset($report) && $report->activated == 1 ? true : false,
-                                        array('class'=>'activated')
+                <input id="published" name="published" type="hidden" value="<?= isset($report) ? $report->published : null; ?>">
+                <?= Form::checkbox('published_chk', Input::post('published',
+                                        isset($report) ? $report->published : null),
+                                        isset($report) && $report->published == 1 ? true : false,
+                                        array('class'=>'published')
                                         ); ?>
                 &nbsp;Activated
             </label>
@@ -46,9 +46,9 @@
 <?= Form::close(); ?>
 
 <script>
-	$('.activated').click(function() {
+	$('.published').click(function() {
 	    if ($(this).is(':checked')) // Boolean true
-	        $('#activated').val(1);
-	    else $('#activated').val(0);
+	        $('#published').val(1);
+	    else $('#published').val(0);
 	});
 </script>

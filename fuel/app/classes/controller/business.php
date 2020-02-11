@@ -15,14 +15,14 @@ class Controller_Business extends Controller_Authenticate
 			$business->trading_name = Input::post('trading_name');
 			$business->address = Input::post('address');
 			$business->tax_identifier = Input::post('tax_identifier');
-			$business->tax_rate = Input::post('tax_rate');
+			$business->property_type = Input::post('property_type');
 			$business->currency_symbol = Input::post('currency_symbol');
 			$business->email_address = Input::post('email_address');
 
 			try {
 				// upload and save the file
 				$file = Filehelper::upload();
-                // Debug::dump($file); exit;
+
                 if (!empty($file['saved_as']))
 				    $business->business_logo = 'uploads'.DS.$file['name'];
 
@@ -52,7 +52,7 @@ class Controller_Business extends Controller_Authenticate
 			{
 				// upload and save the file
 				$file = Filehelper::upload();
-                // Debug::dump($file); exit;
+
                 if (!empty($file['saved_as']))
 				    $business->business_logo = 'uploads'.DS.$file['name'];
                 else 
@@ -62,12 +62,9 @@ class Controller_Business extends Controller_Authenticate
 				$business->trading_name = $val->validated('trading_name');
 				$business->address = $val->validated('address');
 				$business->tax_identifier = $val->validated('tax_identifier');
-				$business->tax_rate = $val->validated('tax_rate');
+				$business->property_type = $val->validated('property_type');
 				$business->currency_symbol = $val->validated('currency_symbol');
 				$business->email_address = $val->validated('email_address');
-				// if ($file['name'] ==! null)
-	            //     $business->business_logo = 'uploads'.DS.$file['name'];
-	            // else $business->business_logo = Input::post('business_logo');
 
 				Session::set_flash('error', $val->error());
 			}
@@ -105,7 +102,7 @@ class Controller_Business extends Controller_Authenticate
 					'trading_name' => Input::post('trading_name'),
 					'address' => Input::post('address'),
 					'tax_identifier' => Input::post('tax_identifier'),
-					'tax_rate' => Input::post('tax_rate'),
+					'property_type' => Input::post('property_type'),
 					'currency_symbol' => Input::post('currency_symbol'),
 					'email_address' => Input::post('email_address'),
 					'business_logo' => Input::post('business_logo'),

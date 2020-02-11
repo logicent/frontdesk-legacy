@@ -238,6 +238,7 @@ class Model_Facility_Booking extends Model_Soft
 			'notes' => $booking->remarks,
 		));
 
+        // TODO: Use DB transaction here
 		if ($invoice and $invoice->save())
 		{
 			$sales_invoice_item = Model_Sales_Invoice_Item::forge(array(
@@ -267,8 +268,9 @@ class Model_Facility_Booking extends Model_Soft
 		$invoice->due_date = $booking->checkout;
 		$invoice->amount_due = $booking->total_payment - $invoice->disc_total; // preserve applied discount
 		$invoice->balance_due += $booking->total_amount;
-		//$invoice->tax_total = $booking->vat_amount;
+		// $invoice->tax_total = $booking->vat_amount;
 
+        // TODO: Use DB transaction here
 		if ($invoice and $invoice->save())
 		{
 			$sales_invoice_item = Model_Sales_Invoice_Item::find('first', array('where' => array('invoice_id' => $invoice->id)));
@@ -284,7 +286,8 @@ class Model_Facility_Booking extends Model_Soft
 		}
 	}
 
-	public static function setBillingAmounts(&$fd_booking) {
+    public static function setBillingAmounts(&$fd_booking) 
+    {
 		$fd_booking->duration = self::getStayPeriod($fd_booking->checkin, $fd_booking->checkout);
 		// rates, vat, total, charges and payments
 		$fd_booking->rate_amount = Model_Rate::find('first', array('where' => array('id' => $fd_booking->rate_type)))->charges;

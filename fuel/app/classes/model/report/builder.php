@@ -23,7 +23,7 @@ class Model_Report_Builder extends Model
 		'name',
 		'slug',
 		'type',
-		'activated',
+		'published',
 	);
 
 
@@ -33,7 +33,7 @@ class Model_Report_Builder extends Model
 		$val->add_field('name', 'Name', 'required|max_length[255]');
 		$val->add_field('slug', 'Slug', 'required|max_length[255]');
 		$val->add_field('type', 'Type', 'required|max_length[1]');
-		$val->add_field('activated', 'Activated', 'valid_string[numeric]');
+		$val->add_field('published', 'Published', 'valid_string[numeric]');
 
 		return $val;
 	}

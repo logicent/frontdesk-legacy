@@ -16,7 +16,7 @@
 		<tr>
 			<th>Name</th>
 			<th>Type</th>
-			<th>Activated</th>
+			<th>Published</th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>
@@ -26,7 +26,7 @@
 			<td>
             <?= Html::anchor('report/builder/edit/'.$item->id, $item->name, ['class' => 'clickable']); ?>
 			<td><?= $item->type == 'm' ? 'Monthly' : 'Daily'; ?></td>
-			<td><?= $item->activated == 1 ? '<span class="label label-success"><b>Yes</b></span>' : '<span class="label label-danger"><b>No</b></span>' //$item->activated; ?></td>
+			<td><?= $item->published == 1 ? '<span class="label label-success"><b>Yes</b></span>' : '<span class="label label-danger"><b>No</b></span>' //$item->published; ?></td>
 			<td class="text-center">
 				<?= Html::anchor('report/builder/view/'.$item->id, '<i class="fa fa-eye fa-fw"></i>', ['class' => 'text-muted vw-btn']); ?>
 				<?= Html::anchor('report/builder/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>', ['class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')"]); ?>

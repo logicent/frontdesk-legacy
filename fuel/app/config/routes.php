@@ -20,14 +20,17 @@ return array(
 
 	'registers/reservations' => 'facility/reservation',
 	'registers/bookings'     => 'facility/booking',
+	'registers/customers'     => 'customer',
+	'registers/partners'     => 'partner',
+	'registers/bookings'     => 'facility/booking',
 	// 'registers/folios'     => 'sales/invoice',
 	'registers/stayover/:date'   => 'facility/stayover/$1',
     'registers/nightaudit/:date' => 'facility/nightaudit/$1',
 
 	'accounts/bank-accounts'    => 'accounts/bank/account',
 	'accounts/bank-deposits'    => 'accounts/bank/deposit',
-	'accounts/sales-invoices'         => 'accounts/salesinvoice',
-	'accounts/sales-receipts'         => 'accounts/payment/receipt',
+	'accounts/sales-invoices'   => 'accounts/salesinvoice',
+	'accounts/sales-receipts'   => 'accounts/payment/receipt',
 	'accounts/expenses'         => 'accounts/payment/expense',
 	'accounts/taxes'            => 'accounts/tax',
 	'accounts/payment-methods'  => 'accounts/payment/method',
@@ -42,6 +45,7 @@ return array(
 	'facilities/rate-types' => 'rate/type',
 	'facilities/amenities'  => 'facility/amenity',
 	'facilities/services'   => 'service/item',
+	'facilities/service-types'   => 'service/type',
     
 	'settings/business-detail'  => 'business',
 	'settings/email-settings'   => 'email/settings',

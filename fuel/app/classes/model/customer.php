@@ -27,4 +27,6 @@ class Model_Customer extends Model
 		return $val;
 	}
 
+	protected static $_table_name = 'customer';
+
 }

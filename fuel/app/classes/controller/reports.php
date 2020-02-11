@@ -4,7 +4,7 @@ class Controller_Reports extends Controller_Authenticate
 {
 	public function action_index()
 	{
-		$data['reports'] = Model_Report_Builder::find('all', array('where' => array('activated' => true)));
+		$data['reports'] = Model_Report_Builder::find('all', array('where' => array('published' => true)));
 
 		$this->template->title = 'Reports';
 		$this->template->content = View::forge('reports/index', $data);

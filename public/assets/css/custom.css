@@ -225,3 +225,19 @@ label {
     font-weight: normal;
     font-size: 97.5%;
 }
+
+.nav>li>a {
+    padding: 15px;
+}
+
+.nav>li>ul>li>a {
+    padding: 15px 40px;
+}
+
+.navbar-brand {
+    padding-left: 0;
+}
+
+/* .navbar-top-links > li:last-child {
+    margin-right: 0;
+} */

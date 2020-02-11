@@ -8,8 +8,8 @@ class Create_rate_type
 	{
 		\DBUtil::create_table('rate_type', array(
 			'id' => array('constraint' => 11, 'type' => 'int', 'auto_increment' => true, 'unsigned' => true),
-			'name' => array('constraint' => 20, 'type' => 'varchar'),
-			'description' => array('constraint' => 255, 'type' => 'varchar'),
+			'name' => array('constraint' => 140, 'type' => 'varchar'),
+			'description' => array('type' => 'text'),
 
 		), array('id'));
 	}

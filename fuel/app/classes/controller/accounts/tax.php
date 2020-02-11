@@ -35,8 +35,10 @@ class Controller_Accounts_Tax extends Controller_Authenticate
 			{
 				$tax = Model_Accounts_Tax::forge(array(
 					'code' => Input::post('code'),
-					'tax_identifier' => Input::post('tax_identifier'),
-					'tax_rate' => Input::post('tax_rate'),
+					'name' => Input::post('name'),
+					'rate' => Input::post('rate'),
+                    'enabled' => Input::post('enabled'),
+					'fdesk_user' => Input::post('fdesk_user'),
 				));
 
 				if ($tax and $tax->save())
@@ -77,8 +79,10 @@ class Controller_Accounts_Tax extends Controller_Authenticate
 		if ($val->run())
 		{
             $tax_charge->code = Input::post('code');
-            $tax_charge->tax_identifier = Input::post('tax_identifier');
-            $tax_charge->tax_rate = Input::post('tax_rate');
+            $tax_charge->name = Input::post('name');
+            $tax_charge->rate = Input::post('rate');
+            $tax_charge->enabled = Input::post('enabled');
+            $tax_charge->fdesk_user = Input::post('fdesk_user');
 
 			if ($tax_charge->save())
 			{
@@ -98,8 +102,10 @@ class Controller_Accounts_Tax extends Controller_Authenticate
 			if (Input::method() == 'POST')
 			{
 				$tax_charge->code = $val->validated('code');
-                $tax_charge->tax_identifier = $val->validated('tax_identifier');
-                $tax_charge->tax_rate = $val->validated('tax_rate');
+                $tax_charge->name = $val->validated('name');
+                $tax_charge->rate = $val->validated('rate');
+                $tax_charge->enabled = $val->validated('enabled');
+                $tax_charge->fdesk_user = $val->validated('fdesk_user');
 
 				Session::set_flash('error', $val->error());
 			}
