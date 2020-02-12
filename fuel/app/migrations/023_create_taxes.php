@@ -14,7 +14,8 @@ class Create_taxes
             'enabled' => array('type' => 'tinyint', 'default' => 1),
 			'fdesk_user' => array('constraint' => 11, 'type' => 'int'),
 			'created_at' => array('type' => 'datetime'),
-			'updated_at' => array('type' => 'datetime'),
+            'updated_at' => array('type' => 'datetime'),
+            
         ), array('id'));
         
 	}

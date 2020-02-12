@@ -17,7 +17,10 @@ class Create_email_settings
 			'smtp_starttls' => array('null' => true, 'type' => 'boolean'),
 			'smtp_timeout' => array('constraint' => '11', 'null' => true, 'type' => 'int'),
 			'created_at' => array('constraint' => '11', 'type' => 'int'),
-			'updated_at' => array('constraint' => '11', 'type' => 'int'),
+            'updated_at' => array('constraint' => '11', 'type' => 'int'),
+            'fdesk_user' => array('constraint' => 11, 'type' => 'int'),
+            'enabled' => array('constraint' => 1, 'type' => 'tinyint', 'default' => 1),
+            
 		), array('id'));
 	}
 

@@ -14,10 +14,10 @@
 		<div class="form-group">
 			<div class="row">
 				<div class="col-md-4">
-		<?= Form::label('Type', 'type', array('class'=>'control-label')); ?>
-		<?= Form::select('type', Input::post('type', isset($report) ? $report->type : ''),
-								Model_Report_Builder::$report_type,
-								array('class' => 'form-control')); ?>
+                    <?= Form::label('Type', 'type', array('class'=>'control-label')); ?>
+                    <?= Form::select('type', Input::post('type', isset($report) ? $report->type : ''),
+                                            Model_Report_Builder::$report_type,
+                                            array('class' => 'form-control')); ?>
 				</div>
 			</div>
 		</div>

@@ -15,7 +15,11 @@ class Create_rate
 			'charges' => array('type' => 'decimal', 'default' => 0.00), // i.e. tax amount
             'is_tax_incl' => array('type' => 'tinyint', 'default' => 0),
             'is_seasonal_rate' => array('type' => 'tinyint', 'default' => 0),
-
+            'fdesk_user' => array('constraint' => 11, 'type' => 'int'),
+			'created_at' => array('type' => 'datetime'),
+			'updated_at' => array('type' => 'datetime'),
+            'deleted_at' => array('type' => 'datetime', 'null' => true),
+            
 		), array('id'));
 	}
 

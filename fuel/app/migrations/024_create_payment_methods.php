@@ -11,9 +11,11 @@ class Create_payment_methods
 			'code' => array('constraint' => 20, 'type' => 'varchar'),
             'name' => array('constraint' => 140, 'type' => 'varchar'),
 			'is_default' => array('null' => true, 'type' => 'tinyint'),
+			'enabled' => array('null' => true, 'type' => 'tinyint'),
 			'fdesk_user' => array('constraint' => 11, 'type' => 'int'),
 			'created_at' => array('type' => 'datetime'),
-			'updated_at' => array('type' => 'datetime'),            
+            'updated_at' => array('type' => 'datetime'),
+            
 		), array('id'));
 	}
 

@@ -1,4 +1,27 @@
-<!-- Activity Stats Current Day only -->
+<!-- Select Stats By Period to display -->
+<!-- 
+<div class="row">
+    <div class="col-md-12">
+        <?php // echo Form::open(array("class"=>"form-horizontal")); ?>
+        <div class="form-group">
+            <div class="col-md-12">
+                <?php // echo Form::select('stats_period', array('class' => 'col-md-4 form-control'), 
+                // array(
+                    // 'today' => 'Today', 
+                    // 'yesterday' => 'Yesterday', 
+                    // 'this-week' => 'This week', 
+                    // 'last-week' => 'Last week')
+                    // 'this-month' => 'This month')
+                    // 'last-month' => 'Last month')
+                // ); ?>
+            </div>
+        </div>
+        <?php // echo Form::close(); ?>
+    </div>
+</div>
+-->
+
+<!-- Activity Stats Current/Selected Day only -->
 <div class="row">
     <div class="col-lg-4">
         <div class="panel panel-default">
@@ -234,3 +257,7 @@
     </div><!-- /.panel -->
 <?php 
     endforeach; ?>
+
+<script>
+// on change of selected stats_period dropdown list option fetch and refresh the stats values
+</script>

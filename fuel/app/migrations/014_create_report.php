@@ -15,7 +15,11 @@ class Create_report
 			'published' => array('type' => 'tinyint', 'default' => 1),
 			'db_query' => array('type' => 'text', 'null' => true),
             'allowed_users' => array('type' => 'text', 'null' => true), // if null then all else some
-
+            'fdesk_user' => array('constraint' => 11, 'type' => 'int'),
+			'created_at' => array('type' => 'datetime'),
+			'updated_at' => array('type' => 'datetime'),
+            'deleted_at' => array('type' => 'datetime', 'null' => true),
+            
 		), array('id'));
 	}
 

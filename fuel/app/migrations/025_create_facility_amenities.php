@@ -10,10 +10,11 @@ class Create_facility_amenities
             'id' => array('type' => 'int', 'unsigned' => true, 'null' => false, 'auto_increment' => true, 'constraint' => '11'),
 			'code' => array('constraint' => 20, 'type' => 'varchar'),
 			'name' => array('constraint' => 140, 'type' => 'varchar'),
-			'hidden' => array('type' => 'tinyint', 'default' => 0),
+			'enabled' => array('type' => 'tinyint', 'default' => 0),
 			'fdesk_user' => array('constraint' => 11, 'type' => 'int'),
 			'created_at' => array('constraint' => '11', 'null' => false, 'type' => 'int'),
-			'updated_at' => array('constraint' => '11', 'null' => false, 'type' => 'int'),
+            'updated_at' => array('constraint' => '11', 'null' => false, 'type' => 'int'),
+            
 		), array('id'));
 	}
 

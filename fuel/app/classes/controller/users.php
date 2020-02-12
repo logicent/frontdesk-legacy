@@ -46,8 +46,8 @@ class Controller_Users extends Controller_Authenticate
                     Mailhelper::send(
                         Input::post('fullname'), 
                         Input::post('email'),
-                        'FrontDesk: User Profile Updated',
-                        'Hi, Your user account details have been updated. Administrator'
+                        'FrontDesk: User Account Created',
+                        'Hi, \r\n Your user account details has been created. \r\n Administrator'
                     );
                     Session::set_flash('success', e('Added user '.Input::post('username').'.'));
 

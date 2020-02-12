@@ -1,7 +1,6 @@
-<h2>Editing <span class='muted'>Customer</span></h2>
+<h2 class="page-header">Editing <span class='text-muted'>Customer</span>&nbsp;
+<span><?= Html::anchor('registers/customers', '<i class="fa fa-level-down fa-fw fa-rotate-180"></i> Back to List', array('class' => 'btn btn-xs')); ?></span>
+</h2>
 <br>
 
-<?php echo render('customer/_form'); ?>
-<p>
-	<?php echo Html::anchor('customer/view/'.$customer->id, 'View'); ?> |
-	<?php echo Html::anchor('customer', 'Back'); ?></p>
+<?= render(__DIR__ . '/_form'); ?>

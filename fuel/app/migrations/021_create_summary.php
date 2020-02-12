@@ -9,7 +9,7 @@ class Create_summary
 		\DBUtil::create_table('summary', array(
 			'id' => array('constraint' => 11, 'type' => 'int', 'auto_increment' => true, 'unsigned' => true),
 			'reference' => array('constraint' => 10, 'type' => 'varchar'),
-			'date' => array('type' => 'date'),
+			'night_audit' => array('type' => 'date', 'unique' => true),
 			'rooms_sold' => array('constraint' => 11, 'type' => 'int'),
 			'rooms_blocked' => array('constraint' => 11, 'type' => 'int', 'default' => 0),
 			'complimentary_rooms' => array('constraint' => 11, 'type' => 'int', 'default' => 0),

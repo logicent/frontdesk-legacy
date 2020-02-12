@@ -20,11 +20,11 @@
 	<thead>
 		<tr>
 			<th>Guest</th>
-			<th>Res no.</th>
+			<th>Status</th>
+			<th>Checkin</th>
 			<th>Pax (A/C)</th>
 			<th>Country</th>
-			<th>Checkin</th>
-			<th>Status</th>
+			<th>Res no.</th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>
@@ -33,11 +33,11 @@
 		<tr>
             <td><?= Html::anchor('facility/reservation/edit/'. $item->id, 
                                 ucwords($item->first_name .' '. $item->last_name), ['class' => 'clickable']) ?></td>
-			<td><?= $item->room->name . '-' . $item->res_no; ?></td>
+			<td><?= ucwords($item->status); ?></td>
+			<td><?= date('M d Y', strtotime($item->checkin)); ?></td>
 			<td><?= $item->pax_adults.'/'.$item->pax_children; ?></td>
 			<td><?= $item->g_country->iso_code_2; ?></td>
-			<td><?= date('M d Y', strtotime($item->checkin)); ?></td>
-			<td><?= strtoupper($item->status); ?></td>
+			<td><?= $item->room->name . '-' . $item->res_no; ?></td>
 			<td class="text-center">
 				<!-- <?php //= Html::anchor('facility/reservation/view/'.$item->id, '<i class="glyphicon glyphicon-eye"></i>'); ?> -->
 				<?= Html::anchor('facility/reservation/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>',

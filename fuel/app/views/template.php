@@ -131,10 +131,10 @@
                                     <li><a href="<?= Uri::create('accounts/sales-invoices'); ?>"><i class=""></i>&emsp;Sales Invoices</a></li>
                                     <li><a href="<?= Uri::create('accounts/sales-receipts'); ?>">&emsp;Sales Receipts</a></li>
                                     <li><a href="<?= Uri::create('accounts/expenses'); ?>">&emsp;Expenses</a></li>
-                                    <hr>
+                                    <li class="divider"></li>
                                     <li><a href="<?= Uri::create('accounts/bank-deposits'); ?>">&emsp;Bank Deposits</a></li>
                                     <li><a href="<?= Uri::create('accounts/bank-accounts'); ?>">&emsp;Bank Accounts</a></li>
-                                    <hr>
+                                    <li class="divider"></li>
                                     <li><a href="<?= Uri::create('accounts/taxes'); ?>">&emsp;Taxes &amp; Charges</a></li>
                                     <li><a href="<?= Uri::create('accounts/payment-methods'); ?>">&emsp;Payment Methods</a></li>
                                 </ul>
@@ -148,12 +148,12 @@
                                         <li><a href="<?= Uri::create('facilities/room-types'); ?>"><i class=""></i>&emsp;Room Types</a></li>
                                 <?php 
                                     endif ?>
-                                    <hr>
+                                    <li class="divider"></li>
                                     <li><a href="<?= Uri::create('facilities/amenities'); ?>"><i class=""></i>&emsp;Amenities</a></li>
-                                    <hr>
+                                    <li class="divider"></li>
                                     <li><a href="<?= Uri::create('facilities/rates'); ?>"><i class=""></i>&emsp;Rates</a></li>
                                     <li><a href="<?= Uri::create('facilities/rate-types'); ?>"><i class=""></i>&emsp;Rate Types</a></li>
-                                    <hr>
+                                    <li class="divider"></li>
                                     <li><a href="<?= Uri::create('facilities/services'); ?>"><i class=""></i>&emsp;Services</a></li>                                
                                     <li><a href="<?= Uri::create('facilities/service-types'); ?>"><i class=""></i>&emsp;Services Types</a></li>                                
                                 </ul>
@@ -177,48 +177,53 @@
     <?php 
         if (Session::get_flash('success')): ?>
                 <div class="alert alert-success alert-dismissable">
-                    <strong>Success</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <p>
-                    <?= implode('</p><p>', e((array) Session::get_flash('success'))); ?>
-                    </p>
+                    <h4>Success:
+                        <span><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></span>
+                    </h4>
+                    <div class="alert-detail">
+                        <?= implode('<hr>', e( (array) Session::get_flash('success'))); ?>
+                    </div>
                 </div>
     <?php 
         endif; ?>
     <?php 
         if (Session::get_flash('error')): ?>
-                <div class="alert alert-danger alert-dismissable">
-                    <strong>Error(s)</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <p>
-                    <?= implode('</p><p>', e((array) Session::get_flash('error'))); ?>
-                    </p>
+                <div class="alert alert-danger alert-dismissable alert-popup">
+                    <h4>Some error(s) were ecountered:
+                        <span><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></span>
+                    </h4>
+                    <div class="alert-popup-detail">
+                        <?= implode('<hr>', e( (array) Session::get_flash('error'))); ?>
+                    </div>
                 </div>
     <?php 
         endif; ?>
     <?php 
         if (Session::get_flash('warning')): ?>
-                <div class="alert alert-warning alert-dismissable">
-                    <strong>Warning</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <p>
-                    <?= implode('</p><p>', e((array) Session::get_flash('warning'))); ?>
-                    </p>
+                <div class="alert alert-warning alert-dismissable alert-popup">
+                    <h4>Some warning(s) were ecountered:
+                        <span><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></span>
+                    </h4>
+                    <div class="alert-popup-detail">
+                        <?= implode('<hr>', e( (array) Session::get_flash('warning'))); ?>
+                    </div>
                 </div>
     <?php 
         endif; ?>
     <?php 
         if (Session::get_flash('info')): ?>
-                <div class="alert alert-info alert-dismissable">
-                    <strong>Info</strong>
+                <div class="alert alert-info alert-dismissable alert-popup">
+                    <h4>Some info for you:
+                        <span><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></span>
+                    </h4>
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <p>
-                    <?= implode('</p><p>', e((array) Session::get_flash('info'))); ?>
-                    </p>
+                    <div class="alert-popup-detail">
+                        <?= implode('<hr>', e( (array) Session::get_flash('info'))); ?>
+                    </div>
                 </div>
     <?php 
         endif; ?>
-                <div class="row">
+                <div id="content" class="row">
                     <div class="col-lg-12">
                 <!-- Dashboard and Reports container -->
             <?php if (
@@ -242,11 +247,11 @@
                     </div>  <!-- /.col-lg-12  -->
                 </div>  <!-- /.row -->
 
-                <footer class="text-center small">
-                    <br><br>
-                    <a href="http://logicent.co/solutions/hotel-front-office.html" target="_blank">E1 FrontDesk</a> &copy; 2014-<?= date('Y'); ?> All Rights Reserved.
-                </footer>
             </div>  <!-- /#page-wrapper -->
+
+            <footer id="footer" class="text-center small">
+                <a href="http://logicent.co/solutions/hotel-front-office.html" target="_blank">E1 FrontDesk</a> &copy; 2014-<?= date('Y'); ?> All Rights Reserved.
+            </footer>
         </div>  <!-- /#wrapper -->
         
     </body>

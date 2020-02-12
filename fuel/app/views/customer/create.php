@@ -1,7 +1,8 @@
-<h2>New <span class='muted'>Customer</span></h2>
+<h2 class="page-header">New <span class='text-muted'>Customer</span>&nbsp;
+    <span><?= Html::anchor('registers/customers', '<i class="fa fa-level-down fa-fw fa-rotate-180"></i> Back to List', array('class' => 'btn btn-xs')); ?></span>
+</h2>
+
 <br>
 
-<?php echo render('customer/_form'); ?>
+<?= render(__DIR__ . '/_form'); ?>
 
-
-<p><?php echo Html::anchor('customer', 'Back'); ?></p>

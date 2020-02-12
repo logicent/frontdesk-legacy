@@ -18,6 +18,7 @@ class Controller_Business extends Controller_Authenticate
 			$business->property_type = Input::post('property_type');
 			$business->currency_symbol = Input::post('currency_symbol');
 			$business->email_address = Input::post('email_address');
+			$business->phone_number = Input::post('phone_number');
 
 			try {
 				// upload and save the file
@@ -65,6 +66,7 @@ class Controller_Business extends Controller_Authenticate
 				$business->property_type = $val->validated('property_type');
 				$business->currency_symbol = $val->validated('currency_symbol');
 				$business->email_address = $val->validated('email_address');
+				$business->phone_number = $val->validated('phone_number');
 
 				Session::set_flash('error', $val->error());
 			}
@@ -96,7 +98,7 @@ class Controller_Business extends Controller_Authenticate
 			$val = Model_Business::validate('create');
 
 			if ($val->run())
-			{
+			{                                    
 				$business = Model_Business::forge(array(
 					'business_name' => Input::post('business_name'),
 					'trading_name' => Input::post('trading_name'),
@@ -104,9 +106,14 @@ class Controller_Business extends Controller_Authenticate
 					'tax_identifier' => Input::post('tax_identifier'),
 					'property_type' => Input::post('property_type'),
 					'currency_symbol' => Input::post('currency_symbol'),
-					'email_address' => Input::post('email_address'),
-					'business_logo' => Input::post('business_logo'),
+                    'email_address' => Input::post('email_address'),
+                    'phone_number' => Input::post('phone_number'),
 				));
+                // upload and save the file
+				$file = Filehelper::upload();
+
+                if (!empty($file['saved_as']))
+                    $business->business_logo = 'uploads'.DS.$file['name'];
 
 				if ($business and $business->save())
 				{

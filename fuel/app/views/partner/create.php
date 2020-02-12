@@ -1,7 +1,8 @@
-<h2>New <span class='muted'>Partner</span></h2>
+<h2 class="page-header">New <span class='text-muted'>Partner</span>&nbsp;
+    <span><?= Html::anchor('registers/partners', '<i class="fa fa-level-down fa-fw fa-rotate-180"></i> Back to List', array('class' => 'btn btn-xs')); ?></span>
+</h2>
+
 <br>
 
-<?php echo render('partner/_form'); ?>
+<?= render(__DIR__ . '/_form'); ?>
 
-
-<p><?php echo Html::anchor('partner', 'Back'); ?></p>

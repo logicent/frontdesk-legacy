@@ -22,13 +22,14 @@ class Create_sales_invoice
 			'paid_status' => array('constraint' => 2, 'type' => 'char'),
 			'billing_address' => array('type' => 'text', 'null' => true),
 			'po_number' => array('constraint' => 10, 'type' => 'varchar', 'null' => true),
-			'amounts_tax_inc' => array('type' => 'tinyint', 'default' => 0),
+			'amounts_tax_inc' => array('type' => 'tinyint', 'default' => 0, 'null' => true),
 			'summary' => array('constraint' => 140, 'type' => 'varchar', 'null' => true),
 			'notes' => array('type' => 'text', 'null' => true),
 			'fdesk_user' => array('constraint' => 11, 'type' => 'int'),			
 			'created_at' => array('type' => 'datetime'),
 			'updated_at' => array('type' => 'datetime'),
-			'deleted_at' => array('type' => 'datetime'),
+            'deleted_at' => array('type' => 'datetime', 'null' => true),
+            
 		), array('id'));
 	}
 

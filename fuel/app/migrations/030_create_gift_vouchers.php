@@ -14,9 +14,11 @@ class Create_gift_vouchers
 			'valid_from' => array('null' => true, 'type' => 'date'),
 			'valid_to' => array('null' => true, 'type' => 'date'),
 			'value' => array('constraint' => '10,2', 'type' => 'decimal'),
-			'is_redeemed' => array('null' => false, 'type' => 'boolean'),
+            'is_redeemed' => array('null' => false, 'type' => 'boolean'),
+			'fdesk_user' => array('constraint' => 11, 'type' => 'int'),
 			'created_at' => array('constraint' => '11', 'null' => false, 'type' => 'int'),
-			'updated_at' => array('constraint' => '11', 'null' => false, 'type' => 'int'),
+            'updated_at' => array('constraint' => '11', 'null' => false, 'type' => 'int'),
+            
 		), array('id'));
 	}
 

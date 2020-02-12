@@ -16,7 +16,7 @@ class Create_sales_invoice_item
 			'unit_price' => array('type' => 'decimal'),
 			'discount_percent' => array('type' => 'double'),
 			'amount' => array('type' => 'decimal'),
-			'deleted_at' => array('type' => 'datetime'),
+			'deleted_at' => array('type' => 'datetime', 'null' => true),
 
 		), array('id'));
 	}

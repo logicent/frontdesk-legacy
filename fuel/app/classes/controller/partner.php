@@ -34,10 +34,28 @@ class Controller_Partner extends Controller_Authenticate
 			if ($val->run())
 			{
 				$partner = Model_Partner::forge(array(
-					'name' => Input::post('name'),
-					'type' => Input::post('type'),
-					'inactive' => Input::post('inactive'),
-					'credit_limit' => Input::post('credit_limit'),
+                    'partner_name' => Input::post('partner_name'),
+                    'partner_type' => Input::post('partner_type'),
+                    'partner_group' => Input::post('partner_group'),
+                    'fdesk_user' => Input::post('fdesk_user'),
+                    'inactive' => Input::post('inactive'),
+                    'account_manager' => Input::post('account_manager'),
+                    'bank_account' => Input::post('bank_account'),
+                    'billing_currency' => Input::post('billing_currency'),
+                    'default_rate_ref' => Input::post('default_rate_ref'),
+                    'tax_ID' => Input::post('tax_ID'),
+                    'email_address' => Input::post('email_address'),
+                    'phone' => Input::post('phone'),
+                    'first_billed' => Input::post('first_billed'),
+                    'last_billed' => Input::post('last_billed'),
+                    'credit_limit' => Input::post('credit_limit'),
+                    'on_hold' => Input::post('on_hold'),
+                    'on_hold_from' => Input::post('on_hold_from'),
+                    'on_hold_to' => Input::post('on_hold_to'),
+                    'remarks' => Input::post('remarks'),
+                    // 'total_amount_billed' => Input::post('total_amount_billed'),
+                    // 'total_amount_paid' => Input::post('total_amount_paid'),
+                    // 'total_amount_not_billed' => Input::post('total_amount_not_billed'),
 				));
 
 				if ($partner and $partner->save())
@@ -77,10 +95,28 @@ class Controller_Partner extends Controller_Authenticate
 
 		if ($val->run())
 		{
-			$partner->name = Input::post('name');
-			$partner->type = Input::post('type');
-			$partner->inactive = Input::post('inactive');
-			$partner->credit_limit = Input::post('credit_limit');
+            $partner->partner_name = Input::post('partner_name');
+            $partner->partner_type = Input::post('partner_type');
+            $partner->partner_group = Input::post('partner_group');
+            $partner->fdesk_user = Input::post('fdesk_user');
+            $partner->inactive = Input::post('inactive');
+            $partner->account_manager = Input::post('account_manager');
+            $partner->bank_account = Input::post('bank_account');
+            $partner->billing_currency = Input::post('billing_currency');
+            $partner->default_rate_ref = Input::post('default_rate_ref');
+            $partner->tax_ID = Input::post('tax_ID');
+            $partner->email_address = Input::post('email_address');
+            $partner->phone = Input::post('phone');
+            $partner->first_billed = Input::post('first_billed');
+            $partner->last_billed = Input::post('last_billed');
+            $partner->credit_limit = Input::post('credit_limit');
+            $partner->on_hold = Input::post('on_hold');
+            $partner->on_hold_from = Input::post('on_hold_from');
+            $partner->on_hold_to = Input::post('on_hold_to');
+            $partner->remarks = Input::post('remarks');
+            // $partner->total_amount_billed = Input::post('total_amount_billed');
+            // $partner->total_amount_paid = Input::post('total_amount_paid');
+            // $partner->total_amount_not_billed = Input::post('total_amount_not_billed');
 
 			if ($partner->save())
 			{
@@ -99,10 +135,28 @@ class Controller_Partner extends Controller_Authenticate
 		{
 			if (Input::method() == 'POST')
 			{
-				$partner->name = $val->validated('name');
-				$partner->type = $val->validated('type');
-				$partner->inactive = $val->validated('inactive');
-				$partner->credit_limit = $val->validated('credit_limit');
+                $partner->partner_name = $val->validated('partner_name');
+                $partner->partner_type = $val->validated('partner_type');
+                $partner->partner_group = $val->validated('partner_group');
+                $partner->fdesk_user = $val->validated('fdesk_user');
+                $partner->inactive = $val->validated('inactive');
+                $partner->account_manager = $val->validated('account_manager');
+                $partner->bank_account = $val->validated('bank_account');
+                $partner->billing_currency = $val->validated('billing_currency');
+                $partner->default_rate_ref = $val->validated('default_rate_ref');
+                $partner->tax_ID = $val->validated('tax_ID');
+                $partner->email_address = $val->validated('email_address');
+                $partner->phone = $val->validated('phone');
+                $partner->first_billed = $val->validated('first_billed');
+                $partner->last_billed = $val->validated('last_billed');
+                $partner->credit_limit = $val->validated('credit_limit');
+                $partner->on_hold = $val->validated('on_hold');
+                $partner->on_hold_from = $val->validated('on_hold_from');
+                $partner->on_hold_to = $val->validated('on_hold_to');
+                $partner->remarks = $val->validated('remarks');
+                // $partner->total_amount_billed = $val->validated('total_amount_billed');
+                // $partner->total_amount_paid = $val->validated('total_amount_paid');
+                // $partner->total_amount_not_billed = $val->validated('total_amount_not_billed');
 
 				Session::set_flash('error', $val->error());
 			}
