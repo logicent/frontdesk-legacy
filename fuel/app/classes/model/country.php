@@ -4,35 +4,34 @@ class Model_Country extends \Orm\Model
 {
 	protected static $_properties = array(
 		'id',
-		'sequence',
 		'name',
-		'iso_code_2',
-		'iso_code_3',
-		'address_format',
-		'zip_required',
-		'status',
-		'tax',
+		'iso_3166_2',
+		'iso_3166_3',
+		'currency_code',
+		'currency_symbol',
 	);
 
 	protected static $_table_name = 'countries';
 
-	public static function listOptions($prompt, $prompt_text)
+	public static function listOptions($prompt, $prompt_text = '')
 	{
-		$items = DB::select('id','name')->from(self::$_table_name)->execute()->as_array();
-		
-		if ($prompt === false) $list_options = array();
-		else $list_options = array(''=>'');
+		$items = DB::select('iso_3166_3', 'name')->from(self::$_table_name)->execute()->as_array();
+        
+        if ($prompt === false) 
+            $list_options = array();
+        else 
+            $list_options = array( '' => $prompt_text);
 		
 		foreach($items as $item)
-			$list_options[$item['id']] = $item['name'];
+			$list_options[$item['iso_3166_3']] = $item['name'];
 		
 		return $list_options;
 	}
 
 	public static function getDefaultCountry()
 	{
-		$defaultCountry = self::find('first', array('where' => array('iso_code_2' => 'KE')));
-		return ($defaultCountry) ? $defaultCountry->id : null;
+        //  TODO: use the settings to capture this as pre-defined value
+		return 'KEN';
 	}
 	
 }

@@ -1,7 +1,4 @@
-<h2>New <span class='muted'>Service_type</span></h2>
+<h2>New <span class='text-muted'>Service type</span></h2>
 <br>
 
-<?php echo render('service/type/_form'); ?>
-
-
-<p><?php echo Html::anchor('service/type', 'Back'); ?></p>
+<?= render(__DIR__ . '/_form'); ?>

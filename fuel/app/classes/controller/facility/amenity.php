@@ -12,12 +12,12 @@ class Controller_Facility_Amenity extends Controller_Authenticate
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('facility/amenity');
+		is_null($id) and Response::redirect('facilities/amenities');
 
 		if ( ! $data['amenity'] = Model_Facility_Amenity::find($id))
 		{
 			Session::set_flash('error', 'Could not find amenity #'.$id);
-			Response::redirect('facility/amenity');
+			Response::redirect('facilities/amenities');
 		}
 
 		$this->template->title = "Amenity";
@@ -35,18 +35,19 @@ class Controller_Facility_Amenity extends Controller_Authenticate
 			{
 				$amenity = Model_Facility_Amenity::forge(array(
 					'code' => Input::post('code'),
-					'name' => Input::post('name'),
-					'is_billable' => Input::post('is_billable'),
-					'is_metered' => Input::post('is_metered'),
-					'is_default' => Input::post('is_default'),
-					'fdesk_user' => Input::post('fdesk_user'),                    
+                    'name' => Input::post('name'),
+					'enabled' => Input::post('enabled'),
+					// 'is_billable' => Input::post('is_billable'),
+					// 'is_metered' => Input::post('is_metered'),
+					// 'is_default' => Input::post('is_default'),
+					'fdesk_user' => Input::post('fdesk_user'),
 				));
 
 				if ($amenity and $amenity->save())
 				{
-					Session::set_flash('success', 'Added amenity #'.$amenity->id.'.');
+					Session::set_flash('success', 'Added amenity #'.$amenity->code.'.');
 
-					Response::redirect('facility/amenity');
+					Response::redirect('facilities/amenities');
 				}
 
 				else
@@ -67,12 +68,12 @@ class Controller_Facility_Amenity extends Controller_Authenticate
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('facility/amenity');
+		is_null($id) and Response::redirect('facilities/amenities');
 
 		if ( ! $amenity = Model_Facility_Amenity::find($id))
 		{
 			Session::set_flash('error', 'Could not find amenity #'.$id);
-			Response::redirect('facility/amenity');
+			Response::redirect('facilities/amenities');
 		}
 
 		$val = Model_Facility_Amenity::validate('edit');
@@ -81,15 +82,17 @@ class Controller_Facility_Amenity extends Controller_Authenticate
 		{
             $amenity->code = Input::post('code');
             $amenity->name = Input::post('name');
-            $amenity->is_billable = Input::post('is_billable');
-            $amenity->is_metered = Input::post('is_metered');
-            $amenity->is_default = Input::post('is_default');
+            $amenity->enabled = Input::post('enabled');
+            $amenity->fdesk_user = Input::post('fdesk_user');
+            // $amenity->is_billable = Input::post('is_billable');
+            // $amenity->is_metered = Input::post('is_metered');
+            // $amenity->is_default = Input::post('is_default');
 
 			if ($amenity->save())
 			{
-				Session::set_flash('success', 'Updated amenity #' . $id);
+				Session::set_flash('success', 'Updated amenity #' . $amenity->code);
 
-				Response::redirect('facility/amenity');
+				Response::redirect('facilities/amenities');
 			}
 
 			else
@@ -104,9 +107,11 @@ class Controller_Facility_Amenity extends Controller_Authenticate
 			{
 				$amenity->code = $val->validated('code');
                 $amenity->name = $val->validated('name');
-                $amenity->is_billable = $val->validated('is_billable');
-                $amenity->is_metered = $val->validated('is_metered');
-                $amenity->is_default = $val->validated('is_default');
+                $amenity->enabled = $val->validated('enabled');
+                $amenity->fdesk_user = $val->validated('fdesk_user');
+                // $amenity->is_billable = $val->validated('is_billable');
+                // $amenity->is_metered = $val->validated('is_metered');
+                // $amenity->is_default = $val->validated('is_default');
 
 				Session::set_flash('error', $val->error());
 			}
@@ -121,7 +126,7 @@ class Controller_Facility_Amenity extends Controller_Authenticate
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('facility/amenity');
+		is_null($id) and Response::redirect('facilities/amenities');
 
 		if ($amenity = Model_Facility_Amenity::find($id))
 		{
@@ -135,7 +140,7 @@ class Controller_Facility_Amenity extends Controller_Authenticate
 			Session::set_flash('error', 'Could not delete amenity #'.$id);
 		}
 
-		Response::redirect('facility/amenity');
+		Response::redirect('facilities/amenities');
 
 	}
 

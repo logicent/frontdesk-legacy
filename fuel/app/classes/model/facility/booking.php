@@ -108,7 +108,7 @@ class Model_Facility_Booking extends Model_Soft
 		$val->add_field('sex', 'Sex', 'required|max_length[1]');
 		$val->add_field('address', 'Address', 'max_length[150]');
 		$val->add_field('city', 'City', 'max_length[20]');
-		$val->add_field('country', 'Country', 'valid_string[numeric]');
+		$val->add_field('country', 'Country', 'valid_string');
 		$val->add_field('email', 'Email', 'valid_email|max_length[50]');
 		$val->add_field('phone', 'Phone', 'required|max_length[20]');
 		$val->add_field('payment_type', 'Payment Type', 'max_length[20]');
@@ -124,7 +124,7 @@ class Model_Facility_Booking extends Model_Soft
 		$val->add_field('total_payment', 'Total Payment', 'valid_string[]');
 		$val->add_field('id_type', 'ID Type', 'max_length[3]');
 		$val->add_field('id_number', 'ID Number', 'required|max_length[20]');
-		$val->add_field('id_country', 'ID Country', 'required|valid_string[numeric]');
+		$val->add_field('id_country', 'ID Country', 'required|valid_string');
 		$val->add_field('remarks', 'Remarks', 'valid_string["alpha","numeric","spaces","punctuation","newlines","dashes","quotes"]');
 
 		return $val;
@@ -162,7 +162,7 @@ class Model_Facility_Booking extends Model_Soft
 		'g_country' => array(
 			'key_from' => 'country',
 			'model_to' => 'Model_Country',
-			'key_to' => 'id',
+			'key_to' => '->iso_3166_3',
 			'cascade_save' => false,
 			'cascade_delete' => false,
 		)

@@ -60,7 +60,7 @@ class Controller_Partner extends Controller_Authenticate
 
 				if ($partner and $partner->save())
 				{
-					Session::set_flash('success', 'Added partner #'.$partner->id.'.');
+					Session::set_flash('success', 'Added partner #'.$partner->partner_name.'.');
 
 					Response::redirect('partner');
 				}
@@ -120,7 +120,7 @@ class Controller_Partner extends Controller_Authenticate
 
 			if ($partner->save())
 			{
-				Session::set_flash('success', 'Updated partner #' . $id);
+				Session::set_flash('success', 'Updated partner #' . $partner->partner_name);
 
 				Response::redirect('partner');
 			}

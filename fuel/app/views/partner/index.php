@@ -40,6 +40,6 @@
 </table>
 
 <?php else: ?>
-<p>No Customers.</p>
+<p>No Partners.</p>
 
 <?php endif; ?>

@@ -20,29 +20,40 @@
 
         <div class="form-group">
             <div class="col-md-6">
-                <?= Form::checkbox('is_billable', Input::post('is_billable', isset($amenity) ? $amenity->is_billable : '0'), 
+                <?= Form::checkbox('enabled', Input::post('enabled', isset($amenity) ? $amenity->enabled : ''), 
                                     array('class' => 'cb-checked')); ?>
-                <?= Form::label('Is billable', 'is_billable', array('class'=>'control-label')); ?>            
+                <?= Form::label('Visible', 'enabled', array('class'=>'control-label')); ?>
+            </div>
+        </div>
+<!--
+        <div class="form-group">
+            <div class="col-md-6">
+                <?php // Form::checkbox('is_billable', Input::post('is_billable', isset($amenity) ? $amenity->is_billable : '0'), 
+                        //            array('class' => 'cb-checked')); ?>
+                <?php // Form::label('Is billable', 'is_billable', array('class'=>'control-label')); ?>            
             </div>
         </div>
         
         <div class="form-group">
             <div class="col-md-6">
-                <?= Form::checkbox('is_metered', Input::post('is_metered', isset($amenity) ? $amenity->is_metered : '0'), 
-                                    array('class' => 'cb-checked')); ?>
-                <?= Form::label('Is metered', 'is_metered', array('class'=>'control-label')); ?>
+                <?php // Form::checkbox('is_metered', Input::post('is_metered', isset($amenity) ? $amenity->is_metered : '0'), 
+                        //            array('class' => 'cb-checked')); ?>
+                <?php // Form::label('Is metered', 'is_metered', array('class'=>'control-label')); ?>
             </div>
         </div>
         
         <div class="form-group">
             <div class="col-md-6">
-                <?= Form::checkbox('is_default', Input::post('is_default', isset($amenity) ? $amenity->is_default : '0'), 
-                                    array('class' => 'cb-checked')); ?>
-                <?= Form::label('Is default', 'is_default', array('class'=>'control-label')); ?>
+                <?php // Form::checkbox('is_default', Input::post('is_default', isset($amenity) ? $amenity->is_default : '0'), 
+                        //            array('class' => 'cb-checked')); ?>
+                <?php // Form::label('Is default', 'is_default', array('class'=>'control-label')); ?>
             </div>
         </div>
+-->        
     </div>
 </div>
+
+<?= Form::hidden('fdesk_user', Input::post('fdesk_user', isset($amenity) ? $amenity->fdesk_user : $uid)); ?>
 
 <hr>
 
@@ -55,15 +66,17 @@
 <?= Form::close(); ?>
 
 <script>
-	$('.cb-checked').click(function() {
-        cbName = '#form_' + $(this).attr('name');
-        // console.log(cbName);
-	    if ($(this).is(':checked')) // true
-	        $(cbName).val(1);
-	    else $(cbName).val(0);
-    });
+    cbEl = $('.cb-checked');
 
-    if ($('.cb-checked').val() == '1') {
-        $(cbName).attr('checked', true);
+	$(cbEl.click(
+        function() {
+            if (cbEl.is(':checked')) // true
+                $(cbEl).val(1);
+            else $(cbEl).val(0);
+        })
+    );
+        
+    if (cbEl.val() == '1') {
+        cbEl.prop('checked', true);
 	}
 </script>

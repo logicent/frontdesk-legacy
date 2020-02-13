@@ -20,7 +20,7 @@ class Create_customer
 			'email_address' => array('constraint' => 140, 'type' => 'varchar', 'null' => true),
 			'ID_type' => array('constraint' => 3, 'type' => 'char'),
 			'ID_no' => array('constraint' => 8, 'type' => 'varchar'),
-			'ID_country' => array('constraint' => 3, 'type' => 'char', 'null' => true),
+			'ID_country' => array('constraint' => 3, 'type' => 'char'),
 			'occupation' => array('constraint' => 140, 'type' => 'varchar', 'null' => true),
 			'first_billed' => array('type' => 'date', 'null' => true),
 			'last_billed' => array('type' => 'date', 'null' => true),

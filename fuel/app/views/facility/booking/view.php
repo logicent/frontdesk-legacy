@@ -104,7 +104,7 @@
 
 			<!-- <div class="col-md-4">
 				<label class='control-label'>&nbsp;</label><br>
-				<a href="<?= Uri::create('#room/transfer'); ?>" class="btn btn-xs btn-default disabled">
+				<a href="<?= Uri::create('#room/transfer'); ?>" class="btn btn-default btn-xs btn-default disabled">
 					<i class="glyphicon glyphicon-link"></i> Change ...
 				</a>
 			</div> -->

@@ -27,7 +27,7 @@ class Controller_Room_Type extends Controller_Authenticate
 				{
 					Session::set_flash('success', 'Added room type #'.$room_type->name.'.');
 
-					Response::redirect('room/type');
+					Response::redirect('facilities/room-types');
 				}
 
 				else
@@ -48,12 +48,12 @@ class Controller_Room_Type extends Controller_Authenticate
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('room/type');
+		is_null($id) and Response::redirect('facilities/room-types');
 
 		if ( ! $room_type = Model_Room_Type::find($id))
 		{
 			Session::set_flash('error', 'Could not find room type #'.$id);
-			Response::redirect('room/type');
+			Response::redirect('facilities/room-types');
 		}
 
 		$val = Model_Room_Type::validate('edit');
@@ -67,7 +67,7 @@ class Controller_Room_Type extends Controller_Authenticate
 			{
 				Session::set_flash('success', 'Updated room type #' . $id);
 
-				Response::redirect('room/type');
+				Response::redirect('facilities/room-types');
 			}
 
 			else
@@ -96,7 +96,7 @@ class Controller_Room_Type extends Controller_Authenticate
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('room/type');
+		is_null($id) and Response::redirect('facilities/room-types');
 
 		if ($room_type = Model_Room_Type::find($id))
 		{
@@ -114,7 +114,7 @@ class Controller_Room_Type extends Controller_Authenticate
 			Session::set_flash('error', 'Could not delete room type #'.$id);
 		}
 
-		Response::redirect('room/type');
+		Response::redirect('facilities/room-types');
 
 	}
 

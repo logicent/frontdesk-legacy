@@ -155,7 +155,7 @@
                                     <li><a href="<?= Uri::create('facilities/rate-types'); ?>"><i class=""></i>&emsp;Rate Types</a></li>
                                     <li class="divider"></li>
                                     <li><a href="<?= Uri::create('facilities/services'); ?>"><i class=""></i>&emsp;Services</a></li>                                
-                                    <li><a href="<?= Uri::create('facilities/service-types'); ?>"><i class=""></i>&emsp;Services Types</a></li>                                
+                                    <!--<li><a href="<?php // Uri::create('facilities/service-types'); ?>"><i class=""></i>&emsp;Services Types</a></li>-->
                                 </ul>
                             </li>
                             <li>
@@ -176,11 +176,11 @@
             <div id="page-wrapper">
     <?php 
         if (Session::get_flash('success')): ?>
-                <div class="alert alert-success alert-dismissable">
+                <div class="alert alert-success alert-dismissable alert-popup">
                     <h4>Success:
                         <span><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></span>
                     </h4>
-                    <div class="alert-detail">
+                    <div class="alert-popup-detail">
                         <?= implode('<hr>', e( (array) Session::get_flash('success'))); ?>
                     </div>
                 </div>

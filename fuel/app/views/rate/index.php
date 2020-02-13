@@ -20,7 +20,7 @@
 		<tr>
 			<th>Type</th>
 			<th>Rate</th>
-			<th>Charges / night</th>
+			<th>Charges</th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>

@@ -4,6 +4,7 @@ use Orm\Model;
 class Model_Partner extends Model
 {
 	protected static $_properties = array(
+        'id',
         'partner_name',
         'partner_type',
         'partner_group',

@@ -53,14 +53,14 @@ class Model_Customer extends Model
 		$val->add_field('mobile_phone', 'Mobile Phone', 'required|max_length[140]');
 		$val->add_field('ID_type', 'ID Type', 'max_length[3]');
 		$val->add_field('ID_no', 'ID Number', 'required|max_length[20]');
-        $val->add_field('ID_country', 'ID Country', 'required|valid_string[numeric]');
+        $val->add_field('ID_country', 'ID Country', 'required|valid_string');
         
 		return $val;
 	}
 
 	protected static $_table_name = 'customer';
 
-    public static function listOptionsCustomerGroup()
+    public static function listOptionsCustomerType()
 	{
 		return array(
             'Guest' => 'Guest',
@@ -70,7 +70,7 @@ class Model_Customer extends Model
         );
     }
     
-    public static function listOptionsCustomerType()
+    public static function listOptionsCustomerGroup()
 	{
 		return array(
             'Individual' => 'Individual',

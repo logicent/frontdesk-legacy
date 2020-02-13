@@ -336,3 +336,6 @@ label {
     background-color: inherit;
 }
 
+.fa-sm {
+    font-size: 12px;
+}

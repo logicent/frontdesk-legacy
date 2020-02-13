@@ -1,30 +1,53 @@
-<h2>Listing <span class='muted'>Folios</span></h2>
-<br>
-<?php if ($folios): ?>
-<table class="table">
-	<thead>
-		<tr>
-			<th>&nbsp;</th>
-		</tr>
-	</thead>
-	<tbody>
-<?php foreach ($folios as $item): ?>		<tr>
+<div class="">
+    <h2>Folio</h2>
+    <div class="col-md-4">
+        <h3>Duration</h3>
+        Check in
+        Check out
+        Adults
+        Children
+        Infants
+        (Business) Source
+        Market
+        Mode of Arrival
 
-			<td>
-				<div class="btn-toolbar">
-					<div class="btn-group">
-						<?php echo Html::anchor('folios/view/'.$item->id, '<i class="icon-eye-open"></i> View', array('class' => 'btn btn-default btn-sm')); ?>						<?php echo Html::anchor('folios/edit/'.$item->id, '<i class="icon-wrench"></i> Edit', array('class' => 'btn btn-default btn-sm')); ?>						<?php echo Html::anchor('folios/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Delete', array('class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('Are you sure?')")); ?>					</div>
-				</div>
+    </div>
 
-			</td>
-		</tr>
-<?php endforeach; ?>	</tbody>
-</table>
+    <div class="col-md-4">
+        <h3>Primary Guest</h3>
+        Profile ID
+        First name
+        Last name
+        Organization
+        Address
+        City
+        State
+        Country
+        Phone
+        Cell Phone
+        Fax
+        Email
+        Sex
+        Birth Date
 
-<?php else: ?>
-<p>No Folios.</p>
+    </div>
+    
+    <div class="col-md-4">
+        <h3>Rate info</h3>
+        Duration of Stay
+        Total Charges
+        Taxes
+        Extras
+        Rental
+        POS Items
+        Total
+        Payments
+        Transfers sent
+        Transfers received
+        Adjustment
+        Invoices
+        Balance
+        Security Deposits
 
-<?php endif; ?><p>
-	<?php echo Html::anchor('folios/create', 'Add new Folio', array('class' => 'btn btn-success')); ?>
-
-</p>
+    </div>        
+</div>

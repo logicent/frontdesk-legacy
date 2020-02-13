@@ -1,36 +1,41 @@
-<h2>Listing <span class='muted'>Service_types</span></h2>
-<br>
+<div class="row">
+	<div class="col-md-6">
+		<h2>Listing <span class='text-muted'>Service types</span></h2>
+	</div>
+
+	<div class="col-md-6">
+		<br>
+		<?= Html::anchor('service/type/create', 'New', array('class' => 'pull-right btn btn-primary')); ?>
+	</div>
+</div>
+<hr>
+
 <?php if ($service_types): ?>
-<table class="table table-striped">
+<table class="table table-hover datatable">
 	<thead>
 		<tr>
-			<th>Name</th>
 			<th>Code</th>
-			<th>Enabled</th>
+			<th>Description</th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>
 	<tbody>
-<?php foreach ($service_types as $item): ?>		<tr>
-
-			<td><?php echo $item->name; ?></td>
-			<td><?php echo $item->code; ?></td>
-			<td><?php echo $item->enabled; ?></td>
+<?php foreach ($service_types as $item): ?>
+		<tr>
 			<td>
-				<div class="btn-toolbar">
-					<div class="btn-group">
-						<?php echo Html::anchor('service/type/view/'.$item->id, '<i class="icon-eye-open"></i> View', array('class' => 'btn btn-default btn-sm')); ?>						<?php echo Html::anchor('service/type/edit/'.$item->id, '<i class="icon-wrench"></i> Edit', array('class' => 'btn btn-default btn-sm')); ?>						<?php echo Html::anchor('service/type/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Delete', array('class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('Are you sure?')")); ?>					</div>
-				</div>
-
+                <?= Html::anchor('service/item/edit/'.$item->id, $item->item, ['class' => 'clickable']); ?>
+            </td>
+			<td><?= $item->code; ?></td>
+			<td><?= $item->name; ?></td>
+			<td class="text-center">
+				<?= Html::anchor('service/type/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>',
+                                array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
 			</td>
 		</tr>
-<?php endforeach; ?>	</tbody>
+<?php endforeach; ?>
+	</tbody>
 </table>
 
 <?php else: ?>
-<p>No Service_types.</p>
-
-<?php endif; ?><p>
-	<?php echo Html::anchor('service/type/create', 'Add new Service type', array('class' => 'btn btn-success')); ?>
-
-</p>
+<p>No Service types found.</p>
+<?php endif; ?>

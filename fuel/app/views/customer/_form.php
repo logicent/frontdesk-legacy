@@ -23,30 +23,30 @@
                 <?= Form::select('customer_type', Input::post('customer_type', isset($customer) ? $customer->customer_type : ''), 
                                                                 Model_Customer::listOptionsCustomerType(), 
                                                                 array('class' => 'col-md-4 form-control')); ?>
-			</div>        
-
-            <div class="col-md-6">
-				<?= Form::label('Customer group', 'customer_group', array('class'=>'control-label')); ?>
-                <?= Form::select('customer_group', Input::post('customer_group', isset($customer) ? $customer->customer_group : ''), 
-                                                                Model_Customer::listOptionsCustomerGroup(), 
-                                                                array('class' => 'col-md-4 form-control')); ?>
 			</div>
-		</div>
-
-		<div class="form-group">
-            <div class="col-md-offset-6 col-md-6">
+<!--
+            <div class="col-md-6">
+				<?php // Form::label('Customer group', 'customer_group', array('class'=>'control-label')); ?>
+                <?php // Form::select('customer_group', Input::post('customer_group', isset($customer) ? $customer->customer_group : ''), 
+                        //                                        Model_Customer::listOptionsCustomerGroup(), 
+                        //                                        array('class' => 'col-md-4 form-control')); ?>
+			</div>
+-->
+            <div class="col-md-6">
 				<?= Form::label('Tax ID', 'tax_ID', array('class'=>'control-label')); ?>
                 <?= Form::input('tax_ID', Input::post('tax_ID', isset($customer) ? $customer->tax_ID : ''), 
                                 array('class' => 'col-md-4 form-control')); ?>
 			</div>        
+        </div>
 
-            <div class="col-md-offset-6 col-md-6">
+		<div class="form-group">
+            <div class="col-md-6">
                 <?php echo Form::checkbox('inactive', Input::post('inactive', isset($customer) ? $customer->inactive : '0'), 
                                         array('class' => 'cb-checked')); ?>
                 <?php echo Form::label('Inactive', 'inactive', array('class'=>'control-label')); ?>
 			</div>
             
-            <div class="col-md-offset-6 col-md-6">
+            <div class="col-md-6">
                 <?php echo Form::checkbox('is_internal_customer', Input::post('is_internal_customer', isset($customer) ? $customer->is_internal_customer : '0'), 
                                         array('class' => 'cb-checked')); ?>
                 <?php echo Form::label('Is internal customer', 'is_internal_customer', array('class'=>'control-label')); ?>
@@ -84,7 +84,7 @@
             <div class="col-md-6">
                 <?= Form::label('ID country', 'ID_country', array('class'=>'control-label')); ?>
                 <?= Form::select('ID_country', Input::post('ID_country', isset($customer) ? $customer->ID_country : ''), 
-                                Model_Country::listOptions(true, ''), array('class' => 'col-md-4 form-control')); ?>
+                                Model_Country::listOptions(true), array('class' => 'col-md-4 form-control')); ?>
             </div>
         </div>
 	</div><!--/.col-md-6-->
@@ -120,16 +120,17 @@
 <?= Form::close(); ?>
 
 <script>
-	$('.cb-checked').click(function() 
-    {
-        cbName = '#form_' + $(this).attr('name');
-
-	    if ($(this).is(':checked')) // true
-	        $(cbName).val(1);
-	    else $(cbName).val(0);
+    $('.cb-checked').click(
+        function() {
+            if ($(this).is(':checked')) // true
+                $($(this)).val(1);
+            else $($(this)).val(0);
+        });
+    
+    cbEl = $('.cb-checked');
+    cbEl.each(function() {
+        if ($(this).val() == '1') {
+            $(this).prop('checked', true);
+        }
     });
-
-    if ($('.cb-checked').val() == '1') {
-        $(cbName).attr('checked', true);
-	}
 </script>

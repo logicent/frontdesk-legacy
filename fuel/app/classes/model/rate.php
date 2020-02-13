@@ -57,5 +57,17 @@ class Model_Rate extends Model
 		}
 
 		return $list_options;
-	}
+    }
+    
+    public static function listOptionsRateGroup()
+    {
+        return array(
+            'Derived' => 'Derived',
+            'Standard' => 'Standard',
+            'Package' => 'Package',
+            'Corporate' => 'Corporate',
+            'Negotiated' => 'Negotiated',
+        );
+    }
+
 }
