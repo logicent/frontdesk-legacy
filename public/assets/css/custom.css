@@ -293,7 +293,8 @@ label {
     padding: 15px 40px;
 }
 
-.navbar-brand {
+.navbar-default .navbar-brand {
+    color: inherit;
     padding-left: 0;
 }
 
