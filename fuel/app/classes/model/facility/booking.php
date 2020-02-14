@@ -23,9 +23,22 @@ class Model_Facility_Booking extends Model_Soft
 		self::IDENTITY_TYPE_DRIVING_LICENSE => 'Driving License',
 	);
 
+    const TOC_MR = 'Mr.';
+    const TOC_MS = 'Ms.';
+    const TOC_DR = 'Dr.';
+    
+	public static $toc = array(
+        '' => '',
+		self::TOC_MR => self::TOC_MR,
+		self::TOC_MS => self::TOC_MS,
+		self::TOC_DR => self::TOC_DR
+    );
+    
 	const SEX_MALE = 'M';
-	const SEX_FEMALE = 'F';
+    const SEX_FEMALE = 'F';
+    
 	public static $sex = array(
+        '' => '',
 		self::SEX_MALE => 'Male',
 		self::SEX_FEMALE => 'Female'
 	);

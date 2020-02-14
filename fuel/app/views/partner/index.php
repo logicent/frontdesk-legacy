@@ -25,7 +25,10 @@
 <?php foreach ($partners as $item): ?>
         <tr>
             <td><?= Html::anchor('partner/edit/'.$item->id, $item->partner_name, array('class' => 'clickable')) ?></td>
-            <td><?= $item->inactive ?></td>
+            <td><?= (bool) $item->inactive == 1 ? 
+                '<i class="fa fa-circle-o fa-fw text-danger"></i>Disabled' : 
+                '<i class="fa fa-circle-o fa-fw text-success"></i>Enabled' ?>
+            </td>
             <td><?= $item->partner_type ?></td>
             <td><?= $item->partner_group ?></td>
 			<td>

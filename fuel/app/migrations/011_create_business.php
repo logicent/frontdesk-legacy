@@ -12,7 +12,7 @@ class Create_business
 			'trading_name' => array('constraint' => 140, 'type' => 'varchar'), // i.e. brand name
 			'address' => array('constraint' => 255, 'type' => 'varchar', 'null' => true),
 			'tax_identifier' => array('constraint' => 20, 'type' => 'varchar', 'null' => true), // i.e VAT PIN
-			'property_type' => array('constraint' => 140, 'type' => 'varchar'),
+			'business_type' => array('constraint' => 20, 'type' => 'varchar'),
 			'currency_symbol' => array('constraint' => 3, 'type' => 'char', 'null' => true),
 			'email_address' => array('constraint' => 140, 'type' => 'varchar'),
 			'phone_number' => array('constraint' => 140, 'type' => 'varchar', 'null' => true),

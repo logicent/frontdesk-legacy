@@ -21,11 +21,11 @@
 
 		<div class="form-group">
             <div class="col-md-12">
-                <?= Form::label('Property type', 'property_type', array('class'=>'control-label')); ?>
-                <?= Form::select('property_type', Input::post('property_type', isset($business) ? $business->property_type : ''),
-                                        Model_Business::listOptions(),
-                                        array('class' => 'form-control')); ?>
-            </div>
+                <?= Form::label('Business type', 'business_type', array('class'=>'control-label')); ?>
+                <?= Form::select('business_type', Input::post('business_type', isset($business) ? $business->business_type : ''), 
+                                Model_Business::listOptions(), 
+                                array('class' => 'col-md-4 form-control', 'id' => 'user_id')); ?>
+    		</div>
 		</div>
     </div>
 
@@ -91,11 +91,9 @@
         <div class="form-group">
         <!-- hide this in favor of input click to trigger file open dialog -->
             <?= Form::file('uploaded_file', array('class' => 'col-md-12')); ?>
-        </div>
 
-        <div class="form-group">
             <div class="col-md-12">
-                <?= Form::label('Upload image', 'upload_img', array('class'=>'control-label')); ?>
+                <?php // Form::label('Upload image', 'upload_img', array('class'=>'control-label')); ?>
                 <br>
                 <div class="img-thumbnail">
                     <?= Html::img(!empty($business->business_logo) ? $business->business_logo : 'http://placehold.it/240x120', array('class'=>'logo-img')); ?>

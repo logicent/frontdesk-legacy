@@ -38,7 +38,9 @@ return array(
     'accounts/payment/receipt/to-print/:id' => 'accounts/payment/receipt/to_print/$1',
 
 	'facilities/rooms'      => 'room',
-	'facilities/room-types' => 'room/type',
+    'facilities/room-types' => 'room/type',
+    'facilities/properties' => 'property',
+    
 	// 'facilities/unit'       => 'facility/facility',
 	// 'facilities/types'      => 'facility/type',
 	'facilities/rates'      => 'rate',

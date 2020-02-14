@@ -25,7 +25,10 @@
 <?php foreach ($customers as $item): ?>
         <tr>
             <td><?= Html::anchor('customer/edit/'.$item->id, $item->customer_name, array('class' => 'clickable')) ?></td>
-            <td><?= (bool) $item->inactive == 1 ? '<i class="fa fa-circle-o fa-fw text-success"></i>Disabled' : 'Enabled' ?></td>
+            <td><?= (bool) $item->inactive == 1 ? 
+                '<i class="fa fa-circle-o fa-fw text-danger"></i>Disabled' : 
+                '<i class="fa fa-circle-o fa-fw text-success"></i>Enabled' ?>
+            </td>
             <td><?= $item->customer_type ?></td>
             <td><?= $item->customer_group ?></td>
 			<td>

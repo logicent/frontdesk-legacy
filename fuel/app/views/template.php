@@ -146,6 +146,7 @@
                                 <?php 
                                     if($ugroup->id == 6 || $ugroup->id == 5) : ?>
                                         <li><a href="<?= Uri::create('facilities/room-types'); ?>"><i class=""></i>&emsp;Room Types</a></li>
+                                        <li><a href="<?= Uri::create('facilities/properties'); ?>"><i class=""></i>&emsp;Properties</a></li>
                                 <?php 
                                     endif ?>
                                     <li class="divider"></li>

@@ -47,6 +47,10 @@ class Controller_Customer extends Controller_Authenticate
                     'occupation' => Input::post('occupation'),
                     'email_address' => Input::post('email_address'),
                     'mobile_phone' => Input::post('mobile_phone'),
+                    'sex' => Input::post('sex'),
+                    'title_of_courtesy' => Input::post('title_of_courtesy'),
+                    'birth_date' => Input::post('birth_date'),
+                    'ID_attachment' => Input::post('ID_attachment'),
                     'first_billed' => Input::post('first_billed'),
                     'last_billed' => Input::post('last_billed'),
                     'credit_limit' => Input::post('credit_limit'),
@@ -113,6 +117,10 @@ class Controller_Customer extends Controller_Authenticate
             $customer->occupation = Input::post('occupation');
             $customer->email_address = Input::post('email_address');
             $customer->mobile_phone = Input::post('mobile_phone');
+            $customer->sex = Input::post('sex');
+            $customer->title_of_courtesy = Input::post('title_of_courtesy');
+            $customer->birth_date = Input::post('birth_date');
+            $customer->ID_attachment = Input::post('ID_attachment');
             $customer->first_billed = Input::post('first_billed');
             $customer->last_billed = Input::post('last_billed');
             $customer->credit_limit = Input::post('credit_limit');
@@ -158,6 +166,10 @@ class Controller_Customer extends Controller_Authenticate
                 $customer->occupation = $val->validated('occupation');
                 $customer->email_address = $val->validated('email_address');
                 $customer->mobile_phone = $val->validated('mobile_phone');
+                $customer->sex = $val->validated('sex');
+                $customer->title_of_courtesy = $val->validated('title_of_courtesy');
+                $customer->birth_date = $val->validated('birth_date');
+                $customer->ID_attachment = $val->validated('ID_attachment');
                 $customer->first_billed = $val->validated('first_billed');
                 $customer->last_billed = $val->validated('last_billed');
                 $customer->credit_limit = $val->validated('credit_limit');

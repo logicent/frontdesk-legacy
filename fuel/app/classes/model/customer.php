@@ -15,6 +15,10 @@ class Model_Customer extends Model
         'tax_ID',
         'mobile_phone',
         'email_address',
+        'sex',
+        'title_of_courtesy',
+        'birth_date',
+        'ID_attachment',
         'ID_type',
         'ID_no',
         'ID_country',
@@ -65,6 +69,7 @@ class Model_Customer extends Model
 		return array(
             'Guest' => 'Guest',
             'Tenant' => 'Tenant',
+            'Owner' => 'Owner',
             'Member' => 'Member',
             'Non-member' => 'Non-member',
         );
