@@ -77,13 +77,13 @@ class Model_Facility_Reservation extends Model_Soft
 		$val->add_field('first_name', 'First Name', 'required|max_length[50]');
 		$val->add_field('address', 'Address', 'max_length[150]');
 		$val->add_field('city', 'City', 'max_length[20]');
-		$val->add_field('country', 'Country', 'required|valid_string[numeric]');
+		$val->add_field('country', 'Country', 'required|valid_string');
 		$val->add_field('email', 'Email', 'valid_email|max_length[50]');
 		$val->add_field('phone', 'Phone', 'required|max_length[20]');
 		$val->add_field('rate_type', 'Rate Type', 'required|valid_string[numeric]');
 		$val->add_field('id_type', 'ID Type', 'required|max_length[3]');
 		$val->add_field('id_number', 'ID Number', 'max_length[20]');
-		$val->add_field('id_country', 'ID Country', 'required|valid_string[numeric]');
+		$val->add_field('id_country', 'ID Country', 'required|valid_string');
 		$val->add_field('remarks', 'Remarks', 'valid_string["alpha","numeric","spaces","punctuation","newlines","dashes","quotes"]');
 
 		return $val;
@@ -107,9 +107,9 @@ class Model_Facility_Reservation extends Model_Soft
 			'cascade_delete' => false,
 		),
 		'g_country' => array(
-			'key_from' => 'country',
+			'key_from' => 'id_country',
 			'model_to' => 'Model_Country',
-			'key_to' => 'id',
+			'key_to' => 'iso_3166_3',
 			'cascade_save' => false,
 			'cascade_delete' => false,
 		)

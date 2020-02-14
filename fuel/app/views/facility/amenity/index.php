@@ -19,6 +19,7 @@
 	<thead>
 		<tr>
 			<th>Name</th>
+            <th>Status</th>
             <th>Code</th>
 			<th>&nbsp;</th>
 		</tr>
@@ -29,6 +30,7 @@
             <td>
                 <?= Html::anchor('facility/amenity/edit/'.$item->id, $item->name, ['class' => 'clickable']) ?>
             </td>
+            <td><?= (bool) $item->enabled == 1 ? '<i class="fa fa-circle-o fa-fw text-success"></i>Visible' : 'Hidden' ?></td>
             <td><?= $item->code ?></td>
 			<td>
 				<div class="btn-toolbar">

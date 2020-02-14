@@ -108,7 +108,7 @@ class Model_Facility_Booking extends Model_Soft
 		$val->add_field('sex', 'Sex', 'required|max_length[1]');
 		$val->add_field('address', 'Address', 'max_length[150]');
 		$val->add_field('city', 'City', 'max_length[20]');
-		$val->add_field('country', 'Country', 'valid_string[numeric]');
+		$val->add_field('country', 'Country', 'valid_string');
 		$val->add_field('email', 'Email', 'valid_email|max_length[50]');
 		$val->add_field('phone', 'Phone', 'required|max_length[20]');
 		$val->add_field('payment_type', 'Payment Type', 'max_length[20]');
@@ -124,7 +124,7 @@ class Model_Facility_Booking extends Model_Soft
 		$val->add_field('total_payment', 'Total Payment', 'valid_string[]');
 		$val->add_field('id_type', 'ID Type', 'max_length[3]');
 		$val->add_field('id_number', 'ID Number', 'required|max_length[20]');
-		$val->add_field('id_country', 'ID Country', 'required|valid_string[numeric]');
+		$val->add_field('id_country', 'ID Country', 'required|valid_string');
 		$val->add_field('remarks', 'Remarks', 'valid_string["alpha","numeric","spaces","punctuation","newlines","dashes","quotes"]');
 
 		return $val;
@@ -162,7 +162,7 @@ class Model_Facility_Booking extends Model_Soft
 		'g_country' => array(
 			'key_from' => 'country',
 			'model_to' => 'Model_Country',
-			'key_to' => 'id',
+			'key_to' => '->iso_3166_3',
 			'cascade_save' => false,
 			'cascade_delete' => false,
 		)
@@ -238,6 +238,7 @@ class Model_Facility_Booking extends Model_Soft
 			'notes' => $booking->remarks,
 		));
 
+        // TODO: Use DB transaction here
 		if ($invoice and $invoice->save())
 		{
 			$sales_invoice_item = Model_Sales_Invoice_Item::forge(array(
@@ -267,8 +268,9 @@ class Model_Facility_Booking extends Model_Soft
 		$invoice->due_date = $booking->checkout;
 		$invoice->amount_due = $booking->total_payment - $invoice->disc_total; // preserve applied discount
 		$invoice->balance_due += $booking->total_amount;
-		//$invoice->tax_total = $booking->vat_amount;
+		// $invoice->tax_total = $booking->vat_amount;
 
+        // TODO: Use DB transaction here
 		if ($invoice and $invoice->save())
 		{
 			$sales_invoice_item = Model_Sales_Invoice_Item::find('first', array('where' => array('invoice_id' => $invoice->id)));
@@ -284,7 +286,8 @@ class Model_Facility_Booking extends Model_Soft
 		}
 	}
 
-	public static function setBillingAmounts(&$fd_booking) {
+    public static function setBillingAmounts(&$fd_booking) 
+    {
 		$fd_booking->duration = self::getStayPeriod($fd_booking->checkin, $fd_booking->checkout);
 		// rates, vat, total, charges and payments
 		$fd_booking->rate_amount = Model_Rate::find('first', array('where' => array('id' => $fd_booking->rate_type)))->charges;

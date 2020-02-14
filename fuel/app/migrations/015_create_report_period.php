@@ -13,7 +13,11 @@ class Create_report_period
 			'acctg_method' => array('constraint' => 1, 'type' => 'char'),
 			'description' => array('constraint' => 255, 'type' => 'varchar'),
 			'report_type' => array('constraint' => 3, 'type' => 'char'),
-
+            'fdesk_user' => array('constraint' => 11, 'type' => 'int'),
+			'created_at' => array('type' => 'datetime'),
+			'updated_at' => array('type' => 'datetime'),
+            'deleted_at' => array('type' => 'datetime', 'null' => true),
+            
 		), array('id'));
 	}
 

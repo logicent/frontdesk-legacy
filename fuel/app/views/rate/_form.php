@@ -16,7 +16,7 @@
 		</div>
 
 		<div class="col-md-3">
-			<?= Form::label('Charges per night', 'charges', array('class'=>'control-label')); ?>
+			<?= Form::label('Charges', 'charges', array('class'=>'control-label')); ?>
 			<?= Form::input('charges', Input::post('charges', isset($rate) ? $rate->charges : ''), array('class' => 'col-md-4 form-control', 'autofocus' => true)); ?>
 		</div>
 	</div>
@@ -24,8 +24,8 @@
 	<div class="form-group">
 		<div class="col-md-6">
 			<?= Form::label('Description', 'description', array('class'=>'control-label')); ?>
-			<?= Form::input('description', Input::post('description', isset($rate) ? $rate->description : ''),
-array('class' => 'col-md-4 form-control')); ?>
+			<?= Form::textarea('description', Input::post('description', isset($rate) ? $rate->description : ''),
+                                array('class' => 'col-md-4 form-control')); ?>
 		</div>
 	</div>
 	<hr>

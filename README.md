@@ -1,38 +1,34 @@
-# FuelPHP
+# Front Desk (PMS)
 
-* Version: 1.8.2
-* [Website](https://fuelphp.com/)
-* [Release Documentation](https://fuelphp.com/docs)
-* [Release API browser](https://fuelphp.com/api)
-* [Development branch Documentation](https://fuelphp.com/dev-docs)
-* [Development branch API browser](https://fuelphp.com/dev-api)
-* [Support Forum](https://forums.fuelphp.com) for comments, discussion and community support
+* Version: 2.x
+* [Website](https://logicent.co/)
+<!-- * [Release Documentation](https://logicent.co/front-desk/docs) -->
+<!-- * [Release API browser](https://api.logicent.co/front-desk) -->
+<!-- * [Development branch Documentation](https://logicent.co/front-desk/dev-docs) -->
+<!-- * [Development branch API browser](https://logicent.co/front-desk/dev-api) -->
+* [Support Forum](https://helpdesk.logicent.co/front-desk) for comments, discussion and community support
 
 ## Description
 
-FuelPHP is a fast, lightweight PHP 5.4+ framework. In an age where frameworks are a dime a dozen, we believe that FuelPHP will stand out in the crowd. It will do this by combining all the things you love about the great frameworks out there, while getting rid of the bad.
+E1 FrontDesk is a modern property management system (PMS) for managed facility owners and companies that offer accommodation, rental and hiring services.
 
-FuelPHP is fully PHP 7.3 compatible.
+FrontDesk is built using PHP (FuelPHP) and JavaScript (jQuery) with Bootstrap 3 UI by SBAdmin2.
 
 ## More information
 
-For more detailed information, see the [development wiki](https://github.com/fuelphp/fuelphp/wiki).
+For more detailed information, see the [development wiki](https://bitbucket.org/logicent/fdesk-legacy/wiki).
 
 ## Development Team
 
-* Harro Verton - Project Manager, Developer ([http://wanwizard.eu/](http://wanwizard.eu/))
-* Emlyn West - Core Developer, ORM
+* Ken Mwai - Creator and Lead Developer/Maintainer ([http://logicent.co/dev-team](http://logicent.co/dev-team))
+* Dan Kimani - CRM
 
 ### Want to join?
 
-The FuelPHP development team is always looking for new team members, who are willing to help lift the framework to the next level, and have the commitment to not only produce awesome code, but also great documentation, and support to our users.
+The FrontDesk development team is always looking for new team members, who are willing to help lift the solution to the next level, and have the commitment to not only produce awesome code, but also great documentation, and support to our users.
 
-You can not apply for membership. Start by sending in pull-requests, work on outstanding feature requests or bugs, and become active in the #fuelphp IRC channel. If your skills are up to scratch, we will notice you, and will ask you to become a team member.
+You can apply for internship. Start by sending in pull-requests, work on outstanding feature requests or bugs, and become active in the #logicent GitHub issues. If your skills are up to scratch, we will notice you, and will ask you to become a team member.
 
 ### Alumni
 
-* Márk Sági-Kazár - Developer
-* Frank de Jonge - Developer ([http://frenky.net/](http://frenky.net/))
-* Jelmer Schreuder - Developer ([http://jelmerschreuder.nl/](http://jelmerschreuder.nl/))
-* Phil Sturgeon - Developer ([http://philsturgeon.co.uk](http://philsturgeon.co.uk))
-* Dan Horrigan - Founder, Developer ([http://dhorrigan.com](http://dhorrigan.com))
+* (none) - Developer

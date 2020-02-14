@@ -13,7 +13,7 @@
 <table class="table table-hover datatable">
 	<thead>
 		<tr>
-            <th>Tax identifier</th>
+            <th>Description</th>
             <th>Tax rate</th>
 			<th>&nbsp;</th>
 		</tr>
@@ -21,8 +21,8 @@
 	<tbody>
 <?php foreach ($taxes as $item): ?>		
         <tr>
-            <td><?= Html::anchor('accounts/tax/edit/'.$item->id, $item->tax_identifier, ['class' => 'clickable']); ?></td>
-            <td><?= $item->tax_rate . '%' ?></td>
+            <td><?= Html::anchor('accounts/tax/edit/'.$item->id, $item->name, ['class' => 'clickable']); ?></td>
+            <td><?= $item->rate . '%' ?></td>
 			<td>
 				<div class="btn-toolbar">
 					<div class="btn-group">

@@ -22,23 +22,25 @@
 	</thead>
 	<tbody>
 <?php foreach ($payment_receipts as $item): ?>
-		<tr class="<?= $item->amount > 0 ? : 'strikeout text-muted' ?>">
+		<tr class="<?php // $item->amount > 0 ? : 'strikeout text-muted' ?>">
 			<td>
-                <?php if ($item->amount > 0) : ?>
+                <?php // if ($item->amount > 0) : ?>
 					<?= Html::anchor('accounts/payment/receipt/edit/'.$item->id, $item->reference, ['class' => 'clickable']); ?>
-				<?php endif; ?>
+				<?php // endif; ?>
             </td>
 			<td><?= date('d-M-Y', strtotime($item->date)); ?></td>
 			<td><?= $item->payer; ?></td>
 			<td class="text-right"><?= number_format($item->amount, 2); ?></td>
 			<td class="text-center">
 				<?php // Html::anchor('cash/receipt/view/'.$item->id, '<i class="fa fa-eye fa-fw fa-lg"></i>'); ?>
-				<?php if ($item->amount > 0) : ?>
+                <?php 
+                // Should depend on $item->status = Accounts_Sales_Payment_Receipt::PAID
+                if ($item->amount > 0) : ?>
 					<?= Html::anchor('accounts/payment/receipt/to-print/'.$item->id, '<i class="fa fa-print fa-fw"></i>', ['class' => 'text-muted', 'target' => '_blank']); ?>
 				<?php endif; ?>
-				<?php if ($ugroup->id == 5 && $item->amount > 0) : ?>
-					<?= Html::anchor('accounts/payment/receipt/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>', ['class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')"]); ?>
-				<?php endif; ?>
+				<?php // if ($ugroup->id == 5 && $item->amount > 0) : ?>
+					<?php // Html::anchor('accounts/payment/receipt/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>', ['class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')"]); ?>
+				<?php // endif; ?>
 			</td>
 		</tr>
 <?php endforeach; ?>

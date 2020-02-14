@@ -6,6 +6,32 @@
             </div>
         </div>
     </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <a class="btn btn-lg btn-link" href="<?= Uri::create('settings/accommodation'); ?>">Accommodation</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <a class="btn btn-lg btn-link" href="<?= Uri::create('settings/rental'); ?>">Rental</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <a class="btn btn-lg btn-link" href="<?= Uri::create('settings/hire'); ?>">Hire</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="row">
@@ -21,6 +47,24 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <a class="btn btn-lg btn-link" href="<?= Uri::create('settings/email-settings'); ?>">Email settings</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <a class="btn btn-lg btn-link" href="<?= Uri::create('settings/languages'); ?>">Languages &amp; texts</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <a class="btn btn-lg btn-link" href="<?= Uri::create('settings/vouchers'); ?>">Vouchers</a>
             </div>
         </div>
     </div>

@@ -12,7 +12,7 @@ class Model_User extends Model_Soft
 		'last_login',
 		'previous_login',
 		'login_hash',
-		'user_id',
+		'user_id', // where is this used
 		'created_at',
 		'updated_at',
 		'deleted_at',
@@ -77,6 +77,24 @@ class Model_User extends Model_Soft
 			'value' => 'value',		// the value column in the related table contains the value
 		)
 	);
+
+    public static function listOptions($show_del = false)
+	{
+		$users = DB::select('id','username')
+                    // ->from(self::$_table_name)
+                    ->from('users')
+                    ->where(array('deleted_at' => null, array('group_id', 'in', array(3,5))))
+                    ->execute()
+                    ->as_array();
+
+		$list_options = array('' => '');
+
+		foreach($users as $user) {
+			$list_options[ $user['id'] ] = $user['username'];
+        }
+        
+		return $list_options;
+	}
 
 	public static function getUserGroupList($superuser = false)
     {

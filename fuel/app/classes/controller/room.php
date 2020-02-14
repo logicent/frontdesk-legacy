@@ -11,12 +11,12 @@ class Controller_Room extends Controller_Authenticate{
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('room');
+		is_null($id) and Response::redirect('facilities/rooms');
 
 		if ( ! $data['room'] = Model_Room::find($id))
 		{
 			Session::set_flash('error', 'Could not find room #'.$id);
-			Response::redirect('room');
+			Response::redirect('facilities/rooms');
 		}
 
 		$this->template->title = "Room";
@@ -44,7 +44,7 @@ class Controller_Room extends Controller_Authenticate{
 				{
 					Session::set_flash('success', 'Added room #'.$room->name.'.');
 
-					Response::redirect('room');
+					Response::redirect('facilities/rooms');
 				}
 
 				else
@@ -65,12 +65,12 @@ class Controller_Room extends Controller_Authenticate{
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('room');
+		is_null($id) and Response::redirect('facilities/rooms');
 
 		if ( ! $room = Model_Room::find($id))
 		{
 			Session::set_flash('error', 'Could not find room #'.$id);
-			Response::redirect('room');
+			Response::redirect('facilities/rooms');
 		}
 
 		$val = Model_Room::validate('edit');
@@ -87,7 +87,7 @@ class Controller_Room extends Controller_Authenticate{
 			{
 				Session::set_flash('success', 'Updated room #' . $id);
 
-				Response::redirect('room');
+				Response::redirect('facilities/rooms');
 			}
 
 			else
@@ -119,7 +119,7 @@ class Controller_Room extends Controller_Authenticate{
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('room');
+		is_null($id) and Response::redirect('facilities/rooms');
 
 		if ($room = Model_Room::find($id))
 		{
@@ -137,13 +137,13 @@ class Controller_Room extends Controller_Authenticate{
 			Session::set_flash('error', 'Could not delete room #'.$id);
 		}
 
-		Response::redirect('room');
+		Response::redirect('facilities/rooms');
 
 	}
 
 	public function action_unblock($id = null)
 	{
-		is_null($id) and Response::redirect('room');
+		is_null($id) and Response::redirect('facilities/rooms');
 
 		if ($room = Model_Room::find($id))
 		{

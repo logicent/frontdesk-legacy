@@ -5,7 +5,13 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 	public function action_index()
 	{
 		// filter by open invoice receipts
-		$data['payment_receipts'] = Model_Accounts_Payment_Receipt::find('all', array('order_by' => array('reference' => 'desc'), 'limit' => 1000));
+		$data['payment_receipts'] = Model_Accounts_Payment_Receipt::find(
+                                        'all', 
+                                        array(
+                                            'where' =>  array(array('deleted_at', '<>', '')), 
+                                            'order_by' => array('receipt_number' => 'desc'), 
+                                            'limit' => 1000)
+                                        );
 		$this->template->title = "Receipts";
 		$this->template->content = View::forge('accounts/payment/receipt/index', $data);
 	}
@@ -36,11 +42,20 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 
 			if ($val->run())
 			{
+                // upload and save the file
+				$file = Filehelper::upload();
+                // Debug::dump($file); exit;
+                if (!empty($file['saved_as']))
+                    $payment_receipt->attachment = 'uploads'.DS.$file['name'];
+                
 				$payment_receipt = Model_Accounts_Payment_Receipt::forge(array(
-					'reference' => Input::post('reference'),
+					'receipt_number' => Input::post('receipt_number'),
 					'bill_id' => Input::post('bill_id'),
 					'date' => Input::post('date'),
 					'payer' => Input::post('payer'),
+					'payment_method' => Input::post('payment_method'),
+					'reference' => Input::post('reference'),
+					'status' => Input::post('status'),
 					'gl_account_id' => Input::post('gl_account_id'),
 					'amount' => Input::post('amount'),
 					'tax_id' => Input::post('tax_id'),
@@ -54,7 +69,7 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 					{
 						// update Invoice and Guest Card
 						Model_Accounts_Payment_Receipt::updateInvoiceSettlement($bill, $payment_receipt->amount);
-						Session::set_flash('success', 'Added cash receipt #'.$payment_receipt->reference.'.');
+						Session::set_flash('success', 'Added cash receipt #'.$payment_receipt->receipt_number.'.');
 						Response::redirect('accounts/payment/receipt/view/'.$payment_receipt->id);
 					}
 				}
@@ -88,10 +103,13 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 
 		if ($val->run())
 		{
-			$payment_receipt->reference = Input::post('reference');
+			$payment_receipt->receipt_number = Input::post('receipt_number');
 			$payment_receipt->bill_id = Input::post('bill_id');
 			$payment_receipt->date = Input::post('date');
 			$payment_receipt->payer = Input::post('payer');
+			$payment_receipt->payment_method = Input::post('payment_method');
+			$payment_receipt->reference = Input::post('reference');
+			$payment_receipt->status = Input::post('status');
 			$payment_receipt->gl_account_id = Input::post('gl_account_id');
 			$payment_receipt->amount = Input::post('amount');
 			$payment_receipt->tax_id = Input::post('tax_id');
@@ -101,7 +119,7 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 
 			if ($payment_receipt->save())
 			{
-				Session::set_flash('success', 'Updated cash receipt #' . $payment_receipt->reference);
+				Session::set_flash('success', 'Updated cash receipt #' . $payment_receipt->receipt_number);
 
 				Response::redirect('accounts/sales-receipts');
 			}
@@ -116,10 +134,13 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 		{
 			if (Input::method() == 'POST')
 			{
-				$payment_receipt->reference = $val->validated('reference');
+				$payment_receipt->receipt_number = $val->validated('receipt_number');
 				$payment_receipt->bill_id = $val->validated('bill_id');
 				$payment_receipt->date = $val->validated('date');
 				$payment_receipt->payer = $val->validated('payer');
+				$payment_receipt->payment_method = $val->validated('payment_method');
+				$payment_receipt->reference = $val->validated('reference');
+				$payment_receipt->status = $val->validated('status');
 				$payment_receipt->gl_account_id = $val->validated('gl_account_id');
 				$payment_receipt->amount = $val->validated('amount');
 				$payment_receipt->tax_id = $val->validated('tax_id');
@@ -154,7 +175,7 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 			}
 			//if (is_null(Model_Accounts_Payment_Receipt::find($id)))
 				// updateInvoiceSettlement
-			Session::set_flash('success', 'Canceled cash receipt #'.$payment_receipt->reference);
+			Session::set_flash('success', 'Canceled cash receipt #'.$payment_receipt->receipt_number);
 		}
 		else
 		{

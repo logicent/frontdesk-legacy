@@ -17,10 +17,14 @@ class Model_Accounts_Payment_Receipt extends Model_Soft
 
 	protected static $_properties = array(
 		'id',
-		'reference',
+		'receipt_number',
 		'bill_id',
 		'date',
-		'payer',
+        'payer',
+        'payment_method',
+        'reference',
+        'status',
+        'attachment',
 		'gl_account_id',
 		'amount',
 		'tax_id',
@@ -35,7 +39,7 @@ class Model_Accounts_Payment_Receipt extends Model_Soft
 	protected static $_table_name = 'sales_payment';
 
 	protected static $_soft_delete = array(
-		//'deleted_field' => 'deleted',
+		//'deleted_field' => 'deleted_at',
 		'mysql_timestamp' => true,
 	);
 
@@ -53,15 +57,19 @@ class Model_Accounts_Payment_Receipt extends Model_Soft
 	public static function validate($factory)
 	{
 		$val = Validation::forge($factory);
-		$val->add_field('reference', 'Reference', 'required|valid_string[numeric]');
+		$val->add_field('receipt_number', 'Reference', 'required|valid_string[numeric]');
 		$val->add_field('bill_id', 'Bill No.', 'required|valid_string[numeric]');
 		$val->add_field('date', 'Date', 'required|valid_date');
-		$val->add_field('payer', 'Payer', 'required|max_length[50]');
+		$val->add_field('payer', 'Payer', 'required|max_length[140]');
 		$val->add_field('gl_account_id', 'Gl Account Id', 'valid_string[numeric]');
 		$val->add_field('amount', 'Amount', 'required|numeric_min[0]');
+		$val->add_field('payment_method', 'Payment Method', 'required');
+		$val->add_field('reference', 'Payment Reference', 'valid_string[alpha]');
+		$val->add_field('status', 'Status', 'required');
 		$val->add_field('tax_id', 'Tax Id', 'valid_string[numeric]');
 		$val->add_field('bank_account_id', 'Bank Account Id', 'valid_string[numeric]');
 		$val->add_field('description', 'Description', 'required|max_length[255]');
+		$val->add_field('attachment', 'Attachment', 'max_length[140]');
 
 		$val->set_message('numeric_min', 'Amount must be 0 or greater'); // preferrably greater than 0 in create mode
 
@@ -116,7 +124,7 @@ class Model_Accounts_Payment_Receipt extends Model_Soft
 	public static function getNextSerialNumber()
 	{
 		if (self::find('last'))
-			return self::find('last')->reference + 1;
+			return self::find('last')->receipt_number + 1;
 		else return 10001; // initial record
 	}
 }
