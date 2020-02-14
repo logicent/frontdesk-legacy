@@ -12,12 +12,12 @@ class Controller_Customer extends Controller_Authenticate
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('customer');
+		is_null($id) and Response::redirect('registers/customers');
 
 		if ( ! $data['customer'] = Model_Customer::find($id))
 		{
 			Session::set_flash('error', 'Could not find customer #'.$id);
-			Response::redirect('customer');
+			Response::redirect('registers/customers');
 		}
 
 		$this->template->title = "Customer";
@@ -67,7 +67,7 @@ class Controller_Customer extends Controller_Authenticate
 				{
 					Session::set_flash('success', 'Added customer #'.$customer->customer_name.'.');
 
-					Response::redirect('customer');
+					Response::redirect('registers/customers');
 				}
 
 				else
@@ -88,12 +88,12 @@ class Controller_Customer extends Controller_Authenticate
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('customer');
+		is_null($id) and Response::redirect('registers/customers');
 
 		if ( ! $customer = Model_Customer::find($id))
 		{
 			Session::set_flash('error', 'Could not find customer #'.$id);
-			Response::redirect('customer');
+			Response::redirect('registers/customers');
 		}
 
 		$val = Model_Customer::validate('edit');
@@ -132,7 +132,7 @@ class Controller_Customer extends Controller_Authenticate
 			{
 				Session::set_flash('success', 'Updated customer #' . $customer->customer_name);
 
-				Response::redirect('customer');
+				Response::redirect('registers/customers');
 			}
 
 			else
@@ -186,7 +186,7 @@ class Controller_Customer extends Controller_Authenticate
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('customer');
+		is_null($id) and Response::redirect('registers/customers');
 
 		if ($customer = Model_Customer::find($id))
 		{
@@ -200,7 +200,7 @@ class Controller_Customer extends Controller_Authenticate
 			Session::set_flash('error', 'Could not delete customer #'.$id);
 		}
 
-		Response::redirect('customer');
+		Response::redirect('registers/customers');
 
 	}
 
