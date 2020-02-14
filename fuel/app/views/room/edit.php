@@ -4,4 +4,4 @@
 <br>
 	<!--<?= Html::anchor('room/view/'.$room->id, 'View'); ?> |-->
 
-<?= render('room/_form'); ?>
+<?= render(basename(__DIR__) . '/_form'); ?>

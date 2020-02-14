@@ -3,4 +3,4 @@
 </h2>
 <br>
 
-<?= render('room/_form'); ?>
+<?= render(basename(__DIR__) . '/_form'); ?>
