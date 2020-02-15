@@ -19,7 +19,7 @@
 	<thead>
 		<tr>
 			<th>Guest name</th>
-			<th>Room no.</th>
+			<th>Unit no.</th>
 			<th>Invoice no.</th>
 			<th>Due date</th>
 			<th>Amount due</th>
@@ -31,7 +31,7 @@
 <?php foreach ($sales_invoices as $item): ?>
 		<tr>
             <td><?= Html::anchor('accounts/salesinvoice/edit/'. $item->id, ucwords($item->guest->first_name .' '. $item->guest->last_name), ['class' => 'clickable']) ?></td>
-			<td><?= $item->guest->room->name; ?></td>
+			<td><?= $item->guest->unit->name; ?></td>
 			<td><?= $item->invoice_num; ?></td>
 			<td><?= date('d-M-Y', strtotime($item->due_date)); ?></td>
 			<td class="text-right"><?= number_format($item->amount_due, 2); ?></td>

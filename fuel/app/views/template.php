@@ -142,10 +142,10 @@
                             <li>
                                 <a href="#"><i class="fa fa-lg fa-building fa-fw text-danger"></i>&emsp;Facilities<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
-                                    <li><a href="<?= Uri::create('facilities/rooms'); ?>"><i class=""></i>&emsp;Rooms</a></li>
+                                    <li><a href="<?= Uri::create('facilities/units'); ?>"><i class=""></i>&emsp;Units</a></li>
                                 <?php 
                                     if($ugroup->id == 6 || $ugroup->id == 5) : ?>
-                                        <li><a href="<?= Uri::create('facilities/room-types'); ?>"><i class=""></i>&emsp;Room Types</a></li>
+                                        <li><a href="<?= Uri::create('facilities/unit-types'); ?>"><i class=""></i>&emsp;Unit Types</a></li>
                                         <li><a href="<?= Uri::create('facilities/properties'); ?>"><i class=""></i>&emsp;Properties</a></li>
                                 <?php 
                                     endif ?>

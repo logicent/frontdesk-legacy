@@ -10,10 +10,10 @@
     </thead>
 
     <tbody>
-        <tr><th colspan=2>Room Revenue</th></tr>
+        <tr><th colspan=2>Unit Revenue</th></tr>
         <tr>
-            <td>Room Rent</td>
-            <td><?= number_format($row_results['room_rent'][0]['total_rent']); ?></td>
+            <td>Unit Rent</td>
+            <td><?= number_format($row_results['unit_rent'][0]['total_rent']); ?></td>
         </tr>
         <tr>
             <td>Discount</td>
@@ -21,16 +21,16 @@
         </tr>
         <!-- <tr><th colspan=2>Extra Charges</th></tr>
         <tr><th colspan=2>Payment Information</th></tr> -->
-        <tr><th colspan=2>Room Summary</th></tr>
+        <tr><th colspan=2>Unit Summary</th></tr>
         <tr>
-            <td>Sold Rooms / Nights</td>
+            <td>Sold Units / Nights</td>
             <td>
-                <?= $row_results['sold_rooms'][0]['sold_rm_count']; ?> /
+                <?= $row_results['sold_units'][0]['sold_rm_count']; ?> /
                 <?= $row_results['sold_nights'][0]['sold_nights_count']; ?>
             </td>
         </tr>
         <!-- <tr>
-            <td>Blocked Rooms</td>
+            <td>Blocked Units</td>
             <td></td>
         </tr> -->
         <tr>
@@ -38,15 +38,15 @@
             <td><?= $row_results['guests'][0]['guest_count']; ?></td>
         </tr>
         <!-- <tr>
-            <td>Complimentary Rooms</td>
+            <td>Complimentary Units</td>
             <td></td>
         </tr> -->
         <tr><th colspan=2>Statistics</th></tr>
         <tr>
             <td>Occupancy Rate (%)</td>
             <td>
-                <?php if ($row_results['sold_rooms'][0]['sold_rm_count'] > 0) : ?>
-                <?= round($row_results['sold_rooms'][0]['sold_rm_count'] / ($row_results['sold_rooms'][0]['sold_rm_count'] + $row_results['available_rooms'][0]['vacant_rm_count']) * 100); ?> %
+                <?php if ($row_results['sold_units'][0]['sold_rm_count'] > 0) : ?>
+                <?= round($row_results['sold_units'][0]['sold_rm_count'] / ($row_results['sold_units'][0]['sold_rm_count'] + $row_results['available_units'][0]['vacant_rm_count']) * 100); ?> %
                 <?php else: 0 ?>
                 <?php endif; ?>
             </td>
@@ -54,14 +54,14 @@
         <tr>
             <td>Average Daily Rate (ADR)</td>
             <td>
-                <?php if ($row_results['sold_rooms'][0]['sold_rm_count'] > 0) : ?>
-                <?= number_format($row_results['room_rent'][0]['total_rent'] / $row_results['sold_nights'][0]['sold_nights_count'], 2); ?>
+                <?php if ($row_results['sold_units'][0]['sold_rm_count'] > 0) : ?>
+                <?= number_format($row_results['unit_rent'][0]['total_rent'] / $row_results['sold_nights'][0]['sold_nights_count'], 2); ?>
                 <?php endif; ?>
             </td>
         </tr>
         <!-- <tr>
-            <td>Revenue per Available Room</td>
-            <td><?php //= round($row_results['sold_rooms'][0]['sold_rm_count'] / ($row_results['sold_rooms'][0]['sold_rm_count'] + $row_results['available_rooms'][0]['vacant_rm_count']) * 100) * ($row_results['room_rent'][0]['total_rent'] / $row_results['sold_rooms'][0]['sold_rm_count']); ?></td>
+            <td>Revenue per Available Unit</td>
+            <td><?php //= round($row_results['sold_units'][0]['sold_rm_count'] / ($row_results['sold_units'][0]['sold_rm_count'] + $row_results['available_units'][0]['vacant_rm_count']) * 100) * ($row_results['unit_rent'][0]['total_rent'] / $row_results['sold_units'][0]['sold_rm_count']); ?></td>
         </tr> -->
         <!-- <tr><th colspan=2>Guest Ledger</th></tr> -->
         <tr><th colspan=2>Accounts Summary</th></tr>

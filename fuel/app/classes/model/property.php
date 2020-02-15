@@ -37,6 +37,16 @@ class Model_Property extends Model
 		),
 	);
 
+	protected static $_belongs_to = array(
+		'propertyOwner' => array(
+			'key_from' => 'owner',
+			'model_to' => 'Model_Customer',
+			'key_to' => 'id',
+			'cascade_save' => false,
+			'cascade_delete' => false,
+		)
+    );
+    
 	public static function validate($factory)
 	{
 		$val = Validation::forge($factory);
@@ -59,7 +69,7 @@ class Model_Property extends Model
         return $val;
     }
 
-    public static function listOptions()
+    public static function listOptionsPropertyType()
     {
         return array(
             // accommodation
@@ -79,5 +89,38 @@ class Model_Property extends Model
             'MU-MP' => 'Mixed-use / Multi-property',
         );
     }
+
+    public static function listOptionsPropertyOwner()
+	{
+		$items = DB::select('id','customer_name')
+						->from('customer')
+						->where(['customer_type' => 'Owner'])
+						->execute()
+						->as_array();
+
+		$list_options = array('' => '');
+
+		foreach($items as $item) {
+			$list_options[$item['id']] = $item['customer_name'];
+        }
+        
+		return $list_options;
+	}
     
+    public static function listOptionsProperty()
+	{
+		$items = DB::select('id','name')
+						->from('properties')
+						->where(['inactive' => false])
+						->execute()
+						->as_array();
+
+		$list_options = array('' => '');
+
+		foreach($items as $item) {
+			$list_options[$item['id']] = $item['name'];
+        }
+        
+		return $list_options;
+	}
 }

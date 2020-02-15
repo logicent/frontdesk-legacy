@@ -48,7 +48,7 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 			{
 				$reservation = Model_Facility_Reservation::forge(array(
 					'res_no' => Input::post('res_no'),
-					'room_id' => Input::post('room_id'),
+					'unit_id' => Input::post('unit_id'),
 					'fdesk_user' => Input::post('fdesk_user'),
 					'status' => Input::post('status'),
 					'checkin' => Input::post('checkin'),
@@ -89,7 +89,7 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 			}
 		}
 
-		$room = Model_Room::find($rm_id);
+		$room = Model_Unit::find($rm_id);
 		$this->template->set_global('room', $room, false);
 
 		$this->template->title = "Reservation";
@@ -112,7 +112,7 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 		if ($val->run())
 		{
 			$reservation->res_no = Input::post('res_no');
-			$reservation->room_id = Input::post('room_id');
+			$reservation->unit_id = Input::post('unit_id');
 			$reservation->fdesk_user = Input::post('fdesk_user');
 			$reservation->status = Input::post('status');
 			$reservation->checkin = Input::post('checkin');
@@ -152,7 +152,7 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 			if (Input::method() == 'POST')
 			{
 				$reservation->res_no = $val->validated('res_no');
-				$reservation->room_id = $val->validated('room_id');
+				$reservation->unit_id = $val->validated('unit_id');
 				$reservation->fdesk_user = $val->validated('fdesk_user');
 				$reservation->status = $val->validated('status');
 				$reservation->checkin = $val->validated('checkin');
@@ -219,7 +219,7 @@ class Controller_Facility_Reservation extends Controller_Authenticate
                 'where' => 
                     array(
                         array('status', '=', 'Open'),
-                        'room_id' => $room
+                        'unit_id' => $room
                     ), 
                 'order_by' => array('res_no' => 'desc'), 
                 'limit' => 1000

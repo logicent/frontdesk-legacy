@@ -16,10 +16,10 @@
 		<tr>
 			<!--<th>Code</th>-->
 			<th>Name</th>
-			<th>Inactive</th>
-			<th>Location</th>
+			<th>Status</th>
 			<th>Property type</th>
 			<th>Owner</th>
+			<th>Location</th>
 			<th>Property ref</th>
 			<th>&nbsp;</th>
 		</tr>
@@ -29,10 +29,13 @@
         <tr>
 			<!--<td><?php // $item->code; ?></td>-->
             <td><?= Html::anchor('property/edit/'.$item->id, $item->name, array('class' => 'clickable')); ?></td>
-			<td><?= $item->inactive; ?></td>
+            <td><?= (bool) $item->inactive == 1 ? 
+                '<i class="fa fa-circle-o fa-fw text-danger"></i>Disabled' : 
+                '<i class="fa fa-circle-o fa-fw text-success"></i>Enabled' ?>
+            </td>
+			<td><?= Model_Property::listOptionsPropertyType()[$item->property_type]; ?></td>
+			<td><?= $item->propertyOwner->customer_name; ?></td>
 			<td><?= $item->map_location; ?></td>
-			<td><?= $item->property_type; ?></td>
-			<td><?= $item->owner; ?></td>
 			<td><?= $item->property_ref; ?></td>
 			<td>
 				<div class="btn-toolbar">

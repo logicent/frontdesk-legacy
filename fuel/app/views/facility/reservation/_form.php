@@ -79,10 +79,10 @@ Model_Facility_Booking::$ID_type, array('class' => 'col-md-4 form-control')); ?>
 	<div class="col-md-6">
 		<div class="form-group">
 			<div class="col-md-3">
-				<?= Form::label('Room no.', 'room_id', array('class'=>'control-label')); ?>
-                <?= Form::select('room_id', Input::post('room_id', isset($reservation) ? $reservation->room_id : ''), 
-                                Model_Room::listOptions(isset($reservation) ? $reservation->room_id : $room->id), 
-                                array('class' => 'col-md-4 form-control', 'id' => 'room_id')); ?>
+				<?= Form::label('Unit no.', 'unit_id', array('class'=>'control-label')); ?>
+                <?= Form::select('unit_id', Input::post('unit_id', isset($reservation) ? $reservation->unit_id : ''), 
+                                Model_Unit::listOptions(isset($reservation) ? $reservation->unit_id : $unit->id), 
+                                array('class' => 'col-md-4 form-control', 'id' => 'unit_id')); ?>
 			</div>
 
 			<div class="col-md-4">
@@ -97,7 +97,7 @@ Model_Facility_Booking::$ID_type, array('class' => 'col-md-4 form-control')); ?>
 			<div class="col-md-5">
 				<?= Form::label('Rate type', 'rate_type', array('class'=>'control-label')); ?>
                 <?= Form::select('rate_type', Input::post('rate_type', isset($reservation) ? $reservation->rate_type : ''), 
-                                Model_Rate::listOptions(isset($room) ? $room->room_type : $reservation->room->rm_type->id), 
+                                Model_Rate::listOptions(isset($unit) ? $unit->unit_type : $reservation->unit->rm_type->id), 
                                 array('class' => 'col-md-4 form-control', 'id' => 'rate_type')); ?>
 			</div>
 
@@ -186,7 +186,7 @@ Model_Facility_Booking::$ID_type, array('class' => 'col-md-4 form-control')); ?>
 
 <script>
 	$(function() {
-		$('#room_id').on('change', function(e) {
+		$('#unit_id').on('change', function(e) {
 			$.get("<?= Uri::create('guest/register/rate_list_options'); ?>",
 				{id:$(e.target).val()},
 				function(data){

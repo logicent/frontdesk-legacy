@@ -45,7 +45,7 @@
 				<th>Guest name</th>
 				<th>Reg no.</th>
 				<th>Phone no.</th>
-				<th>Room no.</th>
+				<th>Unit no.</th>
 				<th>Check in</th>
 				<th>Check out</th>
 				<th>Rate</th>
@@ -61,10 +61,10 @@
                 <td><?= Html::anchor('facility/booking/edit/'. $item->id, ucwords($item->first_name .' '. $item->last_name), ['class' => 'clickable']) ?></td>
 				<td><?= $item->reg_no; ?></td>
 				<td><?= $item->phone; ?></td>
-				<td><?= $item->room->name; ?></td>
+				<td><?= $item->unit->name; ?></td>
 				<td><?= date('d-M-Y H:i', strtotime($item->checkin)); ?></td>
 				<td><?= date('d-M-Y H:i', strtotime($item->checkout)); ?></td>
-				<td class="text-right"><?= number_format(Model_Rate::find('first', ['where' => ['type_id' => $item->room->rm_type->id]])->charges, 2); ?></td>
+				<td class="text-right"><?= number_format(Model_Rate::find('first', ['where' => ['type_id' => $item->unit->rm_type->id]])->charges, 2); ?></td>
 				<!-- <td><?php //echo $item->g_country->iso_code_2; ?></td> -->
 				<td class="text-center">
                     <?= Html::anchor('facility/booking/view/'.$item->id, '<i class="fa fa-eye fa-fw"></i>', ['class' => 'text-muted']); ?>

@@ -9,7 +9,7 @@ class Create_facility_reservation
 		\DBUtil::create_table('facility_reservation', array(
 			'id' => array('constraint' => 11, 'type' => 'int', 'auto_increment' => true, 'unsigned' => true),
 			'res_no' => array('constraint' => 11, 'type' => 'int'),
-			'room_id' => array('constraint' => 11, 'type' => 'int'),
+			'unit_id' => array('constraint' => 11, 'type' => 'int'),
 			'fdesk_user' => array('constraint' => 11, 'type' => 'int'),
 			'status' => array('constraint' => 20, 'type' => 'varchar'),
 			'checkin' => array('type' => 'datetime'),

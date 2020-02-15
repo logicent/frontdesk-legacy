@@ -5,13 +5,13 @@
     <thead>
         <tr>
             <th>Description</th>
-            <th>Room no(s).</th>
+            <th>Unit no(s).</th>
         </tr>
     </thead>
 
     <tbody>
         <tr>
-            <td>Occupied Rooms</td>
+            <td>Occupied Units</td>
             <td>
                 <?php
                     foreach ($data_rows as $dr)
@@ -24,7 +24,7 @@
             </td>
         </tr>
         <tr>
-            <td>Vacant Rooms</td>
+            <td>Vacant Units</td>
             <td>
             <?php
                 foreach ($data_rows as $dr)
@@ -37,15 +37,15 @@
             </td>
         </tr>
         <tr>
-            <td>Departure Rooms</td>
+            <td>Departure Units</td>
             <td></td>
         </tr>
         <tr>
-            <td>Checked Out Rooms</td>
+            <td>Checked Out Units</td>
             <td></td>
         </tr>
         <tr>
-            <td>Blocked Rooms</td>
+            <td>Blocked Units</td>
             <td>
             <?php
                 foreach ($data_rows as $dr)

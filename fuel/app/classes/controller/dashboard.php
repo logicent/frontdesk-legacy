@@ -10,13 +10,13 @@ class Controller_Dashboard extends Controller_Authenticate{
 			Response::redirect('business/create');
 		}
 
-        $room_types = Model_Room_Type::find('all'); 
+        $unit_types = Model_Unit_Type::find('all'); 
         
-        $roomTypeHasUndefinedRate = false;
-        foreach ($room_types as $room_type) {
-            $roomTypeHasUndefinedRate = count($room_type->rates) == 0;
-            if ($roomTypeHasUndefinedRate) {
-                Session::set_flash('warning', "Add facilities rate for {$room_type->name}");
+        $unitTypeHasUndefinedRate = false;
+        foreach ($unit_types as $unit_type) {
+            $unitTypeHasUndefinedRate = count($unit_type->rates) == 0;
+            if ($unitTypeHasUndefinedRate) {
+                Session::set_flash('warning', "Add facilities rate for {$unit_type->name}");
                 Response::redirect('facilities/rates');
             }
         }
@@ -70,24 +70,24 @@ class Controller_Dashboard extends Controller_Authenticate{
 											->where('bank_deposit.date', '=', date('Y-m-d'))
 											->execute()->as_array();
 
-		$data['rooms_occupied'] = DB::select(DB::expr('COUNT(id) as count'))
-										->from('room')
-										->where('status', '=', Model_Room::ROOM_STATUS_OCCUPIED)
+		$data['units_occupied'] = DB::select(DB::expr('COUNT(id) as count'))
+										->from('unit')
+										->where('status', '=', Model_Unit::UNIT_STATUS_OCCUPIED)
 										->execute()->as_array();
 
-		$data['rooms_vacant'] = DB::select(DB::expr('COUNT(id) as count'))
-										->from('room')
-										->where('status', '=', Model_Room::ROOM_STATUS_VACANT)
+		$data['units_vacant'] = DB::select(DB::expr('COUNT(id) as count'))
+										->from('unit')
+										->where('status', '=', Model_Unit::UNIT_STATUS_VACANT)
 										->execute()->as_array();
 
-		$data['rooms_blocked'] = DB::select(DB::expr('COUNT(id) as count'))
-										->from('room')
-										->where('status', '=', Model_Room::ROOM_STATUS_BLOCKED)
+		$data['units_blocked'] = DB::select(DB::expr('COUNT(id) as count'))
+										->from('unit')
+										->where('status', '=', Model_Unit::UNIT_STATUS_BLOCKED)
 										->execute()->as_array();
 
-		$data['room_types'] = Model_Room_Type::find('all', array('related' => array('rooms' => array('order_by' => 'name'),'rates'), 'order_by' => 'name'));
+		$data['unit_types'] = Model_Unit_Type::find('all', array('related' => array('units' => array('order_by' => 'name'),'rates'), 'order_by' => 'name'));
 
-		$data['guest_list'] = Model_Facility_Booking::find('all', array('related' => array('room','bill'), 'where' => array(array('status', '!=', Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT))));
+		$data['guest_list'] = Model_Facility_Booking::find('all', array('related' => array('unit','bill'), 'where' => array(array('status', '!=', Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT))));
 
 		$this->template->title = "Dashboard";
 		$this->template->content = View::forge('dashboard', $data);

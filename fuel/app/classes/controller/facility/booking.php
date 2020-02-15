@@ -55,7 +55,7 @@ class Controller_Facility_Booking extends Controller_Authenticate
 				$booking = Model_Facility_Booking::forge(array(
 					'reg_no' => Input::post('reg_no'),
 					'folio_no' => Input::post('folio_no'),
-					'room_id' => Input::post('room_id'),
+					'unit_id' => Input::post('unit_id'),
 					'fdesk_user' => Input::post('fdesk_user'),
 					'res_no' => Input::post('res_no'),
 					'status' => Input::post('status'),
@@ -89,11 +89,11 @@ class Controller_Facility_Booking extends Controller_Authenticate
 					'remarks' => Input::post('remarks'),
 				));
 
-				// Check if room is assigned or guest is registered already
-				$hasBooking = Model_Facility_Booking::find('first', array('where' => array('room_id' => $booking->room_id, 'status' => Model_Facility_Booking::GUEST_STATUS_CHECKED_IN)));
+				// Check if unit is assigned or guest is registered already
+				$hasBooking = Model_Facility_Booking::find('first', array('where' => array('unit_id' => $booking->unit_id, 'status' => Model_Facility_Booking::GUEST_STATUS_CHECKED_IN)));
 				if ($hasBooking)
 				{
-					Session::set_flash('warning', 'Room is already assigned to a guest booking.');
+					Session::set_flash('warning', 'Unit is already assigned to a guest booking.');
 
 					Response::redirect('dashboard');
 				}
@@ -106,8 +106,8 @@ class Controller_Facility_Booking extends Controller_Authenticate
                 
                     if ($booking and $booking->save())
                     {
-                        // Updated Room status based of guest status
-                        Model_Facility_Booking::updateRoomStatus($booking->room_id, $booking->status);
+                        // Updated Unit status based of guest status
+                        Model_Facility_Booking::updateUnitStatus($booking->unit_id, $booking->status);
                 
                         // Create default invoice for overnight stay
                         Model_Facility_Booking::createSalesInvoice($booking);
@@ -142,8 +142,8 @@ class Controller_Facility_Booking extends Controller_Authenticate
 			Response::redirect('service/item/create');
 		}
 
-		$room = Model_Room::find($rm_id);
-		$this->template->set_global('room', $room, false);
+		$unit = Model_Unit::find($rm_id);
+		$this->template->set_global('unit', $unit, false);
 
 		$this->template->title = "Booking";
 		$this->template->content = View::forge('facility/booking/create');
@@ -171,7 +171,7 @@ class Controller_Facility_Booking extends Controller_Authenticate
 		{
 			$booking->reg_no = Input::post('reg_no');
 			$booking->folio_no = Input::post('folio_no');
-			$booking->room_id = Input::post('room_id');
+			$booking->unit_id = Input::post('unit_id');
 			$booking->fdesk_user = Input::post('fdesk_user');
 			$booking->res_no = Input::post('res_no');
 			$booking->status = Input::post('status');
@@ -228,7 +228,7 @@ class Controller_Facility_Booking extends Controller_Authenticate
 			{
 				$booking->reg_no = $val->validated('reg_no');
 				$booking->folio_no = $val->validated('folio_no');
-				$booking->room_id = $val->validated('room_id');
+				$booking->unit_id = $val->validated('unit_id');
 				$booking->fdesk_user = $val->validated('fdesk_user');
 				$booking->res_no = $val->validated('res_no');
 				$booking->status = $val->validated('status');
@@ -282,9 +282,9 @@ class Controller_Facility_Booking extends Controller_Authenticate
 				// start a db transaction
 				// remove related invoice master/detail and cash receipts
 				$booking->bill->delete();
-				// change room status to avoid orphaned status
-				$booking->room->status = Model_Room::ROOM_STATUS_VACANT;
-				$booking->room->save();
+				// change unit status to avoid orphaned status
+				$booking->unit->status = Model_Unit::ROOM_STATUS_VACANT;
+				$booking->unit->save();
 				// remove booking
 				$booking->delete();
 
@@ -292,7 +292,7 @@ class Controller_Facility_Booking extends Controller_Authenticate
 
 			}
 			catch (FuelException $e)
-			{// ORM encounters Model_Room Primary Key error but it's a false error
+			{// ORM encounters Model_Unit Primary Key error but it's a false error
 				Session::set_flash('success', 'Delete succeeded.');
 			}
 		}
@@ -383,7 +383,7 @@ class Controller_Facility_Booking extends Controller_Authenticate
 
 			if ($booking->save())
 			{
-				Model_Facility_Booking::updateRoomStatus($booking->room_id, $booking->status);
+				Model_Facility_Booking::updateUnitStatus($booking->unit_id, $booking->status);
 				Model_Sales_Invoice::updateBillStatus($booking);
 
 				Session::set_flash('success', 'Checkout for booking #' . $booking->reg_no . ' complete.');
@@ -403,7 +403,7 @@ class Controller_Facility_Booking extends Controller_Authenticate
 
 	public function action_rate_list_options()
 	{
-		$rm_type = Model_Room::find($_GET['id'])->room_type;
+		$rm_type = Model_Unit::find($_GET['id'])->unit_type;
 		$rates = Model_Rate::find('all', array('where' => array('type_id' => $rm_type)))->to_array();
 		echo json_encode($rates);
 	}

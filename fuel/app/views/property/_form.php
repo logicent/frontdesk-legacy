@@ -33,14 +33,14 @@
             <div class="col-md-6">
     			<?= Form::label('Owner', 'owner', array('class'=>'control-label')); ?>
                 <?= Form::select('owner', Input::post('owner', isset($property) ? $property->owner : ''),
-                                        array(),
+                                        Model_Property::listOptionsPropertyOwner(),
                                         array('class' => 'form-control')); ?>
             </div>
 
             <div class="col-md-6">
-            <?= Form::label('Property type', 'property_type', array('class'=>'control-label')); ?>
+                <?= Form::label('Property type', 'property_type', array('class'=>'control-label')); ?>
                 <?= Form::select('property_type', Input::post('property_type', isset($property) ? $property->property_type : ''),
-                                        Model_Property::listOptions(),
+                                        Model_Property::listOptionsPropertyType(),
                                         array('class' => 'form-control')); ?>
             </div>
 		</div>
@@ -70,14 +70,6 @@
     			<?= Form::label('Date released', 'date_released', array('class'=>'control-label')); ?>
                 <?= Form::input('date_released', Input::post('date_released', isset($property) ? $property->date_released : ''), 
                                 array('class' => 'col-md-4 form-control datepicker')); ?>
-            </div>
-		</div>
-
-		<div class="form-group">
-            <div class="col-md-6">
-            <?php echo Form::checkbox('inactive', Input::post('inactive', isset($property) ? $property->inactive : '0'), 
-                                        array('class' => 'cb-checked')); ?>
-                <?php echo Form::label('Inactive', 'inactive', array('class'=>'control-label')); ?>
             </div>
 		</div>
 <!--
@@ -111,7 +103,13 @@
                 <?= Form::textarea('remarks', Input::post('remarks', isset($property) ? $property->remarks : ''), 
                                 array('class' => 'col-md-4 form-control')); ?>
             </div>
-		</div>
+
+            <div class="col-md-6">
+                <?= Form::checkbox('inactive', Input::post('inactive', isset($property) ? $property->inactive : '0'), 
+                                        array('class' => 'cb-checked')); ?>
+                <?= Form::label('Inactive', 'inactive', array('class'=>'control-label')); ?>
+            </div>
+		</div>        
     </div>
 </div>
 

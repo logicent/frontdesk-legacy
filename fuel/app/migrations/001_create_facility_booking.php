@@ -10,7 +10,7 @@ class Create_facility_booking
 			'id' => array('constraint' => 11, 'type' => 'int', 'auto_increment' => true, 'unsigned' => true),
 			'reg_no' => array('constraint' => 11, 'type' => 'int'),
 			'folio_no' => array('constraint' => 11, 'type' => 'int', 'null' => true),
-			'room_id' => array('constraint' => 11, 'type' => 'int'),
+			'unit_id' => array('constraint' => 11, 'type' => 'int'),
 			'fdesk_user' => array('constraint' => 11, 'type' => 'int'),
 			'res_no' => array('constraint' => 11, 'type' => 'int', 'null' => true),
 			'status' => array('constraint' => 3, 'type' => 'char'),

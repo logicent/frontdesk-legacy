@@ -100,14 +100,14 @@
     <div class="col-lg-4">
         <div class="panel panel-default">
             <div class="panel-heading text-center">
-                Rooms Availability
+                Units Availability
             </div>
             <div class="panel-body">
                 <div class="col-md-4">
                     <div class="text-center">
                         <p class="text-muted">OCC</p>
                         <p class="text-center lead">
-                            <?= $rooms_occupied[0]['count'] ?>
+                            <?= $units_occupied[0]['count'] ?>
                         </p>
                     </div>
                 </div>
@@ -115,7 +115,7 @@
                     <div class="text-center">
                         <p class="text-muted">VAC</p>
                         <p class="text-center lead">
-                            <?= $rooms_vacant[0]['count'] ?>
+                            <?= $units_vacant[0]['count'] ?>
                         </p>
                     </div>
                 </div>
@@ -123,7 +123,7 @@
                     <div class="text-center">
                         <p class="text-muted">BLO</p>
                         <p class="text-center lead">
-                            <?= $rooms_blocked[0]['count'] ?>
+                            <?= $units_blocked[0]['count'] ?>
                         </p>
                     </div>
                 </div>
@@ -136,7 +136,7 @@
     <!-- /.col-lg-4 -->
 </div>
 
-<!-- Rooms Board -->
+<!-- Units Board -->
 <div class="row">
     <div class="col-md-12">
     <?php 
@@ -152,7 +152,7 @@
 </div>
 
 <?php 
-    foreach($room_types as $rt) :
+    foreach($unit_types as $rt) :
         $occupied_count = $vacant_count = $blocked_count = 0; ?>
 
     <div class="panel panel-default dash-panel text-center">
@@ -165,22 +165,22 @@
         <div class="panel-body">
     
     <?php 
-        foreach($rt->rooms as $room) :
-            // check if room has reservations
+        foreach($rt->units as $unit) :
+            // check if unit has reservations
             $resMarker = '';
-            if (count($room->reservations) > 0) :
-                $resMarker = Html::anchor(Uri::create('facility/reservation/list_by/?room=' . $room->id), count($room->reservations), ['class' => 'label floating grow']);
+            if (count($unit->reservations) > 0) :
+                $resMarker = Html::anchor(Uri::create('facility/reservation/list_by/?unit=' . $unit->id), count($unit->reservations), ['class' => 'label floating grow']);
             endif ?>
 
             <div class="btn-group dash-btn-group">
             <?php 
-                if ($room->status == Model_Room::ROOM_STATUS_OCCUPIED) :
+                if ($unit->status == Model_Unit::UNIT_STATUS_OCCUPIED) :
                     $occupied_count += 1;
                     foreach($guest_list as $guest) :
-                        if ($guest->room_id != $room->id) continue; ?>
+                        if ($guest->unit_id != $unit->id) continue; ?>
                         <?= $resMarker ?>
                         <button type="button" class="btn btn-warning dropdown-toggle dash-btn" data-toggle="dropdown">
-                            <?= $room->name ?>
+                            <?= $unit->name ?>
                         </button>
 
                         <?php // if ($ugroup->id == 6) continue; ?>
@@ -203,46 +203,43 @@
                 <?php 
                     endforeach;
                 endif; ?>
-
             <?php 
-                if ($room->status == Model_Room::ROOM_STATUS_VACANT) :
+                if ($unit->status == Model_Unit::UNIT_STATUS_VACANT) :
                     $vacant_count += 1; ?>
                     <?= $resMarker ?>
                     <button type="button" class="btn btn-success dropdown-toggle dash-btn" data-toggle="dropdown">
-                        <?= $room->name ?>
+                        <?= $unit->name ?>
                     </button>
 
                 <?php // if ($ugroup->id == 6) continue; ?>
 
                 <ul class="dropdown-menu dash-dd-menu" role="menu">
-                    <li><a href="<?= Uri::create("facility/booking/create/$room->id"); ?>">New Booking</a></li>
-                    <li><a href="<?= Uri::create("facility/reservation/create/$room->id"); ?>">New Reservation</a></li>
+                    <li><a href="<?= Uri::create("facility/booking/create/$unit->id"); ?>">New Booking</a></li>
+                    <li><a href="<?= Uri::create("facility/reservation/create/$unit->id"); ?>">New Reservation</a></li>
                 <?php 
                     // if ($ugroup->id == 5) : ?>
                     <!-- <li class="divider"></li>
-                    <li><a href="<?php //= Uri::create("room/block/$room->id"); ?>">Block Room</a></li> -->
+                    <li><a href="<?php //= Uri::create("unit/block/$unit->id"); ?>">Block Unit</a></li> -->
                 <?php 
                     // endif ?>
                 </ul>
             <?php 
                 endif; ?>
-
             <?php 
-                if ($room->status == Model_Room::ROOM_STATUS_BLOCKED) :
+                if ($unit->status == Model_Unit::UNIT_STATUS_BLOCKED) :
                     $blocked_count += 1; ?>
                     <button type="button" class="btn btn-default dropdown-toggle dash-btn" data-toggle="dropdown">
-                        <?= $room->name ?>
+                        <?= $unit->name ?>
                     </button>
             <?php 
                 if ($ugroup->id == 5) : ?>
                     <ul class="dropdown-menu dash-dd-menu" role="menu">
-                        <li><a href="<?= Uri::create("room/unblock/$room->id"); ?>">Unblock Room</a></li>
+                        <li><a href="<?= Uri::create("unit/unblock/$unit->id"); ?>">Unblock Unit</a></li>
                     </ul>
             <?php 
                 endif; ?>
         <?php 
             endif; ?>
-
             </div><!-- /.btn-group -->
         <?php endforeach; ?>
         </div><!-- /.panel-body -->
@@ -251,7 +248,7 @@
                 <i class="fa fa-circle fa-fw text-success"></i> Vacant: <span><?= $vacant_count ?></span>&emsp; | &ensp;
                 <i class="fa fa-circle fa-fw text-warning"></i> Occupied: <span><?= $occupied_count ?></span>&emsp; | &ensp;
                 <i class="fa fa-circle fa-fw text-default"></i> Blocked: <span><?= $blocked_count ?></span>&emsp; | &ensp;
-                Total: <span><?= count($rt->rooms) ?></span>
+                Total: <span><?= count($rt->units) ?></span>
             </div>
         </div><!-- /.panel-body -->
     </div><!-- /.panel -->

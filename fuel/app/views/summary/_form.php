@@ -14,21 +14,21 @@
 
 		</div>
 		<div class="form-group">
-			<?= Form::label('Rooms sold', 'rooms_sold', array('class'=>'control-label')); ?>
+			<?= Form::label('Units sold', 'units_sold', array('class'=>'control-label')); ?>
 
-				<?= Form::input('rooms_sold', Input::post('rooms_sold', isset($summary) ? $summary->rooms_sold : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Rooms sold')); ?>
-
-		</div>
-		<div class="form-group">
-			<?= Form::label('Rooms blocked', 'rooms_blocked', array('class'=>'control-label')); ?>
-
-				<?= Form::input('rooms_blocked', Input::post('rooms_blocked', isset($summary) ? $summary->rooms_blocked : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Rooms blocked')); ?>
+				<?= Form::input('units_sold', Input::post('units_sold', isset($summary) ? $summary->units_sold : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Units sold')); ?>
 
 		</div>
 		<div class="form-group">
-			<?= Form::label('Complimentary rooms', 'complimentary_rooms', array('class'=>'control-label')); ?>
+			<?= Form::label('Units blocked', 'units_blocked', array('class'=>'control-label')); ?>
 
-				<?= Form::input('complimentary_rooms', Input::post('complimentary_rooms', isset($summary) ? $summary->complimentary_rooms : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Complimentary rooms')); ?>
+				<?= Form::input('units_blocked', Input::post('units_blocked', isset($summary) ? $summary->units_blocked : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Units blocked')); ?>
+
+		</div>
+		<div class="form-group">
+			<?= Form::label('Complimentary units', 'complimentary_units', array('class'=>'control-label')); ?>
+
+				<?= Form::input('complimentary_units', Input::post('complimentary_units', isset($summary) ? $summary->complimentary_units : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Complimentary units')); ?>
 
 		</div>
 		<div class="form-group">

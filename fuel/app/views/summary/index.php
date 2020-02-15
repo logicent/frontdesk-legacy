@@ -6,9 +6,9 @@
 		<tr>
 			<th>Reference</th>
 			<th>Date</th>
-			<th>Rooms sold</th>
-			<th>Rooms blocked</th>
-			<th>Complimentary rooms</th>
+			<th>Units sold</th>
+			<th>Units blocked</th>
+			<th>Complimentary units</th>
 			<th>No of guests</th>
 			<th>Opening bal</th>
 			<th>Rent total</th>
@@ -26,9 +26,9 @@
 
 			<td><?= $item->reference; ?></td>
 			<td><?= $item->date; ?></td>
-			<td><?= $item->rooms_sold; ?></td>
-			<td><?= $item->rooms_blocked; ?></td>
-			<td><?= $item->complimentary_rooms; ?></td>
+			<td><?= $item->units_sold; ?></td>
+			<td><?= $item->units_blocked; ?></td>
+			<td><?= $item->complimentary_units; ?></td>
 			<td><?= $item->no_of_guests; ?></td>
 			<td><?= $item->opening_bal; ?></td>
 			<td><?= $item->rent_total; ?></td>

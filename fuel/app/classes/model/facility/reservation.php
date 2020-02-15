@@ -17,7 +17,7 @@ class Model_Facility_Reservation extends Model_Soft
 	protected static $_properties = array(
 		'id',
 		'res_no',
-		'room_id',
+		'unit_id',
 		'fdesk_user',
 		'status',
 		'checkin',
@@ -64,7 +64,7 @@ class Model_Facility_Reservation extends Model_Soft
 	{
 		$val = Validation::forge($factory);
 		$val->add_field('res_no', 'Reservation No.', 'required|valid_string[numeric]');
-		$val->add_field('room_id', 'Room No.', 'required|valid_string[numeric]');
+		$val->add_field('unit_id', 'Unit No.', 'required|valid_string[numeric]');
 		$val->add_field('fdesk_user', 'Frontdesk User', 'required|valid_string[numeric]');
 		$val->add_field('status', 'Status', 'required|max_length[6]');
 		$val->add_field('checkin', 'Checkin', 'required|valid_date');
@@ -92,9 +92,9 @@ class Model_Facility_Reservation extends Model_Soft
 	protected static $_table_name = 'facility_reservation';
 
 	protected static $_has_one = array(
-		'room' => array(
-			'key_from' => 'room_id',
-			'model_to' => 'Model_Room',
+		'unit' => array(
+			'key_from' => 'unit_id',
+			'model_to' => 'Model_Unit',
 			'key_to' => 'id',
 			'cascade_save' => false,
 			'cascade_delete' => false,

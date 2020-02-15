@@ -40,7 +40,7 @@
         <p><strong>Check-out:&emsp;</strong><?= date('d-M-Y H:i', strtotime($receipt->invoice->guest->checkout)); ?></p>
     </div>
     <div class="col-md-3 col-sm-3 col-xs-3">
-        <p class="text-right"><strong>Room:&emsp;</strong><?= $receipt->invoice->guest->room->name; ?><span></p>
+        <p class="text-right"><strong>Unit:&emsp;</strong><?= $receipt->invoice->guest->unit->name; ?><span></p>
     </div>
     <div class="col-md-3 col-sm-3 col-xs-3">
         <p class="text-right"><strong>Rate / night:&emsp;</strong><?= number_format($receipt->invoice->guest->rate_amount, 2); ?></p>

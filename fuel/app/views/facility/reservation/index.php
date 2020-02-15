@@ -37,7 +37,7 @@
 			<td><?= date('M d Y', strtotime($item->checkin)); ?></td>
 			<td><?= $item->pax_adults.'/'.$item->pax_children; ?></td>
 			<td><?= $item->g_country->iso_3166_3; ?></td>
-			<td><?= $item->room->name . '-' . $item->res_no; ?></td>
+			<td><?= $item->unit->name . '-' . $item->res_no; ?></td>
 			<td class="text-center">
 				<!-- <?php //= Html::anchor('facility/reservation/view/'.$item->id, '<i class="glyphicon glyphicon-eye"></i>'); ?> -->
 				<?= Html::anchor('facility/reservation/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>',

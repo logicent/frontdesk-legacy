@@ -47,7 +47,7 @@ class Model_Facility_Booking extends Model_Soft
 		'id',
 		'reg_no',
 		'folio_no',
-		'room_id',
+		'unit_id',
 		'fdesk_user',
 		'res_no',
 		'status',
@@ -106,7 +106,7 @@ class Model_Facility_Booking extends Model_Soft
 		$val = Validation::forge($factory);
 		$val->add_field('reg_no', 'Reg. No.', 'required|valid_string[numeric]');
 		$val->add_field('folio_no', 'Folio No.', 'valid_string[numeric]');
-		$val->add_field('room_id', 'Room No.', 'required|valid_string[numeric]');
+		$val->add_field('unit_id', 'Unit No.', 'required|valid_string[numeric]');
 		$val->add_field('fdesk_user', 'Frontdesk User', 'required|valid_string[numeric]');
 		$val->add_field('res_no', 'Res. No.', 'valid_string[numeric]');
 		$val->add_field('status', 'Status', 'required|max_length[3]');
@@ -151,9 +151,9 @@ class Model_Facility_Booking extends Model_Soft
 	// }
 
 	protected static $_has_one = array(
-		'room' => array(
-			'key_from' => 'room_id',
-			'model_to' => 'Model_Room',
+		'unit' => array(
+			'key_from' => 'unit_id',
+			'model_to' => 'Model_Unit',
 			'key_to' => 'id',
 			'cascade_save' => false,
 			'cascade_delete' => false,
@@ -212,20 +212,20 @@ class Model_Facility_Booking extends Model_Soft
 		return $col_def["$name"]['default'];
 	}
 
-	public static function updateRoomStatus($rm_id, $g_status) {
-		$room = Model_Room::find($rm_id);
+	public static function updateUnitStatus($rm_id, $g_status) {
+		$unit = Model_Unit::find($rm_id);
 
 		switch ($g_status) {
 			case self::GUEST_STATUS_CHECKED_IN:
-				$room->status = Model_Room::ROOM_STATUS_OCCUPIED;
+				$unit->status = Model_Unit::ROOM_STATUS_OCCUPIED;
 				break;
 			case self::GUEST_STATUS_CHECKED_OUT:
-				$room->status = Model_Room::ROOM_STATUS_VACANT;
+				$unit->status = Model_Unit::ROOM_STATUS_VACANT;
 				break;
 			default:
 		}
 
-		$room->save(false);
+		$unit->save(false);
 	}
 
 	public static function createSalesInvoice($booking)
@@ -258,7 +258,7 @@ class Model_Facility_Booking extends Model_Soft
 				'item_id' => Model_Service_Item::find('first')->id,
 				'invoice_id' => $invoice->id,
 				'gl_account_id' => null,
-				'description' => 'Accommodation for room no. '.$booking->room->name,
+				'description' => 'Accommodation for unit no. '.$booking->unit->name,
 				'qty' => $booking->duration,
 				'unit_price' => $booking->rate_amount,
 				'discount_percent' => 0,
@@ -309,8 +309,8 @@ class Model_Facility_Booking extends Model_Soft
 		$fd_booking->total_payment = $fd_booking->total_amount * $fd_booking->duration;
 	}
 
-	public function hasRoomChange() {
-		// has Accounting impact on settlement due if room type is different
+	public function hasUnitChange() {
+		// has Accounting impact on settlement due if unit type is different
 	}
 
 	public function hasStayChange() {
@@ -318,7 +318,7 @@ class Model_Facility_Booking extends Model_Soft
 	}
 
 	public function hasRateChange() {
-		// has Accounting impact on settlement due if room plan changed
+		// has Accounting impact on settlement due if unit plan changed
 	}
 
 	public function hasBalanceDue() {
@@ -343,8 +343,8 @@ class Model_Facility_Booking extends Model_Soft
 		return round(abs(strtotime($checkin) - strtotime($checkout)) / 86400);
 	}
 
-	public function activeRoomBookingExists($rm_id)
+	public function activeUnitBookingExists($rm_id)
 	{
-		return Model_Facility_Booking::find('first', array('where' => array('room_id' => $rm_id, array('status', '!=', self::GUEST_STATUS_CHECKED_OUT))));
+		return Model_Facility_Booking::find('first', array('where' => array('unit_id' => $rm_id, array('status', '!=', self::GUEST_STATUS_CHECKED_OUT))));
 	}
 }
