@@ -217,10 +217,10 @@ class Model_Facility_Booking extends Model_Soft
 
 		switch ($g_status) {
 			case self::GUEST_STATUS_CHECKED_IN:
-				$unit->status = Model_Unit::ROOM_STATUS_OCCUPIED;
+				$unit->status = Model_Unit::UNIT_STATUS_OCCUPIED;
 				break;
 			case self::GUEST_STATUS_CHECKED_OUT:
-				$unit->status = Model_Unit::ROOM_STATUS_VACANT;
+				$unit->status = Model_Unit::UNIT_STATUS_VACANT;
 				break;
 			default:
 		}

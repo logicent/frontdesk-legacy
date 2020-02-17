@@ -97,7 +97,7 @@ Model_Facility_Booking::$ID_type, array('class' => 'col-md-4 form-control')); ?>
 			<div class="col-md-5">
 				<?= Form::label('Rate type', 'rate_type', array('class'=>'control-label')); ?>
                 <?= Form::select('rate_type', Input::post('rate_type', isset($reservation) ? $reservation->rate_type : ''), 
-                                Model_Rate::listOptions(isset($unit) ? $unit->unit_type : $reservation->unit->rm_type->id), 
+                                Model_Rate::listOptions(isset($unit) ? $unit->unit_type : $reservation->unit->type->id), 
                                 array('class' => 'col-md-4 form-control', 'id' => 'rate_type')); ?>
 			</div>
 

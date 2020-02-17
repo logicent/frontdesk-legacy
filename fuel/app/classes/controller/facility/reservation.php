@@ -89,8 +89,8 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 			}
 		}
 
-		$room = Model_Unit::find($rm_id);
-		$this->template->set_global('room', $room, false);
+		$unit = Model_Unit::find($rm_id);
+		$this->template->set_global('unit', $unit, false);
 
 		$this->template->title = "Reservation";
 		$this->template->content = View::forge('facility/reservation/create');
@@ -210,16 +210,16 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 
 	}
 
-    public function action_list_by($room = null)
+    public function action_list_by($unit = null)
 	{
-        $room = Input::get('room');
+        $unit = Input::get('unit');
         
         $data['reservation'] = Model_Facility_Reservation::find('all', 
             array(
                 'where' => 
                     array(
                         array('status', '=', 'Open'),
-                        'unit_id' => $room
+                        'unit_id' => $unit
                     ), 
                 'order_by' => array('res_no' => 'desc'), 
                 'limit' => 1000

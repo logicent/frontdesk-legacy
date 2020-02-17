@@ -63,7 +63,7 @@ class Model_Partner extends Model
     public static function listOptionsPartnerType()
 	{
 		return array(
-            'Company' => 'Company',
+            'Co' => 'Company',
             'BS' => 'Business Source',
             'OTA' => 'Online TA',
         );

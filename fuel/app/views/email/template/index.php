@@ -11,7 +11,7 @@
 <hr>
 
 <?php if ($templates): ?>
-<table class="table">
+<table class="table table-hover datatable">
 	<thead>
 		<tr>
 			<th>&nbsp;</th>

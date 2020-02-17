@@ -29,7 +29,7 @@
                 '<i class="fa fa-circle-o fa-fw text-danger"></i>Disabled' : 
                 '<i class="fa fa-circle-o fa-fw text-success"></i>Enabled' ?>
             </td>
-            <td><?= $item->partner_type ?></td>
+            <td><?= Model_Partner::listOptionsPartnerType()[$item->partner_type] ?></td>
             <td><?= $item->partner_group ?></td>
 			<td>
 				<div class="btn-toolbar">

@@ -37,6 +37,7 @@ class Model_Property extends Model
 		),
 	);
 
+        
 	protected static $_belongs_to = array(
 		'propertyOwner' => array(
 			'key_from' => 'owner',
@@ -47,6 +48,24 @@ class Model_Property extends Model
 		)
     );
     
+    protected static $_has_many = array(
+        'property_settings' => array(
+            'key_from' => 'id',
+            'model_to' => 'Model_Property_Setting',
+            'key_to' => 'property_id',
+            'cascade_save' => true,
+            'cascade_delete' => true,
+        )
+    );
+
+    // define the (EAV) Settings container as below
+    protected static $_eav = array(
+        'property_settings' => array(
+            'attribute' => 'key',
+            'value' => 'value',
+        )
+    );
+
 	public static function validate($factory)
 	{
 		$val = Validation::forge($factory);

@@ -31,7 +31,7 @@
     <div class="col-md-6">
         <?= Form::checkbox('enabled', Input::post('enabled', isset($tax_charge) ? $tax_charge->enabled : '0'), 
                             array('class' => 'cb-checked')); ?>
-        <?= Form::label('Apply tax', 'enabled', array('class'=>'control-label')); ?>
+        <?= Form::label('Enabled', 'enabled', array('class'=>'control-label')); ?>
     </div>
 </div>
 
@@ -58,6 +58,9 @@
     });
 
     if ($('.cb-checked').val() == '1') {
+
+        cbName = '#form_enabled';
+
         $(cbName).attr('checked', true);
 	}
 </script>

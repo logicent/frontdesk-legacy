@@ -283,7 +283,7 @@ class Controller_Facility_Booking extends Controller_Authenticate
 				// remove related invoice master/detail and cash receipts
 				$booking->bill->delete();
 				// change unit status to avoid orphaned status
-				$booking->unit->status = Model_Unit::ROOM_STATUS_VACANT;
+				$booking->unit->status = Model_Unit::UNIT_STATUS_VACANT;
 				$booking->unit->save();
 				// remove booking
 				$booking->delete();
