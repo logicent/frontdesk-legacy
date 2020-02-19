@@ -101,14 +101,14 @@
                                 array('class' => 'col-md-4 form-control')); ?>
 			</div>  
             <div class="col-md-6">
-                <?php echo Form::checkbox('inactive', Input::post('inactive', isset($customer) ? $customer->inactive : '0'), 
-                                        array('class' => 'cb-checked')); ?>
-                <?php echo Form::label('Inactive', 'inactive', array('class'=>'control-label')); ?>
+                <?= Form::hidden('inactive', Input::post('inactive', isset($lease) ? $lease->inactive : '0')); ?>
+                <?= Form::checkbox('cb_inactive', null, array('class' => 'cb-checked', 'data-input' => 'inactive')); ?>
+                <?= Form::label('Inactive', 'cb_inactive', array('class'=>'control-label')); ?>
             </div>
             <div class="col-md-6">
-                <?php echo Form::checkbox('is_internal_customer', Input::post('is_internal_customer', isset($customer) ? $customer->is_internal_customer : '0'), 
-                                        array('class' => 'cb-checked')); ?>
-                <?php echo Form::label('Is internal customer', 'is_internal_customer', array('class'=>'control-label')); ?>
+                <?= Form::hidden('is_internal_customer', Input::post('is_internal_customer', isset($lease) ? $lease->is_internal_customer : '0')); ?>
+                <?= Form::checkbox('cb_is_internal_customer', null, array('class' => 'cb-checked', 'data-input' => 'is_internal_customer')); ?>
+                <?= Form::label('Is internal customer', 'cb_is_internal_customer', array('class'=>'control-label')); ?>
 			</div>            
         </div>
 
@@ -170,8 +170,10 @@
     $('.cb-checked').click(
         function() {
             if ($(this).is(':checked')) // true
-                $($(this)).val(1);
-            else $($(this)).val(0);
+            {
+                $('#form_' + $(this).data('input')).val(1);
+            }
+            else $('#form_' + $(this).data('input')).val(0);
         });
     
     cbEl = $('.cb-checked');
@@ -179,6 +181,7 @@
         if ($(this).val() == '1') {
             $(this).prop('checked', true);
         }
+        else $($(this)).val(0);
     });
 
 	// Date range picker for birth_date

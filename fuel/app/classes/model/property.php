@@ -72,7 +72,7 @@ class Model_Property extends Model
 		$val->add_field('code', 'Code', 'max_length[255]');
 		$val->add_field('name', 'Title', 'required|max_length[255]');
 		$val->add_field('description', 'Description', 'max_length[140]');
-		$val->add_field('physical_address', 'Physical Address', 'valid_string');
+		// $val->add_field('physical_address', 'Physical Address', 'valid_string');
 		$val->add_field('map_location', 'Map Location', 'valid_string');
 		$val->add_field('property_type', 'Property Type', 'required');
 		$val->add_field('owner', 'Owner', 'valid_string[numeric]');
@@ -126,16 +126,20 @@ class Model_Property extends Model
 		return $list_options;
 	}
     
-    public static function listOptionsProperty()
+    public static function listOptionsProperty($owner = null)
 	{
 		$items = DB::select('id','name')
 						->from('properties')
-						->where(['inactive' => false])
+                        ->where(['inactive' => false])
+                        // ->and_where(['owner' => $owner])
 						->execute()
 						->as_array();
 
-		$list_options = array('' => '');
-
+        if (!$owner)
+		    $list_options = array('' => '');
+        else
+            $list_options = array();
+        
 		foreach($items as $item) {
 			$list_options[$item['id']] = $item['name'];
         }

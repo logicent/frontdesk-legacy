@@ -105,9 +105,9 @@
             </div>
 
             <div class="col-md-6">
-                <?= Form::checkbox('inactive', Input::post('inactive', isset($property) ? $property->inactive : '0'), 
-                                        array('class' => 'cb-checked')); ?>
-                <?= Form::label('Inactive', 'inactive', array('class'=>'control-label')); ?>
+                <?= Form::hidden('inactive', Input::post('inactive', isset($lease) ? $lease->inactive : '0')); ?>
+                <?= Form::checkbox('cb_inactive', null, array('class' => 'cb-checked', 'data-input' => 'inactive')); ?>
+                <?= Form::label('Inactive', 'cb_inactive', array('class'=>'control-label')); ?>
             </div>
 		</div>        
     </div>
@@ -124,3 +124,25 @@
 </div>
 
 <?= Form::close(); ?>
+
+<script>
+    $('.cb-checked').click(
+        function() {
+            if ($(this).is(':checked')) // true
+            {
+                $('#form_' + $(this).data('input')).val(1);
+            }
+            else $('#form_' + $(this).data('input')).val(0);
+        });
+    
+    cbEl = $('.cb-checked');
+    cbEl.each(function() {
+        if ($(this).val() == '1') {
+            $(this).prop('checked', true);
+        }
+        else $($(this)).val(0);
+    });
+
+	// Date range picker for birth_date
+ 
+</script>

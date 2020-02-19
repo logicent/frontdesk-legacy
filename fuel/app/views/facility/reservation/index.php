@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-6">
-		<h2>Listing <span class='text-muted'>Reservations</span></h2>
+		<h2>Listing <span class='text-muted'>Reservation</span></h2>
 	</div>
 
 	<div class="col-md-6">

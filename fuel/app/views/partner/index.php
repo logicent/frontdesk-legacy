@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-6">
-		<h2>Listing <span class='text-muted'>Partners</span></h2>
+		<h2>Listing <span class='text-muted'>Partner</span></h2>
 	</div>
 
 	<div class="col-md-6">
@@ -31,11 +31,9 @@
             </td>
             <td><?= Model_Partner::listOptionsPartnerType()[$item->partner_type] ?></td>
             <td><?= $item->partner_group ?></td>
-			<td>
-				<div class="btn-toolbar">
-					<div class="btn-group">
-                    </div>
-				</div>
+			<td class="text-center">
+				<?= Html::anchor('partner/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-fw"></i>',
+                                array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
 			</td>
 		</tr>
 <?php endforeach; ?>	

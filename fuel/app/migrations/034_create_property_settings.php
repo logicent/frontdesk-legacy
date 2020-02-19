@@ -12,7 +12,8 @@ class Create_property_settings
 			'key' => array('constraint' => '140', 'type' => 'varchar'),
 			'value' => array('constraint' => '140', 'null' => true, 'type' => 'varchar'),
 			'created_at' => array('constraint' => '11', 'type' => 'int'),
-			'updated_at' => array('constraint' => '11', 'type' => 'int'),
+            'updated_at' => array('constraint' => '11', 'type' => 'int'),
+            
 		), array('id'));
 	}
 

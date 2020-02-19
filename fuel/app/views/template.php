@@ -117,10 +117,11 @@
                                 <!-- Wait(ing) List -->
                                 <a href="#"><i class="fa fa-lg fa-book fa-fw text-default"></i>&emsp;Registers<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
-                                    <li><a href="<?= Uri::create('registers/reservations'); ?>"><i class=""></i>&emsp;Reservations</a></li>
-                                    <li><a href="<?= Uri::create('registers/bookings'); ?>"><i class=""></i>&emsp;Bookings</a></li>
-                                    <li><a href="<?= Uri::create('registers/customers'); ?>"><i class=""></i>&emsp;Customers</a></li>
-                                    <li><a href="<?= Uri::create('registers/partners'); ?>"><i class=""></i>&emsp;Partners</a></li>
+                                    <li><a href="<?= Uri::create('registers/reservation'); ?>"><i class=""></i>&emsp;Reservation</a></li>
+                                    <li><a href="<?= Uri::create('registers/booking'); ?>"><i class=""></i>&emsp;Booking</a></li>
+                                    <li><a href="<?= Uri::create('registers/lease'); ?>"><i class=""></i>&emsp;Lease</a></li>
+                                    <li><a href="<?= Uri::create('registers/customer'); ?>"><i class=""></i>&emsp;Customer</a></li>
+                                    <li><a href="<?= Uri::create('registers/partner'); ?>"><i class=""></i>&emsp;Partner</a></li>
                                 </ul>
                             </li>
                             <?php 

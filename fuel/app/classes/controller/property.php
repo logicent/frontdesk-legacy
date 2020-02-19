@@ -35,7 +35,8 @@ class Controller_Property extends Controller_Authenticate
 			{
 				$property = Model_Property::forge(array(
 					'code' => Input::post('code'),
-					'name' => Input::post('name'),
+                    'name' => Input::post('name'),
+                    'fdesk_user' => Input::post('fdesk_user'),
 					'description' => Input::post('description'),
 					'physical_address' => Input::post('physical_address'),
 					'map_location' => Input::post('map_location'),
@@ -89,7 +90,8 @@ class Controller_Property extends Controller_Authenticate
 		if ($val->run())
 		{
 			$property->code = Input::post('code');
-			$property->name = Input::post('name');
+            $property->name = Input::post('name');
+            $property->fdesk_user = Input::post('fdesk_user');
             $property->description = Input::post('description');
             $property->physical_address = Input::post('physical_address');
 			$property->map_location = Input::post('map_location');
@@ -122,7 +124,8 @@ class Controller_Property extends Controller_Authenticate
 			if (Input::method() == 'POST')
 			{
 				$property->code = $val->validated('code');
-				$property->name = $val->validated('name');
+                $property->name = $val->validated('name');
+                $property->fdesk_user = $val->validated('fdesk_user');
                 $property->description = $val->validated('description');
                 $property->physical_address = $val->validated('physical_address');
 				$property->map_location = $val->validated('map_location');

@@ -25,7 +25,7 @@
 		</tr>
 	</thead>
 	<tbody>
-<?php foreach ($properties as $item): ?>		
+<?php foreach ($properties as $item): ?>
         <tr>
 			<!--<td><?php // $item->code; ?></td>-->
             <td><?= Html::anchor('property/edit/'.$item->id, $item->name, array('class' => 'clickable')); ?></td>
@@ -34,15 +34,12 @@
                 '<i class="fa fa-circle-o fa-fw text-success"></i>Enabled' ?>
             </td>
 			<td><?= Model_Property::listOptionsPropertyType()[$item->property_type]; ?></td>
-			<td><?= $item->propertyOwner->customer_name; ?></td>
+			<td><?= $item->owner ? $item->propertyOwner->customer_name : ''; ?></td>
 			<td><?= $item->map_location; ?></td>
 			<td><?= $item->property_ref; ?></td>
-			<td>
-				<div class="btn-toolbar">
-					<div class="btn-group">				
-                    </div>
-				</div>
-
+			<td class="text-center">
+				<?= Html::anchor('property/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-fw"></i>',
+                                array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
 			</td>
 		</tr>
 <?php endforeach; ?>	

@@ -60,7 +60,7 @@ class Model_Unit extends Model
 		),
     );
     
-	public static function listOptions($unit_id = null, $status = 'vac')
+	public static function listOptions($unit_id = null, $status = 'VAC')
 	{
 		$items = DB::select('id','name','status')->from(self::$_table_name)->execute()->as_array();
 
@@ -72,7 +72,7 @@ class Model_Unit extends Model
 			if ($item['status'] != $status) continue;
 			$list_options[$item['id']] = $item['name'];
 		}
-
+        
 		return $list_options;
 	}
 

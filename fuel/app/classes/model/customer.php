@@ -67,11 +67,12 @@ class Model_Customer extends Model
     public static function listOptionsCustomerType()
 	{
 		return array(
-            'Guest' => 'Guest',
+            'Guest' => 'Guest', // Resident
             'Tenant' => 'Tenant',
             'Owner' => 'Owner',
             'Member' => 'Member',
             'Non-member' => 'Non-member',
+            'Non-resident' => 'Non-resident', // Visitor
         );
     }
     
@@ -81,5 +82,23 @@ class Model_Customer extends Model
             'Individual' => 'Individual',
             'Company' => 'Company',
         );
+    }
+    
+    public static function listOptions($type = null)
+	{
+		$items = DB::select('id','customer_name')
+						->from(self::$_table_name)
+						->where(['inactive' => false])
+						->and_where(['customer_type' => $type])
+						->execute()
+						->as_array();
+        
+		$list_options = array('' => '');
+
+		foreach($items as $item) {
+			$list_options[$item['id']] = $item['customer_name'];
+        }
+        
+		return $list_options;
 	}
 }

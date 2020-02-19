@@ -12,12 +12,12 @@ class Controller_Partner extends Controller_Authenticate
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('partner');
+		is_null($id) and Response::redirect('registers/partner');
 
 		if ( ! $data['partner'] = Model_Partner::find($id))
 		{
 			Session::set_flash('error', 'Could not find partner #'.$id);
-			Response::redirect('partner');
+			Response::redirect('registers/partner');
 		}
 
 		$this->template->title = "Partner";
@@ -62,7 +62,7 @@ class Controller_Partner extends Controller_Authenticate
 				{
 					Session::set_flash('success', 'Added partner #'.$partner->partner_name.'.');
 
-					Response::redirect('partner');
+					Response::redirect('registers/partner');
 				}
 
 				else
@@ -83,12 +83,12 @@ class Controller_Partner extends Controller_Authenticate
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('partner');
+		is_null($id) and Response::redirect('registers/partner');
 
 		if ( ! $partner = Model_Partner::find($id))
 		{
 			Session::set_flash('error', 'Could not find partner #'.$id);
-			Response::redirect('partner');
+			Response::redirect('registers/partner');
 		}
 
 		$val = Model_Partner::validate('edit');
@@ -122,7 +122,7 @@ class Controller_Partner extends Controller_Authenticate
 			{
 				Session::set_flash('success', 'Updated partner #' . $partner->partner_name);
 
-				Response::redirect('partner');
+				Response::redirect('registers/partner');
 			}
 
 			else
@@ -171,7 +171,7 @@ class Controller_Partner extends Controller_Authenticate
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('partner');
+		is_null($id) and Response::redirect('registers/partner');
 
 		if ($partner = Model_Partner::find($id))
 		{
@@ -185,7 +185,7 @@ class Controller_Partner extends Controller_Authenticate
 			Session::set_flash('error', 'Could not delete partner #'.$id);
 		}
 
-		Response::redirect('partner');
+		Response::redirect('registers/partner');
 
 	}
 

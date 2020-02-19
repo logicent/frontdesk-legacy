@@ -30,8 +30,8 @@
 		<tr>
 			<td><?= Html::anchor('unit/edit/'.$item->id, $item->name, ['class' => 'clickable']); ?></td>
 			<td><?= $item->type->name; ?></td>
-			<td><span class=""><?= strtoupper($item->status); ?></span></td>
-			<td><?= $item->hk_status; ?></td>
+			<td><span class=""><?= Model_Unit::$unit_status[$item->status] ?></span></td>
+			<td><?= Model_Unit::$hk_status[$item->hk_status] ?></td>
 			<td class="text-center">
 				<?= Html::anchor('unit/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-fw"></i>',
                                 array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>

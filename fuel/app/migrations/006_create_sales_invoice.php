@@ -12,7 +12,11 @@ class Create_sales_invoice
 			'issue_date' => array('type' => 'date'),
 			'due_date' => array('type' => 'date'),
 			'status' => array('constraint' => 1, 'type' => 'char'),
-			'booking_id' => array('constraint' => 11, 'type' => 'int'),
+            'parent' => array('constraint' => 11, 'type' => 'int'), // Booking or Lease
+            'parent_id' => array('constraint' => 11, 'type' => 'int'), // BKG-12901 or LSE-1010
+            'customer_id' => array('constraint' => 11, 'type' => 'int'),
+			'property_id' => array('constraint' => 11, 'type' => 'int', 'null' => true),
+			'unit_id' => array('constraint' => 11, 'type' => 'int'),
 			'amount_due' => array('constraint' => array(10,4), 'type' => 'decimal', 'default' => 0.0000),
 			'disc_total' => array('constraint' => array(15,4), 'type' => 'decimal', 'default' => 0.0000),
 			'tax_total' => array('constraint' => array(15,4), 'type' => 'decimal', 'default' => 0.0000),

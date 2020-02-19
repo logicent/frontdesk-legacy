@@ -18,14 +18,16 @@ return array(
 	'login/forgot-password' => 'login/lostpassword',
 	'logout' => 'login/logout',
 
-	'registers/reservations' => 'facility/reservation',
-	'registers/bookings'     => 'facility/booking',
-	'registers/customers'     => 'customer',
-	'registers/partners'     => 'partner',
-	'registers/bookings'     => 'facility/booking',
+	'registers/reservation' => 'facility/reservation',
+	'registers/booking'     => 'facility/booking',
+	'registers/customer'     => 'customer',
+	'registers/lease'     => 'lease',
+	'registers/partner'     => 'partner',
 	// 'registers/folios'     => 'sales/invoice',
 	'registers/stayover/:date'   => 'facility/stayover/$1',
     'registers/nightaudit/:date' => 'facility/nightaudit/$1',
+
+    'lease/get-property-list-options' => 'lease/get_property_list_options',
 
 	'accounts/bank-accounts'    => 'accounts/bank/account',
 	'accounts/bank-deposits'    => 'accounts/bank/deposit',

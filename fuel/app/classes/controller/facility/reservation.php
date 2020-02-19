@@ -25,12 +25,12 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('registers/reservations');
+		is_null($id) and Response::redirect('registers/reservation');
 
 		if ( ! $data['reservation'] = Model_Facility_Reservation::find($id))
 		{
 			Session::set_flash('error', 'Could not find reservation #'.$id);
-			Response::redirect('registers/reservations');
+			Response::redirect('registers/reservation');
 		}
 
 		$this->template->title = "Reservation";
@@ -99,12 +99,12 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('registers/reservations');
+		is_null($id) and Response::redirect('registers/reservation');
 
 		if ( ! $reservation = Model_Facility_Reservation::find($id))
 		{
 			Session::set_flash('error', 'Could not find reservation #'.$id);
-			Response::redirect('registers/reservations');
+			Response::redirect('registers/reservation');
 		}
 
 		$val = Model_Facility_Reservation::validate('edit');
@@ -138,7 +138,7 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 			{
 				Session::set_flash('success', 'Updated reservation #' . $id);
 
-				Response::redirect('registers/reservations');
+				Response::redirect('registers/reservation');
 			}
 
 			else
@@ -187,7 +187,7 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('registers/reservations');
+		is_null($id) and Response::redirect('registers/reservation');
 
 		if ($reservation = Model_Facility_Reservation::find($id))
 		{
@@ -206,7 +206,7 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 			Session::set_flash('error', 'Could not delete reservation #'.$id);
 		}
 
-		Response::redirect('registers/reservations');
+		Response::redirect('registers/reservation');
 
 	}
 

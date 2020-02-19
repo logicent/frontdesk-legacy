@@ -32,12 +32,12 @@ class Controller_Facility_Booking extends Controller_Authenticate
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('registers/bookings');
+		is_null($id) and Response::redirect('registers/booking');
 
 		if ( ! $data['booking'] = Model_Facility_Booking::find($id))
 		{
 			Session::set_flash('error', 'Could not find booking #'.$id);
-			Response::redirect('registers/bookings');
+			Response::redirect('registers/booking');
 		}
 
 		$this->template->title = "Booking";
@@ -157,12 +157,12 @@ class Controller_Facility_Booking extends Controller_Authenticate
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('registers/bookings');
+		is_null($id) and Response::redirect('registers/booking');
 
 		if ( ! $booking = Model_Facility_Booking::find($id))
 		{
 			Session::set_flash('error', 'Could not find booking #'.$id);
-			Response::redirect('registers/bookings');
+			Response::redirect('registers/booking');
 		}
 
 		$val = Model_Facility_Booking::validate('edit');
@@ -273,7 +273,7 @@ class Controller_Facility_Booking extends Controller_Authenticate
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('registers/bookings');
+		is_null($id) and Response::redirect('registers/booking');
 
 		if ($booking = Model_Facility_Booking::find($id))
 		{
@@ -301,7 +301,7 @@ class Controller_Facility_Booking extends Controller_Authenticate
 			Session::set_flash('error', 'Could not delete booking #'.$id);
 		}
 
-		Response::redirect('registers/bookings');
+		Response::redirect('registers/booking');
 	}
 
 	public function action_nightaudit($date = null)
@@ -354,12 +354,12 @@ class Controller_Facility_Booking extends Controller_Authenticate
 
 	public function action_checkout($id = null)
 	{
-		is_null($id) and Response::redirect('registers/bookings');
+		is_null($id) and Response::redirect('registers/booking');
 
 		if ( ! $booking = Model_Facility_Booking::find($id))
 		{
 			Session::set_flash('error', 'Could not find booking #'.$id);
-			Response::redirect('registers/bookings');
+			Response::redirect('registers/booking');
 		}
 		else {
 			// // check if checkout date is reached
