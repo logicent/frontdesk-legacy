@@ -77,7 +77,7 @@ class Model_Facility_Reservation extends Model_Soft
 		$val->add_field('first_name', 'First Name', 'required|max_length[50]');
 		$val->add_field('address', 'Address', 'max_length[150]');
 		$val->add_field('city', 'City', 'max_length[20]');
-		$val->add_field('country', 'Country', 'required|valid_string');
+		$val->add_field('country', 'Country', 'valid_string');
 		$val->add_field('email', 'Email', 'valid_email|max_length[50]');
 		$val->add_field('phone', 'Phone', 'required|max_length[20]');
 		$val->add_field('rate_type', 'Rate Type', 'required|valid_string[numeric]');

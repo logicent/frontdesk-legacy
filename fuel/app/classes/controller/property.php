@@ -5,19 +5,19 @@ class Controller_Property extends Controller_Authenticate
 	public function action_index()
 	{
 		$data['properties'] = Model_Property::find('all');
-		$this->template->title = "Properties";
+		$this->template->title = "Property";
 		$this->template->content = View::forge('property/index', $data);
 
 	}
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('property');
+		is_null($id) and Response::redirect('facilities/property');
 
 		if ( ! $data['property'] = Model_Property::find($id))
 		{
 			Session::set_flash('error', 'Could not find property #'.$id);
-			Response::redirect('property');
+			Response::redirect('facilities/property');
 		}
 
 		$this->template->title = "Property";
@@ -56,7 +56,7 @@ class Controller_Property extends Controller_Authenticate
 				{
 					Session::set_flash('success', 'Added property #'.$property->name.'.');
 
-					Response::redirect('property');
+					Response::redirect('facilities/property');
 				}
 
 				else
@@ -70,19 +70,19 @@ class Controller_Property extends Controller_Authenticate
 			}
 		}
 
-		$this->template->title = "Properties";
+		$this->template->title = "Property";
 		$this->template->content = View::forge('property/create');
 
 	}
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('property');
+		is_null($id) and Response::redirect('facilities/property');
 
 		if ( ! $property = Model_Property::find($id))
 		{
 			Session::set_flash('error', 'Could not find property #'.$id);
-			Response::redirect('property');
+			Response::redirect('facilities/property');
 		}
 
 		$val = Model_Property::validate('edit');
@@ -110,7 +110,7 @@ class Controller_Property extends Controller_Authenticate
 			{
 				Session::set_flash('success', 'Updated property #' . $property->name);
 
-				Response::redirect('property');
+				Response::redirect('facilities/property');
 			}
 
 			else
@@ -146,14 +146,14 @@ class Controller_Property extends Controller_Authenticate
 			$this->template->set_global('property', $property, false);
 		}
 
-		$this->template->title = "Properties";
+		$this->template->title = "Property";
 		$this->template->content = View::forge('property/edit');
 
 	}
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('property');
+		is_null($id) and Response::redirect('facilities/property');
 
 		if ($property = Model_Property::find($id))
 		{
@@ -167,7 +167,7 @@ class Controller_Property extends Controller_Authenticate
 			Session::set_flash('error', 'Could not delete property #'.$id);
 		}
 
-		Response::redirect('property');
+		Response::redirect('facilities/property');
 
 	}
 

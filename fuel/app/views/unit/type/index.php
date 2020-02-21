@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-10">
-		<h2>Listing <span class='text-muted'>Unit Types</span></h2>
+		<h2>Listing <span class='text-muted'>Unit Type</span></h2>
         <p class="text-muted small">The unit type includes info on the number of persons, rates and more. One or more units can be added for each unit type.</p>
 	</div>
 
@@ -30,7 +30,7 @@
 	<tbody>
 <?php foreach ($unit_type as $item): ?>		
         <tr>
-			<td class="col-md-3">
+			<td class="col-md-2">
                 <?= Html::anchor('unit/type/edit/'.$item->id, $item->name, ['class' => 'clickable']); ?>
             </td>
             <td><?= (bool) $item->inactive == 1 ? 
@@ -39,7 +39,7 @@
             </td>
 			<td><?= count($item->units); ?></td>
 			<td><?= $item->default_pax . '/' . $item->max_persons; ?></td>
-			<td class="col-md-6 text-muted"><?= $item->description; ?></td>
+			<td class="col-md-5 text-muted"><?= $item->description; ?></td>
 			<td class="text-center">
 				<?= Html::anchor('unit/type/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw icon-white"></i>',
                                 array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>

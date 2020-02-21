@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <?= Form::label('Code', 'code', array('class'=>'control-label')); ?>
                 <?= Form::input('code', Input::post('code', isset($amenity) ? $amenity->code : ''),
-                                                            array('class' => 'col-md-4 form-control', 'autofocus' => true)); ?>
+                                array('class' => 'col-md-4 form-control', 'autofocus' => true)); ?>
             </div>
         </div>
 
@@ -14,15 +14,15 @@
             <div class="col-md-12">
                 <?= Form::label('Description', 'name', array('class'=>'control-label')); ?>
                 <?= Form::textarea('name', Input::post('name', isset($amenity) ? $amenity->name : ''),
-                                                                    array('class' => 'col-md-4 form-control', 'rows' => 4)); ?>
+                                    array('class' => 'col-md-4 form-control', 'rows' => 4)); ?>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-6">
-                <?= Form::checkbox('enabled', Input::post('enabled', isset($amenity) ? $amenity->enabled : ''), 
-                                    array('class' => 'cb-checked')); ?>
-                <?= Form::label('Visible', 'enabled', array('class'=>'control-label')); ?>
+                <?= Form::hidden('enabled', Input::post('enabled', isset($lease) ? $lease->enabled : '0')); ?>
+                <?= Form::checkbox('cb_enabled', null, array('class' => 'cb-checked', 'data-input' => 'enabled')); ?>
+                <?= Form::label('Visible', 'cb_enabled', array('class'=>'control-label')); ?>
             </div>
         </div>
 <!--
@@ -66,17 +66,5 @@
 <?= Form::close(); ?>
 
 <script>
-    cbEl = $('.cb-checked');
-
-	$(cbEl.click(
-        function() {
-            if (cbEl.is(':checked')) // true
-                $(cbEl).val(1);
-            else $(cbEl).val(0);
-        })
-    );
-        
-    if (cbEl.val() == '1') {
-        cbEl.prop('checked', true);
-	}
+// see checkbox code in custom.js 
 </script>

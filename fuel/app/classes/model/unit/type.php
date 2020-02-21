@@ -4,7 +4,8 @@ use Orm\Model;
 class Model_Unit_Type extends Model
 {
 	protected static $_properties = array(
-		'id',
+        'id',
+        'property_id',
         'code',
 		'name',
         'description',
@@ -28,6 +29,8 @@ class Model_Unit_Type extends Model
 		$val = Validation::forge($factory);
 		$val->add_field('code', 'Name', 'max_length[20]');
 		$val->add_field('name', 'Name', 'required|max_length[140]');
+		$val->add_field('property_id', 'Property', 'required');
+		$val->add_field('used_for', 'Used For', 'required');
 		$val->add_field('alias', 'Alias', 'max_length[140]');
 		$val->add_field('base_rate', 'Base Rate', 'valid_string[numeric]');
 		$val->add_field('max_persons', 'Max Persons', 'valid_string[numeric]');

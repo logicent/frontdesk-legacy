@@ -18,7 +18,7 @@
 		<div class="col-md-3">
 			<?= Form::label('Unit type', 'unit_type', array('class'=>'control-label')); ?>
 			<?= Form::select('unit_type', Input::post('unit_type', isset($unit) ? $unit->unit_type : ''),
-									Model_Unit_Type::listOptions(), array('class' => 'col-md-4 form-control')); ?>
+                            Model_Unit_Type::listOptions(), array('class' => 'col-md-4 form-control')); ?>
 		</div>
 
 		<!--<div class="col-md-3">-->

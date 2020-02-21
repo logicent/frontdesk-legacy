@@ -83,14 +83,14 @@
             <div class="col-md-6"> 
 				<?= Form::label('Type', 'customer_type', array('class'=>'control-label')); ?>
                 <?= Form::select('customer_type', Input::post('customer_type', isset($customer) ? $customer->customer_type : ''), 
-                                                                Model_Customer::listOptionsCustomerType(), 
-                                                                array('class' => 'col-md-4 form-control')); ?>
+                                Model_Customer::listOptionsCustomerType(), 
+                                array('class' => 'col-md-4 form-control')); ?>
 			</div>        
             <div class="col-md-6">
 				<?= Form::label('Account manager', 'account_manager', array('class'=>'control-label')); ?>
                 <?= Form::select('account_manager', Input::post('account_manager', isset($customer) ? $customer->account_manager : ''), 
-                                                                Model_User::listOptions(), 
-                                                                array('class' => 'col-md-4 form-control', 'id' => 'user_id')); ?>
+                                Model_User::listOptions(), 
+                                array('class' => 'col-md-4 form-control', 'id' => 'user_id')); ?>
 			</div>
         </div>
 
@@ -99,12 +99,14 @@
 				<?= Form::label('Tax ID', 'tax_ID', array('class'=>'control-label')); ?>
                 <?= Form::input('tax_ID', Input::post('tax_ID', isset($customer) ? $customer->tax_ID : ''), 
                                 array('class' => 'col-md-4 form-control')); ?>
-			</div>  
+			</div>
+
             <div class="col-md-6">
                 <?= Form::hidden('inactive', Input::post('inactive', isset($lease) ? $lease->inactive : '0')); ?>
                 <?= Form::checkbox('cb_inactive', null, array('class' => 'cb-checked', 'data-input' => 'inactive')); ?>
                 <?= Form::label('Inactive', 'cb_inactive', array('class'=>'control-label')); ?>
             </div>
+            
             <div class="col-md-6">
                 <?= Form::hidden('is_internal_customer', Input::post('is_internal_customer', isset($lease) ? $lease->is_internal_customer : '0')); ?>
                 <?= Form::checkbox('cb_is_internal_customer', null, array('class' => 'cb-checked', 'data-input' => 'is_internal_customer')); ?>
@@ -116,13 +118,13 @@
             <div class="col-md-6">
 				<?= Form::label('Bank account', 'bank_account', array('class'=>'control-label')); ?>
                 <?= Form::input('bank_account', Input::post('bank_account', isset($customer) ? $customer->bank_account : ''), 
-                                                                array('class' => 'col-md-4 form-control')); ?>
+                                array('class' => 'col-md-4 form-control')); ?>
 			</div>        
 
             <div class="col-md-6">
 				<?= Form::label('Billing currency', 'billing_currency', array('class'=>'control-label')); ?>
                 <?= Form::input('billing_currency', Input::post('billing_currency', isset($customer) ? $customer->billing_currency : ''), 
-                                                                array('class' => 'col-md-4 form-control')); ?>
+                                array('class' => 'col-md-4 form-control')); ?>
 			</div>
 		</div>
 
@@ -167,23 +169,7 @@
 <?= Form::close(); ?>
 
 <script>
-    $('.cb-checked').click(
-        function() {
-            if ($(this).is(':checked')) // true
-            {
-                $('#form_' + $(this).data('input')).val(1);
-            }
-            else $('#form_' + $(this).data('input')).val(0);
-        });
-    
-    cbEl = $('.cb-checked');
-    cbEl.each(function() {
-        if ($(this).val() == '1') {
-            $(this).prop('checked', true);
-        }
-        else $($(this)).val(0);
-    });
-
+    // see checkbox code in custom.js
 	// Date range picker for birth_date
  
 </script>

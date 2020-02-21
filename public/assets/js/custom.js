@@ -59,4 +59,20 @@ $(function() {
         }
     });
 
+    $('.cb-checked').click(
+        function() {
+            if ($(this).is(':checked')) // true
+            {
+                $('#form_' + $(this).data('input')).val(1);
+            }
+            else $('#form_' + $(this).data('input')).val(0);
+        });
+    
+    cbEl = $('.cb-checked');
+    cbEl.each(function() {
+        if ($(this).val() == '1') {
+            $(this).prop('checked', true);
+        }
+        else $($(this)).val(0);
+    });
 });

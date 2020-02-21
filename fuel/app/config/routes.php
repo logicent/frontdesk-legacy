@@ -29,27 +29,27 @@ return array(
 
     'lease/get-property-list-options' => 'lease/get_property_list_options',
 
-	'accounts/bank-accounts'    => 'accounts/bank/account',
-	'accounts/bank-deposits'    => 'accounts/bank/deposit',
-	'accounts/sales-invoices'   => 'accounts/salesinvoice',
-	'accounts/sales-receipts'   => 'accounts/payment/receipt',
+	'accounts/bank-account'    => 'accounts/bank/account',
+	'accounts/bank-deposit'    => 'accounts/bank/deposit',
+	'accounts/sales-invoice'   => 'accounts/salesinvoice',
+	'accounts/sales-receipt'   => 'accounts/payment/receipt',
 	'accounts/expenses'         => 'accounts/payment/expense',
 	'accounts/taxes'            => 'accounts/tax',
-	'accounts/payment-methods'  => 'accounts/payment/method',
+	'accounts/payment-method'  => 'accounts/payment/method',
 
     'accounts/payment/receipt/to-print/:id' => 'accounts/payment/receipt/to_print/$1',
 
 	'facilities/units'      => 'unit',
-    'facilities/unit-types' => 'unit/type',
-    'facilities/properties' => 'property',
+    'facilities/unit-type' => 'unit/type',
+    'facilities/property' => 'property',
     
 	// 'facilities/unit'       => 'facility/facility',
 	// 'facilities/types'      => 'facility/type',
 	'facilities/rates'      => 'rate',
-	'facilities/rate-types' => 'rate/type',
+	'facilities/rate-type' => 'rate/type',
 	'facilities/amenities'  => 'facility/amenity',
 	'facilities/services'   => 'service/item',
-	'facilities/service-types'   => 'service/type',
+	'facilities/service-type'   => 'service/type',
     
 	'settings/business-detail'  => 'business',
 	'settings/email-settings'   => 'email/settings',

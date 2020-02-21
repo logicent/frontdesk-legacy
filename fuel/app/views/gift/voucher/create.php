@@ -1,7 +1,8 @@
-<h2>New <span class='muted'>Gift_voucher</span></h2>
+<h2 class="page-header">New <span class='text-muted'>Voucher</span>&nbsp;
+    <span><?= Html::anchor('registers/voucher', '<i class="fa fa-level-down fa-fw fa-rotate-180"></i> Back to List', array('class' => 'btn btn-default btn-xs')); ?></span>
+</h2>
+
 <br>
 
-<?php echo render('gift/voucher/_form'); ?>
+<?= render(__DIR__ . '/_form'); ?>
 
-
-<p><?php echo Html::anchor('gift/voucher', 'Back'); ?></p>

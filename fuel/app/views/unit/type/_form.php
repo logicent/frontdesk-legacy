@@ -53,30 +53,30 @@
         <div class="form-group">
             <div class="col-md-6">
                 <?= Form::label('Property', 'property_id', array('class'=>'control-label')); ?>
-                <?= Form::select('property_id', Input::post('property_id', isset($property) ? $property->property_id : ''),
-                                        Model_Property::listOptionsProperty(),
-                                        array('class' => 'form-control')); ?>
+                <?= Form::select('property_id', Input::post('property_id', isset($unit_type) ? $unit_type->property_id : ''),
+                                Model_Property::listOptionsProperty(),
+                                array('class' => 'form-control')); ?>
             </div>
 
             <div class="col-md-6">
                 <?= Form::label('Used For', 'used_for', array('class'=>'control-label')); ?>
-                <?= Form::select('used_for', Input::post('used_for', isset($property) ? $property->used_for : ''),
-                                        Model_Unit_Type::listOptionsUsedFor(),
-                                        array('class' => 'form-control')); ?>
+                <?= Form::select('used_for', Input::post('used_for', isset($unit_type) ? $unit_type->used_for : ''),
+                                Model_Unit_Type::listOptionsUsedFor(),
+                                array('class' => 'form-control')); ?>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-6">
-                <?= Form::checkbox('inactive', Input::post('inactive', isset($property) ? $property->inactive : '0'), 
-                                        array('class' => 'cb-checked')); ?>
-                <?= Form::label('Inactive', 'inactive', array('class'=>'control-label')); ?>
+                <?= Form::hidden('inactive', Input::post('inactive', isset($unit_type) ? $unit_type->inactive : '0')); ?>
+                <?= Form::checkbox('cb_inactive', null, array('class' => 'cb-checked', 'data-input' => 'inactive')); ?>
+                <?= Form::label('Inactive', 'cb_inactive', array('class'=>'control-label')); ?>
             </div>            
         </div>
 
         <hr>
 
-        <?= Form::hidden('fdesk_user', Input::post('fdesk_user', isset($property) ? $property->fdesk_user : $uid)); ?>
+        <?= Form::hidden('fdesk_user', Input::post('fdesk_user', isset($unit_type) ? $unit_type->fdesk_user : $uid)); ?>
 
         <div class="form-group">
             <div class="col-md-3">

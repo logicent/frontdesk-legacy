@@ -9,8 +9,20 @@ class Controller_Dashboard extends Controller_Authenticate{
 			Session::set_flash('warning', 'Add your business information to complete setup.');
 			Response::redirect('business/create');
 		}
-
-        $unit_types = Model_Unit_Type::find('all'); 
+        // find accommodation units only for now - later separate dashboard by service type and property
+        // $unit_types = Model_Unit_Type::find('all'); 
+        // $unit_types = Model_Unit_Type::find('all', array('where' => array('used_for' => 'A'))); 
+        $unit_types = Model_Unit_Type::find('all', 
+                                                array(
+                                                    'related' => array(
+                                                        'units' => array(
+                                                            'order_by' => 'name'
+                                                        ), 
+                                                        'rates'
+                                                    ), 
+                                                'where' => array('used_for' => 'A'), 
+                                                'order_by' => 'name')
+                                            );
         
         $unitTypeHasUndefinedRate = false;
         foreach ($unit_types as $unit_type) {
@@ -85,7 +97,8 @@ class Controller_Dashboard extends Controller_Authenticate{
 										->where('status', '=', Model_Unit::UNIT_STATUS_BLOCKED)
 										->execute()->as_array();
 
-		$data['unit_types'] = Model_Unit_Type::find('all', array('related' => array('units' => array('order_by' => 'name'),'rates'), 'order_by' => 'name'));
+        $data['unit_types'] = $unit_types;
+		// $data['unit_types'] = Model_Unit_Type::find('all', array('related' => array('units' => array('order_by' => 'name'),'rates'), 'order_by' => 'name'));
 
 		$data['guest_list'] = Model_Facility_Booking::find('all', array('related' => array('unit','bill'), 'where' => array(array('status', '!=', Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT))));
 

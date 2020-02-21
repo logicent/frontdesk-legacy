@@ -24,6 +24,7 @@ class Controller_Unit_Type extends Controller_Authenticate
                     'description' => Input::post('description'),
                     'alias' => Input::post('alias'),
                     'base_rate' => Input::post('base_rate'),
+                    'property_id' => Input::post('property_id'),
                     'used_for' => Input::post('used_for'),
                     'inactive' => Input::post('inactive'),
                     'ota_mappings' => Input::post('ota_mappings'),
@@ -38,7 +39,7 @@ class Controller_Unit_Type extends Controller_Authenticate
 				{
 					Session::set_flash('success', 'Added unit type #'.$unit_type->name.'.');
 
-					Response::redirect('facilities/unit-types');
+					Response::redirect('facilities/unit-type');
 				}
 
 				else
@@ -59,12 +60,12 @@ class Controller_Unit_Type extends Controller_Authenticate
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('facilities/unit-types');
+		is_null($id) and Response::redirect('facilities/unit-type');
 
 		if ( ! $unit_type = Model_Unit_Type::find($id))
 		{
 			Session::set_flash('error', 'Could not find unit type #'.$id);
-			Response::redirect('facilities/unit-types');
+			Response::redirect('facilities/unit-type');
 		}
 
 		$val = Model_Unit_Type::validate('edit');
@@ -77,6 +78,7 @@ class Controller_Unit_Type extends Controller_Authenticate
             $unit_type->alias = Input::post('alias');
             $unit_type->base_rate = Input::post('base_rate');
             $unit_type->used_for = Input::post('used_for');
+            $unit_type->property_id = Input::post('property_id');
             $unit_type->inactive = Input::post('inactive');
             $unit_type->ota_mappings = Input::post('ota_mappings');
             $unit_type->amenities = Input::post('amenities');
@@ -89,7 +91,7 @@ class Controller_Unit_Type extends Controller_Authenticate
 			{
 				Session::set_flash('success', 'Updated unit type #' . $unit_type->name);
 
-				Response::redirect('facilities/unit-types');
+				Response::redirect('facilities/unit-type');
 			}
 
 			else
@@ -108,6 +110,7 @@ class Controller_Unit_Type extends Controller_Authenticate
                 $unit_type->alias = $val->validated('alias');
                 $unit_type->base_rate = $val->validated('base_rate');
                 $unit_type->used_for = $val->validated('used_for');
+                $unit_type->property_id = $val->validated('property_id');
                 $unit_type->inactive = $val->validated('inactive');
                 $unit_type->ota_mappings = $val->validated('ota_mappings');
                 $unit_type->amenities = $val->validated('amenities');
@@ -129,7 +132,7 @@ class Controller_Unit_Type extends Controller_Authenticate
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('facilities/unit-types');
+		is_null($id) and Response::redirect('facilities/unit-type');
 
 		if ($unit_type = Model_Unit_Type::find($id))
 		{
@@ -147,7 +150,7 @@ class Controller_Unit_Type extends Controller_Authenticate
 			Session::set_flash('error', 'Could not delete unit type #'.$id);
 		}
 
-		Response::redirect('facilities/unit-types');
+		Response::redirect('facilities/unit-type');
 
 	}
 
