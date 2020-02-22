@@ -75,7 +75,7 @@
             if (isset($sales_invoice)) :
                 foreach ($sales_invoice->receipts as $item): ?>
                     <tr class="<?= $item->amount > 0 ? : 'strikeout text-muted' ?>">
-                        <td><?= Html::anchor('cash/receipt/edit/'.$item->id, $item->reference); ?></td>
+                        <td><?= Html::anchor('accounts/payment/receipt/edit/'.$item->id, $item->reference); ?></td>
                         <td><?= $item->date; ?></td>
                         <td><?= $item->description; ?></td>
                         <td class="text-right"><?= number_format($item->amount, 2); ?></td>

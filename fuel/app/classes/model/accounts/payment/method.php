@@ -36,4 +36,20 @@ class Model_Accounts_Payment_Method extends Model
 		return $val;
 	}
 
+    public static function listOptions()
+	{
+		$items = DB::select('code','name')
+						->from(self::$_table_name)
+                        // ->where(['inactive' => false])
+						->execute()
+						->as_array();
+
+        $list_options = array('' => '');
+        
+		foreach($items as $item) {
+			$list_options[$item['code']] = $item['name'];
+        }
+        
+		return $list_options;
+	}
 }
