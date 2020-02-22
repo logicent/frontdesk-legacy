@@ -1,4 +1,4 @@
-<?= Form::open(array("class"=>"form-horizontal", "enctype"=>"multipart/form-data")); ?>
+<?= Form::open(array("class"=>"form-horizontal", "autocomplete" => "off", "enctype"=>"multipart/form-data")); ?>
 
 <div class="row">
     <div class="col-md-6">

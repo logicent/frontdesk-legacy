@@ -1,4 +1,4 @@
-<?= Form::open(array("class"=>"form-horizontal")); ?>
+<?= Form::open(array("class"=>"form-horizontal", "autocomplete" => "off")); ?>
 
 <div class="row">
 	<div class="col-md-6">
@@ -126,23 +126,4 @@
 <?= Form::close(); ?>
 
 <script>
-    $('.cb-checked').click(
-        function() {
-            if ($(this).is(':checked')) // true
-            {
-                $('#form_' + $(this).data('input')).val(1);
-            }
-            else $('#form_' + $(this).data('input')).val(0);
-        });
-    
-    cbEl = $('.cb-checked');
-    cbEl.each(function() {
-        if ($(this).val() == '1') {
-            $(this).prop('checked', true);
-        }
-        else $($(this)).val(0);
-    });
-
-	// Date range picker for birth_date
- 
 </script>

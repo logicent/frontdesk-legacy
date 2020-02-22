@@ -1,6 +1,6 @@
 $(function() {
     // hide all elements with the alert class
-    if($('.alert').length)
+    if ($('.alert').length)
         $('.alert').delay(5000).fadeOut();
 
     $('.confirm').on('click', function(){
@@ -45,6 +45,11 @@ $(function() {
         // set focus back to datepicker control
     });
 
+    $('.datepicker').each(function () {
+        if ($(this).val() == '0000-00-00')
+            $(this).val('');
+    });
+    
     $('.slug').slugify('#form_name');
 
     current_link = window.location.href;

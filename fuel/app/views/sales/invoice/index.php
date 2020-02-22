@@ -1,14 +1,14 @@
 <div class="row">
 	<div class="col-md-6">
-		<h2>Listing <span class='text-muted'>Sales Invoices</span></h2>
+		<h2>Listing <span class='text-muted'>Sales Invoice</span></h2>
 	</div>
 
 	<div class="col-md-6">
 		<br>
 		<div class="pull-right btn-group">
-			<?= Html::anchor('accounts/sales-invoices/?status='.Model_Sales_Invoice::INVOICE_STATUS_OPEN, 'Open', array('class' => 'btn btn-sm btn-default')); ?>
-			<?= Html::anchor('accounts/sales-invoices/?status='.Model_Sales_Invoice::INVOICE_STATUS_CLOSED, 'Closed', array('class' => 'btn btn-sm btn-default')); ?>
-			<!-- <?= Html::anchor('accounts/sales-invoices/?status='.Model_Sales_Invoice::INVOICE_STATUS_CANCELED, 'Canceled', array('class' => 'btn btn-sm btn-danger')); ?> -->
+			<?= Html::anchor('accounts/sales-invoice/?status='.Model_Sales_Invoice::INVOICE_STATUS_OPEN, 'Open', array('class' => 'btn btn-sm btn-default')); ?>
+			<?= Html::anchor('accounts/sales-invoice/?status='.Model_Sales_Invoice::INVOICE_STATUS_CLOSED, 'Closed', array('class' => 'btn btn-sm btn-default')); ?>
+			<!-- <?= Html::anchor('accounts/sales-invoice/?status='.Model_Sales_Invoice::INVOICE_STATUS_CANCELED, 'Canceled', array('class' => 'btn btn-sm btn-danger')); ?> -->
 		</div>
 	</div>
 </div>
@@ -18,7 +18,7 @@
 <table class="table table-hover datatable">
 	<thead>
 		<tr>
-			<th>Guest name</th>
+			<th>Customer name</th>
 			<th>Unit no.</th>
 			<th>Invoice no.</th>
 			<th>Due date</th>

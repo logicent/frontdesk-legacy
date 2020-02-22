@@ -28,6 +28,8 @@ return array(
     'registers/nightaudit/:date' => 'facility/nightaudit/$1',
 
     'lease/get-property-list-options' => 'lease/get_property_list_options',
+    'lease/get-owner-list-options' => 'lease/get_owner_list_options',
+    'lease/get-unit-list-options' => 'lease/get_unit_list_options',
 
 	'accounts/bank-account'    => 'accounts/bank/account',
 	'accounts/bank-deposit'    => 'accounts/bank/deposit',

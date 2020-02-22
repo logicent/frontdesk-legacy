@@ -118,7 +118,7 @@ class Controller_Lease extends Controller_Authenticate
 			$lease->on_hold_from = Input::post('on_hold_from');
 			$lease->on_hold_to = Input::post('on_hold_to');
             $lease->remarks = Input::post('remarks');
-            $customer->fdesk_user = Input::post('fdesk_user');
+            $lease->fdesk_user = Input::post('fdesk_user');
 
 			if ($lease->save())
 			{
@@ -159,7 +159,7 @@ class Controller_Lease extends Controller_Authenticate
 				$lease->on_hold_from = $val->validated('on_hold_from');
 				$lease->on_hold_to = $val->validated('on_hold_to');
 				$lease->remarks = $val->validated('remarks');
-                $customer->fdesk_user = $val->validated('fdesk_user');
+                $lease->fdesk_user = $val->validated('fdesk_user');
 
 				Session::set_flash('error', $val->error());
 			}
@@ -217,8 +217,22 @@ class Controller_Lease extends Controller_Authenticate
         $listOptions = [];
         
         if (Input::is_ajax());
-            $listOptions = Model_Property::listOptions(Input::post('property'));
-        
+        {
+            $units = Model_Unit::query()
+                                ->select(
+                                    array('id', 'name')
+                                )
+                                ->related(
+                                        'type', array(
+                                            'where' => array('property_id' => Input::post('property')),
+                                        ),
+                                )
+                                ->get();
+            if ($units)
+                foreach ($units as $unit)
+                    $listOptions[$unit->id] = $unit->name;
+        }
+
         return json_encode($listOptions);
 	}
 

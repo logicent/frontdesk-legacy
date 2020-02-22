@@ -131,7 +131,7 @@ class Model_Property extends Model
 		$items = DB::select('id','name')
 						->from('properties')
                         ->where(['inactive' => false])
-                        // ->and_where(['owner' => $owner])
+                        ->and_where(['owner' => $owner])
 						->execute()
 						->as_array();
 

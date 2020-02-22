@@ -1,4 +1,4 @@
-<?= Form::open(array("class"=>"form-horizontal")); ?>
+<?= Form::open(array("class"=>"form-horizontal", "autocomplete" => "off")); ?>
 
 	<div class="form-group">
 		<div class="col-md-4">

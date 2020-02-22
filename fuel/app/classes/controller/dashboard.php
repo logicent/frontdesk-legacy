@@ -98,7 +98,6 @@ class Controller_Dashboard extends Controller_Authenticate{
 										->execute()->as_array();
 
         $data['unit_types'] = $unit_types;
-		// $data['unit_types'] = Model_Unit_Type::find('all', array('related' => array('units' => array('order_by' => 'name'),'rates'), 'order_by' => 'name'));
 
 		$data['guest_list'] = Model_Facility_Booking::find('all', array('related' => array('unit','bill'), 'where' => array(array('status', '!=', Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT))));
 

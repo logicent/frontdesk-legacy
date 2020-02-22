@@ -1,4 +1,4 @@
-<?= Form::open(array("class"=>"form-horizontal")); ?>
+<?= Form::open(array("class"=>"form-horizontal", "autocomplete" => "off")); ?>
 
 <div class="row">
 	<div class="col-md-6">
@@ -104,10 +104,11 @@
             <div class="col-md-6">
                 <?= Form::label('Property', 'property_id', array('class'=>'control-label')); ?>
                 <?= Form::select('property_id', Input::post('property_id', isset($lease) ? $lease->property_id : ''),
-                                        Model_Property::listOptionsProperty(),
+                                        isset($lease) ? Model_Property::listOptionsProperty($lease->owner_id) : array(),
                                         array('class' => 'form-control')); ?>
             </div>
         </div>
+
 		<div class="form-group">
             <div class="col-md-6">
                 <?= Form::label('Premise use', 'premise_use', array('class'=>'control-label')); ?>
@@ -118,8 +119,8 @@
             <div class="col-md-6">
                 <?= Form::label('Unit', 'unit_id', array('class'=>'control-label')); ?>
                 <?= Form::select('unit_id', Input::post('unit_id', isset($lease) ? $lease->unit_id : ''), 
-                                Model_Unit::listOptions(), 
-                                array('class' => 'col-md-4 form-control', 'id' => 'unit_id')); ?>
+                                isset($lease) ? Model_Unit::listOptions($lease->unit_id) : array(), 
+                                array('class' => 'col-md-4 form-control')); ?>
             </div>
         </div>
 
@@ -179,20 +180,6 @@
 <?= Form::close(); ?>
 
 <script>
-    $('.cb-checked').click(
-        function() {
-            if ($(this).is(':checked')) // true
-                $($(this)).val(1);
-            else $($(this)).val(0);
-        });
-    
-    cbEl = $('.cb-checked');
-    cbEl.each(function() {
-        if ($(this).val() == '1') {
-            $(this).prop('checked', true);
-        }
-    });
-
 	// Date picker validations
 
     // Fetch dependent drop down list options
@@ -208,12 +195,35 @@
                 },
                 success: function(listOptions) 
                 {
-                    var selectOptions = '';
+                    var selectOptions = '<option value="" selected></option>';
                     $.each(JSON.parse(listOptions), function(index, listOption)               
                     {
                         selectOptions += '<option value="' + index + '">' + listOption + '</option>';
                     });
                     $('#form_property_id').html(selectOptions);
+                },
+                error: function(jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown)
+                }
+            });
+        });
+
+        $('#form_property_id').on('change', function() { 
+            $.ajax({
+                type: 'post',
+                url: '/lease/get-unit-list-options',
+                // dataType: 'json',
+                data: {
+                    'property': $(this).val(),
+                },
+                success: function(listOptions) 
+                {
+                    var selectOptions = '<option value="" selected></option>';
+                    $.each(JSON.parse(listOptions), function(index, listOption)               
+                    {
+                        selectOptions += '<option value="' + index + '">' + listOption + '</option>';
+                    });
+                    $('#form_unit_id').html(selectOptions);
                 },
                 error: function(jqXhr, textStatus, errorThrown) {
                     console.log(errorThrown)
