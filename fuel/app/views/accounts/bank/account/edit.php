@@ -3,4 +3,4 @@
 </h2>
 <br>
 
-<?= render(__DIR__ . '/_form'); ?>
+<?= render('accounts/bank/account/_form'); ?>
