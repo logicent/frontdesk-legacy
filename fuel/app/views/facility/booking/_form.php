@@ -79,26 +79,28 @@
     <div class="col-md-6">
         <div class="form-group">
             <div class="col-md-6">
-                <?= Form::label('First name', 'first_name', array('class'=>'control-label')); ?>
-                <?= Form::input('first_name', Input::post('first_name', isset($booking) ? $booking->first_name : ''), 
-                                array('class' => 'col-md-4 form-control', 'autofocus' => true)); ?>
+                <?= Form::label('Customer name', 'customer_id', array('class'=>'control-label')); ?>
+                <?= Form::hidden('customer_name', Input::post('customer_name', isset($booking) ? $booking->customer_name : '')) ?>
+                <?= Form::select('customer_id', Input::post('customer_id', isset($booking) ? $booking->customer_id : ''), 
+                        Model_Customer::listOptions([Model_Customer::CUSTOMER_TYPE_GUEST]), 
+                        array('class' => 'col-md-4 form-control', 'autofocus' => true, 'id' => 'customer_id')); ?>
             </div>
 
             <div class="col-md-6">
-                <?= Form::label('Last name', 'last_name', array('class'=>'control-label')); ?>
-                <?= Form::input('last_name', Input::post('last_name', isset($booking) ? $booking->last_name : ''), 
-                                array('class' => 'col-md-4 form-control')); ?>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-4">
                 <?= Form::label('Sex', 'sex', array('class'=>'control-label')); ?>
                 <?= Form::select('sex', Input::post('sex', isset($booking) ? $booking->sex : ''), 
                                 Model_Facility_Booking::$sex, array('class' => 'col-md-4 form-control')); ?>
             </div>
+        </div>
 
-            <div class=" col-md-offset-2 col-md-6">
+        <div class="form-group">
+            <div class="col-md-6">
+                <?= Form::label('Email', 'email', array('class'=>'control-label')); ?>
+                <?= Form::input('email', Input::post('email', isset($booking) ? $booking->email : ''), 
+                                array('class' => 'col-md-4 form-control')); ?>
+            </div>
+
+            <div class="col-md-6">
                 <?= Form::label('Phone', 'phone', array('class'=>'control-label')); ?>
                 <?= Form::input('phone', Input::post('phone', isset($booking) ? $booking->phone : ''), 
                                 array('class' => 'col-md-4 form-control')); ?>
@@ -106,16 +108,10 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <?= Form::label('ID type', 'id_type', array('class'=>'control-label')); ?>
                 <?= Form::select('id_type', Input::post('id_type', isset($booking) ? $booking->id_type : ''), 
                                 Model_Facility_Booking::$ID_type, array('class' => 'col-md-4 form-control')); ?>
-            </div>
-
-            <div class="col-md-offset-2 col-md-6">
-                <?= Form::label('Email', 'email', array('class'=>'control-label')); ?>
-                <?= Form::input('email', Input::post('email', isset($booking) ? $booking->email : ''), 
-                                array('class' => 'col-md-4 form-control')); ?>
             </div>
         </div>
 
@@ -190,12 +186,12 @@
             <div class="col-md-6">
                 <?= Form::label('Address', 'address', array('class'=>'control-label')); ?>
                 <?= Form::textarea('address', Input::post('address', isset($booking) ? $booking->address : ''), 
-                                array('class' => 'col-md-4 form-control', 'rows' => 4)); ?>
+                                array('class' => 'col-md-4 form-control', 'rows' => 5)); ?>
             </div>
             <div class="col-md-6">
                 <?= Form::label('Remarks', 'remarks', array('class'=>'control-label')); ?>
                 <?= Form::textarea('remarks', Input::post('remarks', isset($booking) ? $booking->remarks : ''), 
-                                array('class' => 'col-md-8 form-control', 'rows' => 4)); ?>
+                                array('class' => 'col-md-8 form-control', 'rows' => 5)); ?>
             </div>
         </div>
     </div>
@@ -214,9 +210,11 @@
 	</div>
 
     <div class="col-md-3">
-        <a href="<?= Uri::create('#unit/transfer'); ?>" class="btn btn-default">
+<!--
+        <a href="<?php // Uri::create('#unit/transfer'); ?>" class="btn btn-default">
             <i class="glyphicon glyphicon-random"></i>&ensp;Switch unit
         </a>
+-->        
     </div>
 
 	<div class="col-md-6">

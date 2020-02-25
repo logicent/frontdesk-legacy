@@ -48,6 +48,7 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 			{
 				$reservation = Model_Facility_Reservation::forge(array(
 					'res_no' => Input::post('res_no'),
+                    'customer_id' => Input::post('customer_id'),
 					'unit_id' => Input::post('unit_id'),
 					'fdesk_user' => Input::post('fdesk_user'),
 					'status' => Input::post('status'),
@@ -57,8 +58,7 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 					'pax_adults' => Input::post('pax_adults'),
 					'pax_children' => Input::post('pax_children'),
 					'voucher_no' => Input::post('voucher_no'),
-					'last_name' => Input::post('last_name'),
-					'first_name' => Input::post('first_name'),
+					'customer_name' => Input::post('customer_name'),
 					'address' => Input::post('address'),
 					'city' => Input::post('city'),
 					'country' => Input::post('country'),
@@ -112,6 +112,7 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 		if ($val->run())
 		{
 			$reservation->res_no = Input::post('res_no');
+            $reservation->customer_id = Input::post('customer_id');
 			$reservation->unit_id = Input::post('unit_id');
 			$reservation->fdesk_user = Input::post('fdesk_user');
 			$reservation->status = Input::post('status');
@@ -121,8 +122,7 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 			$reservation->pax_adults = Input::post('pax_adults');
 			$reservation->pax_children = Input::post('pax_children');
 			$reservation->voucher_no = Input::post('voucher_no');
-			$reservation->last_name = Input::post('last_name');
-			$reservation->first_name = Input::post('first_name');
+			$reservation->customer_name = Input::post('customer_name');
 			$reservation->address = Input::post('address');
 			$reservation->city = Input::post('city');
 			$reservation->country = Input::post('country');
@@ -152,6 +152,7 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 			if (Input::method() == 'POST')
 			{
 				$reservation->res_no = $val->validated('res_no');
+                $reservation->customer_id = $val->validated('customer_id');
 				$reservation->unit_id = $val->validated('unit_id');
 				$reservation->fdesk_user = $val->validated('fdesk_user');
 				$reservation->status = $val->validated('status');
@@ -161,8 +162,7 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 				$reservation->pax_adults = $val->validated('pax_adults');
 				$reservation->pax_children = $val->validated('pax_children');
 				$reservation->voucher_no = $val->validated('voucher_no');
-				$reservation->last_name = $val->validated('last_name');
-				$reservation->first_name = $val->validated('first_name');
+				$reservation->customer_name = $val->validated('customer_name');
 				$reservation->address = $val->validated('address');
 				$reservation->city = $val->validated('city');
 				$reservation->country = $val->validated('country');

@@ -44,7 +44,7 @@ class Controller_Facility_Booking extends Controller_Authenticate
 		$this->template->content = View::forge('facility/booking/view', $data);
 	}
 
-	public function action_create($rm_id = null)
+	public function action_create($rm_id = null, $res_id = null)
 	{
 		if (Input::method() == 'POST')
 		{
@@ -55,6 +55,7 @@ class Controller_Facility_Booking extends Controller_Authenticate
 				$booking = Model_Facility_Booking::forge(array(
 					'reg_no' => Input::post('reg_no'),
 					'folio_no' => Input::post('folio_no'),
+					'customer_id' => Input::post('customer_id'),
 					'unit_id' => Input::post('unit_id'),
 					'fdesk_user' => Input::post('fdesk_user'),
 					'res_no' => Input::post('res_no'),
@@ -65,8 +66,7 @@ class Controller_Facility_Booking extends Controller_Authenticate
 					'pax_adults' => Input::post('pax_adults'),
 					'pax_children' => Input::post('pax_children'),
 					'voucher_no' => Input::post('voucher_no'),
-					'last_name' => Input::post('last_name'),
-					'first_name' => Input::post('first_name'),
+					'customer_name' => Input::post('customer_name'),
 					'sex' => Input::post('sex'),
 					'address' => Input::post('address'),
 					'city' => Input::post('city'),
@@ -90,11 +90,13 @@ class Controller_Facility_Booking extends Controller_Authenticate
 				));
 
 				// Check if unit is assigned or guest is registered already
-				$hasBooking = Model_Facility_Booking::find('first', array('where' => array('unit_id' => $booking->unit_id, 'status' => Model_Facility_Booking::GUEST_STATUS_CHECKED_IN)));
+				$hasBooking = Model_Facility_Booking::find('first', array('where' => array(
+                                                                            'unit_id' => $booking->unit_id, 
+                                                                            'status' => Model_Facility_Booking::GUEST_STATUS_CHECKED_IN)
+                                                                        ));
 				if ($hasBooking)
 				{
 					Session::set_flash('warning', 'Unit is already assigned to a guest booking.');
-
 					Response::redirect('dashboard');
 				}
 				// Calculate all amounts due for duration
@@ -108,7 +110,6 @@ class Controller_Facility_Booking extends Controller_Authenticate
                     {
                         // Updated Unit status based of guest status
                         Model_Facility_Booking::updateUnitStatus($booking->unit_id, $booking->status);
-                
                         // Create default invoice for overnight stay
                         Model_Facility_Booking::createSalesInvoice($booking);
                     }
@@ -122,7 +123,6 @@ class Controller_Facility_Booking extends Controller_Authenticate
                 catch (Fuel\Core\Database_Exception $e)
                 {
                     DB::rollback_transaction();
-                    
                     Session::set_flash('error', $e->getMessage());
                     // throw $e;
                 }
@@ -138,12 +138,14 @@ class Controller_Facility_Booking extends Controller_Authenticate
 		if (!$default_service)
 		{
 			Session::set_flash('error', 'Default lodge service must be defined to allow bookings');
-
 			Response::redirect('service/item/create');
 		}
 
 		$unit = Model_Unit::find($rm_id);
 		$this->template->set_global('unit', $unit, false);
+
+		$res = Model_Facility_Reservation::find($res_id);
+		$this->template->set_global('res', $res, false);
 
 		$this->template->title = "Booking";
 		$this->template->content = View::forge('facility/booking/create');
@@ -170,7 +172,8 @@ class Controller_Facility_Booking extends Controller_Authenticate
 		if ($val->run())
 		{
 			$booking->reg_no = Input::post('reg_no');
-			$booking->folio_no = Input::post('folio_no');
+            $booking->folio_no = Input::post('folio_no');
+            $booking->customer_id = Input::post('customer_id');
 			$booking->unit_id = Input::post('unit_id');
 			$booking->fdesk_user = Input::post('fdesk_user');
 			$booking->res_no = Input::post('res_no');
@@ -181,8 +184,7 @@ class Controller_Facility_Booking extends Controller_Authenticate
 			$booking->pax_adults = Input::post('pax_adults');
 			$booking->pax_children = Input::post('pax_children');
 			$booking->voucher_no = Input::post('voucher_no');
-			$booking->last_name = Input::post('last_name');
-			$booking->first_name = Input::post('first_name');
+			$booking->customer_name = Input::post('customer_name');
 			$booking->sex = Input::post('sex');
 			$booking->address = Input::post('address');
 			$booking->city = Input::post('city');
@@ -227,7 +229,8 @@ class Controller_Facility_Booking extends Controller_Authenticate
 			if (Input::method() == 'POST')
 			{
 				$booking->reg_no = $val->validated('reg_no');
-				$booking->folio_no = $val->validated('folio_no');
+                $booking->folio_no = $val->validated('folio_no');
+                $booking->customer_id = $val->validated('customer_id');
 				$booking->unit_id = $val->validated('unit_id');
 				$booking->fdesk_user = $val->validated('fdesk_user');
 				$booking->res_no = $val->validated('res_no');
@@ -238,8 +241,7 @@ class Controller_Facility_Booking extends Controller_Authenticate
 				$booking->pax_adults = $val->validated('pax_adults');
 				$booking->pax_children = $val->validated('pax_children');
 				$booking->voucher_no = $val->validated('voucher_no');
-				$booking->last_name = $val->validated('last_name');
-				$booking->first_name = $val->validated('first_name');
+				$booking->customer_name = $val->validated('customer_name');
 				$booking->sex = $val->validated('sex');
 				$booking->address = $val->validated('address');
 				$booking->city = $val->validated('city');

@@ -340,3 +340,8 @@ label {
 .fa-sm {
     font-size: 12px;
 }
+
+.small {
+    color: #8D99A6 !important;
+    vertical-align: middle;
+}

@@ -4,25 +4,10 @@
 	<div class="col-md-6">
 		<div class="form-group">
 			<div class="col-md-6">
-				<?= Form::label('Registration no.', 'reg_no', array('class'=>'control-label')); ?>
-                <?= Form::input('reg_no', Input::post('reg_no', isset($reservation) ? $reservation->reg_no : 
-                                Model_Facility_Booking::getNextSerialNumber()), 
-                                array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
-			</div>
-            
-			<div class="col-md-6">
 				<?= Form::label('Reservation no.', 'res_no', array('class'=>'control-label')); ?>
-                <?= Form::input('res_no', Input::post('res_no', isset($reservation) ? $reservation->res_no : 0), 
-                                array('class' => 'col-md-4 form-control', 'readonly'=>true)); ?>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<div class="col-md-6">
-				<?= Form::label('Folio no.', 'folio_no', array('class'=>'control-label')); ?>
-                <?= Form::label(Html::anchor(Uri::create(isset($reservation->bill) ? 'sales/invoice/edit/'.  $reservation->bill->id : null), 
-                    Input::post('folio_no', isset($reservation->bill) ? $reservation->bill->invoice_num : 0)), 'folio_no', array('class'=>'form-control')); ?>
-				<?= Form::hidden('folio_no', Input::post('folio_no', isset($reservation->bill) ? $reservation->bill->invoice_num : 0)); ?>
+                <?= Form::input('res_no', Input::post('res_no', isset($reservation) ? $reservation->res_no : 
+                                Model_Facility_Reservation::getNextSerialNumber()), 
+                                array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
 			</div>
 
 			<div class="col-md-6">
@@ -30,6 +15,30 @@
 				<?= Form::input('voucher_no', Input::post('voucher_no', isset($reservation) ? $reservation->voucher_no : 0), array('class' => 'col-md-4 form-control')); ?>
 			</div>
 		</div>
+
+        <div class="form-group">
+            <div class="col-md-6">
+                <?= Form::label('Customer name', 'customer_id', array('class'=>'control-label')); ?>
+                <?= Form::hidden('customer_name', Input::post('customer_name', isset($reservation) ? $reservation->customer_name : '')) ?>
+                <?= Form::select('customer_id', Input::post('customer_id', isset($reservation) ? $reservation->customer_id : ''), 
+                        Model_Customer::listOptions([Model_Customer::CUSTOMER_TYPE_GUEST]), 
+                        array('class' => 'col-md-4 form-control', 'id' => 'customer_id')); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6">
+                <?= Form::label('Email', 'email', array('class'=>'control-label')); ?>
+                <?= Form::input('email', Input::post('email', isset($reservation) ? $reservation->email : ''), 
+                                array('class' => 'col-md-4 form-control')); ?>
+            </div>
+
+            <div class="col-md-6">
+                <?= Form::label('Phone', 'phone', array('class'=>'control-label')); ?>
+                <?= Form::input('phone', Input::post('phone', isset($reservation) ? $reservation->phone : ''), 
+                                array('class' => 'col-md-4 form-control')); ?>
+            </div>
+        </div>
 	</div><!--/.col-md-6-->
 
     <!-- Right Side -->
@@ -72,6 +81,29 @@
                                 array('class' => 'col-md-4 form-control', 'id' => 'duration', 'readonly'=>true)); ?>
 			</div>
 		</div>
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <?= Form::label('Adults', 'pax_adults', array('class'=>'control-label')); ?>
+                <?= Form::input('pax_adults', Input::post('pax_adults', isset($reservation) ? $reservation->pax_adults : 
+                                Model_Facility_Booking::getColumnDefault('pax_adults')), array('class' => 'col-md-4 form-control')); ?>
+            </div>
+
+            <div class="col-md-4">
+                <?= Form::label('Children', 'pax_children', array('class'=>'control-label')); ?>
+                <?= Form::input('pax_children', Input::post('pax_children', isset($reservation) ? $reservation->pax_children : 
+                                Model_Facility_Booking::getColumnDefault('pax_children')), array('class' => 'col-md-4 form-control')); ?>
+            </div>
+
+            <div class="col-md-4">
+            <?= Form::label('Status', 'status', array('class'=>'control-label')); ?>
+				<?= Form::hidden('status', Input::post('status', isset($reservation) ? $reservation->status : Model_Facility_Booking::GUEST_STATUS_CHECKED_IN)); ?>
+                <?= Form::select('status', Input::post('status', isset($reservation) ? $reservation->status : Model_Facility_Booking::GUEST_STATUS_CHECKED_IN), 
+                                isset($reservation) ? Model_Facility_Reservation::$guest_status : array(Model_Facility_Reservation::RESERVATION_STATUS_OPEN => 'Open'), 
+                                array('class' => 'col-md-4 form-control', 'disabled' => isset($reservation) ? true : false)); ?>
+                <?= Form::hidden('status', Input::post('status', isset($reservation) ? $reservation->status : Model_Facility_Booking::GUEST_STATUS_CHECKED_IN)); ?>
+            </div>
+        </div>        
     </div><!--/.col-md-6-->
 </div><!--/.row-->
 
@@ -79,43 +111,9 @@
     <div class="col-md-6">
         <div class="form-group">
             <div class="col-md-6">
-                <?= Form::label('First name', 'first_name', array('class'=>'control-label')); ?>
-                <?= Form::input('first_name', Input::post('first_name', isset($reservation) ? $reservation->first_name : ''), 
-                                array('class' => 'col-md-4 form-control', 'autofocus' => true)); ?>
-            </div>
-
-            <div class="col-md-6">
-                <?= Form::label('Last name', 'last_name', array('class'=>'control-label')); ?>
-                <?= Form::input('last_name', Input::post('last_name', isset($reservation) ? $reservation->last_name : ''), 
-                                array('class' => 'col-md-4 form-control')); ?>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-4">
-                <?= Form::label('Sex', 'sex', array('class'=>'control-label')); ?>
-                <?= Form::select('sex', Input::post('sex', isset($reservation) ? $reservation->sex : ''), 
-                                Model_Facility_Booking::$sex, array('class' => 'col-md-4 form-control')); ?>
-            </div>
-
-            <div class=" col-md-offset-2 col-md-6">
-                <?= Form::label('Phone', 'phone', array('class'=>'control-label')); ?>
-                <?= Form::input('phone', Input::post('phone', isset($reservation) ? $reservation->phone : ''), 
-                                array('class' => 'col-md-4 form-control')); ?>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-4">
                 <?= Form::label('ID type', 'id_type', array('class'=>'control-label')); ?>
                 <?= Form::select('id_type', Input::post('id_type', isset($reservation) ? $reservation->id_type : ''), 
                                 Model_Facility_Booking::$ID_type, array('class' => 'col-md-4 form-control')); ?>
-            </div>
-
-            <div class="col-md-offset-2 col-md-6">
-                <?= Form::label('Email', 'email', array('class'=>'control-label')); ?>
-                <?= Form::input('email', Input::post('email', isset($reservation) ? $reservation->email : ''), 
-                                array('class' => 'col-md-4 form-control')); ?>
             </div>
         </div>
 
@@ -136,111 +134,42 @@
 
     <div class="col-md-6">
         <div class="form-group">
-            <div class="col-md-4">
-                <?= Form::label('Adults', 'pax_adults', array('class'=>'control-label')); ?>
-                <?= Form::input('pax_adults', Input::post('pax_adults', isset($reservation) ? $reservation->pax_adults : 
-                                Model_Facility_Booking::getColumnDefault('pax_adults')), array('class' => 'col-md-4 form-control')); ?>
-            </div>
-
-            <div class="col-md-4">
-                <?= Form::label('Children', 'pax_children', array('class'=>'control-label')); ?>
-                <?= Form::input('pax_children', Input::post('pax_children', isset($reservation) ? $reservation->pax_children : 
-                                Model_Facility_Booking::getColumnDefault('pax_children')), array('class' => 'col-md-4 form-control')); ?>
-            </div>
-
-            <div class="col-md-4">
-                <?= Form::label('Status', 'status', array('class'=>'control-label')); ?>
-                <?= Form::select('status', Input::post('status', isset($reservation) ? $reservation->status : 
-                                Model_Facility_Booking::GUEST_STATUS_CHECKED_IN), isset($reservation) ? 
-                                Model_Facility_Booking::$guest_status : 
-                                array(Model_Facility_Booking::GUEST_STATUS_CHECKED_IN => 'Checking In'), 
-                                array('class' => 'col-md-4 form-control', 'disabled' => isset($reservation) ? true : false)); ?>
-                <?= Form::hidden('status', Input::post('status', isset($reservation) ? $reservation->status : Model_Facility_Booking::GUEST_STATUS_CHECKED_IN)); ?>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-6">
-                <?= Form::hidden('rate_amount', Input::post('rate_amount', isset($reservation) ? $reservation->rate_amount : 0), 
-                                array('class' => 'col-md-4 form-control')); ?>
-                <?= Form::hidden('vat_amount', Input::post('vat_amount', isset($reservation) ? $reservation->vat_amount : 0), 
-                                array('class' => 'col-md-4 form-control')); ?>
-                <?= Form::label('Total amount', 'total_amount', array('class'=>'control-label')); ?>
-                <div class="input-group">
-                    <span class="input-group-addon">Kshs.</span>
-                    <?= Form::input('total_amount', Input::post('total_amount', isset($reservation) ? $reservation->total_amount : 0), 
-                                array('class' => 'col-md-4 form-control text-right', 'readonly' => true)); ?>
-                    <!--<span class="input-group-addon">.00</span>-->
-                </div>
-                <?= Form::hidden('total_charge', Input::post('total_charge', isset($reservation) ? $reservation->total_charge : 0), 
-                                array('class' => 'col-md-4 form-control')); ?>
-            </div>
-
-            <div class="col-md-6">
-                <?= Form::label('Total payment', 'total_payment', array('class'=>'control-label')); ?>
-                <div class="input-group">
-                    <span class="input-group-addon">Kshs.</span>                
-                    <?= Form::input('total_payment', Input::post('total_payment', isset($reservation) ? $reservation->total_payment : 0), 
-                                array('class' => 'col-md-4 form-control text-right', 'readonly' => true)); ?>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
             <div class="col-md-6">
                 <?= Form::label('Address', 'address', array('class'=>'control-label')); ?>
                 <?= Form::textarea('address', Input::post('address', isset($reservation) ? $reservation->address : ''), 
-                                array('class' => 'col-md-4 form-control', 'rows' => 4)); ?>
+                                array('class' => 'col-md-4 form-control', 'rows' => 5   )); ?>
             </div>
             <div class="col-md-6">
                 <?= Form::label('Remarks', 'remarks', array('class'=>'control-label')); ?>
                 <?= Form::textarea('remarks', Input::post('remarks', isset($reservation) ? $reservation->remarks : ''), 
-                                array('class' => 'col-md-8 form-control', 'rows' => 4)); ?>
+                                array('class' => 'col-md-8 form-control', 'rows' => 5)); ?>
             </div>
         </div>
     </div>
 </div>
 
-    <div class="col-md-6">
-        <?= Form::hidden('fdesk_user', Input::post('fdesk_user', isset($reservation) ? $reservation->fdesk_user : $uid)); ?>
-    </div>
+<div class="col-md-6">
+    <?= Form::hidden('fdesk_user', Input::post('fdesk_user', isset($reservation) ? $reservation->fdesk_user : $uid)); ?>
+</div>
 
 <hr>
 
 <div class="form-group">
-	<div class="col-md-3">
+	<div class="col-md-6">
 		<?= Form::submit('submit', isset($reservation) ? 'Update' : 'Create', array('class' => 'btn btn-primary')); ?>
 		<?php //echo Form::submit('submit', "Save + New", array('class' => 'btn btn-success')); ?>
 	</div>
 
-    <div class="col-md-3">
-        <a href="<?= Uri::create('#unit/transfer'); ?>" class="btn btn-default">
-            <i class="glyphicon glyphicon-random"></i>&ensp;Switch unit
-        </a>
-    </div>
-
 	<div class="col-md-6">
 		<?php if (isset($reservation)): ?>
 		<div class="pull-right btn-toolbar">
-			<?php if (!empty($reservation->bill)): ?>
-				<div class="btn-group">
-					<a href="<?= Uri::create('cash/receipt/create/'.$reservation->id); ?>" class="btn btn-default">Receive money</a>
-                </div>
-                
-				<div class="btn-group">
-					<a href="<?= Uri::create('facility/reservation/checkout/'.$reservation->id); ?>" class="btn btn-default">Check out</a>
-				</div>
-			<?php endif ?>
-
-			<?php if (!$reservation->bill): ?>
-				<div class="btn-group">
-					<a href="<?= Uri::create('sales/invoice/create/'.$reservation->id); ?>" class="btn btn-default" >Create folio</a>
-				</div>
-			<?php else: ?>
-				<div class="btn-group">
-					<a href="<?= Uri::create('sales/invoice/edit/'.$reservation->bill->id); ?>" class="btn btn-default" >Edit folio</a>
-				</div>
-			<?php endif ?>
+            <div class="btn-group">
+                <a href="<?= Uri::create('accounts/payment/receipt/create/'.$reservation->id); ?>" class="btn btn-default">Receive money</a>
+            </div>
+            
+            <div class="btn-group">
+                <a href="<?= Uri::create('registers/booking/create/' . $reservation->id); ?>" class="btn btn-default">Check in</a>
+            </div>
 		</div>
 		<?php endif ?>
 	</div>

@@ -176,8 +176,8 @@
             <?php 
                 if ($unit->status == Model_Unit::UNIT_STATUS_OCCUPIED) :
                     $occupied_count += 1;
-                    foreach($guest_list as $guest) :
-                        if ($guest->unit_id != $unit->id) continue; ?>
+                    foreach($customer_list as $customer) :
+                        if ($customer->unit_id != $unit->id) continue; ?>
                         <?= $resMarker ?>
                         <button type="button" class="btn btn-warning dropdown-toggle dash-btn" data-toggle="dropdown">
                             <?= $unit->name ?>
@@ -187,16 +187,16 @@
 
                         <ul class="dropdown-menu dash-dd-menu" role="menu">
                     <?php 
-                        if (!is_null($guest->bill)) : ?>
-                            <li><a href="<?= Uri::create("accounts/payment/receipt/create/{$guest->bill->id}"); ?>">Receive Money</a></li>
-                            <li><a onclick="return confirm('Are you sure?')" href="<?= Uri::create('facility/booking/checkout/'.$guest->id); ?>">Check Out</a></li>
+                        if (!is_null($customer->bill)) : ?>
+                            <li><a href="<?= Uri::create("accounts/payment/receipt/create/{$customer->bill->id}"); ?>">Receive Money</a></li>
+                            <li><a onclick="return confirm('Are you sure?')" href="<?= Uri::create('facility/booking/checkout/'.$customer->id); ?>">Check Out</a></li>
                     <?php 
                         endif ?>
                         <li class="divider"></li>
-                        <li><a href="<?= Uri::create("facility/booking/edit/$guest->id"); ?>">Booking - <?= $guest->reg_no ?></a></li>
+                        <li><a href="<?= Uri::create("facility/booking/edit/$customer->id"); ?>">Booking - <?= $customer->reg_no ?></a></li>
                     <?php 
-                        if (!is_null($guest->bill)) : ?>
-                            <li><a href="<?= Uri::create("accounts/salesinvoice/edit/{$guest->bill->id}"); ?>">Invoice - <?= $guest->bill->invoice_num ?></a></li>
+                        if (!is_null($customer->bill)) : ?>
+                            <li><a href="<?= Uri::create("accounts/salesinvoice/edit/{$customer->bill->id}"); ?>">Invoice - <?= $customer->bill->invoice_num ?></a></li>
                     <?php 
                         endif ?>
                         </ul>

@@ -99,7 +99,14 @@ class Controller_Dashboard extends Controller_Authenticate{
 
         $data['unit_types'] = $unit_types;
 
-		$data['guest_list'] = Model_Facility_Booking::find('all', array('related' => array('unit','bill'), 'where' => array(array('status', '!=', Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT))));
+		$data['customer_list'] = Model_Facility_Booking::find('all', array(
+                                    'related' => array('unit','bill'), 
+                                    'where' => array( 
+                                        array(
+                                            'status', '!=', Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT)
+                                        )
+                                    )
+                                );
 
 		$this->template->title = "Dashboard";
 		$this->template->content = View::forge('dashboard', $data);

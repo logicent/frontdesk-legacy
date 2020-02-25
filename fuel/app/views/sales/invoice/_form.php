@@ -17,12 +17,12 @@
 		</div>
 
 		<div class="col-md-offset-4 col-md-4">
-			<?= Form::label('Guest', 'booking_id', array('class'=>'control-label')); ?>
-            <?= Form::hidden('booking_id', Input::post('booking_id', isset($sales_invoice) ? $sales_invoice->booking_id : $booking->id), 
+			<?= Form::label('Customer', 'customer_name', array('class'=>'control-label')); ?>
+            <?= Form::input('customer_name', Input::post('customer_name', isset($sales_invoice) ? $sales_invoice->customer_name : ''), 
                             array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
-            <?= Form::select('guest_id', Input::post('guest_id', isset($sales_invoice) ? $sales_invoice->booking_id : $booking->id), 
+            <?php /* Form::select('customer_list', Input::post('customer_list', isset($sales_invoice) ? $sales_invoice->customer_name : ''), 
                             Model_Facility_Booking::listOptions(true), 
-                            array('class' => 'col-md-4 form-control', 'disabled' => true)); ?>
+                            array('class' => 'col-md-4 form-control', 'disabled' => true)); */ ?>
 		</div>
 	</div>
 
@@ -41,7 +41,7 @@
 
 		<div class="col-md-offset-4 col-md-4">
 			<?= Form::label('Billing address', 'billing_address', array('class'=>'control-label')); ?>
-            <?= Form::textarea('billing_address', Input::post('billing_address', isset($sales_invoice) ? $sales_invoice->billing_address : $booking->address), 
+            <?= Form::textarea('billing_address', Input::post('billing_address', isset($sales_invoice) ? $sales_invoice->billing_address :  isset($booking) ? $booking->address : ''), 
                                 array('class' => 'col-md-4 form-control', 'rows' => 2)); ?>
 		</div>
 	</div>
@@ -67,7 +67,7 @@
 						<th>Receipt No.</th>
 						<th>Date</th>
 						<th>Description</th>
-						<th>Amount</th>
+						<th class="text-right">Amount</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -167,9 +167,11 @@
 		<div class="col-md-6">
 			<div class="pull-right btn-group">
             <?php 
-                if (isset($sales_invoice) && $sales_invoice->status == 'O') : ?>
-				    <a href="<?= Uri::create('cash/receipt/create/'.$sales_invoice->guest->id); ?>" class="btn btn-default ">Add payment</a>
+                if (isset($sales_invoice)) :
+                    if (!is_null($sales_invoice->customer) && $sales_invoice->status == 'O') : ?>
+                        <a href="<?= Uri::create('accounts/payment/receipt/create/' . $sales_invoice->customer->id); ?>" class="btn btn-default ">Add payment</a>
             <?php 
+                    endif;
                 endif ?>
 			</div>
 		</div>

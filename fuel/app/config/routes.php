@@ -33,7 +33,7 @@ return array(
 
 	'accounts/bank-account'    => 'accounts/bank/account',
 	'accounts/bank-deposit'    => 'accounts/bank/deposit',
-	'accounts/sales-invoice'   => 'accounts/salesinvoice',
+	'accounts/sales-invoice'   => 'sales/invoice',
 	'accounts/sales-receipt'   => 'accounts/payment/receipt',
 	'accounts/expenses'         => 'accounts/payment/expense',
 	'accounts/taxes'            => 'accounts/tax',

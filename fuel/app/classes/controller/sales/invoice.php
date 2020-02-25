@@ -1,6 +1,6 @@
 <?php
 
-class Controller_Accounts_Salesinvoice extends Controller_Authenticate
+class Controller_Sales_Invoice extends Controller_Authenticate
 {
 	public function action_index($show_del = false)
 	{
@@ -29,12 +29,12 @@ class Controller_Accounts_Salesinvoice extends Controller_Authenticate
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('accounts/sales-invoices');
+		is_null($id) and Response::redirect('accounts/sales-invoice');
 
 		if ( ! $data['sales_invoice'] = Model_Sales_Invoice::find($id))
 		{
-			Session::set_flash('error', 'Could not find guest invoice #'.$id);
-			Response::redirect('accounts/sales-invoices');
+			Session::set_flash('error', 'Could not find invoice #'.$id);
+			Response::redirect('accounts/sales-invoice');
 		}
 
 		$this->template->title = "Invoice";
@@ -57,7 +57,10 @@ class Controller_Accounts_Salesinvoice extends Controller_Authenticate
 					'issue_date' => Input::post('issue_date'),
 					'due_date' => Input::post('due_date'),
 					'status' => Input::post('status'),
-					'booking_id' => Input::post('booking_id'),
+					'source' => Input::post('source'),
+					'source_id' => Input::post('source_id'),
+					'customer_name' => Input::post('customer_name'),
+					'unit_name' => Input::post('unit_name'),
 					'amount_due' => Input::post('amount_due'),
 					'disc_total' => Input::post('disc_total'),
 					'tax_total' => Input::post('tax_total'),
@@ -73,14 +76,14 @@ class Controller_Accounts_Salesinvoice extends Controller_Authenticate
 
 				if ($sales_invoice and $sales_invoice->save())
 				{
-					Session::set_flash('success', 'Added guest invoice #'.$sales_invoice->id.'.');
+					Session::set_flash('success', 'Added invoice #'.$sales_invoice->id.'.');
 
-					Response::redirect('accounts/sales-invoices');
+					Response::redirect('accounts/sales-invoice');
 				}
 
 				else
 				{
-					Session::set_flash('error', 'Could not save guest invoice.');
+					Session::set_flash('error', 'Could not save invoice.');
 				}
 			}
 			else
@@ -92,7 +95,7 @@ class Controller_Accounts_Salesinvoice extends Controller_Authenticate
 		$booking = Model_Facility_Booking::find($bk_id);
 		$this->template->set_global('booking', $booking, false);
 
-		// prepare guest invoice item as global variable
+		// prepare invoice item as global variable
 		$sales_invoice_item = Model_Sales_Invoice_Item::forge();
 		$this->template->set_global('sales_invoice_item', $sales_invoice_item, false);
 
@@ -107,12 +110,12 @@ class Controller_Accounts_Salesinvoice extends Controller_Authenticate
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('accounts/sales-invoices');
+		is_null($id) and Response::redirect('accounts/sales-invoice');
 
 		if ( ! $sales_invoice = Model_Sales_Invoice::find($id))
 		{
-			Session::set_flash('error', 'Could not find guest invoice #'.$id);
-			Response::redirect('accounts/sales-invoices');
+			Session::set_flash('error', 'Could not find invoice #'.$id);
+			Response::redirect('accounts/sales-invoice');
 		}
 
 		$val = Model_Sales_Invoice::validate('edit');
@@ -125,7 +128,10 @@ class Controller_Accounts_Salesinvoice extends Controller_Authenticate
 			$sales_invoice->issue_date = Input::post('issue_date');
 			$sales_invoice->due_date = Input::post('due_date');
 			$sales_invoice->status = Input::post('status');
-			$sales_invoice->booking_id = Input::post('booking_id');
+			$sales_invoice->source = Input::post('source');
+			$sales_invoice->source_id = Input::post('source_id');
+			$sales_invoice->customer_name = Input::post('customer_name');
+			$sales_invoice->unit_name = Input::post('unit_name');
 			$sales_invoice->amount_due = Input::post('amount_due');
 			$sales_invoice->disc_total = Input::post('disc_total');
 			$sales_invoice->tax_total = Input::post('tax_total');
@@ -143,14 +149,14 @@ class Controller_Accounts_Salesinvoice extends Controller_Authenticate
 
 			if ($sales_invoice->save())
 			{
-				Session::set_flash('success', 'Updated guest invoice #' . $id);
+				Session::set_flash('success', 'Updated invoice #' . $id);
 
-				Response::redirect('accounts/sales-invoices');
+				Response::redirect('accounts/sales-invoice');
 			}
 
 			else
 			{
-				Session::set_flash('error', 'Could not update guest invoice #' . $id);
+				Session::set_flash('error', 'Could not update invoice #' . $id);
 			}
 		}
 
@@ -164,7 +170,10 @@ class Controller_Accounts_Salesinvoice extends Controller_Authenticate
 				$sales_invoice->issue_date = $val->validated('issue_date');
 				$sales_invoice->due_date = $val->validated('due_date');
 				$sales_invoice->status = $val->validated('status');
-				$sales_invoice->booking_id = $val->validated('booking_id');
+				$sales_invoice->source = $val->validated('source');
+				$sales_invoice->source_id = $val->validated('source_id');
+                $sales_invoice->customer_name = $val->validated('customer_name');
+			    $sales_invoice->unit_name = $val->validated('unit_name');
 				$sales_invoice->amount_due = $val->validated('amount_due');
 				$sales_invoice->disc_total = $val->validated('disc_total');
 				$sales_invoice->tax_total = $val->validated('tax_total');
@@ -189,24 +198,25 @@ class Controller_Accounts_Salesinvoice extends Controller_Authenticate
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('accounts/sales-invoices');
+		is_null($id) and Response::redirect('accounts/sales-invoice');
 
 		if ($sales_invoice = Model_Sales_Invoice::find($id))
 		{
-			Session::set_flash('error', 'You must remove parent booking to delete invoice.');
+			Session::set_flash('error', 'You must remove source booking to delete invoice.');
 
-			Response::redirect('frontdesk/bookings');
-			// $sales_invoice->delete();
-
-			// Session::set_flash('success', 'Deleted guest invoice #'.$id);
+			Response::redirect('registers/booking');
 		}
 
-		else
-		{
-			Session::set_flash('error', 'Could not delete guest invoice #'.$id);
-		}
+		// else
+		// {
+		// 	Session::set_flash('error', 'Could not delete invoice #'.$id);
+		// }
 
-		Response::redirect('accounts/sales-invoices');
+        // $sales_invoice->delete();
+
+        // Session::set_flash('success', 'Deleted invoice #'.$id);
+            
+		Response::redirect('accounts/sales-invoice');
 
 	}
 

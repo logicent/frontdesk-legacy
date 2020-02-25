@@ -3,6 +3,13 @@ use Orm\Model;
 
 class Model_Customer extends Model
 {
+    const CUSTOMER_TYPE_GUEST = 'Guest'; // Resident
+    const CUSTOMER_TYPE_VISITOR = 'Visitor'; // Non-Resident
+    const CUSTOMER_TYPE_TENANT = 'Tenant';
+    const CUSTOMER_TYPE_OWNER = 'Owner';
+    const CUSTOMER_TYPE_MEMBER = 'Member';
+    const CUSTOMER_TYPE_NONMEMBER = 'Non-member';
+    
 	protected static $_properties = array(
         'id',
         'customer_name',
@@ -67,12 +74,12 @@ class Model_Customer extends Model
     public static function listOptionsCustomerType()
 	{
 		return array(
-            'Guest' => 'Guest', // Resident
-            'Tenant' => 'Tenant',
-            'Owner' => 'Owner',
-            'Member' => 'Member',
-            'Non-member' => 'Non-member',
-            'Non-resident' => 'Non-resident', // Visitor
+            self::CUSTOMER_TYPE_GUEST => self::CUSTOMER_TYPE_GUEST,
+            self::CUSTOMER_TYPE_VISITOR => self::CUSTOMER_TYPE_VISITOR,
+            self::CUSTOMER_TYPE_TENANT => self::CUSTOMER_TYPE_TENANT,
+            self::CUSTOMER_TYPE_OWNER => self::CUSTOMER_TYPE_OWNER,
+            self::CUSTOMER_TYPE_MEMBER => self::CUSTOMER_TYPE_MEMBER,
+            self::CUSTOMER_TYPE_NONMEMBER => self::CUSTOMER_TYPE_NONMEMBER,
         );
     }
     
@@ -88,8 +95,10 @@ class Model_Customer extends Model
 	{
 		$items = DB::select('id','customer_name')
 						->from(self::$_table_name)
-						->where(['inactive' => false])
-						->and_where(['customer_type' => $type])
+						->where([
+                            'inactive' => false,
+                            ['customer_type', 'in', $type]
+                        ])
 						->execute()
 						->as_array();
         

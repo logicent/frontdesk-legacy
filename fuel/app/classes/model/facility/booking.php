@@ -46,7 +46,8 @@ class Model_Facility_Booking extends Model_Soft
 	protected static $_properties = array(
 		'id',
 		'reg_no',
-		'folio_no',
+        'folio_no',
+        'customer_id',
 		'unit_id',
 		'fdesk_user',
 		'res_no',
@@ -57,8 +58,7 @@ class Model_Facility_Booking extends Model_Soft
 		'pax_adults',
 		'pax_children',
 		'voucher_no',
-		'last_name',
-		'first_name',
+		'customer_name',
 		'sex',
 		'address',
 		'city',
@@ -106,6 +106,7 @@ class Model_Facility_Booking extends Model_Soft
 		$val = Validation::forge($factory);
 		$val->add_field('reg_no', 'Reg. No.', 'required|valid_string[numeric]');
 		$val->add_field('folio_no', 'Folio No.', 'valid_string[numeric]');
+		$val->add_field('customer_id', 'Customer Name', 'required|valid_string[numeric]');
 		$val->add_field('unit_id', 'Unit No.', 'required|valid_string[numeric]');
 		$val->add_field('fdesk_user', 'Frontdesk User', 'required|valid_string[numeric]');
 		$val->add_field('res_no', 'Res. No.', 'valid_string[numeric]');
@@ -116,8 +117,6 @@ class Model_Facility_Booking extends Model_Soft
 		$val->add_field('pax_adults', 'Adults (Pax)', 'required|valid_string[numeric]');
 		$val->add_field('pax_children', 'Children (Pax)', 'required|valid_string[numeric]');
 		$val->add_field('voucher_no', 'Voucher No.', 'valid_string[numeric]');
-		$val->add_field('last_name', 'Last Name', 'required|max_length[50]');
-		$val->add_field('first_name', 'First Name', 'required|max_length[50]');
 		$val->add_field('sex', 'Sex', 'required|max_length[1]');
 		$val->add_field('address', 'Address', 'max_length[150]');
 		$val->add_field('city', 'City', 'max_length[20]');
@@ -145,12 +144,14 @@ class Model_Facility_Booking extends Model_Soft
 
 	protected static $_table_name = 'facility_booking';
 
-	// public static function after_save($this)
-	// {// updated related table data if save succeeded
-	// 	return;
-	// }
-
 	protected static $_has_one = array(
+		'customer' => array(
+			'key_from' => 'customer_id',
+			'model_to' => 'Model_Customer',
+			'key_to' => 'id',
+			'cascade_save' => false,
+			'cascade_delete' => false,
+		),
 		'unit' => array(
 			'key_from' => 'unit_id',
 			'model_to' => 'Model_Unit',
@@ -168,7 +169,7 @@ class Model_Facility_Booking extends Model_Soft
 		'bill' => array(
 			'key_from' => 'id',
 			'model_to' => 'Model_Sales_Invoice',
-			'key_to' => 'booking_id',
+			'key_to' => 'source_id',
 			'cascade_save' => true,
 			'cascade_delete' => true,
 		),
@@ -212,7 +213,8 @@ class Model_Facility_Booking extends Model_Soft
 		return $col_def["$name"]['default'];
 	}
 
-	public static function updateUnitStatus($rm_id, $g_status) {
+    public static function updateUnitStatus($rm_id, $g_status) 
+    {
 		$unit = Model_Unit::find($rm_id);
 
 		switch ($g_status) {
@@ -235,10 +237,12 @@ class Model_Facility_Booking extends Model_Soft
 			'po_number' => Input::post('po_number'),
 			'amounts_tax_inc' => Input::post('amounts_tax_inc'),
 			'fdesk_user' => $booking->fdesk_user,
+			'customer_name' => $booking->customer->customer_name,
+			'unit_name' => $booking->unit->name,
 			'issue_date' => $booking->checkin,
 			'due_date' => $booking->checkout,
 			'status' => Model_Sales_Invoice::INVOICE_STATUS_OPEN,
-			'booking_id' => $booking->id,
+			'source_id' => $booking->id,
 			'amount_due' => $booking->total_payment,
 			'disc_total' => 0,
 			'tax_total' => $booking->vat_amount,
@@ -325,11 +329,13 @@ class Model_Facility_Booking extends Model_Soft
 		// has outstanding settlement if not fully paid
 	}
 
-	public function guestIsDueOut() {
+    public function guestIsDueOut() 
+    {
 		// if ci_date == today_date then status is DO i.e. due out
 	}
 
-	public function setGuestStatus() {
+    public function setGuestStatus() 
+    {
 		if ($this->is_new())
 			return self::GUEST_STATUS_CHECKED_IN;
 		// if ci_date == today_date return ci

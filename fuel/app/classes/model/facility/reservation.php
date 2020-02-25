@@ -16,7 +16,8 @@ class Model_Facility_Reservation extends Model_Soft
 
 	protected static $_properties = array(
 		'id',
-		'res_no',
+        'res_no',
+        'customer_id',
 		'unit_id',
 		'fdesk_user',
 		'status',
@@ -26,8 +27,7 @@ class Model_Facility_Reservation extends Model_Soft
 		'pax_adults',
 		'pax_children',
 		'voucher_no',
-		'last_name',
-		'first_name',
+		'customer_name',
 		'address',
 		'city',
 		'country',
@@ -63,7 +63,8 @@ class Model_Facility_Reservation extends Model_Soft
 	public static function validate($factory)
 	{
 		$val = Validation::forge($factory);
-		$val->add_field('res_no', 'Reservation No.', 'required|valid_string[numeric]');
+        $val->add_field('res_no', 'Reservation No.', 'required|valid_string[numeric]');
+		$val->add_field('customer_id', 'Customer Name', 'required|valid_string[numeric]');
 		$val->add_field('unit_id', 'Unit No.', 'required|valid_string[numeric]');
 		$val->add_field('fdesk_user', 'Frontdesk User', 'required|valid_string[numeric]');
 		$val->add_field('status', 'Status', 'required|max_length[6]');
@@ -73,8 +74,6 @@ class Model_Facility_Reservation extends Model_Soft
 		$val->add_field('pax_adults', 'Adults', 'required|valid_string[numeric]');
 		$val->add_field('pax_children', 'Children', 'required|valid_string[numeric]');
 		$val->add_field('voucher_no', 'Voucher No.', 'valid_string[numeric]');
-		$val->add_field('last_name', 'Last Name', 'required|max_length[50]');
-		$val->add_field('first_name', 'First Name', 'required|max_length[50]');
 		$val->add_field('address', 'Address', 'max_length[150]');
 		$val->add_field('city', 'City', 'max_length[20]');
 		$val->add_field('country', 'Country', 'valid_string');
