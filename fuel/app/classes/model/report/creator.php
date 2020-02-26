@@ -8,11 +8,11 @@ class Model_Report_Creator
 
         switch ($rpt_slug) {
             case 'check-in-out-and-stay-over':
-                $columns = array('reg_no'=>'Reg #', 'first_name'=>'First name', 'last_name'=>'Last name', 'phone' => 'Phone', 'id_numer'=>'ID No.', 'unit.name'=>'Unit no.', 'checkin'=>'Check in', 'checkout'=>'Check out', 'duration'=>'Nights');
-                $r_data = DB::select('reg_no', 'first_name', 'last_name', 'phone', 'id_number', 'unit.name', DB::expr('DATE_FORMAT(checkin, "%d-%m-%Y %H:%i")'), DB::expr('DATE_FORMAT(checkout, "%d-%m-%Y %H:%i")'), 'duration')
-                                    ->from('fd_booking')
-                                    ->join('unit')->on('unit.id','=','fd_booking.unit_id')
-                                    ->join('sales_invoice')->on('sales_invoice.booking_id','=','fd_booking.id')
+                $columns = array('reg_no'=>'Reg #', 'customer_name'=>'Customer name', 'phone' => 'Phone', 'id_numer'=>'ID No.', 'unit.name'=>'Unit no.', 'checkin'=>'Check in', 'checkout'=>'Check out', 'duration'=>'Nights');
+                $r_data = DB::select('reg_no', 'facility_booking.customer_name', 'phone', 'id_number', 'unit.name', DB::expr('DATE_FORMAT(checkin, "%d-%m-%Y %H:%i")'), DB::expr('DATE_FORMAT(checkout, "%d-%m-%Y %H:%i")'), 'duration')
+                                    ->from('facility_booking')
+                                    ->join('unit')->on('unit.id','=','facility_booking.unit_id')
+                                    ->join('sales_invoice')->on('sales_invoice.source_id','=','facility_booking.id')
                                     ->or_where('checkin', 'LIKE', '%' . $date . '%')
                                     ->or_where('checkout', 'LIKE', '%' . $date . '%')
                                     ->or_where(DB::expr('UNIX_TIMESTAMP(DATE_FORMAT(checkout, "%Y-%m-%d"))'), '>', strtotime($date)) // Stay Over
@@ -34,11 +34,10 @@ class Model_Report_Creator
             case 'daily-settlement':
                 $columns = array('invoice_num'=>'Folio no.',
                                 'bill_amount'=>'Amount due',
-                                'cash_receipt.reference'=>'Receipt #',
-                                'cash_receipt.amount'=>'Amount paid',
+                                'sales_payment.reference'=>'Receipt #',
+                                'sales_payment.amount'=>'Amount paid',
                                 'advance_paid'=>'Advance paid',
-                                'first_name'=>'Firstname(s)',
-                                'last_name'=>'Surname',
+                                'customer_name'=>'Customer name',
                                 'unit.name'=>'Unit no.',
                                 'checkin'=>'Check in',
                                 'checkout'=>'Check out',
@@ -46,26 +45,26 @@ class Model_Report_Creator
 
                 $r_data = DB::select('invoice_num',
                             DB::expr('FORMAT(sales_invoice.amount_due, 0) as amount_due'),
-                            'cash_receipt.reference',
-                            DB::expr('FORMAT(cash_receipt.amount, 0) as amount_paid'),
+                            'sales_payment.reference',
+                            DB::expr('FORMAT(sales_payment.amount, 0) as amount_paid'),
                             DB::expr('FORMAT(sales_invoice.advance_paid, 0) as advance_paid'),
-                            'first_name', 'last_name', 'unit.name',
+                            'facility_booking.customer_name', 'unit.name',
                             DB::expr('DATE_FORMAT(checkin, "%d-%m-%Y %H:%i") as checkin_date'),
                             DB::expr('DATE_FORMAT(checkout, "%d-%m-%Y %H:%i") as checkout_date'),
-                            'fd_booking.status')
-                                    ->from('fd_booking')
-                                    ->join('sales_invoice')->on('sales_invoice.booking_id','=','fd_booking.id')
-                                    ->join('cash_receipt')->on('cash_receipt.bill_id','=','sales_invoice.id')
-                                    ->join('unit')->on('unit.id','=','fd_booking.unit_id')
+                            'facility_booking.status')
+                                    ->from('facility_booking')
+                                    ->join('sales_invoice')->on('sales_invoice.source_id','=','facility_booking.id')
+                                    ->join('sales_payment')->on('sales_payment.bill_id','=','sales_invoice.id')
+                                    ->join('unit')->on('unit.id','=','facility_booking.unit_id')
                                     ->join('unit_type')->on('unit_type.id','=','unit.unit_type')
                                     ->join('rate')->on('rate.type_id','=','unit_type.id')
-                                    ->where('cash_receipt.date', '=', $date)
-                                    ->order_by('cash_receipt.reference')
+                                    ->where('sales_payment.date', '=', $date)
+                                    ->order_by('sales_payment.reference')
                                     ->execute()->as_array();
 
                 $r_total = DB::select(DB::expr('FORMAT(SUM(amount), 0) as total_amount')) // 'date',
-                                    ->from('cash_receipt')
-                                    ->where('cash_receipt.date', 'LIKE', '%' . $date . '%')
+                                    ->from('sales_payment')
+                                    ->where('sales_payment.date', 'LIKE', '%' . $date . '%')
                                     ->order_by('date')
                                     ->execute()->as_array();
                 break;
@@ -73,7 +72,7 @@ class Model_Report_Creator
                 case 'daily-outstanding':
                     $columns = array('invoice_num' => 'Folio no.',
                                     'unit_amount' => 'Rate', 'bill_amount' => 'Amount due', 'balance_amt' => 'Balance',
-                                    'first_name' => 'Firstname(s)', 'last_name' => 'Surname',
+                                    'customer_name' => 'Customer name',
                                     'unit.name' => 'Unit no.', 'checkin' => 'Check in', 'checkout' => 'Check out',
                                     );
 
@@ -87,29 +86,29 @@ class Model_Report_Creator
                                                 IF(Datediff('$date', issue_date), rate.charges * Datediff('$date', issue_date), rate.charges) -
                                                 (
                                                         SELECT IF(Sum(amount) > 0, Sum(amount), 0)
-                                                        FROM   cash_receipt
+                                                        FROM   sales_payment
                                                         WHERE  bill_id = sales_invoice.id
                                                         AND    date BETWEEN issue_date AND '$date') - disc_total <= 0, 0,
                                                 IF(Datediff('$date', issue_date), rate.charges * Datediff('$date', issue_date), rate.charges) -
                                                 (
                                                         SELECT IF(Sum(amount) > 0, Sum(amount), 0)
-                                                        FROM   cash_receipt
+                                                        FROM   sales_payment
                                                         WHERE  bill_id = sales_invoice.id
                                                         AND    date BETWEEN issue_date AND '$date') - disc_total),
                                                 IF(Datediff('$date', issue_date), rate.charges * Datediff('$date', issue_date), rate.charges) -
                                                 (
                                                         SELECT IF(Sum(amount) > 0, Sum(amount), 0)
-                                                        FROM   cash_receipt
+                                                        FROM   sales_payment
                                                         WHERE  bill_id = sales_invoice.id
                                                         AND    date BETWEEN issue_date AND '$date')
                                                 ), 0) as balance_amt"),
-                                    'first_name', 'last_name', 'unit.name',
+                                    'facility_booking.customer_name', 'unit.name',
                                     DB::expr('DATE_FORMAT(checkin, "%d-%m-%Y %H:%i")'),
                                     DB::expr('DATE_FORMAT(checkout, "%d-%m-%Y %H:%i")')
                                     )
-                                    ->from('fd_booking')
-                                    ->join('sales_invoice')->on('sales_invoice.booking_id','=','fd_booking.id')
-                                    ->join('unit')->on('unit.id','=','fd_booking.unit_id')
+                                    ->from('facility_booking')
+                                    ->join('sales_invoice')->on('sales_invoice.source_id','=','facility_booking.id')
+                                    ->join('unit')->on('unit.id','=','facility_booking.unit_id')
                                     ->join('unit_type')->on('unit_type.id','=','unit.unit_type')
                                     ->join('rate')->on('rate.type_id','=','unit_type.id')
                                     ->where('sales_invoice.balance_due', '>', 0)
@@ -124,25 +123,25 @@ class Model_Report_Creator
                                         IF(Datediff('$date', issue_date), rate.charges * Datediff('$date', issue_date), rate.charges) -
                                         (
                                                 SELECT IF(Sum(amount) > 0, Sum(amount), 0)
-                                                FROM   cash_receipt
+                                                FROM   sales_payment
                                                 WHERE  bill_id = sales_invoice.id
                                                 AND    date BETWEEN issue_date AND '$date') - disc_total <= 0, 0,
                                         IF(Datediff('$date', issue_date), rate.charges * Datediff('$date', issue_date), rate.charges) -
                                         (
                                                 SELECT IF(Sum(amount) > 0, Sum(amount), 0)
-                                                FROM   cash_receipt
+                                                FROM   sales_payment
                                                 WHERE  bill_id = sales_invoice.id
                                                 AND    date BETWEEN issue_date AND '$date') - disc_total),
                                         IF(Datediff('$date', issue_date), rate.charges * Datediff('$date', issue_date), rate.charges) -
                                         (
                                                 SELECT IF(Sum(amount) > 0, Sum(amount), 0)
-                                                FROM   cash_receipt
+                                                FROM   sales_payment
                                                 WHERE  bill_id = sales_invoice.id
                                                 AND    date BETWEEN issue_date AND '$date')
                                         )), 0) as total_amount"))
-                                        ->from('fd_booking')
-                                        ->join('sales_invoice')->on('sales_invoice.booking_id','=','fd_booking.id')
-                                        ->join('unit')->on('unit.id','=','fd_booking.unit_id')
+                                        ->from('facility_booking')
+                                        ->join('sales_invoice')->on('sales_invoice.source_id','=','facility_booking.id')
+                                        ->join('unit')->on('unit.id','=','facility_booking.unit_id')
                                         ->join('unit_type')->on('unit_type.id','=','unit.unit_type')
                                         ->join('rate')->on('rate.type_id','=','unit_type.id')
                                         ->where('sales_invoice.balance_due', '>', 0)
@@ -156,13 +155,13 @@ class Model_Report_Creator
                 case 'daily-expenses':
                     $columns = array('reference'=>'Reference', 'date' => 'Date', 'description' => 'Description', 'amount' => 'Amount', 'payee'=>'Payee');
                     $r_data = DB::select('reference', DB::expr('DATE_FORMAT(date, "%d-%b-%Y")'), 'description', DB::expr('FORMAT(amount, 2)'), 'payee')
-                                        ->from('cash_payment')
+                                        ->from('expense')
                                         ->where('date', '=', $date)
                                         ->order_by('reference')
                                         ->execute()->as_array();
 
                     $r_total = DB::select(DB::expr('FORMAT(SUM(amount), 2) as total_amount')) // 'date',
-                                        ->from('cash_payment')
+                                        ->from('expense')
                                         ->where('date', 'LIKE', '%' . $date . '%')
                                         ->execute()->as_array();
                     break;
@@ -171,7 +170,7 @@ class Model_Report_Creator
                     $columns = array('name'=>'Unit No.', 'status'=>'Status');
                     $r_data = DB::query("SELECT name, unit.status
                                         FROM unit
-                                        LEFT OUTER JOIN fd_booking ON fd_booking.unit_id = unit.id
+                                        LEFT OUTER JOIN facility_booking ON facility_booking.unit_id = unit.id
                                         ORDER BY name", DB::SELECT)->execute()->as_array();
                     break;
             default:
@@ -197,7 +196,7 @@ class Model_Report_Creator
 
         $report['data_rows']['unit_rent'] = DB::query(
                 "SELECT sum(total_payment) as total_rent
-                    FROM fd_booking
+                    FROM facility_booking
                     WHERE checkin LIKE '%{$date}%'
                         OR (UNIX_TIMESTAMP(DATE_FORMAT(checkin, '%Y-%m-%d')) <= {$start_date}
                         AND UNIX_TIMESTAMP(DATE_FORMAT(checkout, '%Y-%m-%d')) >= {$end_date})
@@ -213,7 +212,7 @@ class Model_Report_Creator
 
         $report['data_rows']['sold_units'] = DB::query(
                 "SELECT count(id) as sold_rm_count
-                    FROM fd_booking
+                    FROM facility_booking
                     WHERE checkin LIKE '%{$date}%'
                         OR (DATE_FORMAT(checkin, '%Y-%m-%d') <= {$start_date}
                         AND DATE_FORMAT(checkout, '%Y-%m-%d') >= {$end_date})
@@ -221,7 +220,7 @@ class Model_Report_Creator
 
         $report['data_rows']['sold_nights'] = DB::query(
                 "SELECT sum(duration) as sold_nights_count
-                    FROM fd_booking
+                    FROM facility_booking
                     WHERE checkin LIKE '%{$date}%'
                         OR (DATE_FORMAT(checkin, '%Y-%m-%d') <= {$start_date}
                         AND DATE_FORMAT(checkout, '%Y-%m-%d') >= {$end_date})
@@ -242,7 +241,7 @@ class Model_Report_Creator
 
         $report['data_rows']['guests'] = DB::query(
                 "SELECT sum(pax_adults) as guest_count
-                    FROM fd_booking
+                    FROM facility_booking
                     WHERE checkin LIKE '%{$date}%'
                         OR (DATE_FORMAT(checkin, '%Y-%m-%d') >= {$start_date}
                         AND DATE_FORMAT(checkout, '%Y-%m-%d') <= {$end_date})
@@ -250,19 +249,19 @@ class Model_Report_Creator
 
         $report['data_rows']['deposits'] = DB::query(
                 "SELECT sum(amount) as total_deposits
-                    FROM bank_receipt
+                    FROM bank_deposit
                     WHERE date LIKE '%{$date}%'
                         AND isNull(deleted_at)", DB::SELECT)->execute()->as_array();
 
         $report['data_rows']['receipts'] = DB::query(
                 "SELECT sum(amount) as total_receipts
-                    FROM cash_receipt
+                    FROM sales_payment
                     WHERE date LIKE '%{$date}%'
                         AND isNull(deleted_at)", DB::SELECT)->execute()->as_array();
 
         $report['data_rows']['expenses'] = DB::query(
                 "SELECT sum(amount) as total_expenses
-                    FROM cash_payment
+                    FROM expense
                     WHERE date LIKE '%{$date}%'
                         AND isNull(deleted_at)", DB::SELECT)->execute()->as_array();
 
@@ -282,17 +281,17 @@ class Model_Report_Creator
         switch ($rpt_slug) {
             case 'monthly-settlement':
                 $columns = array('date' => 'Receipt Date(s)', 'count_payments' => 'No. of Payments', 'total_paid' => 'Total Payments');
-                $r_data = DB::select(DB::expr('DATE_FORMAT(cash_receipt.date, "%d %b %Y")'),
+                $r_data = DB::select(DB::expr('DATE_FORMAT(sales_payment.date, "%d %b %Y")'),
                                     DB::expr('COUNT(reference)'),
                                     DB::expr('FORMAT(SUM(amount), 0)'))
-                                    ->from('cash_receipt')
+                                    ->from('sales_payment')
                                     ->where('date', 'LIKE', '%' . $date . '%')
-                                    ->group_by('cash_receipt.date')
+                                    ->group_by('sales_payment.date')
                                     ->order_by('date')
                                     ->execute()->as_array();
 
                 $r_total = DB::select(DB::expr('FORMAT(SUM(amount), 0) as total_amount'))
-                                    ->from('cash_receipt')
+                                    ->from('sales_payment')
                                     ->where('date', 'LIKE', '%' . $date . '%')
                                     ->order_by('date')
                                     ->execute()->as_array();
@@ -301,20 +300,20 @@ class Model_Report_Creator
                 case 'monthly-outstanding':
                     $columns = array('invoice_num'=>'Folio no.',
                                     'unit_amount'=>'Rate', 'bill_amount'=>'Amount due', 'balance_due'=>'Balance',
-                                    'first_name'=>'Firstname(s)', 'last_name'=>'Surname',
+                                    'customer_name'=>'Customer name',
                                     'unit.name'=>'Unit no.', 'checkin'=>'Check in', 'checkout'=>'Check out');
 
                     $r_data = DB::select('invoice_num',
                                         DB::expr('FORMAT(rate.charges, 0)'),
                                         DB::expr('FORMAT(sales_invoice.amount_due, 0)'),
                                         DB::expr('FORMAT(balance_due, 0)'),
-                                        'first_name', 'last_name', 'unit.name',
+                                        'facility_booking.customer_name', 'unit.name',
                                         DB::expr('DATE_FORMAT(checkin, "%d-%m-%Y %H:%i")'),
                                         DB::expr('DATE_FORMAT(checkout, "%d-%m-%Y %H:%i")')
                                         )
-                                        ->from('fd_booking')
-                                        ->join('sales_invoice')->on('sales_invoice.booking_id','=','fd_booking.id')
-                                        ->join('unit')->on('unit.id','=','fd_booking.unit_id')
+                                        ->from('facility_booking')
+                                        ->join('sales_invoice')->on('sales_invoice.source_id','=','facility_booking.id')
+                                        ->join('unit')->on('unit.id','=','facility_booking.unit_id')
                                         ->join('unit_type')->on('unit_type.id','=','unit.unit_type')
                                         ->join('rate')->on('rate.type_id','=','unit_type.id')
                                         ->where('sales_invoice.balance_due', '>', 0)
@@ -335,19 +334,19 @@ class Model_Report_Creator
 
                 case 'monthly-expenses':
                     $columns = array('date' => 'Voucher Date(s)', 'count_vouchers' => 'No. of Vouchers', 'total_paid' => 'Total Payments');
-                    $r_data = DB::select(DB::expr('DATE_FORMAT(cash_payment.date, "%d %b %Y")'),
+                    $r_data = DB::select(DB::expr('DATE_FORMAT(expense.date, "%d %b %Y")'),
                                         DB::expr('COUNT(reference)'),
                                         DB::expr('FORMAT(SUM(amount), 0)'))
-                                        ->from('cash_payment')
+                                        ->from('expense')
                                         ->where('date', 'LIKE', '%' . $date . '%')
-                                        ->group_by('cash_payment.date')
-                                        ->order_by('cash_payment.date')
+                                        ->group_by('expense.date')
+                                        ->order_by('expense.date')
                                         ->execute()->as_array();
 
                     $r_total = DB::select(DB::expr('FORMAT(SUM(amount), 0) as total_amount'))
-                                        ->from('cash_payment')
-                                        ->where('cash_payment.date', 'LIKE', '%' . $date . '%')
-                                        ->order_by('cash_payment.date')
+                                        ->from('expense')
+                                        ->where('expense.date', 'LIKE', '%' . $date . '%')
+                                        ->order_by('expense.date')
                                         ->execute()->as_array();
                     break;
 
@@ -355,20 +354,20 @@ class Model_Report_Creator
                     $columns = array('name' => 'Unit No.', 'amount' => 'Amount Paid');
                     $r_data = DB::select('name', DB::expr('FORMAT(SUM(amount), 0) as total_amount'))
                                         ->from('unit')
-                                        ->join('fd_booking')->on('fd_booking.unit_id','=','unit.id')
-                                        ->join('sales_invoice')->on('sales_invoice.booking_id','=','fd_booking.id')
-                                        ->join('cash_receipt')->on('cash_receipt.bill_id','=','sales_invoice.id')
-                                        ->where('cash_receipt.date', 'LIKE', '%' . $date . '%') // 2016-09
+                                        ->join('facility_booking')->on('facility_booking.unit_id','=','unit.id')
+                                        ->join('sales_invoice')->on('sales_invoice.source_id','=','facility_booking.id')
+                                        ->join('sales_payment')->on('sales_payment.bill_id','=','sales_invoice.id')
+                                        ->where('sales_payment.date', 'LIKE', '%' . $date . '%') // 2016-09
                                         ->order_by('name')
                                         ->group_by('name')
                                         ->execute()->as_array();
                 break;
 
                 case 'unit-history':
-                    $columns = array('unit.name' => 'Unit no.','first_name' => 'Firstname(s)', 'last_name' => 'Surname', 'checkin' => 'Check in', 'checkout' => 'Check out', 'duration'=> 'Nights');
-                    $r_data = DB::select('unit.name', 'first_name', 'last_name', DB::expr('DATE_FORMAT(checkin, "%d-%m-%Y %H:%i")'), DB::expr('DATE_FORMAT(checkout, "%d-%m-%Y %H:%i")'), 'duration')
-                                        ->from('fd_booking')
-                                        ->join('unit')->on('unit.id','=','fd_booking.unit_id')
+                    $columns = array('unit.name' => 'Unit no.','customer_name' => 'Customer name', 'checkin' => 'Check in', 'checkout' => 'Check out', 'duration'=> 'Nights');
+                    $r_data = DB::select('unit.name', 'customer_name', DB::expr('DATE_FORMAT(checkin, "%d-%m-%Y %H:%i")'), DB::expr('DATE_FORMAT(checkout, "%d-%m-%Y %H:%i")'), 'duration')
+                                        ->from('facility_booking')
+                                        ->join('unit')->on('unit.id','=','facility_booking.unit_id')
                                         ->order_by('unit.name')
                                         ->order_by('checkin')
                                         ->execute()->as_array();

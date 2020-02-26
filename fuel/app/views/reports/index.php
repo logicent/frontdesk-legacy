@@ -22,38 +22,39 @@
 		<div class="panel panel-default">
 			<h4 class="panel-heading">Daily Reports</h4>
 			<div class="panel-body">
-				<div class="row">
-					<?= Form::open(array("class"=>"form-horizontal", "method"=>"post", "action"=> Uri::create('reports/show-daily-report'), 'target'=>'_blank')); ?>
-					<div class="col-md-12">
-						<div class="form-group">
-							<div class="col-md-8">
-								<label for="rpt_name" class='control-label'>Select a report: </label>
-								<select class='form-control' id='rpt_name' name='rpt_name'>
-								<!-- <div class="list-group"> -->
-									<?php foreach ($reports as $report) : ?>
-										<?php if ($report->type != 'd') continue; ?>
-										<option value="<?= $report->slug; ?>"><?= $report->name; ?></option>
-									<?php endforeach; ?>
-								</select>
-							</div>
-						</div>
-					</div>
+            <?= Form::open(array("class"=>"form-horizontal", "method"=>"post", "action"=> Uri::create('reports/show-daily-report'), 'target'=>'_blank')); ?>
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <label for="rpt_name" class='control-label'>Select a report: </label>
+                        <select class='form-control' id='rpt_name' name='rpt_name'>
+                        <!-- <div class="list-group"> -->
+                            <?php foreach ($reports as $report) : ?>
+                                <?php if ($report->type != 'd') continue; ?>
+                                <option value="<?= $report->slug; ?>"><?= $report->name; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
 
-					<div class="col-md-4">
-						<label for="rpt_date" class='control-label'>Date of: </label>
-						<div class="input-group date" id="dp3" data-date="<?= date('Y-m-d') ?>" data-date-format="yyyy-mm-dd">
-							<input class='form-control datepicker' id='rpt_date' name='rpt_date' value="<?= strftime('%Y-%m-%d', time()); ?>">
-						  	<!-- <span class="input-group-addon"><i class="fa fa-calendar"></i></span> -->
-						</div>
-					</div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label for="rpt_date" class='control-label'>Date of: </label>
+                        <div class="input-group date" id="dp3" data-date="<?= date('Y-m-d') ?>" data-date-format="yyyy-mm-dd">
+                            <input class='form-control datepicker' id='rpt_date' name='rpt_date' value="<?= strftime('%Y-%m-%d', time()); ?>">
+                            <!-- <span class="input-group-addon"><i class="fa fa-calendar"></i></span> -->
+                        </div>
+                    </div>
+                </div>
+                
+                <hr>
 
+                <div class="form-group">
 					<div class="col-md-4">
-						<label class="control-label">&nbsp;</label>
-						<button class="form-control btn btn-primary">Generate</button>
+						<button class="btn btn-primary">Generate</button>
 						<!-- <a class="form-control btn btn-default" href="<?= Uri::create('reports/show'); ?>" target="_blank" >Generate</a> -->
 					</div>
-					<?= Form::close(); ?>
 				</div>
+            <?= Form::close(); ?>
 			</div>
 		</div>
 	</div>
@@ -62,34 +63,35 @@
 		<div class="panel panel-default">
 			<h4 class="panel-heading">Monthly Reports</h4>
 			<div class="panel-body">
-				<div class="row">
-					<?= Form::open(array("class"=>"form-horizontal", "method"=>"post", "action"=> Uri::create('reports/show-monthly-report'), 'target'=>'_blank')); ?>
-					<div class="col-md-12">
-						<div class="form-group">
-							<div class="col-md-8">
-								<label for="rpt_name" class='control-label'>Select a report: </label>
-								<select class='form-control' id='rpt_name' name='rpt_name' value="">
-								<!-- <div class="list-group"> -->
-									<?php foreach ($reports as $report) : ?>
-										<?php if ($report->type != 'm') continue; ?>
-										<option value="<?= $report->slug; ?>"><?= $report->name; ?></option>
-									<?php endforeach; ?>
-								</select>
-							</div>
-						</div>
-					</div>
+            <?= Form::open(array("class"=>"form-horizontal", "method"=>"post", "action"=> Uri::create('reports/show-monthly-report'), 'target'=>'_blank')); ?>
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <label for="rpt_name" class='control-label'>Select a report: </label>
+                        <select class='form-control' id='rpt_name' name='rpt_name' value="">
+                        <!-- <div class="list-group"> -->
+                            <?php foreach ($reports as $report) : ?>
+                                <?php if ($report->type != 'm') continue; ?>
+                                <option value="<?= $report->slug; ?>"><?= $report->name; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
 
+                <div class="form-group">
 					<div class="col-md-4">
 						<label for="rpt_period" class='control-label'>Month of: </label>
 						<input class='form-control dateperiod' id='rpt_period' name='rpt_period' value="<?= strftime('%Y-%m', time()); ?>">
-					</div>
+                    </div>
+                </div>
 
+                <hr>
+
+                <div class="form-group">
 					<div class="col-md-4">
-						<label class="control-label">&nbsp;</label>
-						<button class="form-control btn btn-primary">Generate</button>
+						<button class="btn btn-primary">Generate</button>
 					</div>
-					<?= Form::close(); ?>
 				</div>
+            <?= Form::close(); ?>
 			</div>
 		</div>
 	</div>

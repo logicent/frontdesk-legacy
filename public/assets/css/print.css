@@ -1,0 +1,38 @@
+/* Custom CSS */
+
+/*.navbar-inverse {
+    background-color: #375A7F;
+    border-color: #375A7F;
+}*/
+
+body {
+    color: #36414c;
+}
+
+/* Reports */
+.report {
+    margin: 1em 2em;
+}
+
+.report .report-default {
+}
+
+/*.report .report-header {
+    text-align: center
+}*/
+
+.report h1, .report h2 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+.report h1 {
+    color: #0054a6;
+}
+
+.report h2 {
+}
+
+.report .report-pagination {
+    text-align: right;
+}

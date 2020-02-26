@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-md-4">
         <?php if (!empty($business->business_logo)) : ?>
-            <?= Html::img($business->business_logo, ['style' => 'width: 180px']) ?>
+            <?= Html::img($business->business_logo, ['style' => 'max-width: 120px']) ?>
         <?php else : ?>
             <div>
                 <span class="lead"><?= $business->trading_name ?></span>

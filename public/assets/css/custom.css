@@ -97,35 +97,6 @@ textarea {
     resize: vertical;
 }
 
-/* Reports */
-.report {
-    margin: 1em 2em;
-}
-
-.report .report-default {
-
-}
-
-/*.report .report-header {
-    text-align: center
-}*/
-
-.report h1, .report h2 {
-    margin-top: 0;
-    font-size: 18px;
-}
-
-.report h1 {
-    color: #0054a6;
-}
-
-.report h2 {
-}
-
-.report .report-pagination {
-    text-align: right;
-}
-
 /* Dashboard */
 .dash-btn {
     font-size: 150%;
@@ -340,11 +311,11 @@ label {
     border-bottom: none;
 }
 
-#side-menu a {
+#side-menu li > a {
     color: #fbfcfe !important;
 }
 
-#side-menu a:hover, #side-menu a:focus {
+#side-menu li > a:hover, #side-menu li > a:focus {
     color: #ced8e4 !important;
     background-color: #29333d;
 }

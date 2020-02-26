@@ -12,7 +12,7 @@
                     'vendor/united.bootstrap.min.css',
                     // '../font-awesome/css/font-awesome.css',
                     '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
-                    'custom.css'
+                    'print.css'
                 )); ?>
 </head>
 <body>
@@ -39,7 +39,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="report report-default">
-            <?= $content; ?>
+                        <?= $content; ?>
                     </div>
 		        </div>  <!-- /.col-lg-12  -->
 	        </div>  <!-- /.row -->
