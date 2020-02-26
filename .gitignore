@@ -34,9 +34,8 @@ desktop.ini
 /fuel/app/cache/*/*
 /fuel/app/config/crypt.php
 /fuel/app/config/email.php
-
 #/fuel/app/config/config.php
-fuel/app/config/development/db.php
+/fuel/app/config/development/db.php
 /fuel/app/config/development/migrations.php
 /fuel/app/config/production/db.php
 /fuel/app/config/production/migrations.php
