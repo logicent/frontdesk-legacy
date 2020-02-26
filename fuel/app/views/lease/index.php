@@ -40,6 +40,6 @@
 </table>
 
 <?php else: ?>
-<p>No Leases found.</p>
+<p>No Lease found.</p>
 
 <?php endif; ?>

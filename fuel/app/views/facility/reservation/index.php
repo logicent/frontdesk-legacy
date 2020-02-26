@@ -59,5 +59,5 @@
 </table>
 
 <?php else: ?>
-<p>No Reservations found.</p>
+<p>No Reservation found.</p>
 <?php endif; ?>

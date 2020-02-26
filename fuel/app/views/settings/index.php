@@ -38,18 +38,18 @@
     <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-body">
-                <a class="btn btn-lg btn-link" href="<?= Uri::create('settings/email-templates'); ?>">Email templates</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-body">
                 <a class="btn btn-lg btn-link" href="<?= Uri::create('settings/email-settings'); ?>">Email settings</a>
             </div>
         </div>
    </div>
+<!--
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <a class="btn btn-lg btn-link" href="<?php // Uri::create('settings/email-templates'); ?>">Email templates</a>
+            </div>
+        </div>
+    </div>
    
     <div class="col-md-6">
         <div class="panel panel-default">
@@ -57,7 +57,7 @@
                 <a class="btn btn-lg btn-link" href="<?= Uri::create('settings/vouchers'); ?>">Vouchers</a>
             </div>
         </div>
-    </div>
+    </div>-->
 </div>
 <!--
 <div class="row">

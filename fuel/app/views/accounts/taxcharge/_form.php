@@ -48,5 +48,4 @@
 <?php echo Form::close(); ?>
 
 <script>
-
 </script>

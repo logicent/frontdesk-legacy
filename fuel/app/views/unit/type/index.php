@@ -50,6 +50,6 @@
 </table>
 
 <?php else: ?>
-<p>No Unit types found.</p>
+<p>No Unit type found.</p>
 
 <?php endif; ?>

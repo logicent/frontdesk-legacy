@@ -23,7 +23,10 @@
 <?php foreach ($taxes as $item): ?>		
         <tr>
             <td><?= Html::anchor('accounts/tax/edit/'.$item->id, $item->name, ['class' => 'clickable']); ?></td>
-            <td><?= (bool) $item->enabled ? 'Enabled' : 'Disabled' ?></td>
+            <td><?= (bool) $item->enabled ? 
+                '<i class="fa fa-circle-o fa-fw text-success"></i>Enabled' : 
+                '<i class="fa fa-circle-o fa-fw text-danger"></i>Disabled' ?>
+            </td>
             <td><?= $item->rate . '%' ?></td>
 			<td>
 				<div class="btn-toolbar">
@@ -39,6 +42,6 @@
 </table>
 
 <?php else: ?>
-<p>No Taxes &amp; charges.</p>
+<p>No Taxes &amp; charges found.</p>
 
 <?php endif; ?><p>

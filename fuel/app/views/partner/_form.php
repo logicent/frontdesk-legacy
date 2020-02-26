@@ -34,20 +34,6 @@
 		</div>
 
 		<div class="form-group">
-            <div class="col-md-offset-6 col-md-6">
-				<?= Form::label('Tax ID', 'tax_ID', array('class'=>'control-label')); ?>
-                <?= Form::input('tax_ID', Input::post('tax_ID', isset($partner) ? $partner->tax_ID : ''), 
-                                array('class' => 'col-md-4 form-control')); ?>
-			</div>        
-
-            <div class="col-md-offset-6 col-md-6">
-                <?php echo Form::checkbox('inactive', Input::post('inactive', isset($partner) ? $partner->inactive : '0'), 
-                                        array('class' => 'cb-checked')); ?>
-                <?php echo Form::label('Inactive', 'inactive', array('class'=>'control-label')); ?>
-			</div>
-		</div>
-
-		<div class="form-group">
             <div class="col-md-6">
 				<?= Form::label('Email address', 'email_address', array('class'=>'control-label')); ?>
                 <?= Form::input('email_address', Input::post('email_address', isset($partner) ? $partner->email_address : ''), 
@@ -60,21 +46,25 @@
                                                                 array('class' => 'col-md-4 form-control')); ?>
 			</div>
 		</div>
+
+		<div class="form-group">
+            <div class="col-md-6">
+				<?= Form::label('Tax ID', 'tax_ID', array('class'=>'control-label')); ?>
+                <?= Form::input('tax_ID', Input::post('tax_ID', isset($partner) ? $partner->tax_ID : ''), 
+                                array('class' => 'col-md-4 form-control')); ?>
+			</div>
+        </div>
+
+		<div class="form-group">
+            <div class="col-md-6">
+                <?= Form::hidden('inactive', Input::post('inactive', isset($partner) ? $partner->inactive : '0')); ?>
+                <?= Form::checkbox('cb_inactive', null, array('class' => 'cb-checked', 'data-input' => 'inactive')); ?>
+                <?= Form::label('Inactive', 'cb_inactive', array('class'=>'control-label')); ?>
+			</div>
+		</div>
+
 	</div><!--/.col-md-6-->
-
-    <!-- Right Side -->
-	<div class="col-md-6">
-
-    </div><!--/.col-md-6-->
 </div><!--/.row-->
-
-<div class="row">
-    <div class="col-md-6">
-    </div>
-
-    <div class="col-md-6">
-    </div>
-</div>
 
 <?= Form::hidden('fdesk_user', Input::post('fdesk_user', isset($partner) ? $partner->fdesk_user : $uid)); ?>
 
@@ -85,24 +75,9 @@
 		<?= Form::submit('submit', isset($partner) ? 'Update' : 'Create', array('class' => 'btn btn-primary')); ?>
 		<?php //echo Form::submit('submit', "Save + New", array('class' => 'btn btn-success')); ?>
 	</div>
-
-	<div class="col-md-6">
-	</div>
 </div>
 
 <?= Form::close(); ?>
 
 <script>
-	$('.cb-checked').click(function() 
-    {
-        cbName = '#form_' + $(this).attr('name');
-
-	    if ($(this).is(':checked')) // true
-	        $(cbName).val(1);
-	    else $(cbName).val(0);
-    });
-
-    if ($('.cb-checked').val() == '1') {
-        $(cbName).attr('checked', true);
-	}
 </script>

@@ -47,6 +47,6 @@
 </table>
 
 <?php else: ?>
-<p>No Properties found.</p>
+<p>No Property found.</p>
 
 <?php endif; ?>

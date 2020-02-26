@@ -41,5 +41,5 @@
 </table>
 
 <?php else: ?>
-<p>No Bank deposit.</p>
+<p>No Bank deposit found.</p>
 <?php endif; ?>

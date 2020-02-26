@@ -14,6 +14,7 @@
 	<thead>
 		<tr>
 			<th>Name</th>
+			<th>Status</th>
 			<th>Code</th>
 			<th>&nbsp;</th>
 		</tr>
@@ -22,6 +23,10 @@
     <?php foreach ($payment_methods as $item): ?>	
         <tr>
             <td><?= Html::anchor('accounts/payment/method/edit/'.$item->id, $item->name, ['class' => 'clickable']) ?></td>
+            <td><?= (bool) $item->enabled ? 
+                '<i class="fa fa-circle-o fa-fw text-success"></i>Enabled' : 
+                '<i class="fa fa-circle-o fa-fw text-danger"></i>Disabled' ?>
+            </td>
             <td><?= $item->code ?></td>
             <td>
                 <div class="btn-toolbar">
@@ -37,6 +42,6 @@
 </table>
 
 <?php else: ?>
-<p>No Payment methods.</p>
+<p>No Payment method found.</p>
 
 <?php endif; ?><p>

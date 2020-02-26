@@ -225,7 +225,7 @@
                 </div>
     <?php 
         endif; ?>
-                <div id="content" class="row">
+                <div id="content" class="row content-pane">
                     <div class="col-lg-12">
                 <!-- Dashboard and Reports container -->
             <?php if (

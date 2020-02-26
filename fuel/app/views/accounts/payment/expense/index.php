@@ -41,5 +41,5 @@
 </table>
 
 <?php else: ?>
-<p>No expenses.</p>
+<p>No Expenses found.</p>
 <?php endif; ?>

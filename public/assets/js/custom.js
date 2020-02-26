@@ -75,9 +75,9 @@ $(function() {
     
     cbEl = $('.cb-checked');
     cbEl.each(function() {
-        if ($(this).val() == '1') {
+        if ($('#form_' + $(this).data('input')).val() == '1') {
             $(this).prop('checked', true);
         }
-        else $($(this)).val(0);
+        else $('#form_' + $(this).data('input')).val(0);
     });
 });

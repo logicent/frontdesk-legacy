@@ -82,7 +82,7 @@
 </form>
 
 <?php else: ?>
-	<p>No Guests found.</p>
+	<p>No Booking found.</p>
 <?php endif; ?>
 
 <script>

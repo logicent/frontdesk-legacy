@@ -8,6 +8,7 @@ class Model_Accounts_Payment_Method extends Model
         'code',
         'name',
         'is_default',
+        'enabled',
 		'fdesk_user',
 		'created_at',
 		'updated_at',
@@ -32,6 +33,7 @@ class Model_Accounts_Payment_Method extends Model
 		$val->add_field('code', 'Code', 'required');
         $val->add_field('name', 'Name', 'required');
         $val->add_field('is_default', 'Is Default', 'boolean');
+        $val->add_field('enabled', 'Enabled', 'boolean');
         
 		return $val;
 	}

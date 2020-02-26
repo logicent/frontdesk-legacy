@@ -58,9 +58,9 @@
         </div>
 		<div class="form-group">
             <div class="col-md-6">
-                <?= Form::checkbox('require_deposit', Input::post('require_deposit', isset($lease) ? $lease->require_deposit : '0'), 
-                                        array('class' => 'cb-checked')); ?>
-                <?= Form::label('Require deposit', 'require_deposit', array('class'=>'control-label')); ?>
+                <?= Form::hidden('require_deposit', Input::post('require_deposit', isset($lease) ? $lease->require_deposit : '0')); ?>
+                <?= Form::checkbox('cb_require_deposit', null, array('class' => 'cb-checked', 'data-input' => 'require_deposit')); ?>
+                <?= Form::label('Require deposit', 'cb_inactive', array('class'=>'control-label')); ?>
             </div>
         </div>
 		<div class="form-group">
@@ -134,9 +134,9 @@
 
 		<div class="form-group">
             <div class="col-md-6">
-                <?= Form::checkbox('on_hold', Input::post('on_hold', isset($lease) ? $lease->on_hold : '0'), 
-                                    array('class' => 'cb-checked')); ?>
-                <?= Form::label('On hold', 'on_hold', array('class'=>'control-label')); ?>
+                <?= Form::hidden('on_hold', Input::post('on_hold', isset($lease) ? $lease->on_hold : '0')); ?>
+                <?= Form::checkbox('cb_on_hold', null, array('class' => 'cb-checked', 'data-input' => 'on_hold')); ?>
+                <?= Form::label('On hold', 'cb_inactive', array('class'=>'control-label')); ?>
             </div>
         </div>
 		<div class="form-group">

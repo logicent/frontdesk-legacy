@@ -39,5 +39,5 @@
 </table>
 
 <?php else: ?>
-<p>No Rate types found.</p>
+<p>No Rate type found.</p>
 <?php endif; ?>

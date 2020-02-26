@@ -1,7 +1,7 @@
 <?= Form::open(array("class"=>"form-horizontal", "autocomplete" => "off", "enctype"=>"multipart/form-data")); ?>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-3">
         <div class="form-group">
             <div class="col-md-12">
                 <?= Form::label('Business name', 'business_name', array('class'=>'control-label')); ?>
@@ -15,7 +15,7 @@
             <div class="col-md-12">
                 <?= Form::label('Physical address', 'address', array('class'=>'control-label')); ?>
                 <?= Form::textarea('address', Input::post('address', isset($business) ? $business->address : ''),
-                                                                    array('class' => 'col-md-4 form-control', 'rows' => 4)); ?>
+                                                                    array('class' => 'col-md-4 form-control', 'rows' => 5)); ?>
             </div>
         </div>
 
@@ -23,13 +23,28 @@
             <div class="col-md-12">
                 <?= Form::label('Business type', 'business_type', array('class'=>'control-label')); ?>
                 <?= Form::select('business_type', Input::post('business_type', isset($business) ? $business->business_type : ''), 
-                                Model_Business::listOptions(), 
-                                array('class' => 'col-md-4 form-control', 'id' => 'user_id')); ?>
+                                Model_Business::listOptionsType(), 
+                                array('class' => 'col-md-4 form-control')); ?>
     		</div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6">
+                <?= Form::label('Tax identifier', 'tax_identifier', array('class'=>'control-label')); ?>
+                <?= Form::input('tax_identifier', Input::post('tax_identifier', isset($business) ? $business->tax_identifier : ''),
+                                                                array('class' => 'col-md-4 form-control')); ?>
+            </div>
+
+            <div class="col-md-6">
+                <?= Form::label('Currency symbol', 'currency_symbol', array('class'=>'control-label')); ?>
+                <?= Form::select('currency_symbol', Input::post('currency_symbol', isset($business) ? $business->currency_symbol : ''), 
+                                Model_Business::listOptionsCurrency(), 
+                                array('class' => 'col-md-4 form-control')); ?>
+            </div>            
 		</div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-3">
         <div class="form-group">
             <div class="col-md-12">
                 <?= Form::label('Trading name', 'trading_name', array('class'=>'control-label')); ?>
@@ -40,7 +55,7 @@
         </div>
         
         <div class="form-group">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <?= Form::label('Email address(es)', 'email_address', array('class'=>'control-label')); ?>
                 <?= Form::input('email_address', Input::post('email_address', isset($business) ? $business->email_address : ''),
                                                         array(
@@ -48,27 +63,15 @@
                                                             'placeholder'=>'info@example.com, sales@example.com'
                                                         )); ?>
             </div>
-            <div class="col-md-6">
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
                 <?= Form::label('Phone number(s)', 'phone_number', array('class'=>'control-label')); ?>
                 <?= Form::input('phone_number', Input::post('phone_number', isset($business) ? $business->phone_number : ''),
                                                         array(
                                                             'class' => 'col-md-4 form-control', 
                                                             'placeholder'=>'020-345 7890, 0700 001 990'
                                                         )); ?>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-6">
-                <?= Form::label('Tax identifier', 'tax_identifier', array('class'=>'control-label')); ?>
-                <?= Form::input('tax_identifier', Input::post('tax_identifier', isset($business) ? $business->tax_identifier : ''),
-                                                                array('class' => 'col-md-4 form-control', 'rows' => 4)); ?>
-            </div>
-
-            <div class="col-md-6">
-                <?= Form::label('Currency symbol', 'currency_symbol', array('class'=>'control-label')); ?>
-                <?= Form::input('currency_symbol', Input::post('currency_symbol', isset($business) ? $business->currency_symbol : ''),
-                array('class' => 'col-md-4 form-control', 'placeholder'=>'KES')); ?>
             </div>
         </div>
 

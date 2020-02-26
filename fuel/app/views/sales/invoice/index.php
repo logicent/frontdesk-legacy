@@ -47,5 +47,5 @@
 </table>
 
 <?php else: ?>
-	<p>No Sales Invoices found.</p>
+	<p>No Sales Invoice found.</p>
 <?php endif; ?>

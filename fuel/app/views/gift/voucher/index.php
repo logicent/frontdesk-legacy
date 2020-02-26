@@ -48,6 +48,6 @@
 </table>
 
 <?php else: ?>
-<p>No Gift Vouchers found.</p>
+<p>No Gift Voucher found.</p>
 
 <?php endif; ?>

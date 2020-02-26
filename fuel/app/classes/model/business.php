@@ -35,7 +35,7 @@ class Model_Business extends Model
 
     protected static $_table_name = 'business';
     
-    public static function listOptions()
+    public static function listOptionsType()
 	{
 		return array(
             'PO'    => 'Property Owner',
@@ -44,4 +44,15 @@ class Model_Business extends Model
         );
 	}
 
+	public static function listOptionsCurrency()
+	{
+		$items = DB::select('currency_code', 'currency')->from('countries')->order_by('currency')->execute()->as_array();
+        
+        $list_options = array( '' =>  '' );
+		
+		foreach($items as $item)
+			$list_options[$item['currency_code']] = ucwords($item['currency']);
+		
+		return $list_options;
+	}
 }

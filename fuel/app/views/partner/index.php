@@ -41,6 +41,6 @@
 </table>
 
 <?php else: ?>
-<p>No Partners.</p>
+<p>No Partner found.</p>
 
 <?php endif; ?>

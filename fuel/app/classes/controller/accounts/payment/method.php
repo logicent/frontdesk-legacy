@@ -12,12 +12,12 @@ class Controller_Accounts_Payment_Method extends Controller_Authenticate
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('accounts/payment-methods');
+		is_null($id) and Response::redirect('accounts/payment-method');
 
 		if ( ! $data['payment_method'] = Model_Accounts_Payment_Method::find($id))
 		{
 			Session::set_flash('error', 'Could not find payment method #'.$id);
-			Response::redirect('accounts/payment-methods');
+			Response::redirect('accounts/payment-method');
 		}
 
 		$this->template->title = "Payment Methods";
@@ -37,13 +37,14 @@ class Controller_Accounts_Payment_Method extends Controller_Authenticate
 					'code' => Input::post('code'),
 					'name' => Input::post('name'),
 					'is_default' => Input::post('is_default'),
+					'enabled' => Input::post('enabled'),
 					'fdesk_user' => Input::post('fdesk_user'),
 				));
 
 				if ($payment_method and $payment_method->save())
 				{
-					Session::set_flash('success', 'Added payment method #'.$payment_method->id.'.');
-					Response::redirect('accounts/payment-methods');
+					Session::set_flash('success', 'Added payment method #'.$payment_method->name.'.');
+					Response::redirect('accounts/payment-method');
 				}
 				else
 				{
@@ -63,12 +64,12 @@ class Controller_Accounts_Payment_Method extends Controller_Authenticate
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('accounts/payment-methods');
+		is_null($id) and Response::redirect('accounts/payment-method');
 
 		if ( ! $payment_method = Model_Accounts_Payment_Method::find($id))
 		{
 			Session::set_flash('error', 'Could not find payment method #'.$id);
-			Response::redirect('accounts/payment-methods');
+			Response::redirect('accounts/payment-method');
 		}
 
 		$val = Model_Accounts_Payment_Method::validate('edit');
@@ -78,12 +79,13 @@ class Controller_Accounts_Payment_Method extends Controller_Authenticate
             $payment_method->code = Input::post('code');
             $payment_method->name = Input::post('name');
             $payment_method->is_default = Input::post('is_default');
+            $payment_method->enabled = Input::post('enabled');
 
 			if ($payment_method->save())
 			{
-				Session::set_flash('success', 'Updated payment method #' . $id);
+				Session::set_flash('success', 'Updated payment method #' . $payment_method->name);
 
-				Response::redirect('accounts/payment-methods');
+				Response::redirect('accounts/payment-method');
 			}
 			else
 			{
@@ -97,6 +99,7 @@ class Controller_Accounts_Payment_Method extends Controller_Authenticate
 				$payment_method->code = $val->validated('code');
                 $payment_method->name = $val->validated('name');
                 $payment_method->is_default = $val->validated('is_default');
+                $payment_method->enabled = $val->validated('enabled');
 
 				Session::set_flash('error', $val->error());
 			}
@@ -111,7 +114,7 @@ class Controller_Accounts_Payment_Method extends Controller_Authenticate
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('accounts/payment-methods');
+		is_null($id) and Response::redirect('accounts/payment-method');
 
 		if ($payment_method = Model_Accounts_Payment_Method::find($id))
 		{
@@ -125,7 +128,7 @@ class Controller_Accounts_Payment_Method extends Controller_Authenticate
 			Session::set_flash('error', 'Could not delete payment method #'.$id);
 		}
 
-		Response::redirect('accounts/payment-methods');
+		Response::redirect('accounts/payment-method');
 
 	}
 

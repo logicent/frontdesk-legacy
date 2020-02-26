@@ -48,5 +48,5 @@
 </table>
 
 <?php else: ?>
-	<p>No Cash receipts found.</p>
+	<p>No Sales receipt found.</p>
 <?php endif; ?>
