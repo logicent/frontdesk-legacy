@@ -38,14 +38,14 @@
 			<div class="col-md-8">
 				<?= Form::label('Rate type', 'rate_type', array('class'=>'control-label')); ?>
                 <?= Form::select('rate_type', Input::post('rate_type', isset($booking) ? $booking->rate_type : ''), 
-                                Model_Rate::listOptions(isset($unit) ? $unit->unit_type : $booking->unit->type->id), 
+                                isset($booking) ? $booking->unit->type->id : Model_Rate::listOptions(isset($unit) ? $unit->unit_type : ''), 
                                 array('class' => 'col-md-4 form-control', 'id' => 'rate_type')); ?>
 			</div>
 
 			<div class="col-md-4">
 				<?= Form::label('Unit no.', 'unit_id', array('class'=>'control-label')); ?>
                 <?= Form::select('unit_id', Input::post('unit_id', isset($booking) ? $booking->unit_id : ''), 
-                                Model_Unit::listOptions(isset($booking) ? $booking->unit_id : $unit->id), 
+                                Model_Unit::listOptions(isset($booking) ? $booking->unit_id : isset($unit) ? $unit->id : ''), 
                                 array('class' => 'col-md-4 form-control', 'id' => 'unit_id')); ?>
 			</div>
 		</div>

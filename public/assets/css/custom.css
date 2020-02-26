@@ -70,7 +70,7 @@ body {
     margin-bottom: 0;
 }
 
-.btn.btn-primary, .btn.btn-primary:not(.btn-xs) {
+.btn.btn-primary, .btn.btn-default:not(.btn-xs) {
     display: inline-block;
     border-radius: 3px;
     padding: 7px 14px;
@@ -355,6 +355,8 @@ label {
 .form-control:focus {
     outline: none;
     border-color: rgba(96, 125, 159, 0.8);
+    -webkit-box-shadow: inset 0 1px 4px -1px rgba(96, 125, 159, 0.25);
+    box-shadow: inset 0 1px 4px -1px rgba(96, 125, 159, 0.25);    
 }
 
 input.cb-checked {

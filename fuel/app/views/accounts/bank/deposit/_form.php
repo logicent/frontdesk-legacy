@@ -10,6 +10,14 @@
 		</div>
 	</div>
 
+    <div class="form-group">
+		<div class="col-md-4">
+			<?= Form::label('Bank account', 'bank_account_id', array('class'=>'control-label')); ?>
+            <?= Form::select('bank_account_id', Input::post('bank_account_id', isset($bank_deposit) ? $bank_deposit->bank_account_id : ''), 
+                            Model_Accounts_Bank_Account::listOptions(), array('class' => 'col-md-4 form-control')); ?>
+		</div>
+	</div>
+
 	<div class="form-group">
 		<div class="col-md-2">
 			<?= Form::label('Date', 'date', array('class'=>'control-label')); ?>
@@ -18,7 +26,8 @@
 
 		<div class="col-md-2">
 			<?= Form::label('Amount', 'amount', array('class'=>'control-label')); ?>
-			<?= Form::input('amount', Input::post('amount', isset($bank_deposit) ? $bank_deposit->amount : ''), array('class' => 'col-md-4 form-control')); ?>
+            <?= Form::input('amount', Input::post('amount', isset($bank_deposit) ? $bank_deposit->amount : ''), 
+                            array('class' => 'col-md-4 form-control text-right')); ?>
 		</div>
 	</div>
 
@@ -41,15 +50,9 @@
 
 	<div class="form-group">
 		<div class="col-md-4">
-			<?= Form::label('Bank account', 'bank_account_id', array('class'=>'control-label')); ?>
-			<?= Form::select('bank_account_id', Input::post('bank_account_id', isset($bank_deposit) ? $bank_deposit->bank_account_id : ''), Model_Accounts_Bank_Account::listOptions(), array('class' => 'col-md-4 form-control')); ?>
-		</div>
-	</div>
-
-	<div class="form-group">
-		<div class="col-md-4">
 			<?= Form::label('Description', 'description', array('class'=>'control-label')); ?>
-			<?= Form::input('description', Input::post('description', isset($bank_deposit) ? $bank_deposit->description : 'Cash to bank'), array('class' => 'col-md-4 form-control')); ?>
+            <?= Form::textarea('description', Input::post('description', isset($bank_deposit) ? $bank_deposit->description : 'Cash to bank'), 
+                                array('class' => 'col-md-4 form-control', 'rows' => 2)); ?>
 		</div>
 	</div>
 	<hr>

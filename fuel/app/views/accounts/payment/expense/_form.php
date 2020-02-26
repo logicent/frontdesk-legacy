@@ -27,7 +27,8 @@
 	<div class="form-group">
 		<div class="col-md-2">
 			<?= Form::label('Amount', 'amount', array('class'=>'control-label')); ?>
-			<?= Form::input('amount', Input::post('amount', isset($expense) ? $expense->amount : 0), array('class' => 'col-md-4 form-control text-right', 'autofocus' => true)); ?>
+            <?= Form::input('amount', Input::post('amount', isset($expense) ? $expense->amount : 0), 
+                            array('class' => 'col-md-4 form-control text-right', 'autofocus' => true)); ?>
 		</div>
 	</div>
 
@@ -49,7 +50,8 @@
 	<div class="form-group">
 		<div class="col-md-4">
 			<?= Form::label('Description', 'description', array('class'=>'control-label')); ?>
-			<?= Form::input('description', Input::post('description', isset($expense) ? $expense->description : ''), array('class' => 'col-md-4 form-control')); ?>
+            <?= Form::textarea('description', Input::post('description', isset($expense) ? $expense->description : ''), 
+                                array('class' => 'col-md-4 form-control', 'rows' => 2)); ?>
 		</div>
 	</div>
 

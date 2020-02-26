@@ -3,45 +3,48 @@
 <div class="row">
 	<div class="col-md-6">
 		<div class="form-group">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <?= Form::label('Title', 'title', array('class'=>'control-label')); ?>
                 <?= Form::input('title', Input::post('title', isset($lease) ? $lease->title : ''), 
                                 array('class' => 'col-md-4 form-control')); ?>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <?= Form::label('Reference', 'reference', array('class'=>'control-label')); ?>
                 <?= Form::input('reference', Input::post('reference', isset($lease) ? $lease->reference : ''), 
                                 array('class' => 'col-md-4 form-control')); ?>
             </div>
         </div>
+
 		<div class="form-group">
-            <div class="col-md-6">
-                <?= Form::label('Customer', 'customer_id', array('class'=>'control-label')); ?>
-                <?= Form::select('customer_id', Input::post('customer_id', isset($lease) ? $lease->customer_id : ''),
-                                        Model_Customer::listOptions(['Tenant']),
-                                        array('class' => 'form-control')); ?>
+            <div class="col-md-8">
+                <?= Form::label('Premise use', 'premise_use', array('class'=>'control-label')); ?>
+                <?= Form::input('premise_use', Input::post('premise_use', isset($lease) ? $lease->premise_use : ''), 
+                                array('class' => 'col-md-4 form-control')); ?>
             </div>
 
-            <div class="col-md-6">
-                <?= Form::label('Status', 'status', array('class'=>'control-label')); ?>
-                <?= Form::input('status', Input::post('status', isset($lease) ? $lease->status : ''), 
-                                array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
+            <div class="col-md-4">
+                <?= Form::label('Unit', 'unit_id', array('class'=>'control-label')); ?>
+                <?= Form::select('unit_id', Input::post('unit_id', isset($lease) ? $lease->unit_id : ''), 
+                                isset($lease) ? Model_Unit::listOptions($lease->unit_id) : array(), 
+                                array('class' => 'col-md-4 form-control')); ?>
             </div>
         </div>
-		<div class="form-group">
+
+        <div class="form-group">
             <div class="col-md-6">
-                <?= Form::label('Date leased', 'date_leased', array('class'=>'control-label')); ?>
-                <?= Form::input('date_leased', Input::post('date_leased', isset($lease) ? $lease->date_leased : ''), 
+                <?= Form::label('Start date', 'start_date', array('class'=>'control-label')); ?>
+                <?= Form::input('start_date', Input::post('start_date', isset($lease) ? $lease->start_date : ''), 
                                 array('class' => 'col-md-4 form-control datepicker')); ?>
             </div>
 
             <div class="col-md-6">
-                <?= Form::label('Lease period (months)', 'lease_period', array('class'=>'control-label')); ?>
-                <?= Form::input('lease_period', Input::post('lease_period', isset($lease) ? $lease->lease_period : ''), 
-                                array('class' => 'col-md-4 form-control')); ?>
+                <?= Form::label('End date', 'end_date', array('class'=>'control-label')); ?>
+                <?= Form::input('end_date', Input::post('end_date', isset($lease) ? $lease->end_date : ''), 
+                                array('class' => 'col-md-4 form-control datepicker')); ?>
             </div>
         </div>
+
 		<div class="form-group">
             <div class="col-md-6">
                 <?= Form::label('Billed period', 'billed_period', array('class'=>'control-label')); ?>
@@ -60,7 +63,7 @@
             <div class="col-md-6">
                 <?= Form::hidden('require_deposit', Input::post('require_deposit', isset($lease) ? $lease->require_deposit : '0')); ?>
                 <?= Form::checkbox('cb_require_deposit', null, array('class' => 'cb-checked', 'data-input' => 'require_deposit')); ?>
-                <?= Form::label('Require deposit', 'cb_inactive', array('class'=>'control-label')); ?>
+                <?= Form::label('Require deposit', 'cb_require_deposit', array('class'=>'control-label')); ?>
             </div>
         </div>
 		<div class="form-group">
@@ -80,20 +83,7 @@
     </div>
 
     <div class="col-md-6">
-		<div class="form-group">
-            <div class="col-md-6">
-                <?= Form::label('Start date', 'start_date', array('class'=>'control-label')); ?>
-                <?= Form::input('start_date', Input::post('start_date', isset($lease) ? $lease->start_date : ''), 
-                                array('class' => 'col-md-4 form-control datepicker')); ?>
-            </div>
-
-            <div class="col-md-6">
-                <?= Form::label('End date', 'end_date', array('class'=>'control-label')); ?>
-                <?= Form::input('end_date', Input::post('end_date', isset($lease) ? $lease->end_date : ''), 
-                                array('class' => 'col-md-4 form-control datepicker')); ?>
-            </div>
-        </div>
-		<div class="form-group">
+        <div class="form-group">
             <div class="col-md-6">
                 <?= Form::label('Owner', 'owner_id', array('class'=>'control-label')); ?>
                 <?= Form::select('owner_id', Input::post('owner_id', isset($lease) ? $lease->owner_id : ''),
@@ -109,23 +99,37 @@
             </div>
         </div>
 
-		<div class="form-group">
+        <div class="form-group">
             <div class="col-md-6">
-                <?= Form::label('Premise use', 'premise_use', array('class'=>'control-label')); ?>
-                <?= Form::input('premise_use', Input::post('premise_use', isset($lease) ? $lease->premise_use : ''), 
-                                array('class' => 'col-md-4 form-control')); ?>
+                <?= Form::label('Customer', 'customer_id', array('class'=>'control-label')); ?>
+                <?= Form::select('customer_id', Input::post('customer_id', isset($lease) ? $lease->customer_id : ''),
+                                        Model_Customer::listOptions(['Tenant']),
+                                        array('class' => 'form-control')); ?>
             </div>
 
             <div class="col-md-6">
-                <?= Form::label('Unit', 'unit_id', array('class'=>'control-label')); ?>
-                <?= Form::select('unit_id', Input::post('unit_id', isset($lease) ? $lease->unit_id : ''), 
-                                isset($lease) ? Model_Unit::listOptions($lease->unit_id) : array(), 
-                                array('class' => 'col-md-4 form-control')); ?>
+                <?= Form::label('Status', 'status', array('class'=>'control-label')); ?>
+                <?= Form::input('status', Input::post('status', isset($lease) ? $lease->status : ''), 
+                                array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-6">
+                <?= Form::label('Date leased', 'date_leased', array('class'=>'control-label')); ?>
+                <?= Form::input('date_leased', Input::post('date_leased', isset($lease) ? $lease->date_leased : ''), 
+                                array('class' => 'col-md-4 form-control datepicker')); ?>
+            </div>
+
+            <div class="col-md-6">
+                <?= Form::label('Lease period (months)', 'lease_period', array('class'=>'control-label')); ?>
+                <?= Form::input('lease_period', Input::post('lease_period', isset($lease) ? $lease->lease_period : ''), 
+                                array('class' => 'col-md-4 form-control')); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12">
                 <?= Form::label('Attachment', 'attachments', array('class'=>'control-label')); ?>
                 <?= Form::input('attachments', Input::post('attachments', isset($lease) ? $lease->attachments : ''), 
                                 array('class' => 'col-md-8 form-control', 'readonly' => true)); ?>
@@ -136,7 +140,7 @@
             <div class="col-md-6">
                 <?= Form::hidden('on_hold', Input::post('on_hold', isset($lease) ? $lease->on_hold : '0')); ?>
                 <?= Form::checkbox('cb_on_hold', null, array('class' => 'cb-checked', 'data-input' => 'on_hold')); ?>
-                <?= Form::label('On hold', 'cb_inactive', array('class'=>'control-label')); ?>
+                <?= Form::label('On hold', 'cb_on_hold', array('class'=>'control-label')); ?>
             </div>
         </div>
 		<div class="form-group">

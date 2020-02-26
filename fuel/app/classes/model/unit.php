@@ -64,7 +64,7 @@ class Model_Unit extends Model
 	{
 		$items = DB::select('id','name','status')->from(self::$_table_name)->execute()->as_array();
 
-		if (!is_null($unit_id))
+		if (!empty($unit_id))
 			return array($unit_id => Model_Unit::find($unit_id)->name);
         
         $list_options = array(''=>'');

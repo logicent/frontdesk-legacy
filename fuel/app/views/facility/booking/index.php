@@ -4,7 +4,8 @@
 	</div>
 
 	<div class="col-md-6">
-		<br>
+        <br>
+        <?= Html::anchor('facility/booking/create', 'New', array('class' => 'pull-right btn btn-primary')); ?>
 		<!-- <div class="btn-group">
 			<label class="">Filter:&ensp;
 			    <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">

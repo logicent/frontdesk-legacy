@@ -4,7 +4,8 @@
 	</div>
 
 	<div class="col-md-6">
-		<br>
+        <br>
+        <?= Html::anchor('facility/reservation/create', 'New', array('class' => 'pull-right btn btn-primary')); ?>      
 		<div class="pull-right btn-group">
 			<?php // echo Html::anchor('registers/reservations/?status='.Model_Facility_Reservation::RESERVATION_STATUS_OPEN, 'Open', array('class' => 'btn btn-sm btn-default')); ?>
 			<?php // echo Html::anchor('registers/reservations/?status='.Model_Facility_Reservation::RESERVATION_STATUS_BOOKED, 'Booked', array('class' => 'btn btn-sm btn-default')); ?>

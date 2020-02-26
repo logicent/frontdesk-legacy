@@ -19,15 +19,6 @@
 		</div>
 	</div>
 
-	<div class="form-group">
-		<div class="col-md-4">
-			<?= Form::label('Payer', 'payer', array('class'=>'control-label')); ?>
-            <?= Form::input('payer', Input::post('payer', isset($payment_receipt) ? 
-                            $payment_receipt->payer : isset($bill) ? $bill->guest->first_name .' '. $bill->guest->last_name : ''), 
-                            array('class' => 'col-md-4 form-control')); ?>
-		</div>
-	</div>
-
     <div class="form-group">
         <div class="col-md-2">
             <?= Form::label('Payment Method', 'payment_method', array('class'=>'control-label')); ?>
@@ -42,27 +33,36 @@
         </div>
     </div>
 
+    <div class="form-group">
+		<div class="col-md-4">
+			<?= Form::label('Payer', 'payer', array('class'=>'control-label')); ?>
+            <?= Form::input('payer', Input::post('payer', isset($payment_receipt) ? 
+                            $payment_receipt->payer : isset($bill) ? $bill->guest->first_name .' '. $bill->guest->last_name : ''), 
+                            array('class' => 'col-md-4 form-control')); ?>
+		</div>
+	</div>
+
 	<div class="form-group">
 		<div class="col-md-2">
 			<?= Form::label('Amount', 'amount', array('class'=>'control-label')); ?>
             <?= Form::input('amount', Input::post('amount', isset($payment_receipt) ? $payment_receipt->amount : isset($bill) ? $bill->balance_due : '0.00'), 
-                            array('class' => 'col-md-4 form-control', 'readonly' => isset($payment_receipt) && 
+                            array('class' => 'col-md-4 form-control text-right', 'readonly' => isset($payment_receipt) && 
                             $payment_receipt->invoice->guest->status == 'CO' ? true : false, 'autofocus' => true)); ?>
 		</div>
 
 		<div class="col-md-2">
 			<?= Form::label('Vat', 'tax_id', array('class'=>'control-label')); ?>
             <?= Form::input('tax_id', Input::post('tax_id', isset($payment_receipt) ? $payment_receipt->tax_id : 0), 
-                            array('class' => 'col-md-4 form-control')); ?>
+                            array('class' => 'col-md-4 form-control text-right')); ?>
 		</div>
 	</div>
 
 	<div class="form-group">
 		<div class="col-md-4">
 			<?= Form::label('Description', 'description', array('class'=>'control-label')); ?>
-            <?= Form::input('description', Input::post('description', isset($payment_receipt) ? $payment_receipt->description : 
+            <?= Form::textarea('description', Input::post('description', isset($payment_receipt) ? $payment_receipt->description : 
                             isset($bill) ? 'Accommodation for Unit no. ' . $bill->guest->unit->name : ''), 
-                            array('class' => 'col-md-4 form-control')); ?>
+                            array('class' => 'col-md-4 form-control', 'rows' => 4)); ?>
 		</div>
 	</div>
 

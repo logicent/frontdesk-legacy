@@ -4,7 +4,7 @@
 	</div>
 	<div class="col-md-6">
 		<br>
-		<?php //echo Html::anchor('cash/receipt/create', 'New Cash Receipt', array('class' => 'pull-right btn btn-default')); ?>
+		<?= Html::anchor('accounts/payment/receipt/create', 'New', array('class' => 'pull-right btn btn-primary')); ?>
 	</div>
 </div>
 <hr>

@@ -15,21 +15,21 @@
 	</div>
 
 	<div class="form-group">
-		<div class="col-md-5">
+		<div class="col-md-4">
 			<?= Form::label('Financial institution', 'financial_institution', array('class'=>'control-label')); ?>
 			<?= Form::input('financial_institution', Input::post('financial_institution', isset($bank_account) ? $bank_account->financial_institution : ''), array('class' => 'col-md-4 form-control')); ?>
 		</div>
 	</div>
 
 	<div class="form-group">
-		<div class="col-md-3">
+        <div class="col-md-2">
+            <?= Form::label('Starting date', 'starting_date', array('class'=>'control-label')); ?>
+            <?= Form::input('starting_date', Input::post('starting_date', isset($bank_account) ? $bank_account->starting_date : ''), array('class' => 'col-md-4 form-control datepicker')); ?>
+        </div>
+
+        <div class="col-md-2">
 			<?= Form::label('Starting balance', 'starting_bal', array('class'=>'control-label')); ?>
 			<?= Form::input('starting_bal', Input::post('starting_bal', isset($bank_account) ? $bank_account->starting_bal : ''), array('class' => 'col-md-4 form-control')); ?>
-		</div>
-
-		<div class="col-md-2">
-			<?= Form::label('Starting date', 'starting_date', array('class'=>'control-label')); ?>
-			<?= Form::input('starting_date', Input::post('starting_date', isset($bank_account) ? $bank_account->starting_date : ''), array('class' => 'col-md-4 form-control datepicker')); ?>
 		</div>
 	</div>
 
@@ -41,7 +41,7 @@
 	</div> -->
 
 	<div class="form-group">
-		<div class="col-md-3">
+		<div class="col-md-2">
 			<?= Form::label('Last statement date', 'last_statement_date', array('class'=>'control-label')); ?>
 			<?= Form::input('last_statement_date', Input::post('last_statement_date', isset($bank_account) ? $bank_account->last_statement_date : ''), array('class' => 'col-md-4 form-control datepicker')); ?>
 		</div>
