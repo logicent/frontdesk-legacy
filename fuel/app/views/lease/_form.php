@@ -19,7 +19,7 @@
             <div class="col-md-6">
                 <?= Form::label('Customer', 'customer_id', array('class'=>'control-label')); ?>
                 <?= Form::select('customer_id', Input::post('customer_id', isset($lease) ? $lease->customer_id : ''),
-                                        Model_Customer::listOptions('Tenant'),
+                                        Model_Customer::listOptions(['Tenant']),
                                         array('class' => 'form-control')); ?>
             </div>
 
