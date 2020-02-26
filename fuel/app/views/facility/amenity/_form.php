@@ -20,7 +20,7 @@
 
         <div class="form-group">
             <div class="col-md-6">
-                <?= Form::hidden('enabled', Input::post('enabled', isset($lease) ? $lease->enabled : '0')); ?>
+                <?= Form::hidden('enabled', Input::post('enabled', isset($amenity) ? $amenity->enabled : '0')); ?>
                 <?= Form::checkbox('cb_enabled', null, array('class' => 'cb-checked', 'data-input' => 'enabled')); ?>
                 <?= Form::label('Visible', 'cb_enabled', array('class'=>'control-label')); ?>
             </div>

@@ -1,5 +1,5 @@
 <?php
-class Controller_Gift_Voucher extends Controller_Template
+class Controller_Gift_Voucher extends Controller_Authenticate
 {
 
 	public function action_index()

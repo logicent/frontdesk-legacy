@@ -3,6 +3,22 @@ use Orm\Model;
 
 class Model_Property extends Model
 {
+    // accommodation
+    public const PROPERTY_TYPE_HOTEL        = 'H/CH'; // Hotel / City Hotel
+    public const PROPERTY_TYPE_BNB          = 'B/I/L'; // BnB / Inn / Lodge
+    public const PROPERTY_TYPE_GUEST_HOUSE  = 'GH'; // Guest House
+    public const PROPERTY_TYPE_RESORT       = 'RSRT'; // Resort
+    // membership
+    public const PROPERTY_TYPE_GYM_SPA      = 'G/S'; // Gym / Spa
+    public const PROPERTY_TYPE_SPORTS_CLUB  = 'SC'; // Sports Club
+    // rental
+    public const PROPERTY_TYPE_HOSTEL       = 'HSTL'; // Hostel
+    public const PROPERTY_TYPE_RESIDENTIAL  = 'RSDTL'; // Residential ( Apartment or Maisonette / Bungalow )
+    public const PROPERTY_TYPE_COMMERCIAL   = 'COM';
+    public const PROPERTY_TYPE_SERVICED_APARTMENT = 'SA';
+    // accommodation, rentals, membership, hires
+    public const PROPERTY_TYPE_MIXED_USE    = 'MUMP'; // Mixed-use / Multi-property
+    
 	protected static $_properties = array(
 		'id',
 		'code',
@@ -91,21 +107,21 @@ class Model_Property extends Model
     public static function listOptionsPropertyType()
     {
         return array(
-            // accommodation
-            'H' => 'Hotel / City Hotel',
-            'BnB' => 'BnB / Inn / Lodge',
-            'GH' => 'Guest House',
-            'RSRT' => 'Resort',
-            // membership
-            'G/S' => 'Gym / Spa',
-            'SC' => 'Sports Club',
-            // rental
-            'HSTL' => 'Hostel',
-            'R' => 'Residential',
-            'SA' => 'Serviced Apartments',
-            'C' => 'Commercial',
-            // accommodation, rentals, membership, hires
-            'MU-MP' => 'Mixed-use / Multi-property',
+            // ACCOMODATION
+            self::PROPERTY_TYPE_HOTEL                   => 'Hotel / City Hotel',
+            self::PROPERTY_TYPE_BNB                     => 'BnB / Inn / Lodge',
+            self::PROPERTY_TYPE_GUEST_HOUSE             => 'Guest House',
+            self::PROPERTY_TYPE_RESORT                  => 'Resort',
+            // MEMBERSHIP
+            self::PROPERTY_TYPE_GYM_SPA                 => 'Gym / Spa',
+            self::PROPERTY_TYPE_SPORTS_CLUB             => 'Sports Club',
+            // RENTAL
+            self::PROPERTY_TYPE_HOSTEL                  => 'Hostel',
+            self::PROPERTY_TYPE_RESIDENTIAL             => 'Residential',
+            self::PROPERTY_TYPE_COMMERCIAL              => 'Commercial',
+            self::PROPERTY_TYPE_SERVICED_APARTMENTS     => 'Serviced Apartments',
+            // ACCOMMODATION, RENTAL, MEMBERSHIP, HIRE
+            self::PROPERTY_TYPE_MIXED_USE               => 'Mixed-use / Multi-property',
         );
     }
 

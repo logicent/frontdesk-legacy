@@ -1,5 +1,5 @@
 <?php
-class Controller_Accounts_Receivable extends Controller_Template
+class Controller_Accounts_Receivable extends Controller_Authenticate
 {
 
 	public function action_index()

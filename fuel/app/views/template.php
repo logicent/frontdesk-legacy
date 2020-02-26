@@ -132,10 +132,8 @@
                                     <li><a href="<?= Uri::create('accounts/sales-invoice'); ?>"><i class=""></i>&emsp;Sales Invoice</a></li>
                                     <li><a href="<?= Uri::create('accounts/sales-receipt'); ?>">&emsp;Sales Receipt</a></li>
                                     <li><a href="<?= Uri::create('accounts/expenses'); ?>">&emsp;Expenses</a></li>
-                                    <li class="divider"></li>
                                     <li><a href="<?= Uri::create('accounts/bank-deposit'); ?>">&emsp;Bank Deposit</a></li>
                                     <li><a href="<?= Uri::create('accounts/bank-account'); ?>">&emsp;Bank Account</a></li>
-                                    <li class="divider"></li>
                                     <li><a href="<?= Uri::create('accounts/taxes'); ?>">&emsp;Taxes &amp; Charges</a></li>
                                     <li><a href="<?= Uri::create('accounts/payment-method'); ?>">&emsp;Payment Method</a></li>
                                 </ul>
@@ -143,21 +141,18 @@
                             <li>
                                 <a href="#"><i class="fa fa-lg fa-building fa-fw text-danger"></i>&emsp;Facilities<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
-                                    <li><a href="<?= Uri::create('facilities/units'); ?>"><i class=""></i>&emsp;Units</a></li>
-                                <?php 
-                                    if($ugroup->id == 6 || $ugroup->id == 5) : ?>
+                                <?php /*
+                                    if($ugroup->id == 6 || $ugroup->id == 5) : */ ?>
+                                        <li><a href="<?= Uri::create('facilities/rates'); ?>"><i class=""></i>&emsp;Rates</a></li>
+                                        <li><a href="<?= Uri::create('facilities/rate-type'); ?>"><i class=""></i>&emsp;Rate Type</a></li>
+                                        <li><a href="<?= Uri::create('facilities/units'); ?>"><i class=""></i>&emsp;Units</a></li>
                                         <li><a href="<?= Uri::create('facilities/unit-type'); ?>"><i class=""></i>&emsp;Unit Type</a></li>
                                         <li><a href="<?= Uri::create('facilities/property'); ?>"><i class=""></i>&emsp;Property</a></li>
-                                <?php 
-                                    endif ?>
-                                    <li class="divider"></li>
-                                    <li><a href="<?= Uri::create('facilities/amenities'); ?>"><i class=""></i>&emsp;Amenities</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="<?= Uri::create('facilities/rates'); ?>"><i class=""></i>&emsp;Rates</a></li>
-                                    <li><a href="<?= Uri::create('facilities/rate-type'); ?>"><i class=""></i>&emsp;Rate Type</a></li>
-                                    <li class="divider"></li>
+                                        <li><a href="<?= Uri::create('facilities/property-type'); ?>"><i class=""></i>&emsp;Property Type</a></li>
+                                <?php // endif ?>
                                     <li><a href="<?= Uri::create('facilities/services'); ?>"><i class=""></i>&emsp;Services</a></li>                                
-                                    <!--<li><a href="<?php // Uri::create('facilities/service-types'); ?>"><i class=""></i>&emsp;Services Types</a></li>-->
+                                    <li><a href="<?= Uri::create('facilities/service-type'); ?>"><i class=""></i>&emsp;Services Type</a></li>
+                                    <li><a href="<?= Uri::create('facilities/amenities'); ?>"><i class=""></i>&emsp;Amenities</a></li>
                                 </ul>
                             </li>
                             <li>

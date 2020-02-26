@@ -3,11 +3,26 @@ use Orm\Model;
 
 class Model_Service_Type extends Model
 {
+    // System-defined (must NOT be deleted) but can be disabled
+    // 
+    // Facility use by individual/organization for personal/commercial purpose
+    public const SERVICE_TYPE_ACCOMMODATION = 'ACO'; // 001
+    public const SERVICE_TYPE_RENTAL = 'RTL'; // 002
+    public const SERVICE_TYPE_HIRE = 'HRG'; // 003
+    // Housekeeping
+    public const SERVICE_TYPE_CLEANING = 'CLN'; // 004
+    public const SERVICE_TYPE_COOKING = 'CKG'; // 004
+    public const SERVICE_TYPE_LAUNDRY = 'LDRY'; // 005
+    public const SERVICE_TYPE_DRY_CLEANING = 'DRYC'; // 006
+    // Food and Beverages (Meals)
+    public const SERVICE_TYPE_DINING = 'DIN'; // 007
+
 	protected static $_properties = array(
 		'id',
 		'name',
 		'code',
-		'enabled',
+        'enabled',
+        'fdesk_user',
 		'created_at',
 		'updated_at',
 	);
@@ -33,4 +48,25 @@ class Model_Service_Type extends Model
 		return $val;
 	}
 
+    public static function checkIfServiceIsSystemDefined($service)
+    {
+        if (in_array($service, self::getSystemDefinedServices()))
+            return true;
+        // else
+        return false;
+    }
+
+    public static function getSystemDefinedServices()
+    {
+        return [
+            self::SERVICE_TYPE_ACCOMMODATION,
+            self::SERVICE_TYPE_RENTAL,
+            self::SERVICE_TYPE_HIRE,
+            self::SERVICE_TYPE_CLEANING,
+            self::SERVICE_TYPE_COOKING,
+            self::SERVICE_TYPE_LAUNDRY,
+            self::SERVICE_TYPE_DRY_CLEANING,
+            self::SERVICE_TYPE_DINING,
+        ];
+    }
 }

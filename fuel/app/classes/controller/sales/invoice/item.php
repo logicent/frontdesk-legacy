@@ -1,6 +1,6 @@
 <?php
 
-class Controller_Sales_Invoice_Item extends Controller_Template
+class Controller_Sales_Invoice_Item extends Controller_Authenticate
 {
 	public function action_index()
 	{
