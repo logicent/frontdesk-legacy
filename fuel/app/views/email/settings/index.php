@@ -11,7 +11,7 @@
 <hr>
 
 <?php if ($email_settings): ?>
-<table class="table">
+<table class="table table-hover datatable">
 	<thead>
 		<tr>
 			<th>Smtp host</th>

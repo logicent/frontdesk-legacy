@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-6">
-		<h2>Listing <span class='text-muted'>Payment Methods</span></h2>
+		<h2>Listing <span class='text-muted'>Payment Method</span></h2>
 	</div>
 	<div class="col-md-6">
 		<br>

@@ -99,12 +99,12 @@
 		<div class="form-group">
 			<div class="col-md-6">
 				<?= Form::label('Rate type', 'rate_type', array('class'=>'control-label')); ?>
-				<?= Form::select('rate_type', Input::post('rate_type', isset($booking) ? $booking->rate_type : ''), Model_Rate::listOptions(isset($room) ? $room->room_type : $booking->room->rm_type->id), array('class' => 'col-md-4 form-control', 'id' => 'rate_type', 'readonly' => true)); ?>
+				<?= Form::select('rate_type', Input::post('rate_type', isset($booking) ? $booking->rate_type : ''), Model_Rate::listOptions(isset($unit) ? $unit->unit_type : $booking->unit->rm_type->id), array('class' => 'col-md-4 form-control', 'id' => 'rate_type', 'readonly' => true)); ?>
 			</div>
 
 			<!-- <div class="col-md-4">
 				<label class='control-label'>&nbsp;</label><br>
-				<a href="<?= Uri::create('#room/transfer'); ?>" class="btn btn-default btn-xs btn-default disabled">
+				<a href="<?= Uri::create('#unit/transfer'); ?>" class="btn btn-default btn-xs btn-default disabled">
 					<i class="glyphicon glyphicon-link"></i> Change ...
 				</a>
 			</div> -->
@@ -118,8 +118,8 @@
 
 		<div class="form-group">
 			<div class="col-md-3">
-				<?= Form::label('Room no.', 'room_id', array('class'=>'control-label')); ?>
-				<?= Form::select('room_id', Input::post('room_id', isset($booking) ? $booking->room_id : ''), Model_Room::listOptions(isset($booking) ? $booking->room_id : $room->id), array('class' => 'col-md-4 form-control', 'id' => 'room_id')); ?>
+				<?= Form::label('Unit no.', 'unit_id', array('class'=>'control-label')); ?>
+				<?= Form::select('unit_id', Input::post('unit_id', isset($booking) ? $booking->unit_id : ''), Model_Unit::listOptions(isset($booking) ? $booking->unit_id : $unit->id), array('class' => 'col-md-4 form-control', 'id' => 'unit_id')); ?>
 			</div>
 
 			<div class="col-md-3">

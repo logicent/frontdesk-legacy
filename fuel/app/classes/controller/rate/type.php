@@ -5,7 +5,7 @@ class Controller_Rate_Type extends Controller_Authenticate
 	public function action_index()
 	{
 		$data['rate_type'] = Model_Rate_Type::find('all');
-		$this->template->title = "Rate Types";
+		$this->template->title = "Rate Type";
 		$this->template->content = View::forge('rate/type/index', $data);
 
 	}
@@ -17,10 +17,10 @@ class Controller_Rate_Type extends Controller_Authenticate
 		if ( ! $data['rate_type'] = Model_Rate_Type::find($id))
 		{
 			Session::set_flash('error', 'Could not find rate #'.$id);
-			Response::redirect('facilities/rate-types');
+			Response::redirect('facilities/rate-type');
 		}
 
-		$this->template->title = "Rate Types";
+		$this->template->title = "Rate Type";
 		$this->template->content = View::forge('rate/type/view', $data);
 
 	}
@@ -42,7 +42,7 @@ class Controller_Rate_Type extends Controller_Authenticate
 				{
 					Session::set_flash('success', 'Added rate type #'.$rate_type->name.'.');
 
-					Response::redirect('facilities/rate-types');
+					Response::redirect('facilities/rate-type');
 				}
 
 				else
@@ -56,19 +56,19 @@ class Controller_Rate_Type extends Controller_Authenticate
 			}
 		}
 
-		$this->template->title = "Rate Types";
+		$this->template->title = "Rate Type";
 		$this->template->content = View::forge('rate/type/create');
 
 	}
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('facilities/rate-types');
+		is_null($id) and Response::redirect('facilities/rate-type');
 
 		if ( ! $rate_type = Model_Rate_Type::find($id))
 		{
 			Session::set_flash('error', 'Could not find rate #'.$id);
-			Response::redirect('facilities/rate-types');
+			Response::redirect('facilities/rate-type');
 		}
 
 		$val = Model_Rate_Type::validate('edit');
@@ -82,7 +82,7 @@ class Controller_Rate_Type extends Controller_Authenticate
 			{
 				Session::set_flash('success', 'Updated rate type #' . $id);
 
-				Response::redirect('facilities/rate-types');
+				Response::redirect('facilities/rate-type');
 			}
 
 			else
@@ -104,7 +104,7 @@ class Controller_Rate_Type extends Controller_Authenticate
 			$this->template->set_global('rate_type', $rate_type, false);
 		}
 
-		$this->template->title = "Rate Types";
+		$this->template->title = "Rate Type";
 		$this->template->content = View::forge('rate/type/edit');
 
 	}
@@ -129,7 +129,7 @@ class Controller_Rate_Type extends Controller_Authenticate
 			Session::set_flash('error', 'Could not delete rate type #'.$id);
 		}
 
-		Response::redirect('facilities/rate-types');
+		Response::redirect('facilities/rate-type');
 
 	}
 

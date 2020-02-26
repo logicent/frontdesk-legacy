@@ -1,44 +1,53 @@
-<h2>Listing <span class='muted'>Gift_vouchers</span></h2>
-<br>
+<div class="row">
+	<div class="col-md-6">
+		<h2>Listing <span class='text-muted'>Vouchers</span></h2>
+	</div>
+
+	<div class="col-md-6">
+		<br>
+		<div class="pull-right btn-toolbar">
+			<div class="btn-group">
+				<?= Html::anchor('gift/voucher/create', 'New', array('class' => 'btn btn-primary')); ?>
+			</div>
+		</div>
+	</div>
+</div>
+<hr>
+
 <?php if ($gift_vouchers): ?>
-<table class="table table-striped">
+<table class="table table-hover datatable">
 	<thead>
 		<tr>
-			<th>Code</th>
 			<th>Name</th>
+			<th>Status</th>
 			<th>Type</th>
-			<th>Valid from</th>
-			<th>Valid to</th>
 			<th>Value</th>
-			<th>Is redeemed</th>
+			<th>Code</th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>
 	<tbody>
-<?php foreach ($gift_vouchers as $item): ?>		<tr>
-
-			<td><?php echo $item->code; ?></td>
-			<td><?php echo $item->name; ?></td>
-			<td><?php echo $item->type; ?></td>
-			<td><?php echo $item->valid_from; ?></td>
-			<td><?php echo $item->valid_to; ?></td>
-			<td><?php echo $item->value; ?></td>
-			<td><?php echo $item->is_redeemed; ?></td>
+<?php foreach ($gift_vouchers as $item): ?>		
+        <tr>
+            <td><?= Html::anchor('gift/voucher/edit/'.$item->id, $item->name, ['class' => 'clickable']) ?></td>
+			<td><?= $item->is_redeemed; ?></td>
+			<td><?= $item->type; ?></td>
+			<td><?= $item->value; ?></td>
+			<td><?= $item->code; ?></td>
 			<td>
 				<div class="btn-toolbar">
 					<div class="btn-group">
-						<?php echo Html::anchor('gift/voucher/view/'.$item->id, '<i class="icon-eye-open"></i> View', array('class' => 'btn btn-default btn-sm')); ?>						<?php echo Html::anchor('gift/voucher/edit/'.$item->id, '<i class="icon-wrench"></i> Edit', array('class' => 'btn btn-default btn-sm')); ?>						<?php echo Html::anchor('gift/voucher/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Delete', array('class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('Are you sure?')")); ?>					</div>
+                        <?= Html::anchor('gift/voucher/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>', 
+                                        array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")) ?>
+                    </div>
 				</div>
-
-			</td>
+			</td>            
 		</tr>
-<?php endforeach; ?>	</tbody>
+<?php endforeach; ?>	
+    </tbody>
 </table>
 
 <?php else: ?>
-<p>No Gift_vouchers.</p>
+<p>No Gift Vouchers found.</p>
 
-<?php endif; ?><p>
-	<?php echo Html::anchor('gift/voucher/create', 'Add new Gift voucher', array('class' => 'btn btn-success')); ?>
-
-</p>
+<?php endif; ?>

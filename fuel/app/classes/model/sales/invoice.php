@@ -33,7 +33,10 @@ class Model_Sales_Invoice extends Model_Soft
 		'issue_date',
 		'due_date',
 		'status',
-		'booking_id',
+		'source',
+		'source_id',
+		'customer_name',
+		'unit_name',
 		'amount_due',
 		'disc_total',
 		'tax_total',
@@ -75,7 +78,9 @@ class Model_Sales_Invoice extends Model_Soft
 		$val->add_field('issue_date', 'Issue Date', 'required|valid_date');
 		$val->add_field('due_date', 'Due Date', 'valid_date');
 		$val->add_field('status', 'Status', 'required|valid_string[alpha]');
-		$val->add_field('booking_id', 'Guest ID', 'required|valid_string[numeric]');
+		// $val->add_field('source', 'Source Doc', 'required');
+		// $val->add_field('source_id', 'Source ID', 'required');
+		$val->add_field('customer_name', 'Customer Name', 'required|max_length[140]');
 		$val->add_field('amount_due', 'Amount Due', 'valid_string[]');
 		$val->add_field('amount_paid', 'Amount Paid', 'valid_string[]');
 		$val->add_field('balance_due', 'Balance Due', 'required|valid_string[]');
@@ -93,13 +98,20 @@ class Model_Sales_Invoice extends Model_Soft
 	protected static $_table_name = 'sales_invoice';
 
 	protected static $_belongs_to = array(
-		'guest' => array(
-			'key_from' => 'booking_id',
+		'booking' => array(
+			'key_from' => 'source_id',
 			'model_to' => 'Model_Facility_Booking',
 			'key_to' => 'id',
 			'cascade_save' => false,
 			'cascade_delete' => false,
-		),
+        ),
+		'lease' => array(
+			'key_from' => 'source_id',
+			'model_to' => 'Model_Lease',
+			'key_to' => 'id',
+			'cascade_save' => false,
+			'cascade_delete' => false,
+		),        
 	);
 
 	protected static $_has_many = array(

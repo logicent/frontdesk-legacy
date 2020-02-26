@@ -14,6 +14,7 @@
 	<thead>
 		<tr>
             <th>Description</th>
+            <th>Status</th>
             <th>Tax rate</th>
 			<th>&nbsp;</th>
 		</tr>
@@ -22,6 +23,7 @@
 <?php foreach ($taxes as $item): ?>		
         <tr>
             <td><?= Html::anchor('accounts/tax/edit/'.$item->id, $item->name, ['class' => 'clickable']); ?></td>
+            <td><?= (bool) $item->enabled ? 'Enabled' : 'Disabled' ?></td>
             <td><?= $item->rate . '%' ?></td>
 			<td>
 				<div class="btn-toolbar">

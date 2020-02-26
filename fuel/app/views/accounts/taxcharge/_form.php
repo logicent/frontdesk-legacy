@@ -29,9 +29,9 @@
 
 <div class="form-group">
     <div class="col-md-6">
-        <?= Form::checkbox('enabled', Input::post('enabled', isset($tax_charge) ? $tax_charge->enabled : '0'), 
-                            array('class' => 'cb-checked')); ?>
-        <?= Form::label('Apply tax', 'enabled', array('class'=>'control-label')); ?>
+        <?= Form::hidden('enabled', Input::post('enabled', isset($lease) ? $lease->enabled : '0')); ?>
+        <?= Form::checkbox('cb_enabled', null, array('class' => 'cb-checked', 'data-input' => 'enabled')); ?>
+        <?= Form::label('Enabled', 'cb_enabled', array('class'=>'control-label')); ?>
     </div>
 </div>
 
@@ -48,16 +48,5 @@
 <?php echo Form::close(); ?>
 
 <script>
-	$('.cb-checked').click(function() 
-    {
-        cbName = '#form_' + $(this).attr('name');
 
-	    if ($(this).is(':checked')) // true
-	        $(cbName).val(1);
-	    else $(cbName).val(0);
-    });
-
-    if ($('.cb-checked').val() == '1') {
-        $(cbName).attr('checked', true);
-	}
 </script>

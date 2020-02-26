@@ -7,9 +7,9 @@ class Model_Summary extends Model
 		'id',
 		'reference',
 		'date',
-		'rooms_sold',
-		'rooms_blocked',
-		'complimentary_rooms',
+		'units_sold',
+		'units_blocked',
+		'complimentary_units',
 		'no_of_guests',
 		'opening_bal',
 		'rent_total',
@@ -39,9 +39,9 @@ class Model_Summary extends Model
 		$val = Validation::forge($factory);
 		$val->add_field('reference', 'Reference', 'required|max_length[10]');
 		$val->add_field('date', 'Date', 'required');
-		$val->add_field('rooms_sold', 'Rooms Sold', 'required|valid_string[numeric]');
-		$val->add_field('rooms_blocked', 'Rooms Blocked', 'required|valid_string[numeric]');
-		$val->add_field('complimentary_rooms', 'Complimentary Rooms', 'required|valid_string[numeric]');
+		$val->add_field('units_sold', 'Units Sold', 'required|valid_string[numeric]');
+		$val->add_field('units_blocked', 'Units Blocked', 'required|valid_string[numeric]');
+		$val->add_field('complimentary_units', 'Complimentary Units', 'required|valid_string[numeric]');
 		$val->add_field('no_of_guests', 'No Of Guests', 'required|max_length[10]');
 		$val->add_field('opening_bal', 'Opening Bal', 'required');
 		$val->add_field('rent_total', 'Rent Total', 'required');

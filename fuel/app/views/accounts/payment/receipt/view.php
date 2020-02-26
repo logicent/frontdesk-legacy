@@ -44,7 +44,7 @@
 	<div class="form-group">
 		<div class="col-md-4">
 			<?= Form::label('Description', 'description', array('class'=>'control-label')); ?>
-			<?= Form::input('description', Input::post('description', isset($payment_receipt) ? $payment_receipt->description : 'Accommodation for Room no.'.$bill->guest->room->name), array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
+			<?= Form::input('description', Input::post('description', isset($payment_receipt) ? $payment_receipt->description : 'Accommodation for Unit no.'.$bill->guest->unit->name), array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
 		</div>
 	</div>
 

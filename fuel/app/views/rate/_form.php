@@ -1,10 +1,10 @@
-<?= Form::open(array("class"=>"form-horizontal")); ?>
+<?= Form::open(array("class"=>"form-horizontal", "autocomplete" => "off")); ?>
 
 	<div class="form-group">
 		<div class="col-md-3">
-			<?= Form::label('Room type', 'room_type', array('class'=>'control-label')); ?>
+			<?= Form::label('Unit type', 'unit_type', array('class'=>'control-label')); ?>
 			<?= Form::select('type_id', Input::post('type_id', isset($rate) ? $rate->type_id : ''),
-									Model_Room_Type::listOptions(), array('class' => 'col-md-4 form-control')); ?>
+									Model_Unit_Type::listOptions(), array('class' => 'col-md-4 form-control')); ?>
 		</div>
 	</div>
 

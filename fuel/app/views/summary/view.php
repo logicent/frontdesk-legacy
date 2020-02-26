@@ -7,14 +7,14 @@
 	<strong>Date:</strong>
 	<?= $summary->date; ?></p>
 <p>
-	<strong>Rooms sold:</strong>
-	<?= $summary->rooms_sold; ?></p>
+	<strong>Units sold:</strong>
+	<?= $summary->units_sold; ?></p>
 <p>
-	<strong>Rooms blocked:</strong>
-	<?= $summary->rooms_blocked; ?></p>
+	<strong>Units blocked:</strong>
+	<?= $summary->units_blocked; ?></p>
 <p>
-	<strong>Complimentary rooms:</strong>
-	<?= $summary->complimentary_rooms; ?></p>
+	<strong>Complimentary units:</strong>
+	<?= $summary->complimentary_units; ?></p>
 <p>
 	<strong>No of guests:</strong>
 	<?= $summary->no_of_guests; ?></p>

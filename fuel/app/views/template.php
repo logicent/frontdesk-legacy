@@ -117,10 +117,11 @@
                                 <!-- Wait(ing) List -->
                                 <a href="#"><i class="fa fa-lg fa-book fa-fw text-default"></i>&emsp;Registers<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
-                                    <li><a href="<?= Uri::create('registers/reservations'); ?>"><i class=""></i>&emsp;Reservations</a></li>
-                                    <li><a href="<?= Uri::create('registers/bookings'); ?>"><i class=""></i>&emsp;Bookings</a></li>
-                                    <li><a href="<?= Uri::create('registers/customers'); ?>"><i class=""></i>&emsp;Customers</a></li>
-                                    <li><a href="<?= Uri::create('registers/partners'); ?>"><i class=""></i>&emsp;Partners</a></li>
+                                    <li><a href="<?= Uri::create('registers/reservation'); ?>"><i class=""></i>&emsp;Reservation</a></li>
+                                    <li><a href="<?= Uri::create('registers/booking'); ?>"><i class=""></i>&emsp;Booking</a></li>
+                                    <li><a href="<?= Uri::create('registers/lease'); ?>"><i class=""></i>&emsp;Lease</a></li>
+                                    <li><a href="<?= Uri::create('registers/customer'); ?>"><i class=""></i>&emsp;Customer</a></li>
+                                    <li><a href="<?= Uri::create('registers/partner'); ?>"><i class=""></i>&emsp;Partner</a></li>
                                 </ul>
                             </li>
                             <?php 
@@ -128,31 +129,32 @@
                             <li>
                                 <a href="#"><i class="fa fa-lg fa-money fa-fw text-success"></i>&emsp;Billing &amp; Payments<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
-                                    <li><a href="<?= Uri::create('accounts/sales-invoices'); ?>"><i class=""></i>&emsp;Sales Invoices</a></li>
-                                    <li><a href="<?= Uri::create('accounts/sales-receipts'); ?>">&emsp;Sales Receipts</a></li>
+                                    <li><a href="<?= Uri::create('accounts/sales-invoice'); ?>"><i class=""></i>&emsp;Sales Invoice</a></li>
+                                    <li><a href="<?= Uri::create('accounts/sales-receipt'); ?>">&emsp;Sales Receipt</a></li>
                                     <li><a href="<?= Uri::create('accounts/expenses'); ?>">&emsp;Expenses</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="<?= Uri::create('accounts/bank-deposits'); ?>">&emsp;Bank Deposits</a></li>
-                                    <li><a href="<?= Uri::create('accounts/bank-accounts'); ?>">&emsp;Bank Accounts</a></li>
+                                    <li><a href="<?= Uri::create('accounts/bank-deposit'); ?>">&emsp;Bank Deposit</a></li>
+                                    <li><a href="<?= Uri::create('accounts/bank-account'); ?>">&emsp;Bank Account</a></li>
                                     <li class="divider"></li>
                                     <li><a href="<?= Uri::create('accounts/taxes'); ?>">&emsp;Taxes &amp; Charges</a></li>
-                                    <li><a href="<?= Uri::create('accounts/payment-methods'); ?>">&emsp;Payment Methods</a></li>
+                                    <li><a href="<?= Uri::create('accounts/payment-method'); ?>">&emsp;Payment Method</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="#"><i class="fa fa-lg fa-building fa-fw text-danger"></i>&emsp;Facilities<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
-                                    <li><a href="<?= Uri::create('facilities/rooms'); ?>"><i class=""></i>&emsp;Rooms</a></li>
+                                    <li><a href="<?= Uri::create('facilities/units'); ?>"><i class=""></i>&emsp;Units</a></li>
                                 <?php 
                                     if($ugroup->id == 6 || $ugroup->id == 5) : ?>
-                                        <li><a href="<?= Uri::create('facilities/room-types'); ?>"><i class=""></i>&emsp;Room Types</a></li>
+                                        <li><a href="<?= Uri::create('facilities/unit-type'); ?>"><i class=""></i>&emsp;Unit Type</a></li>
+                                        <li><a href="<?= Uri::create('facilities/property'); ?>"><i class=""></i>&emsp;Property</a></li>
                                 <?php 
                                     endif ?>
                                     <li class="divider"></li>
                                     <li><a href="<?= Uri::create('facilities/amenities'); ?>"><i class=""></i>&emsp;Amenities</a></li>
                                     <li class="divider"></li>
                                     <li><a href="<?= Uri::create('facilities/rates'); ?>"><i class=""></i>&emsp;Rates</a></li>
-                                    <li><a href="<?= Uri::create('facilities/rate-types'); ?>"><i class=""></i>&emsp;Rate Types</a></li>
+                                    <li><a href="<?= Uri::create('facilities/rate-type'); ?>"><i class=""></i>&emsp;Rate Type</a></li>
                                     <li class="divider"></li>
                                     <li><a href="<?= Uri::create('facilities/services'); ?>"><i class=""></i>&emsp;Services</a></li>                                
                                     <!--<li><a href="<?php // Uri::create('facilities/service-types'); ?>"><i class=""></i>&emsp;Services Types</a></li>-->

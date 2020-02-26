@@ -152,7 +152,7 @@ tr.strikeout td:before {
     position: absolute;
     top: 46%;
     left: 0;
-    border-bottom: 1px solid #111;
+    border-bottom: 1px dashed #8D99A6;
     width: 100%;
 }
 
@@ -161,7 +161,7 @@ legend {
 }
 
 textarea.form-control {
-    min-height: 119px;
+    min-height: 76px; /* 119px; */
 }
 
 a {
@@ -339,4 +339,9 @@ label {
 
 .fa-sm {
     font-size: 12px;
+}
+
+.small {
+    color: #8D99A6 !important;
+    vertical-align: middle;
 }

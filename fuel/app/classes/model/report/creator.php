@@ -8,10 +8,10 @@ class Model_Report_Creator
 
         switch ($rpt_slug) {
             case 'check-in-out-and-stay-over':
-                $columns = array('reg_no'=>'Reg #', 'first_name'=>'First name', 'last_name'=>'Last name', 'phone' => 'Phone', 'id_numer'=>'ID No.', 'room.name'=>'Room no.', 'checkin'=>'Check in', 'checkout'=>'Check out', 'duration'=>'Nights');
-                $r_data = DB::select('reg_no', 'first_name', 'last_name', 'phone', 'id_number', 'room.name', DB::expr('DATE_FORMAT(checkin, "%d-%m-%Y %H:%i")'), DB::expr('DATE_FORMAT(checkout, "%d-%m-%Y %H:%i")'), 'duration')
+                $columns = array('reg_no'=>'Reg #', 'first_name'=>'First name', 'last_name'=>'Last name', 'phone' => 'Phone', 'id_numer'=>'ID No.', 'unit.name'=>'Unit no.', 'checkin'=>'Check in', 'checkout'=>'Check out', 'duration'=>'Nights');
+                $r_data = DB::select('reg_no', 'first_name', 'last_name', 'phone', 'id_number', 'unit.name', DB::expr('DATE_FORMAT(checkin, "%d-%m-%Y %H:%i")'), DB::expr('DATE_FORMAT(checkout, "%d-%m-%Y %H:%i")'), 'duration')
                                     ->from('fd_booking')
-                                    ->join('room')->on('room.id','=','fd_booking.room_id')
+                                    ->join('unit')->on('unit.id','=','fd_booking.unit_id')
                                     ->join('sales_invoice')->on('sales_invoice.booking_id','=','fd_booking.id')
                                     ->or_where('checkin', 'LIKE', '%' . $date . '%')
                                     ->or_where('checkout', 'LIKE', '%' . $date . '%')
@@ -39,7 +39,7 @@ class Model_Report_Creator
                                 'advance_paid'=>'Advance paid',
                                 'first_name'=>'Firstname(s)',
                                 'last_name'=>'Surname',
-                                'room.name'=>'Room no.',
+                                'unit.name'=>'Unit no.',
                                 'checkin'=>'Check in',
                                 'checkout'=>'Check out',
                                 'status'=>'Status');
@@ -49,16 +49,16 @@ class Model_Report_Creator
                             'cash_receipt.reference',
                             DB::expr('FORMAT(cash_receipt.amount, 0) as amount_paid'),
                             DB::expr('FORMAT(sales_invoice.advance_paid, 0) as advance_paid'),
-                            'first_name', 'last_name', 'room.name',
+                            'first_name', 'last_name', 'unit.name',
                             DB::expr('DATE_FORMAT(checkin, "%d-%m-%Y %H:%i") as checkin_date'),
                             DB::expr('DATE_FORMAT(checkout, "%d-%m-%Y %H:%i") as checkout_date'),
                             'fd_booking.status')
                                     ->from('fd_booking')
                                     ->join('sales_invoice')->on('sales_invoice.booking_id','=','fd_booking.id')
                                     ->join('cash_receipt')->on('cash_receipt.bill_id','=','sales_invoice.id')
-                                    ->join('room')->on('room.id','=','fd_booking.room_id')
-                                    ->join('room_type')->on('room_type.id','=','room.room_type')
-                                    ->join('rate')->on('rate.type_id','=','room_type.id')
+                                    ->join('unit')->on('unit.id','=','fd_booking.unit_id')
+                                    ->join('unit_type')->on('unit_type.id','=','unit.unit_type')
+                                    ->join('rate')->on('rate.type_id','=','unit_type.id')
                                     ->where('cash_receipt.date', '=', $date)
                                     ->order_by('cash_receipt.reference')
                                     ->execute()->as_array();
@@ -72,13 +72,13 @@ class Model_Report_Creator
 
                 case 'daily-outstanding':
                     $columns = array('invoice_num' => 'Folio no.',
-                                    'room_amount' => 'Rate', 'bill_amount' => 'Amount due', 'balance_amt' => 'Balance',
+                                    'unit_amount' => 'Rate', 'bill_amount' => 'Amount due', 'balance_amt' => 'Balance',
                                     'first_name' => 'Firstname(s)', 'last_name' => 'Surname',
-                                    'room.name' => 'Room no.', 'checkin' => 'Check in', 'checkout' => 'Check out',
+                                    'unit.name' => 'Unit no.', 'checkin' => 'Check in', 'checkout' => 'Check out',
                                     );
 
                     $r_data = DB::select('invoice_num',
-                                    DB::expr('FORMAT(rate.charges, 0) as room_rate'),
+                                    DB::expr('FORMAT(rate.charges, 0) as unit_rate'),
                                     // Calculate an amount due of period stayed
                                     DB::expr("FORMAT(amount_due, 0)"),
                                     // Calculate an incremental balance
@@ -103,15 +103,15 @@ class Model_Report_Creator
                                                         WHERE  bill_id = sales_invoice.id
                                                         AND    date BETWEEN issue_date AND '$date')
                                                 ), 0) as balance_amt"),
-                                    'first_name', 'last_name', 'room.name',
+                                    'first_name', 'last_name', 'unit.name',
                                     DB::expr('DATE_FORMAT(checkin, "%d-%m-%Y %H:%i")'),
                                     DB::expr('DATE_FORMAT(checkout, "%d-%m-%Y %H:%i")')
                                     )
                                     ->from('fd_booking')
                                     ->join('sales_invoice')->on('sales_invoice.booking_id','=','fd_booking.id')
-                                    ->join('room')->on('room.id','=','fd_booking.room_id')
-                                    ->join('room_type')->on('room_type.id','=','room.room_type')
-                                    ->join('rate')->on('rate.type_id','=','room_type.id')
+                                    ->join('unit')->on('unit.id','=','fd_booking.unit_id')
+                                    ->join('unit_type')->on('unit_type.id','=','unit.unit_type')
+                                    ->join('rate')->on('rate.type_id','=','unit_type.id')
                                     ->where('sales_invoice.balance_due', '>', 0)
                                     ->where('sales_invoice.status', '=', 'O')
                                     ->where('sales_invoice.issue_date', '<=', $date)
@@ -142,9 +142,9 @@ class Model_Report_Creator
                                         )), 0) as total_amount"))
                                         ->from('fd_booking')
                                         ->join('sales_invoice')->on('sales_invoice.booking_id','=','fd_booking.id')
-                                        ->join('room')->on('room.id','=','fd_booking.room_id')
-                                        ->join('room_type')->on('room_type.id','=','room.room_type')
-                                        ->join('rate')->on('rate.type_id','=','room_type.id')
+                                        ->join('unit')->on('unit.id','=','fd_booking.unit_id')
+                                        ->join('unit_type')->on('unit_type.id','=','unit.unit_type')
+                                        ->join('rate')->on('rate.type_id','=','unit_type.id')
                                         ->where('sales_invoice.balance_due', '>', 0)
                                         ->where('sales_invoice.status', '=', 'O')
                                         ->where('sales_invoice.issue_date', '<=', $date)
@@ -167,11 +167,11 @@ class Model_Report_Creator
                                         ->execute()->as_array();
                     break;
 
-                case 'room-availability':
-                    $columns = array('name'=>'Room No.', 'status'=>'Status');
-                    $r_data = DB::query("SELECT name, room.status
-                                        FROM room
-                                        LEFT OUTER JOIN fd_booking ON fd_booking.room_id = room.id
+                case 'unit-availability':
+                    $columns = array('name'=>'Unit No.', 'status'=>'Status');
+                    $r_data = DB::query("SELECT name, unit.status
+                                        FROM unit
+                                        LEFT OUTER JOIN fd_booking ON fd_booking.unit_id = unit.id
                                         ORDER BY name", DB::SELECT)->execute()->as_array();
                     break;
             default:
@@ -195,7 +195,7 @@ class Model_Report_Creator
             $end_date = $date . '-31';
         }
 
-        $report['data_rows']['room_rent'] = DB::query(
+        $report['data_rows']['unit_rent'] = DB::query(
                 "SELECT sum(total_payment) as total_rent
                     FROM fd_booking
                     WHERE checkin LIKE '%{$date}%'
@@ -211,7 +211,7 @@ class Model_Report_Creator
                         AND DATE_FORMAT(due_date, '%Y-%m-%d') <= {$end_date})
                         AND isNull(deleted_at)", DB::SELECT)->execute()->as_array();
 
-        $report['data_rows']['sold_rooms'] = DB::query(
+        $report['data_rows']['sold_units'] = DB::query(
                 "SELECT count(id) as sold_rm_count
                     FROM fd_booking
                     WHERE checkin LIKE '%{$date}%'
@@ -227,17 +227,17 @@ class Model_Report_Creator
                         AND DATE_FORMAT(checkout, '%Y-%m-%d') >= {$end_date})
                         AND isNull(deleted_at)", DB::SELECT)->execute()->as_array();
 
-        $report['data_rows']['available_rooms'] = DB::query(
+        $report['data_rows']['available_units'] = DB::query(
                 "SELECT count(id) as vacant_rm_count
-                    FROM room
+                    FROM unit
                     WHERE status = 'VAC'", DB::SELECT)->execute()->as_array();
 
-        // $vacant_rooms = DB::query("SELECT * FROM room WHERE status = 'VAC'", DB::SELECT)->execute()->as_array();
-        // $report['data_rows']['available_rooms_revenue'] = 0;
-        // foreach ($vacant_rooms as $vac_rm)
+        // $vacant_units = DB::query("SELECT * FROM unit WHERE status = 'VAC'", DB::SELECT)->execute()->as_array();
+        // $report['data_rows']['available_units_revenue'] = 0;
+        // foreach ($vacant_units as $vac_rm)
         // {
-        //     $rm_rate = DB::query("SELECT SUM(charges) as rm_rates FROM rate JOIN room_type ON room_type.id={$vac_rm['room_type']} LIMIT 1", DB::SELECT)->execute()->as_array();
-        //     $report['data_rows']['available_rooms_revenue'] += $rm_rate[0]['rm_rates'];
+        //     $rm_rate = DB::query("SELECT SUM(charges) as rm_rates FROM rate JOIN unit_type ON unit_type.id={$vac_rm['unit_type']} LIMIT 1", DB::SELECT)->execute()->as_array();
+        //     $report['data_rows']['available_units_revenue'] += $rm_rate[0]['rm_rates'];
         // }
 
         $report['data_rows']['guests'] = DB::query(
@@ -300,23 +300,23 @@ class Model_Report_Creator
 
                 case 'monthly-outstanding':
                     $columns = array('invoice_num'=>'Folio no.',
-                                    'room_amount'=>'Rate', 'bill_amount'=>'Amount due', 'balance_due'=>'Balance',
+                                    'unit_amount'=>'Rate', 'bill_amount'=>'Amount due', 'balance_due'=>'Balance',
                                     'first_name'=>'Firstname(s)', 'last_name'=>'Surname',
-                                    'room.name'=>'Room no.', 'checkin'=>'Check in', 'checkout'=>'Check out');
+                                    'unit.name'=>'Unit no.', 'checkin'=>'Check in', 'checkout'=>'Check out');
 
                     $r_data = DB::select('invoice_num',
                                         DB::expr('FORMAT(rate.charges, 0)'),
                                         DB::expr('FORMAT(sales_invoice.amount_due, 0)'),
                                         DB::expr('FORMAT(balance_due, 0)'),
-                                        'first_name', 'last_name', 'room.name',
+                                        'first_name', 'last_name', 'unit.name',
                                         DB::expr('DATE_FORMAT(checkin, "%d-%m-%Y %H:%i")'),
                                         DB::expr('DATE_FORMAT(checkout, "%d-%m-%Y %H:%i")')
                                         )
                                         ->from('fd_booking')
                                         ->join('sales_invoice')->on('sales_invoice.booking_id','=','fd_booking.id')
-                                        ->join('room')->on('room.id','=','fd_booking.room_id')
-                                        ->join('room_type')->on('room_type.id','=','room.room_type')
-                                        ->join('rate')->on('rate.type_id','=','room_type.id')
+                                        ->join('unit')->on('unit.id','=','fd_booking.unit_id')
+                                        ->join('unit_type')->on('unit_type.id','=','unit.unit_type')
+                                        ->join('rate')->on('rate.type_id','=','unit_type.id')
                                         ->where('sales_invoice.balance_due', '>', 0)
                                         ->where('sales_invoice.status', '=', 'O')
                                         ->where(DB::expr('UNIX_TIMESTAMP(DATE_FORMAT(checkout, "%Y-%m-%d"))'), '>', strtotime($date . '-01')) // Stay Over
@@ -351,11 +351,11 @@ class Model_Report_Creator
                                         ->execute()->as_array();
                     break;
 
-                case 'room-revenue':
-                    $columns = array('name' => 'Room No.', 'amount' => 'Amount Paid');
+                case 'unit-revenue':
+                    $columns = array('name' => 'Unit No.', 'amount' => 'Amount Paid');
                     $r_data = DB::select('name', DB::expr('FORMAT(SUM(amount), 0) as total_amount'))
-                                        ->from('room')
-                                        ->join('fd_booking')->on('fd_booking.room_id','=','room.id')
+                                        ->from('unit')
+                                        ->join('fd_booking')->on('fd_booking.unit_id','=','unit.id')
                                         ->join('sales_invoice')->on('sales_invoice.booking_id','=','fd_booking.id')
                                         ->join('cash_receipt')->on('cash_receipt.bill_id','=','sales_invoice.id')
                                         ->where('cash_receipt.date', 'LIKE', '%' . $date . '%') // 2016-09
@@ -364,12 +364,12 @@ class Model_Report_Creator
                                         ->execute()->as_array();
                 break;
 
-                case 'room-history':
-                    $columns = array('room.name' => 'Room no.','first_name' => 'Firstname(s)', 'last_name' => 'Surname', 'checkin' => 'Check in', 'checkout' => 'Check out', 'duration'=> 'Nights');
-                    $r_data = DB::select('room.name', 'first_name', 'last_name', DB::expr('DATE_FORMAT(checkin, "%d-%m-%Y %H:%i")'), DB::expr('DATE_FORMAT(checkout, "%d-%m-%Y %H:%i")'), 'duration')
+                case 'unit-history':
+                    $columns = array('unit.name' => 'Unit no.','first_name' => 'Firstname(s)', 'last_name' => 'Surname', 'checkin' => 'Check in', 'checkout' => 'Check out', 'duration'=> 'Nights');
+                    $r_data = DB::select('unit.name', 'first_name', 'last_name', DB::expr('DATE_FORMAT(checkin, "%d-%m-%Y %H:%i")'), DB::expr('DATE_FORMAT(checkout, "%d-%m-%Y %H:%i")'), 'duration')
                                         ->from('fd_booking')
-                                        ->join('room')->on('room.id','=','fd_booking.room_id')
-                                        ->order_by('room.name')
+                                        ->join('unit')->on('unit.id','=','fd_booking.unit_id')
+                                        ->order_by('unit.name')
                                         ->order_by('checkin')
                                         ->execute()->as_array();
                 break;

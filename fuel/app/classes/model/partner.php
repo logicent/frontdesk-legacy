@@ -63,8 +63,8 @@ class Model_Partner extends Model
     public static function listOptionsPartnerType()
 	{
 		return array(
-            'Company' => 'Company',
-            'BS' => 'Business Source',
+            'Co' => 'Company', // Sub-contractors, Service providers, Property agency
+            'BS' => 'Business Source', // Car agents, Tours & Travel agents
             'OTA' => 'Online TA',
         );
 	}

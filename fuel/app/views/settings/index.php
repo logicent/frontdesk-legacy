@@ -49,18 +49,8 @@
                 <a class="btn btn-lg btn-link" href="<?= Uri::create('settings/email-settings'); ?>">Email settings</a>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <a class="btn btn-lg btn-link" href="<?= Uri::create('settings/languages'); ?>">Languages &amp; texts</a>
-            </div>
-        </div>
-    </div>
-
+   </div>
+   
     <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-body">
@@ -69,12 +59,12 @@
         </div>
     </div>
 </div>
-
+<!--
 <div class="row">
     <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-body">
-                <a class="btn btn-lg btn-link" href="<?= Uri::create('settings/permissions'); ?>">Permissions</a>
+                <a class="btn btn-lg btn-link" href="<?php // Uri::create('settings/permissions'); ?>">Permissions</a>
             </div>
         </div>
     </div>
@@ -82,13 +72,19 @@
     <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-body">
-                <a class="btn btn-lg btn-link" href="<?= Uri::create('settings/roles'); ?>">Roles</a>
+                <a class="btn btn-lg btn-link" href="<?php // Uri::create('settings/roles'); ?>">Roles</a>
             </div>
         </div>
     </div>    
-</div>
 
-<!--
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <a class="btn btn-lg btn-link" href="<?php // Uri::create('settings/languages'); ?>">Languages &amp; texts</a>
+            </div>
+        </div>
+    </div>
+
     <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-body">

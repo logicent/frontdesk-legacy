@@ -3,6 +3,13 @@ use Orm\Model;
 
 class Model_Customer extends Model
 {
+    const CUSTOMER_TYPE_GUEST = 'Guest'; // Resident
+    const CUSTOMER_TYPE_VISITOR = 'Visitor'; // Non-Resident
+    const CUSTOMER_TYPE_TENANT = 'Tenant';
+    const CUSTOMER_TYPE_OWNER = 'Owner';
+    const CUSTOMER_TYPE_MEMBER = 'Member';
+    const CUSTOMER_TYPE_NONMEMBER = 'Non-member';
+    
 	protected static $_properties = array(
         'id',
         'customer_name',
@@ -15,6 +22,10 @@ class Model_Customer extends Model
         'tax_ID',
         'mobile_phone',
         'email_address',
+        'sex',
+        'title_of_courtesy',
+        'birth_date',
+        'ID_attachment',
         'ID_type',
         'ID_no',
         'ID_country',
@@ -63,10 +74,12 @@ class Model_Customer extends Model
     public static function listOptionsCustomerType()
 	{
 		return array(
-            'Guest' => 'Guest',
-            'Tenant' => 'Tenant',
-            'Member' => 'Member',
-            'Non-member' => 'Non-member',
+            self::CUSTOMER_TYPE_GUEST => self::CUSTOMER_TYPE_GUEST,
+            self::CUSTOMER_TYPE_VISITOR => self::CUSTOMER_TYPE_VISITOR,
+            self::CUSTOMER_TYPE_TENANT => self::CUSTOMER_TYPE_TENANT,
+            self::CUSTOMER_TYPE_OWNER => self::CUSTOMER_TYPE_OWNER,
+            self::CUSTOMER_TYPE_MEMBER => self::CUSTOMER_TYPE_MEMBER,
+            self::CUSTOMER_TYPE_NONMEMBER => self::CUSTOMER_TYPE_NONMEMBER,
         );
     }
     
@@ -76,5 +89,25 @@ class Model_Customer extends Model
             'Individual' => 'Individual',
             'Company' => 'Company',
         );
+    }
+    
+    public static function listOptions($type = null)
+	{
+		$items = DB::select('id','customer_name')
+						->from(self::$_table_name)
+						->where([
+                            'inactive' => false,
+                            ['customer_type', 'in', $type]
+                        ])
+						->execute()
+						->as_array();
+        
+		$list_options = array('' => '');
+
+		foreach($items as $item) {
+			$list_options[$item['id']] = $item['customer_name'];
+        }
+        
+		return $list_options;
 	}
 }

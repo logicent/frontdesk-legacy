@@ -25,12 +25,12 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('registers/reservations');
+		is_null($id) and Response::redirect('registers/reservation');
 
 		if ( ! $data['reservation'] = Model_Facility_Reservation::find($id))
 		{
 			Session::set_flash('error', 'Could not find reservation #'.$id);
-			Response::redirect('registers/reservations');
+			Response::redirect('registers/reservation');
 		}
 
 		$this->template->title = "Reservation";
@@ -48,7 +48,8 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 			{
 				$reservation = Model_Facility_Reservation::forge(array(
 					'res_no' => Input::post('res_no'),
-					'room_id' => Input::post('room_id'),
+                    'customer_id' => Input::post('customer_id'),
+					'unit_id' => Input::post('unit_id'),
 					'fdesk_user' => Input::post('fdesk_user'),
 					'status' => Input::post('status'),
 					'checkin' => Input::post('checkin'),
@@ -57,8 +58,7 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 					'pax_adults' => Input::post('pax_adults'),
 					'pax_children' => Input::post('pax_children'),
 					'voucher_no' => Input::post('voucher_no'),
-					'last_name' => Input::post('last_name'),
-					'first_name' => Input::post('first_name'),
+					'customer_name' => Input::post('customer_name'),
 					'address' => Input::post('address'),
 					'city' => Input::post('city'),
 					'country' => Input::post('country'),
@@ -89,8 +89,8 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 			}
 		}
 
-		$room = Model_Room::find($rm_id);
-		$this->template->set_global('room', $room, false);
+		$unit = Model_Unit::find($rm_id);
+		$this->template->set_global('unit', $unit, false);
 
 		$this->template->title = "Reservation";
 		$this->template->content = View::forge('facility/reservation/create');
@@ -99,12 +99,12 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('registers/reservations');
+		is_null($id) and Response::redirect('registers/reservation');
 
 		if ( ! $reservation = Model_Facility_Reservation::find($id))
 		{
 			Session::set_flash('error', 'Could not find reservation #'.$id);
-			Response::redirect('registers/reservations');
+			Response::redirect('registers/reservation');
 		}
 
 		$val = Model_Facility_Reservation::validate('edit');
@@ -112,7 +112,8 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 		if ($val->run())
 		{
 			$reservation->res_no = Input::post('res_no');
-			$reservation->room_id = Input::post('room_id');
+            $reservation->customer_id = Input::post('customer_id');
+			$reservation->unit_id = Input::post('unit_id');
 			$reservation->fdesk_user = Input::post('fdesk_user');
 			$reservation->status = Input::post('status');
 			$reservation->checkin = Input::post('checkin');
@@ -121,8 +122,7 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 			$reservation->pax_adults = Input::post('pax_adults');
 			$reservation->pax_children = Input::post('pax_children');
 			$reservation->voucher_no = Input::post('voucher_no');
-			$reservation->last_name = Input::post('last_name');
-			$reservation->first_name = Input::post('first_name');
+			$reservation->customer_name = Input::post('customer_name');
 			$reservation->address = Input::post('address');
 			$reservation->city = Input::post('city');
 			$reservation->country = Input::post('country');
@@ -138,7 +138,7 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 			{
 				Session::set_flash('success', 'Updated reservation #' . $id);
 
-				Response::redirect('registers/reservations');
+				Response::redirect('registers/reservation');
 			}
 
 			else
@@ -152,7 +152,8 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 			if (Input::method() == 'POST')
 			{
 				$reservation->res_no = $val->validated('res_no');
-				$reservation->room_id = $val->validated('room_id');
+                $reservation->customer_id = $val->validated('customer_id');
+				$reservation->unit_id = $val->validated('unit_id');
 				$reservation->fdesk_user = $val->validated('fdesk_user');
 				$reservation->status = $val->validated('status');
 				$reservation->checkin = $val->validated('checkin');
@@ -161,8 +162,7 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 				$reservation->pax_adults = $val->validated('pax_adults');
 				$reservation->pax_children = $val->validated('pax_children');
 				$reservation->voucher_no = $val->validated('voucher_no');
-				$reservation->last_name = $val->validated('last_name');
-				$reservation->first_name = $val->validated('first_name');
+				$reservation->customer_name = $val->validated('customer_name');
 				$reservation->address = $val->validated('address');
 				$reservation->city = $val->validated('city');
 				$reservation->country = $val->validated('country');
@@ -187,7 +187,7 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('registers/reservations');
+		is_null($id) and Response::redirect('registers/reservation');
 
 		if ($reservation = Model_Facility_Reservation::find($id))
 		{
@@ -206,20 +206,20 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 			Session::set_flash('error', 'Could not delete reservation #'.$id);
 		}
 
-		Response::redirect('registers/reservations');
+		Response::redirect('registers/reservation');
 
 	}
 
-    public function action_list_by($room = null)
+    public function action_list_by($unit = null)
 	{
-        $room = Input::get('room');
+        $unit = Input::get('unit');
         
         $data['reservation'] = Model_Facility_Reservation::find('all', 
             array(
                 'where' => 
                     array(
                         array('status', '=', 'Open'),
-                        'room_id' => $room
+                        'unit_id' => $unit
                     ), 
                 'order_by' => array('res_no' => 'desc'), 
                 'limit' => 1000

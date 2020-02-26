@@ -15,7 +15,7 @@ class Model_Rate extends Model
 	{
 		$val = Validation::forge($factory);
 		$val->add_field('rate_id', 'Rate Type', 'required|valid_string[numeric]');
-		$val->add_field('type_id', 'Room Type', 'required|valid_string[numeric]');
+		$val->add_field('type_id', 'Unit Type', 'required|valid_string[numeric]');
 		$val->add_field('description', 'Description', 'max_length[255]');
 		$val->add_field('charges', 'Charges', 'required');
 
@@ -32,9 +32,9 @@ class Model_Rate extends Model
 			'cascade_save' => false,
 			'cascade_delete' => false,
 		),
-		'room_type' => array(
+		'unit_type' => array(
 			'key_from' => 'type_id',
-			'model_to' => 'Model_Room_Type',
+			'model_to' => 'Model_Unit_Type',
 			'key_to' => 'id',
 			'cascade_save' => true,
 			'cascade_delete' => false,
@@ -52,7 +52,7 @@ class Model_Rate extends Model
 		$list_options = array();
 		foreach($items as $item) {
 			$rate = Model_Rate_Type::find($item['rate_id'])->name;
-			$type = Model_Room_Type::find($item['type_id'])->name;
+			$type = Model_Unit_Type::find($item['type_id'])->name;
 			$list_options[$item['id']] = $type.'&ndash;'.$rate;
 		}
 

@@ -15,7 +15,7 @@ class Controller_Business extends Controller_Authenticate
 			$business->trading_name = Input::post('trading_name');
 			$business->address = Input::post('address');
 			$business->tax_identifier = Input::post('tax_identifier');
-			$business->property_type = Input::post('property_type');
+			$business->business_type = Input::post('business_type');
 			$business->currency_symbol = Input::post('currency_symbol');
 			$business->email_address = Input::post('email_address');
 			$business->phone_number = Input::post('phone_number');
@@ -63,7 +63,7 @@ class Controller_Business extends Controller_Authenticate
 				$business->trading_name = $val->validated('trading_name');
 				$business->address = $val->validated('address');
 				$business->tax_identifier = $val->validated('tax_identifier');
-				$business->property_type = $val->validated('property_type');
+				$business->business_type = $val->validated('business_type');
 				$business->currency_symbol = $val->validated('currency_symbol');
 				$business->email_address = $val->validated('email_address');
 				$business->phone_number = $val->validated('phone_number');
@@ -104,7 +104,7 @@ class Controller_Business extends Controller_Authenticate
 					'trading_name' => Input::post('trading_name'),
 					'address' => Input::post('address'),
 					'tax_identifier' => Input::post('tax_identifier'),
-					'property_type' => Input::post('property_type'),
+					'business_type' => Input::post('business_type'),
 					'currency_symbol' => Input::post('currency_symbol'),
                     'email_address' => Input::post('email_address'),
                     'phone_number' => Input::post('phone_number'),
