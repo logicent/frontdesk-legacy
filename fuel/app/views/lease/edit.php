@@ -4,4 +4,4 @@
 
 <br>
 
-<?= render(__DIR__ . '/_form'); ?>
+<?= render(basename(__DIR__) . '/_form'); ?>
