@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>E1 FrontDesk &ndash; <?= $title; ?></title>
+        <title>FrontDesk &ndash; <?= $title; ?></title>
         <!--
         <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
         <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
@@ -70,7 +70,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="<?= Uri::create('/'); ?>">E1 FrontDesk</a><!-- SB Admin v2.0 -->
+                        <a class="navbar-brand" href="<?= Uri::create('/'); ?>">FrontDesk</a><!-- SB Admin v2.0 -->
                     </div>  <!-- /.navbar-header -->
                 </div>
 
@@ -247,7 +247,7 @@
             </div>  <!-- /#page-wrapper -->
 
             <footer id="footer" class="text-center small">
-                <a href="http://logicent.co/solutions/hotel-front-office.html" target="_blank">E1 FrontDesk</a> &copy; 2014-<?= date('Y'); ?> All Rights Reserved.
+                <a href="http://logicent.co/solutions/hotel-front-office.html" target="_blank">FrontDesk</a> &copy; 2014-<?= date('Y'); ?> All Rights Reserved.
             </footer>
         </div>  <!-- /#wrapper -->
         

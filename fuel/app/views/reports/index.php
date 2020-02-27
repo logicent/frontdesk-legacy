@@ -39,10 +39,10 @@
                 <div class="form-group">
                     <div class="col-md-4">
                         <label for="rpt_date" class='control-label'>Date of: </label>
-                        <div class="input-group date" id="dp3" data-date="<?= date('Y-m-d') ?>" data-date-format="yyyy-mm-dd">
-                            <input class='form-control datepicker' id='rpt_date' name='rpt_date' value="<?= strftime('%Y-%m-%d', time()); ?>">
-                            <!-- <span class="input-group-addon"><i class="fa fa-calendar"></i></span> -->
-                        </div>
+                        <input class='form-control datepicker' id='rpt_date' name='rpt_date' value="<?= strftime('%Y-%m-%d', time()); ?>">
+                        <!--<div class="input-group date" id="dp3" data-date="<?= date('Y-m-d') ?>" data-date-format="yyyy-mm-dd">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div> -->
                     </div>
                 </div>
                 

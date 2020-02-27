@@ -1,27 +1,26 @@
 # Front Desk (PMS)
 
-* Version: 2.x
-* [Website](https://logicent.co/)
-<!-- * [Release Documentation](https://logicent.co/front-desk/docs) -->
-<!-- * [Release API browser](https://api.logicent.co/front-desk) -->
-<!-- * [Development branch Documentation](https://logicent.co/front-desk/dev-docs) -->
-<!-- * [Development branch API browser](https://logicent.co/front-desk/dev-api) -->
-* [Support Forum](https://helpdesk.logicent.co/front-desk) for comments, discussion and community support
+* Version: 3.x
+* [Website](https://logicent.com)
+<!-- [Release Documentation](https://github.com/logicent/frontdesk/docs) -->
+<!-- [Release API browser](https://github.com/logicent/frontdesk/) -->
+<!-- [Development branch Documentation](https://github.com/logicent/frontdesk/dev-docs) -->
+<!-- [Development branch API browser](https://github.com/logicent/frontdesk/dev-api) -->
+* [Support Forum](https://github.com/logicent/frontdesk/issues) for comments, discussion and community support
 
 ## Description
 
-E1 FrontDesk is a modern property management system (PMS) for managed facility owners and companies that offer accommodation, rental and hiring services.
+FrontDesk is a modern property management system (PMS) for managed facility owners and companies that offer accommodation, rental and hiring services.
 
 FrontDesk is built using PHP (FuelPHP) and JavaScript (jQuery) with Bootstrap 3 UI by SBAdmin2.
 
 ## More information
 
-For more detailed information, see the [development wiki](https://bitbucket.org/logicent/fdesk-legacy/wiki).
+For more detailed information, see the [development wiki](https://github.com/logicent/frontdesk/wiki).
 
 ## Development Team
 
 * Ken Mwai - Creator and Lead Developer/Maintainer ([http://logicent.co/dev-team](http://logicent.co/dev-team))
-* Dan Kimani - CRM
 
 ### Want to join?
 
@@ -31,4 +30,4 @@ You can apply for internship. Start by sending in pull-requests, work on outstan
 
 ### Alumni
 
-* (none) - Developer
+* (none)

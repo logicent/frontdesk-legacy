@@ -13,7 +13,7 @@
     </div>
 
     <div class="col-md-4 text-center">
-        <h1>E1 FrontDesk</h1>
+        <h1>FrontDesk</h1>
         <!-- <div class="report-header"> -->
         <h2><?= $report->name; ?></h2>
         <!-- </div> -->

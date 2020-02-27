@@ -3,19 +3,19 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>E1 FrontDesk</title>
+        <title>FrontDesk</title>
         <!-- Core CSS -->
         <?= Asset::css(
-                array(
-                    '//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css',
-                    // 'vendor/yeti.bootstrap.min.css',
-                    'vendor/united.bootstrap.min.css',
-                    // '../font-awesome/css/font-awesome.css',
-                    '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
-                    'sb-admin.css', // SB Admin Scripts
-                    'custom.css',
-                    'login.css'
-                )); ?>
+            array(
+                '//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css',
+                // 'vendor/yeti.bootstrap.min.css',
+                'vendor/united.bootstrap.min.css',
+                // '../font-awesome/css/font-awesome.css',
+                '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
+                'sb-admin.css', // SB Admin Scripts
+                'custom.css',
+                'login.css'
+            )); ?>
     </head>
 
     <body>
@@ -52,7 +52,7 @@
                     </div>                
                     <div class="login-panel panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title text-center">E1 FrontDesk</h3>
+                            <h3 class="panel-title text-center">FrontDesk</h3>
                         </div>
                         <div class="panel-body">
                             <?= $content; ?>
@@ -61,7 +61,7 @@
 
                     <footer class="text-center small">
                         <br><br>
-                        <a href="https://logicent.co/solutions/hotel-front-office.html" target="_blank">E1 FrontDesk</a> &copy; 2014-<?= date('Y'); ?> All Rights Reserved.
+                        <a href="https://logicent.co/solutions/hotel-front-office.html" target="_blank">FrontDesk</a> &copy; 2014-<?= date('Y'); ?> All Rights Reserved.
                     </footer>
                 </div>
             </div>

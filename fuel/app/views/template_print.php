@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E1 FrontDesk &ndash; <?= $title; ?></title>
+    <title>FrontDesk &ndash; <?= $title; ?></title>
     <!-- Core CSS -->
     <?= Asset::css(
                 array(
