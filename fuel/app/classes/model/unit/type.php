@@ -56,7 +56,8 @@ class Model_Unit_Type extends Model
 	{
 		$items = DB::select('id','name')->from(self::$_table_name)->execute()->as_array();
 
-		$list_options = array();
+        $list_options = array();
+        
 		foreach($items as $item)
 			$list_options[$item['id']] = $item['name'];
 
@@ -82,6 +83,7 @@ class Model_Unit_Type extends Model
     
     public static function listOptionsUsedFor()
     {
+        // get from service type
         return array(
             // accommodation
             'A' => 'Accommodation',

@@ -19,6 +19,7 @@
 	<thead>
 		<tr>
 			<th>Name</th>
+			<th>Status</th>
 			<th>Description</th>
 			<th>&nbsp;</th>
 		</tr>
@@ -29,7 +30,11 @@
 			<td>
                 <?= Html::anchor('rate/type/edit/'.$item->id, $item->name, ['class' => 'clickable']); ?>
             </td>
-			<td><?= $item->description; ?></td>
+            <td><?= (bool) $item->enabled ? 
+                '<i class="fa fa-circle-o fa-fw text-success"></i>Enabled' : 
+                '<i class="fa fa-circle-o fa-fw text-danger"></i>Disabled' ?>
+            </td>            
+			<td class="text-muted"><?= $item->description; ?></td>
 			<td class="text-center">
 				<?= Html::anchor('rate/type/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>', array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
 			</td>

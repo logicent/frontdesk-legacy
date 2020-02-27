@@ -21,7 +21,17 @@ class Controller_Rate extends Controller_Authenticate{
 					'rate_id' => Input::post('rate_id'),
 					'type_id' => Input::post('type_id'),
 					'description' => Input::post('description'),
-					'charges' => Input::post('charges'),
+                    // 'amount' => Input::post('amount'),
+                    'charges' => Input::post('charges'),
+                    'billing_period' => Input::post('billing_period'),
+                    // 'applicable_tax' => Input::post('applicable_tax'),
+                    // 'channels' => Input::post('channels'),
+                    'is_tax_incl' => Input::post('is_tax_incl'),
+                    'enabled' => Input::post('enabled'),
+                    // 'rate_group' => Input::post('rate_group'),
+                    'valid_from' => Input::post('valid_from'),
+                    'valid_until' => Input::post('valid_until'),
+                    'fdesk_user' => Input::post('fdesk_user'),
 				));
 
 				if ($rate and $rate->save())
@@ -64,11 +74,21 @@ class Controller_Rate extends Controller_Authenticate{
 			$rate->rate_id = Input::post('rate_id');
 			$rate->type_id = Input::post('type_id');
 			$rate->description = Input::post('description');
-			$rate->charges = Input::post('charges');
+            // $rate->amount = Input::post('amount');
+            $rate->charges = Input::post('charges');
+            $rate->billing_period = Input::post('billing_period');
+            // $rate->applicable_tax = Input::post('applicable_tax');
+            // $rate->channels = Input::post('channels');
+            $rate->is_tax_incl = Input::post('is_tax_incl');
+            $rate->enabled = Input::post('enabled');
+            // $rate->rate_group = Input::post('rate_group');
+            $rate->valid_from = Input::post('valid_from');
+            $rate->valid_until = Input::post('valid_until');
+            $rate->fdesk_user = Input::post('fdesk_user');
 
 			if ($rate->save())
 			{
-				Session::set_flash('success', 'Updated room rate #' . $id);
+				Session::set_flash('success', 'Updated room rate #' . $rate->description);
 
 				Response::redirect('rate');
 			}
@@ -86,7 +106,17 @@ class Controller_Rate extends Controller_Authenticate{
 				$rate->rate_id = $val->validated('rate_id');
 				$rate->type_id = $val->validated('type_id');
 				$rate->description = $val->validated('description');
-				$rate->charges = $val->validated('charges');
+                // $rate->amount = $val->validated('amount');
+                $rate->charges = $val->validated('charges');
+                $rate->billing_period = $val->validated('billing_period');
+                // $rate->applicable_tax = $val->validated('applicable_tax');
+                // $rate->channels = $val->validated('channels');
+                $rate->is_tax_incl = $val->validated('is_tax_incl');
+                $rate->enabled = $val->validated('enabled');
+                // $rate->rate_group = $val->validated('rate_group');
+                $rate->valid_from = $val->validated('valid_from');
+                $rate->valid_until = $val->validated('valid_until');
+                $rate->fdesk_user = $val->validated('fdesk_user');
 
 				Session::set_flash('error', $val->error());
 			}

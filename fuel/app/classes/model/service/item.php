@@ -5,21 +5,27 @@ class Model_Service_Item extends Model
 {
 	protected static $_properties = array(
 		'id',
-		'item',
-		'gl_account_id',
+		'code',
 		'description',
 		'qty',
 		'unit_price',
-		'discount_percent',
+        'discount_percent',
+		'gl_account_id',
+        'fdesk_user',
+        'service_type',
+        'enabled',
+        'billable',
+		'created_at',
+        'updated_at',
 	);
 
 
 	public static function validate($factory)
 	{
 		$val = Validation::forge($factory);
-		$val->add_field('item', 'Item', 'required|max_length[20]');
+		$val->add_field('code', 'Code', 'required|max_length[20]');
 		$val->add_field('gl_account_id', 'GL Account ID', 'valid_string[numeric]');
-		$val->add_field('description', 'Description', 'required|max_length[255]');
+		$val->add_field('description', 'Description', 'required|max_length[140]');
 		$val->add_field('qty', 'Qty', 'valid_string[numeric]');
 		$val->add_field('unit_price', 'Unit Price', 'valid_string[]');
 		$val->add_field('discount_percent', 'Discount %', 'valid_string[]');

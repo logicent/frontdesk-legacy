@@ -7,7 +7,7 @@
 		<br>
 		<div class="pull-right btn-toolbar">
 			<div class="btn-group">
-				<?= Html::anchor('property/type//create', 'New', array('class' => 'pull-right btn btn-primary')); ?>
+				<?= Html::anchor('property/type/create', 'New', array('class' => 'pull-right btn btn-primary')); ?>
 			</div>
 		</div>
 	</div>
@@ -15,21 +15,29 @@
 <hr>
 
 <?php if ($property_types): ?>
-<table class="table table-striped">
+<table class="table table-hover datatable">
 	<thead>
 		<tr>
-			<th>&nbsp;</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Code</th>
+            <th>&nbsp;</th>
 		</tr>
 	</thead>
 	<tbody>
 <?php foreach ($property_types as $item): ?>		
         <tr>
-			<td>
-				<div class="btn-toolbar">
-					<div class="btn-group">
-						<?php echo Html::anchor('property/type/view/'.$item->id, '<i class="icon-eye-open"></i> View', array('class' => 'btn btn-default btn-sm')); ?>						<?php echo Html::anchor('property/type/edit/'.$item->id, '<i class="icon-wrench"></i> Edit', array('class' => 'btn btn-default btn-sm')); ?>						<?php echo Html::anchor('property/type/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Delete', array('class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('Are you sure?')")); ?>					</div>
-				</div>
-
+            <td>
+                <?= Html::anchor('property/type/edit/'.$item->id, $item->name, ['class' => 'clickable']); ?>
+            </td>
+            <td><?= (bool) $item->enabled ? 
+                '<i class="fa fa-circle-o fa-fw text-success"></i>Enabled' :
+                '<i class="fa fa-circle-o fa-fw text-danger"></i>Disabled' ?> 
+            </td>            
+			<td class="text-muted"><?= $item->code; ?></td>
+			<td class="text-center">
+				<?= Html::anchor('property/type/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>',
+                                array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
 			</td>
 		</tr>
 <?php endforeach; ?>

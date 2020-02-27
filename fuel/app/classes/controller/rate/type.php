@@ -36,6 +36,8 @@ class Controller_Rate_Type extends Controller_Authenticate
 				$rate_type = Model_Rate_Type::forge(array(
 					'name' => Input::post('name'),
 					'description' => Input::post('description'),
+					'enabled' => Input::post('enabled'),
+					'fdesk_user' => Input::post('fdesk_user'),
 				));
 
 				if ($rate_type and $rate_type->save())
@@ -77,10 +79,12 @@ class Controller_Rate_Type extends Controller_Authenticate
 		{
 			$rate_type->name = Input::post('name');
 			$rate_type->description = Input::post('description');
+            $rate_type->enabled = Input::post('enabled');
+            $rate_type->fdesk_user = Input::post('fdesk_user');
 
 			if ($rate_type->save())
 			{
-				Session::set_flash('success', 'Updated rate type #' . $id);
+				Session::set_flash('success', 'Updated rate type #' . $rate_type->name);
 
 				Response::redirect('facilities/rate-type');
 			}
@@ -97,6 +101,8 @@ class Controller_Rate_Type extends Controller_Authenticate
 			{
 				$rate_type->name = $val->validated('name');
 				$rate_type->description = $val->validated('description');
+                $rate_type->enabled = $val->validated('enabled');
+                $rate_type->fdesk_user = $val->validated('fdesk_user');
 
 				Session::set_flash('error', $val->error());
 			}

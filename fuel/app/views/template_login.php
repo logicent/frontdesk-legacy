@@ -12,7 +12,9 @@
                     'vendor/united.bootstrap.min.css',
                     // '../font-awesome/css/font-awesome.css',
                     '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
-                    'sb-admin.css' // SB Admin Scripts
+                    'sb-admin.css', // SB Admin Scripts
+                    'custom.css',
+                    'login.css'
                 )); ?>
     </head>
 
@@ -39,7 +41,7 @@
                     </div>
             <?php 
                 endif ?>
-                    <div class="text-center">
+                    <div class="business-logo text-center">
                 <?php
                     if (!empty($business->business_logo)) :
                         echo Html::img($business->business_logo, ['style' => 'max-width: 240px']) ;

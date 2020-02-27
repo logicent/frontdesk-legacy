@@ -28,7 +28,7 @@
 	<tbody>
 <?php foreach ($unit as $item): ?>
 		<tr>
-			<td><?= Html::anchor('unit/edit/'.$item->id, $item->name, ['class' => 'clickable']); ?></td>
+			<td><?= Html::anchor('unit/edit/'.$item->id,  $item->type->alias . ' ' . $item->name, ['class' => 'clickable']); ?></td>
 			<td><?= $item->type->name; ?></td>
 			<td><span class=""><?= Model_Unit::$unit_status[$item->status] ?></span></td>
 			<td><?= Model_Unit::$hk_status[$item->hk_status] ?></td>

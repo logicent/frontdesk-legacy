@@ -15,11 +15,11 @@ class Create_service_item
 			'qty' => array('constraint' => 4, 'type' => 'int', 'default' => 1),
 			'unit_price' => array('type' => 'double', 'null' => true),
 			'discount_percent' => array('type' => 'double', 'null' => true),
-            'billable' => array('type' => 'tinyint', 'default' => 1),
+            'enabled' => array('constraint' => 1, 'type' => 'tinyint', 'default' => 1),
+            'billable' => array('constraint' => 1, 'type' => 'tinyint', 'default' => 1),
             'fdesk_user' => array('constraint' => 11, 'type' => 'int'),
 			'created_at' => array('type' => 'datetime'),
 			'updated_at' => array('type' => 'datetime'),
-            'deleted_at' => array('type' => 'datetime', 'null' => true),
 
 		), array('id'));
 	}

@@ -12,12 +12,12 @@ class Controller_Service_Type extends Controller_Authenticate
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('service/type');
+		is_null($id) and Response::redirect('facilities/service-type');
 
 		if ( ! $data['service_type'] = Model_Service_Type::find($id))
 		{
-			Session::set_flash('error', 'Could not find service_type #'.$id);
-			Response::redirect('service/type');
+			Session::set_flash('error', 'Could not find service type #'.$id);
+			Response::redirect('facilities/service-type');
 		}
 
 		$this->template->title = "Service_type";
@@ -37,18 +37,22 @@ class Controller_Service_Type extends Controller_Authenticate
 					'name' => Input::post('name'),
 					'code' => Input::post('code'),
 					'enabled' => Input::post('enabled'),
+					'is_default' => Input::post('is_default'),
+                    'default_service_provider' => Input::post('default_service_provider'),
+                    'fdesk_user' => Input::post('fdesk_user'),
+                    
 				));
 
 				if ($service_type and $service_type->save())
 				{
-					Session::set_flash('success', 'Added service_type #'.$service_type->id.'.');
+					Session::set_flash('success', 'Added service type #'.$service_type->code.'.');
 
-					Response::redirect('service/type');
+					Response::redirect('facilities/service-type');
 				}
 
 				else
 				{
-					Session::set_flash('error', 'Could not save service_type.');
+					Session::set_flash('error', 'Could not save service type.');
 				}
 			}
 			else
@@ -64,12 +68,12 @@ class Controller_Service_Type extends Controller_Authenticate
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('service/type');
+		is_null($id) and Response::redirect('facilities/service-type');
 
 		if ( ! $service_type = Model_Service_Type::find($id))
 		{
-			Session::set_flash('error', 'Could not find service_type #'.$id);
-			Response::redirect('service/type');
+			Session::set_flash('error', 'Could not find service type #'.$id);
+			Response::redirect('facilities/service-type');
 		}
 
 		$val = Model_Service_Type::validate('edit');
@@ -79,17 +83,20 @@ class Controller_Service_Type extends Controller_Authenticate
 			$service_type->name = Input::post('name');
 			$service_type->code = Input::post('code');
 			$service_type->enabled = Input::post('enabled');
+			$service_type->is_default = Input::post('is_default');
+			$service_type->default_service_provider = Input::post('default_service_provider');
+            $service_type->fdesk_user = Input::post('fdesk_user');
 
 			if ($service_type->save())
 			{
-				Session::set_flash('success', 'Updated service_type #' . $id);
+				Session::set_flash('success', 'Updated service type #' . $service_type->code);
 
-				Response::redirect('service/type');
+				Response::redirect('facilities/service-type');
 			}
 
 			else
 			{
-				Session::set_flash('error', 'Could not update service_type #' . $id);
+				Session::set_flash('error', 'Could not update service type #' . $id);
 			}
 		}
 
@@ -100,6 +107,9 @@ class Controller_Service_Type extends Controller_Authenticate
 				$service_type->name = $val->validated('name');
 				$service_type->code = $val->validated('code');
 				$service_type->enabled = $val->validated('enabled');
+				$service_type->is_default = $val->validated('is_default');
+				$service_type->default_service_provider = $val->validated('default_service_provider');
+                $service_type->fdesk_user = $val->validated('fdesk_user');
 
 				Session::set_flash('error', $val->error());
 			}
@@ -114,21 +124,21 @@ class Controller_Service_Type extends Controller_Authenticate
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('service/type');
+		is_null($id) and Response::redirect('facilities/service-type');
 
 		if ($service_type = Model_Service_Type::find($id))
 		{
 			$service_type->delete();
 
-			Session::set_flash('success', 'Deleted service_type #'.$id);
+			Session::set_flash('success', 'Deleted service type #'.$id);
 		}
 
 		else
 		{
-			Session::set_flash('error', 'Could not delete service_type #'.$id);
+			Session::set_flash('error', 'Could not delete service type #'.$id);
 		}
 
-		Response::redirect('service/type');
+		Response::redirect('facilities/service-type');
 
 	}
 

@@ -46,7 +46,7 @@ class Controller_Email_Settings extends Controller_Authenticate
 
 				if ($email_setting and $email_setting->save())
 				{
-					Session::set_flash('success', 'Added email settings #'.$email_setting->id.'.');
+					Session::set_flash('success', 'Added email settings #'.$email_setting->smtp_host.'.');
 
 					Response::redirect('settings/email-settings');
 				}
@@ -92,7 +92,7 @@ class Controller_Email_Settings extends Controller_Authenticate
 
 			if ($email_setting->save())
 			{
-				Session::set_flash('success', 'Updated email settings #' . $id);
+				Session::set_flash('success', 'Updated email settings #' . $email_setting->smtp_host);
 
 				Response::redirect('settings/email-settings');
 			}

@@ -8,7 +8,20 @@ class Model_Rate extends Model
 		'rate_id',
 		'type_id',
 		'description',
-		'charges',
+        'amount',
+        'charges',
+        'billing_period',
+        'applicable_tax',
+        'channels',
+        'is_tax_incl',
+        'enabled',
+        'rate_group',
+        'valid_from',
+        'valid_until',
+        'fdesk_user',
+        'created_at',
+        'updated_at',
+        'deleted_at',
 	);
 
 	public static function validate($factory)
@@ -16,7 +29,8 @@ class Model_Rate extends Model
 		$val = Validation::forge($factory);
 		$val->add_field('rate_id', 'Rate Type', 'required|valid_string[numeric]');
 		$val->add_field('type_id', 'Unit Type', 'required|valid_string[numeric]');
-		$val->add_field('description', 'Description', 'max_length[255]');
+		$val->add_field('description', 'Description', 'max_length[140]');
+		// $val->add_field('amount', 'Amount', 'required');
 		$val->add_field('charges', 'Charges', 'required');
 
 		return $val;

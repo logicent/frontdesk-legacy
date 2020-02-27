@@ -12,12 +12,12 @@ class Controller_Service_Item extends Controller_Authenticate
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('service/item');
+		is_null($id) and Response::redirect('facilities/services');
 
 		if ( ! $data['service_item'] = Model_Service_Item::find($id))
 		{
 			Session::set_flash('error', 'Could not find service item #'.$id);
-			Response::redirect('service/item');
+			Response::redirect('facilities/services');
 		}
 
 		$this->template->title = "Service_item";
@@ -34,24 +34,28 @@ class Controller_Service_Item extends Controller_Authenticate
 			if ($val->run())
 			{
 				$service_item = Model_Service_Item::forge(array(
-					'item' => Input::post('item'),
+					'code' => Input::post('code'),
 					'gl_account_id' => Input::post('gl_account_id'),
 					'description' => Input::post('description'),
 					'qty' => Input::post('qty'),
 					'unit_price' => Input::post('unit_price'),
-					'discount_percent' => Input::post('discount_percent'),
+                    'discount_percent' => Input::post('discount_percent'),
+                    'fdesk_user' => Input::post('fdesk_user'),
+                    'service_type' => Input::post('service_type'),
+                    'billable' => Input::post('billable'),
+                    'enabled' => Input::post('enabled'),
 				));
 
 				if ($service_item and $service_item->save())
 				{
-					Session::set_flash('success', 'Added service item #'.$service_item->id.'.');
+					Session::set_flash('success', 'Added service item #'.$service_item->code.'.');
 
-					Response::redirect('service/item');
+					Response::redirect('facilities/services');
 				}
 
 				else
 				{
-					Session::set_flash('error', 'Could not save service_item.');
+					Session::set_flash('error', 'Could not save service item.');
 				}
 			}
 			else
@@ -67,30 +71,34 @@ class Controller_Service_Item extends Controller_Authenticate
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('service/item');
+		is_null($id) and Response::redirect('facilities/services');
 
 		if ( ! $service_item = Model_Service_Item::find($id))
 		{
 			Session::set_flash('error', 'Could not find service item #'.$id);
-			Response::redirect('service/item');
+			Response::redirect('facilities/services');
 		}
 
 		$val = Model_Service_Item::validate('edit');
 
 		if ($val->run())
 		{
-			$service_item->item = Input::post('item');
+			$service_item->item = Input::post('code');
 			$service_item->gl_account_id = Input::post('gl_account_id');
 			$service_item->description = Input::post('description');
 			$service_item->qty = Input::post('qty');
 			$service_item->unit_price = Input::post('unit_price');
 			$service_item->discount_percent = Input::post('discount_percent');
+            $service_item->fdesk_user = Input::post('fdesk_user');
+            $service_item->service_type = Input::post('service_type');
+            $service_item->billable = Input::post('billable');
+            $service_item->enabled = Input::post('enabled');
 
 			if ($service_item->save())
 			{
-				Session::set_flash('success', 'Updated service item #' . $id);
+				Session::set_flash('success', 'Updated service item #' . $service_item->code);
 
-				Response::redirect('service/item');
+				Response::redirect('facilities/services');
 			}
 
 			else
@@ -103,13 +111,17 @@ class Controller_Service_Item extends Controller_Authenticate
 		{
 			if (Input::method() == 'POST')
 			{
-				$service_item->item = $val->validated('item');
+				$service_item->item = $val->validated('code');
 				$service_item->gl_account_id = $val->validated('gl_account_id');
 				$service_item->description = $val->validated('description');
 				$service_item->qty = $val->validated('qty');
 				$service_item->unit_price = $val->validated('unit_price');
 				$service_item->discount_percent = $val->validated('discount_percent');
-
+                $service_item->fdesk_user = $val->validated('fdesk_user');
+                $service_item->service_type = $val->validated('service_type');
+                $service_item->billable = $val->validated('billable');
+                $service_item->enabled = $val->validated('enabled');
+                
 				Session::set_flash('error', $val->error());
 			}
 
@@ -123,7 +135,7 @@ class Controller_Service_Item extends Controller_Authenticate
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('service/item');
+		is_null($id) and Response::redirect('facilities/services');
 
 		if ($service_item = Model_Service_Item::find($id))
 		{
@@ -141,7 +153,7 @@ class Controller_Service_Item extends Controller_Authenticate
 			Session::set_flash('error', 'Could not delete service item #'.$id);
 		}
 
-		Response::redirect('service/item');
+		Response::redirect('facilities/services');
 
 	}
 

@@ -6,14 +6,19 @@ class Model_Rate_Type extends Model
 	protected static $_properties = array(
 		'id',
 		'name',
-		'description',
+        'description',
+        'enabled',
+        'fdesk_user',
+        'created_at',
+        'updated_at',
+        'deleted_at',
 	);
 
 	public static function validate($factory)
 	{
 		$val = Validation::forge($factory);
 		$val->add_field('name', 'Name', 'required|max_length[20]');
-		$val->add_field('description', 'Description', 'max_length[255]');
+		$val->add_field('description', 'Description', 'max_length[140]');
 
 		return $val;
 	}

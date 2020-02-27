@@ -40,7 +40,7 @@
             <div class="col-md-6">
                 <?= Form::label('Property type', 'property_type', array('class'=>'control-label')); ?>
                 <?= Form::select('property_type', Input::post('property_type', isset($property) ? $property->property_type : ''),
-                                        Model_Property::listOptionsPropertyType(),
+                                        Model_Property_Type::listOptionsPropertyType(),
                                         array('class' => 'form-control')); ?>
             </div>
 		</div>
@@ -124,6 +124,3 @@
 </div>
 
 <?= Form::close(); ?>
-
-<script>
-</script>

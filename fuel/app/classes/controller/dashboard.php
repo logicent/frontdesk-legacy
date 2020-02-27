@@ -20,7 +20,7 @@ class Controller_Dashboard extends Controller_Authenticate{
                                                         ), 
                                                         'rates'
                                                     ), 
-                                                'where' => array('used_for' => 'A'), 
+                                                'where' => array('used_for' => 'A', 'inactive' => false), 
                                                 'order_by' => 'name')
                                             );
         

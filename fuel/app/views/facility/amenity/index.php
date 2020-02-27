@@ -30,8 +30,10 @@
             <td>
                 <?= Html::anchor('facility/amenity/edit/'.$item->id, $item->name, ['class' => 'clickable']) ?>
             </td>
-            <td><?= (bool) $item->enabled == 1 ? '<i class="fa fa-circle-o fa-fw text-success"></i>Visible' : 'Hidden' ?></td>
-            <td><?= $item->code ?></td>
+            <td><?= (bool) $item->enabled ? 
+                    '<i class="fa fa-circle-o fa-fw text-success"></i>Visible' : 
+                    '<i class="fa fa-circle-o fa-fw text-danger"></i>Hidden' ?></td>
+            <td class="text-muted"><?= $item->code ?></td>
 			<td>
 				<div class="btn-toolbar">
 					<div class="btn-group">

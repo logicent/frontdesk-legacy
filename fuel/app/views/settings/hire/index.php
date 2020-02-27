@@ -4,23 +4,23 @@
 
 <br>
 
-<?= Form::open(array("class"=>"form-horizontal")); ?>
+<?= Form::open(array("class"=>"form-horizontal", "autocomplete" => "off")); ?>
 
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
             <div class="col-md-6">
-                <?php echo Form::checkbox('require_advance_pmt', Input::post('require_advance_pmt', isset($rental_setting) ? $rental_setting->require_advance_pmt : '0'), 
+                <?= Form::checkbox('require_advance_pmt', Input::post('require_advance_pmt', isset($rental_setting) ? $rental_setting->require_advance_pmt : '0'), 
                                         array('class' => 'cb-checked')); ?>
-                <?php echo Form::label('Require advance payment', 'require_advance_pmt', array('class'=>'control-label')); ?>
+                <?= Form::label('Require advance payment', 'require_advance_pmt', array('class'=>'control-label')); ?>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-6">
-                <?php echo Form::label('Advance percentage of total', 'rent_due_by', array('class'=>'control-label')); ?>
+                <?= Form::label('Advance percentage of total', 'rent_due_by', array('class'=>'control-label')); ?>
                 <div class="input-group">
-                    <?php echo Form::input('rent_due_by', Input::post('rent_due_by', isset($rental_setting) ? $rental_setting->rent_due_by : ''), 
+                    <?= Form::input('rent_due_by', Input::post('rent_due_by', isset($rental_setting) ? $rental_setting->rent_due_by : ''), 
                                         array('class' => 'col-md-4 form-control')); ?>
                     <span class="input-group-addon">%</span>
                 </div>                                        

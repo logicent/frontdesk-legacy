@@ -20,7 +20,8 @@
 		<tr>
 			<th>Type</th>
 			<th>Rate</th>
-			<th>Charges</th>
+			<th>Status</th>
+			<th class="text-right">Charges</th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>
@@ -31,6 +32,10 @@
                 <?= Html::anchor('rate/edit/'.$item->id, $item->unit_type->name, ['class' => 'clickable']); ?>
             </td>
 			<td><?= $item->rate_type->name; ?></td>
+            <td><?= (bool) $item->enabled ? 
+                '<i class="fa fa-circle-o fa-fw text-success"></i>Enabled' : 
+                '<i class="fa fa-circle-o fa-fw text-danger"></i>Disabled' ?>
+            </td>
 			<td class="text-right"><?= number_format($item->charges, 2); ?></td>
 			<td class="text-center">
 				<?= Html::anchor('rate/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>',

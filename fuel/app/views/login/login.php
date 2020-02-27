@@ -28,7 +28,7 @@
             <button id="form_submit" name="submit" type="submit" class="btn btn-primary"><i class="fa fa-key"></i>&ensp;Log in</button>
         </div>
         <div class="col-md-6 text-right">
-            <a href="<?= Uri::create('login/forgot-password'); ?>">Forgot Password?</a>
+            <a class="" href="<?= Uri::create('login/forgot-password'); ?>">Forgot Password?</a>
         </div>
     </div>
 <?= Form::close(); ?>
