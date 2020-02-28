@@ -49,7 +49,7 @@
 				<th>Unit no.</th>
 				<th>Check in</th>
 				<th>Check out</th>
-				<th>Rate</th>
+				<th class="text-right">Rate</th>
 				<!-- <th>Country</th> -->
 				<th>&nbsp;</th>
 			</tr>
@@ -59,7 +59,8 @@
         foreach ($booking as $item): ?>
 			<tr>
 				<!-- <td><input class="row-sel" type="checkbox"><input class="row-id" type="hidden" name="id[<?= $item->id; ?>]" id="form_id[<?= $item->id; ?>]"></td> -->
-                <td><?= Html::anchor('facility/booking/edit/'. $item->id, ucwords($item->first_name .' '. $item->last_name), ['class' => 'clickable']) ?></td>
+                <td><?= Html::anchor('facility/booking/edit/'. $item->id, 
+                                    ucwords($item->customer->customer_name), ['class' => 'clickable']) ?></td>
 				<td><?= $item->reg_no; ?></td>
 				<td><?= $item->phone; ?></td>
 				<td><?= $item->unit->name; ?></td>

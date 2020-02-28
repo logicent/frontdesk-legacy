@@ -37,7 +37,7 @@
 		<div class="col-md-4">
 			<?= Form::label('Payer', 'payer', array('class'=>'control-label')); ?>
             <?= Form::input('payer', Input::post('payer', isset($payment_receipt) ? 
-                            $payment_receipt->payer : isset($bill) ? $bill->guest->first_name .' '. $bill->guest->last_name : ''), 
+                            $payment_receipt->payer : isset($bill) ? $bill->booking->customer_name : ''), 
                             array('class' => 'col-md-4 form-control')); ?>
 		</div>
 	</div>
@@ -47,7 +47,7 @@
 			<?= Form::label('Amount', 'amount', array('class'=>'control-label')); ?>
             <?= Form::input('amount', Input::post('amount', isset($payment_receipt) ? $payment_receipt->amount : isset($bill) ? $bill->balance_due : '0.00'), 
                             array('class' => 'col-md-4 form-control text-right', 'readonly' => isset($payment_receipt) && 
-                            $payment_receipt->invoice->guest->status == 'CO' ? true : false, 'autofocus' => true)); ?>
+                            $payment_receipt->invoice->booking->status == 'CO' ? true : false, 'autofocus' => true)); ?>
 		</div>
 
 		<div class="col-md-2">
@@ -61,7 +61,7 @@
 		<div class="col-md-4">
 			<?= Form::label('Description', 'description', array('class'=>'control-label')); ?>
             <?= Form::textarea('description', Input::post('description', isset($payment_receipt) ? $payment_receipt->description : 
-                            isset($bill) ? 'Accommodation for Unit no. ' . $bill->guest->unit->name : ''), 
+                            isset($bill) ? 'Accommodation for Unit no. ' . $bill->booking->unit->name : ''), 
                             array('class' => 'col-md-4 form-control', 'rows' => 4)); ?>
 		</div>
 	</div>

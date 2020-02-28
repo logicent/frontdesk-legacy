@@ -23,7 +23,13 @@ class Model_Report_Builder extends Model
 		'name',
 		'slug',
 		'type',
-		'published',
+        'published',
+        'db_query',
+        'allowed_users',
+		'fdesk_user',
+		'created_at',
+        'updated_at',
+        'deleted_at',
 	);
 
 

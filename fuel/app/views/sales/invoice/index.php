@@ -38,8 +38,8 @@
 			<td class="text-right"><?= number_format($item->amount_due, 2); ?></td>
 			<td class="text-right"><span class="<?= $item->balance_due > 0 ? 'text-red' : '' ?>"><?= number_format($item->balance_due, 2); ?></span></td>
 			<td class="text-center">
-				<?= Html::anchor('sales/invoice/view/'.$item->id, '<i class="fa fa-eye fa-fw"></i>'); ?>
-				<?= Html::anchor('sales/invoice/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>', array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
+				<?= Html::anchor('sales/invoice/view/'.$item->id, '<i class="fa fa-file-o fa-fw"></i>'); ?>
+				<?= Html::anchor('sales/invoice/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>', array('class' => 'del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
 			</td>
 		</tr>
 <?php endforeach; ?>

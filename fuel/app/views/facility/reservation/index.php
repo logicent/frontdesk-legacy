@@ -33,7 +33,7 @@
 <?php foreach ($reservation as $item): ?>
 		<tr>
             <td><?= Html::anchor('facility/reservation/edit/'. $item->id, 
-                                ucwords($item->first_name .' '. $item->last_name), ['class' => 'clickable']) ?></td>
+                                ucwords($item->customer->customer_name), ['class' => 'clickable']) ?></td>
             <td><?php 
                 switch ($item->status) :
                     case 'Open':

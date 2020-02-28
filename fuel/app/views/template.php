@@ -26,6 +26,7 @@
         <!-- Core CSS -->
         <?= Asset::css(array(
                 '//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css',
+                '//www.fuelcdn.com/fuelux/3.17.0/css/fuelux.min.css',
                 'vendor/united.bootstrap.min.css',
                 'vendor/fuelux.min.css',
                 'vendor/datepicker.css',
@@ -42,9 +43,10 @@
 
         <!-- Core Scripts -->
         <?= Asset::js(array(
+                'https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js',
                 '//code.jquery.com/jquery-3.4.1.js',
                 '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
-                '//www.fuelcdn.com/fuelux/3.13.0/css/fuelux.min.css',
+                '//www.fuelcdn.com/fuelux/3.17.0/js/fuelux.min.js',
                 'vendor/knockout-3.2.0.js',
                 'vendor/jquery.slugify.js',
                 'vendor/bootstrap-datepicker.js',

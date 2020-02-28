@@ -44,7 +44,7 @@ $(function() {
         $(this).datepicker('hide');
         // set focus back to datepicker control
     });
-
+    // Clear zero values created by mysql
     $('.datepicker').each(function () {
         if ($(this).val() == '0000-00-00')
             $(this).val('');
@@ -53,10 +53,11 @@ $(function() {
     $('.slug').slugify('#form_name');
 
     current_link = window.location.href;
+    // var current_path = window.location.pathname.split('/');
 
     $('.nav li a').each(function () {
         if ($(this).attr('href') == current_link) 
-        {
+        {console.log('true');
             $(this).parent('li').parent('ul').addClass('collapse in');
 
             $(this).addClass('active');

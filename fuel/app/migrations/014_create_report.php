@@ -8,8 +8,8 @@ class Create_report
 	{
 		\DBUtil::create_table('report', array(
 			'id' => array('constraint' => 11, 'type' => 'int', 'auto_increment' => true, 'unsigned' => true),
-			'name' => array('constraint' => 255, 'type' => 'varchar'),
-			'slug' => array('constraint' => 255, 'type' => 'varchar'),
+			'name' => array('constraint' => 140, 'type' => 'varchar'),
+			'slug' => array('constraint' => 140, 'type' => 'varchar'),
 			'type' => array('constraint' => 1, 'type' => 'char'),
 			//'period_id' => array('constraint' => 11, 'type' => 'int'),
 			'published' => array('type' => 'tinyint', 'default' => 1),

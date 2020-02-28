@@ -4,8 +4,8 @@
 	<strong>Name:</strong>
 	<?= $report->name; ?></p>
 <p>
-	<strong>Activated:</strong>
-	<?= $report->activated; ?></p>
+	<strong>Published:</strong>
+	<?= $report->published; ?></p>
 
 <?= Html::anchor('report/edit/'.$report->id, 'Edit'); ?> |
 <?= Html::anchor('report', 'Back'); ?>

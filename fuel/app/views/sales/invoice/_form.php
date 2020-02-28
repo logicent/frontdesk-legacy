@@ -89,6 +89,8 @@
 	</div>
 
     <?= Form::hidden('fdesk_user', Input::post('fdesk_user', isset($sales_invoice) ? $sales_invoice->fdesk_user : $uid)); ?>
+    <?= Form::hidden('source', Input::post('source', isset($sales_invoice) ? $sales_invoice->source : '')); ?>
+    <?= Form::hidden('source_id', Input::post('source_id', isset($sales_invoice) ? $sales_invoice->source_id : '')); ?>
 
 	<div class="row">
 		<div class="col-md-6">
@@ -168,8 +170,8 @@
 			<div class="pull-right btn-group">
             <?php 
                 if (isset($sales_invoice)) :
-                    if (!is_null($sales_invoice->customer) && $sales_invoice->status == 'O') : ?>
-                        <a href="<?= Uri::create('accounts/payment/receipt/create/' . $sales_invoice->customer->id); ?>" class="btn btn-default ">Add payment</a>
+                    if ($sales_invoice->status == 'O') : ?>
+                        <a href="<?= Uri::create('accounts/payment/receipt/create/' . $sales_invoice->id); ?>" class="btn btn-default ">Add payment</a>
             <?php 
                     endif;
                 endif ?>
@@ -189,52 +191,5 @@
 </script>
 
 <script>
-/* Inline detail form handler */
-	function formatCurrency(value) {
-	    return "$" + value.toFixed(2);
-	}
-
-	var DocLine = function() {
-		var self = this;
-		self.item_id = ko.observable();
-		self.description = ko.observable();
-		self.qty = ko.observable(1);
-		self.unit_price = ko.observable();
-		self.amount = ko.computed(function() {
-			return self.item_id() ? self.unit_price() * parseInt("0" + self.qty(), 10) : 0;
-		});
-
-		// Whenever the item changes, reset the line details
-		self.item_id.subscribe(function() {
-			self.description(undefined);
-		});
-	};
-
-	var Doc = function() {
-		// Stores an array of lines, and from these, can work out the grandTotal
-		var self = this;
-		self.lines = ko.observableArray([new DocLine()]); // Put one line in by default
-		self.grandTotal = ko.computed(function() {
-			var total = 0;
-			$.each(self.lines(), function() { total += this.amount() })
-			return total;
-		});
-
-		// Operations
-		self.addLine = function() { self.lines.push(new DocLine()) };
-		self.removeLine = function(line) { self.lines.remove(line) };
-		self.save = function() {
-			var dataToSave = $.map(self.lines(), function(line) {
-				return line.item_id() ? {
-					description: line.description(),
-					qty: line.qty(),
-					unit_price: line.unit_price(),
-				} : undefined
-			});
-			alert("Could now send this to server: " + JSON.stringify(dataToSave));
-		};
-	};
-
-	ko.applyBindings(new Doc());
 
 </script>

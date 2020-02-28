@@ -34,7 +34,9 @@ class Controller_Report_Builder extends Controller_Authenticate{
 					'name' => Input::post('name'),
 					'slug' => Input::post('slug'),
 					'type' => Input::post('type'),
-					'published' => Input::post('published'),
+                    'published' => Input::post('published'),
+                    'fdesk_user' => Input::post('fdesk_user'),
+                    
 				));
 
 				try {
@@ -80,6 +82,7 @@ class Controller_Report_Builder extends Controller_Authenticate{
 			$report->slug = Input::post('slug');
 			$report->type = Input::post('type');
 			$report->published = Input::post('published');
+            $report->fdesk_user = Input::post('fdesk_user');
 
 			if ($report->save())
 			{
@@ -102,6 +105,7 @@ class Controller_Report_Builder extends Controller_Authenticate{
 				$report->slug = $val->validated('slug');
 				$report->type = $val->validated('type');
 				$report->published = $val->validated('published');
+                $report->fdesk_user = $val->validated('fdesk_user');
 
 				Session::set_flash('error', $val->error());
 			}

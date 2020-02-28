@@ -377,7 +377,7 @@ class Controller_Facility_Booking extends Controller_Authenticate
 			{
 				Session::set_flash('error', 'Checkout failed. Guest has outstanding balance for stay period.');
 
-				Response::redirect('cash/receipt/create/'.$booking->bill->id);
+				Response::redirect('accounts/payment/receipt/create/'.$booking->bill->id);
 			}
 
 			// set guest as checked out

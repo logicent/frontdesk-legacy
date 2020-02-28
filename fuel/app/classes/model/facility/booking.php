@@ -237,6 +237,8 @@ class Model_Facility_Booking extends Model_Soft
 			'po_number' => Input::post('po_number'),
 			'amounts_tax_inc' => Input::post('amounts_tax_inc'),
 			'fdesk_user' => $booking->fdesk_user,
+			'source' => 'BKG',
+			'source_id' => $booking->id,
 			'customer_name' => $booking->customer->customer_name,
 			'unit_name' => $booking->unit->name,
 			'issue_date' => $booking->checkin,

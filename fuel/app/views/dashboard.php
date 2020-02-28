@@ -196,7 +196,7 @@
                         <li><a href="<?= Uri::create("facility/booking/edit/$customer->id"); ?>">Booking - <?= $customer->reg_no ?></a></li>
                     <?php 
                         if (!is_null($customer->bill)) : ?>
-                            <li><a href="<?= Uri::create("accounts/salesinvoice/edit/{$customer->bill->id}"); ?>">Invoice - <?= $customer->bill->invoice_num ?></a></li>
+                            <li><a href="<?= Uri::create("sales/invoice/edit/{$customer->bill->id}"); ?>">Invoice - <?= $customer->bill->invoice_num ?></a></li>
                     <?php 
                         endif ?>
                         </ul>
