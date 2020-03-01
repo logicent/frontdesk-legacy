@@ -126,8 +126,6 @@
                                     <li><a href="<?= Uri::create('registers/partner'); ?>"><i class=""></i>&emsp;Partner</a></li>
                                 </ul>
                             </li>
-                            <?php 
-                                if ($ugroup->id == 5 || $ugroup->id == 6) : ?>
                             <li>
                                 <a href="#"><i class="fa fa-lg fa-money fa-fw text-success"></i>&emsp;Billing &amp; Payments<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
@@ -135,26 +133,19 @@
                                     <li><a href="<?= Uri::create('accounts/sales-receipt'); ?>">&emsp;Sales Receipt</a></li>
                                     <li><a href="<?= Uri::create('accounts/expenses'); ?>">&emsp;Expenses</a></li>
                                     <li><a href="<?= Uri::create('accounts/bank-deposit'); ?>">&emsp;Bank Deposit</a></li>
-                                    <li><a href="<?= Uri::create('accounts/bank-account'); ?>">&emsp;Bank Account</a></li>
-                                    <li><a href="<?= Uri::create('accounts/taxes'); ?>">&emsp;Taxes &amp; Charges</a></li>
-                                    <li><a href="<?= Uri::create('accounts/payment-method'); ?>">&emsp;Payment Method</a></li>
                                 </ul>
                             </li>
+                            <?php
+                                if ($ugroup->id == 6 || $ugroup->id == 5) : ?>
                             <li>
                                 <a href="#"><i class="fa fa-lg fa-building fa-fw text-danger"></i>&emsp;Facilities<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
-                                <?php /*
-                                    if($ugroup->id == 6 || $ugroup->id == 5) : */ ?>
-                                        <li><a href="<?= Uri::create('facilities/rates'); ?>"><i class=""></i>&emsp;Rates</a></li>
-                                        <li><a href="<?= Uri::create('facilities/rate-type'); ?>"><i class=""></i>&emsp;Rate Type</a></li>
-                                        <li><a href="<?= Uri::create('facilities/units'); ?>"><i class=""></i>&emsp;Units</a></li>
-                                        <li><a href="<?= Uri::create('facilities/unit-type'); ?>"><i class=""></i>&emsp;Unit Type</a></li>
-                                        <li><a href="<?= Uri::create('facilities/property'); ?>"><i class=""></i>&emsp;Property</a></li>
-                                        <li><a href="<?= Uri::create('facilities/property-type'); ?>"><i class=""></i>&emsp;Property Type</a></li>
-                                <?php // endif ?>
+                                    <li><a href="<?= Uri::create('facilities/rates'); ?>"><i class=""></i>&emsp;Rates</a></li>
+                                    <li><a href="<?= Uri::create('facilities/rate-type'); ?>"><i class=""></i>&emsp;Rate Type</a></li>
+                                    <li><a href="<?= Uri::create('facilities/units'); ?>"><i class=""></i>&emsp;Units</a></li>
+                                    <li><a href="<?= Uri::create('facilities/unit-type'); ?>"><i class=""></i>&emsp;Unit Type</a></li>
+                                    <li><a href="<?= Uri::create('facilities/property'); ?>"><i class=""></i>&emsp;Property</a></li>
                                     <li><a href="<?= Uri::create('facilities/services'); ?>"><i class=""></i>&emsp;Services</a></li>                                
-                                    <li><a href="<?= Uri::create('facilities/service-type'); ?>"><i class=""></i>&emsp;Services Type</a></li>
-                                    <li><a href="<?= Uri::create('facilities/amenities'); ?>"><i class=""></i>&emsp;Amenities</a></li>
                                 </ul>
                             </li>
                             <li>
@@ -165,7 +156,7 @@
                                 <a class="<?= Uri::segment(1) == 'settings' ? 'active' : '' ?>" href="<?= Uri::create('settings'); ?>">
                                     <i class="fa fa-lg fa-cog fa-fw text-muted"></i>&emsp;Settings</a>
                             </li>
-                            <?php 
+                            <?php
                                 endif; ?>
                         </ul>   <!-- /#side-menu -->
                     </div>  <!-- /.sidebar-collapse -->

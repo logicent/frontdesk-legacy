@@ -16,6 +16,7 @@
 		<tr>
 			<th>Description</th>
 			<th>Status</th>
+			<th>Parent</th>
 			<th>Code</th>
 			<th>&nbsp;</th>
 		</tr>
@@ -30,6 +31,7 @@
                 '<i class="fa fa-circle-o fa-fw text-success"></i>Enabled' :
                 '<i class="fa fa-circle-o fa-fw text-danger"></i>Disabled' ?> 
             </td>            
+			<td class="text-muted"><?= $item->parent ? $item->parent->name : ''; ?></td>
 			<td class="text-muted"><?= $item->code; ?></td>
 			<td class="text-center">
 				<?= Html::anchor('service/type/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>',

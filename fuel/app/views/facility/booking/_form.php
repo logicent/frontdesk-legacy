@@ -222,7 +222,7 @@
 		<div class="pull-right btn-toolbar">
 			<?php if (!empty($booking->bill)): ?>
 				<div class="btn-group">
-					<a href="<?= Uri::create('cash/receipt/create/'.$booking->id); ?>" class="btn btn-default">Receive money</a>
+					<a href="<?= Uri::create('accounts/payment/receipt/create/'.$booking->id); ?>" class="btn btn-default">Receive money</a>
                 </div>
                 
 				<div class="btn-group">

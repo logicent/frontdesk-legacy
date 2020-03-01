@@ -10,6 +10,54 @@
     <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-body">
+                <a class="btn btn-lg btn-link" href="<?= Uri::create('accounts/bank-account'); ?>">Bank Account</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <a class="btn btn-lg btn-link" href="<?= Uri::create('accounts/taxes'); ?>">Taxes &amp; Charges</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <a class="btn btn-lg btn-link" href="<?= Uri::create('accounts/payment-method'); ?>">Payment Method</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <a class="btn btn-lg btn-link" href="<?= Uri::create('facilities/property-type'); ?>">Property Type</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <a class="btn btn-lg btn-link" href="<?= Uri::create('facilities/service-type'); ?>">Services Type</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <a class="btn btn-lg btn-link" href="<?= Uri::create('facilities/amenities'); ?>">Amenities</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
                 <a class="btn btn-lg btn-link" href="<?= Uri::create('settings/accommodation'); ?>">Accommodation</a>
             </div>
         </div>

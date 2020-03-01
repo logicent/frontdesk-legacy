@@ -38,9 +38,9 @@ class Controller_Service_Type extends Controller_Authenticate
 					'code' => Input::post('code'),
 					'enabled' => Input::post('enabled'),
 					'is_default' => Input::post('is_default'),
+					'parent_id' => Input::post('parent_id'),
                     'default_service_provider' => Input::post('default_service_provider'),
                     'fdesk_user' => Input::post('fdesk_user'),
-                    
 				));
 
 				if ($service_type and $service_type->save())
@@ -84,6 +84,7 @@ class Controller_Service_Type extends Controller_Authenticate
 			$service_type->code = Input::post('code');
 			$service_type->enabled = Input::post('enabled');
 			$service_type->is_default = Input::post('is_default');
+            $service_type->parent_id = Input::post('parent_id');
 			$service_type->default_service_provider = Input::post('default_service_provider');
             $service_type->fdesk_user = Input::post('fdesk_user');
 
@@ -108,6 +109,7 @@ class Controller_Service_Type extends Controller_Authenticate
 				$service_type->code = $val->validated('code');
 				$service_type->enabled = $val->validated('enabled');
 				$service_type->is_default = $val->validated('is_default');
+				$service_type->parent_id = $val->validated('parent_id');
 				$service_type->default_service_provider = $val->validated('default_service_provider');
                 $service_type->fdesk_user = $val->validated('fdesk_user');
 

@@ -18,6 +18,15 @@
     
     <div class="form-group">
         <div class="col-md-3">
+            <?= Form::label('Parent', 'parent_id', array('class'=>'control-label')); ?>
+            <?= Form::select('parent_id', Input::post('parent_id', isset($service_type) ? $service_type->parent_id : ''),
+                                    Model_Service_Type::listOptionsParentServiceType(),
+                                    array('class' => 'form-control')); ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-3">
             <?= Form::label('Default Service Provider', 'default_service_provider', array('class'=>'control-label')); ?>
             <?= Form::select('default_service_provider', Input::post('default_service_provider', isset($service_type) ? $service_type->default_service_provider : ''),
                                     array(), // Model_Property::listOptionsServiceProvider(),

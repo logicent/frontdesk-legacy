@@ -27,7 +27,7 @@
                 '<i class="fa fa-circle-o fa-fw text-success"></i>Enabled' : 
                 '<i class="fa fa-circle-o fa-fw text-danger"></i>Disabled' ?>
             </td>
-            <td><?= $item->code ?></td>
+            <td class="text-muted"><?= $item->code ?></td>
             <td>
                 <div class="btn-toolbar">
                     <div class="btn-group">

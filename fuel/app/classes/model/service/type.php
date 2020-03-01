@@ -5,17 +5,18 @@ class Model_Service_Type extends Model
 {
     // System-defined (must NOT be deleted) but can be disabled
     // 
-    // Facility use by individual/organization for personal/commercial purpose
+    // Booking by individual/org for personal/commercial use
     public const SERVICE_TYPE_ACCOMMODATION = 'ACCOM'; // 001
-    public const SERVICE_TYPE_RENTAL = 'RENT'; // 002
-    public const SERVICE_TYPE_HIRE = 'HIRE'; // 003
+    public const SERVICE_TYPE_RENTAL        = 'RENT'; // 002
+    public const SERVICE_TYPE_HIRE          = 'HIRE'; // 003
     // Housekeeping
-    public const SERVICE_TYPE_CLEANING = 'CLNG'; // 004
-    public const SERVICE_TYPE_COOKING = 'CKG'; // 004
-    public const SERVICE_TYPE_LAUNDRY = 'LNDRY'; // 005
-    public const SERVICE_TYPE_DRY_CLEANING = 'DRYC'; // 006
-    // Food and Beverages (Meals)
-    public const SERVICE_TYPE_DINING = 'DIN'; // 007
+    public const SERVICE_TYPE_HOUSE_KEEPING = 'HK'; // 004
+    // Laundry
+    public const SERVICE_TYPE_LAUNDRY       = 'LNDRY'; // 005
+    // Maintenance
+    public const SERVICE_TYPE_MAINTENANCE   = 'MAINT'; // 006
+    // Dining
+    public const SERVICE_TYPE_MEALS         = 'F&B'; // 007
 
 	protected static $_properties = array(
 		'id',
@@ -23,11 +24,22 @@ class Model_Service_Type extends Model
 		'code',
         'enabled',
         'is_default',
+        'parent_id',
         'default_service_provider',
         'fdesk_user',
 		'created_at',
 		'updated_at',
 	);
+
+    protected static $_belongs_to = array(
+		'parent' => array(
+			'key_from' => 'parent_id',
+			'model_to' => 'Model_Service_Type',
+			'key_to' => 'id',
+			'cascade_save' => false,
+			'cascade_delete' => false,
+        ),
+    );
 
 	protected static $_observers = array(
 		'Orm\Observer_CreatedAt' => array(
@@ -46,6 +58,7 @@ class Model_Service_Type extends Model
 		$val->add_field('name', 'Name', 'required|max_length[255]');
 		$val->add_field('code', 'Code', 'required|max_length[255]');
 		$val->add_field('enabled', 'Enabled', 'required');
+		// $val->add_field('parent_id', 'Parent', 'valid_string[numeric]');
 
 		return $val;
 	}
@@ -64,11 +77,30 @@ class Model_Service_Type extends Model
             self::SERVICE_TYPE_ACCOMMODATION,
             self::SERVICE_TYPE_RENTAL,
             self::SERVICE_TYPE_HIRE,
-            self::SERVICE_TYPE_CLEANING,
-            self::SERVICE_TYPE_COOKING,
+            self::SERVICE_TYPE_HOUSE_KEEPING,
             self::SERVICE_TYPE_LAUNDRY,
-            self::SERVICE_TYPE_DRY_CLEANING,
-            self::SERVICE_TYPE_DINING,
+            self::SERVICE_TYPE_MAINTENANCE,
+            self::SERVICE_TYPE_MEALS,
         ];
+    }
+
+    public static function listOptionsParentServiceType()
+    {
+		$items = DB::select('id','name')
+						->from('service_types')
+						->where([
+                            'enabled' => true,
+                            ['parent_id', 'in', [null, 0]]
+                        ])
+						->execute()
+						->as_array();
+        
+		$list_options = array('' => '-- Select parent --');
+
+		foreach($items as $item) {
+			$list_options[$item['id']] = $item['name'];
+        }
+        
+		return $list_options;
     }
 }
