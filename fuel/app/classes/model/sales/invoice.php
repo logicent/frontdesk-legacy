@@ -3,6 +3,9 @@ use Orm\Model_Soft;
 
 class Model_Sales_Invoice extends Model_Soft
 {
+    const INVOICE_SOURCE_BOOKING = 'BKG';
+    const INVOICE_SOURCE_LEASE = 'LSE';
+
 	const INVOICE_STATUS_OPEN = 'O';
 	const INVOICE_STATUS_CLOSED = 'C';
 	const INVOICE_STATUS_CANCELED = 'X';
@@ -220,5 +223,18 @@ class Model_Sales_Invoice extends Model_Soft
 		if (self::find('last'))
 			return self::find('last')->invoice_num + 1; // reference
 		else return 1001; // initial record
-	}
+    }
+    
+    public static function getUnitName($invoice)
+    {
+        if ($invoice->source == self::INVOICE_SOURCE_BOOKING)
+            $invoice->unit_name = $invoice->booking->unit->name;
+        
+        if ($invoice->source == self::INVOICE_SOURCE_LEASE)
+            $invoice->unit_name = $invoice->lease->unit->name;
+        
+        $invoice->save(); // update the invoice
+
+        return $invoice->unit_name;
+    }
 }

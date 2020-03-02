@@ -42,7 +42,7 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 
 	}
 
-	public function action_create($bk_id = null)
+	public function action_create($id = null)
 	{
 		if (Input::method() == 'POST')
 		{
@@ -92,15 +92,22 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 			}
 		}
 
-		$booking = Model_Facility_Booking::find($bk_id);
-		$this->template->set_global('booking', $booking, false);
+        // !!! check the source and load correct model ref
+		// $booking = Model_Facility_Booking::find($id);
+		// $lease = Model_Lease::find($id);
+		// $this->template->set_global('order', $booking, false);
 
 		// prepare invoice item as global variable
 		$sales_invoice_item = Model_Sales_Invoice_Item::forge();
 		$this->template->set_global('sales_invoice_item', $sales_invoice_item, false);
 
-		// get default billable item
-		$services = DB::select('id','item')->from('service_item')->execute()->as_array();
+		// get billable and enabled item
+        $services = DB::select('id','code')
+                        ->from('service_item')
+                        ->where(array('billable' => true, 'enabled' => true))
+                        ->execute()
+                        ->as_array();
+        
 		$this->template->set_global('serviceItems', json_encode($services), false);
 
 		$this->template->title = "Invoices";

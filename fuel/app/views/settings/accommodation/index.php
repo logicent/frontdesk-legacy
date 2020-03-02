@@ -61,7 +61,7 @@
             </div>
         </div>
 
-        <?= Form::hidden('fdesk_user', Input::post('fdesk_user', isset($property) ? $property->fdesk_user : $uid)); ?>
+        <?= Form::hidden('fdesk_user', Input::post('fdesk_user', isset($accommodation) ? $accommodation->fdesk_user : $uid)); ?>
 
         <hr>
 

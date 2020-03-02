@@ -43,7 +43,7 @@
 		<thead>
 			<tr>
 				<!-- <th><input name="_id" type="checkbox" id="list_sel"></th> -->
-				<th>Guest name</th>
+				<th>Customer name</th>
 				<th>Reg no.</th>
 				<th>Phone no.</th>
 				<th>Unit no.</th>

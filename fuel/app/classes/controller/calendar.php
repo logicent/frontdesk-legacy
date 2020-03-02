@@ -30,7 +30,7 @@ class Controller_Calendar extends Controller_Authenticate
         $cal_data = [];
         foreach ($events as $key => $event)
         {
-            $cal_data[$key]['title'] = $event->first_name . ' ' . $event->last_name;
+            $cal_data[$key]['title'] = $event->customer->customer_name;
             $cal_data[$key]['start'] = $event->checkin;
             $cal_data[$key]['end'] = $event->checkout;
         }

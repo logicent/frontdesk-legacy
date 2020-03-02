@@ -74,7 +74,12 @@
                 <?= Form::select('ID_country', Input::post('ID_country', isset($customer) ? $customer->ID_country : ''), 
                                 Model_Country::listOptions(true), array('class' => 'col-md-4 form-control')); ?>
             </div>
-        </div>
+            <div class="col-md-6">
+				<?= Form::label('Occupation', 'occupation', array('class'=>'control-label')); ?>
+                <?= Form::input('occupation', Input::post('occupation', isset($customer) ? $customer->occupation : ''), 
+                                array('class' => 'col-md-4 form-control')); ?>
+			</div>            
+        </div>        
 	</div><!--/.col-md-6-->
 
     <!-- Right Side -->
@@ -102,13 +107,13 @@
 			</div>
 
             <div class="col-md-6">
-                <?= Form::hidden('inactive', Input::post('inactive', isset($lease) ? $lease->inactive : '0')); ?>
+                <?= Form::hidden('inactive', Input::post('inactive', isset($customer) ? $customer->inactive : '0')); ?>
                 <?= Form::checkbox('cb_inactive', null, array('class' => 'cb-checked', 'data-input' => 'inactive')); ?>
                 <?= Form::label('Inactive', 'cb_inactive', array('class'=>'control-label')); ?>
             </div>
             
             <div class="col-md-6">
-                <?= Form::hidden('is_internal_customer', Input::post('is_internal_customer', isset($lease) ? $lease->is_internal_customer : '0')); ?>
+                <?= Form::hidden('is_internal_customer', Input::post('is_internal_customer', isset($customer) ? $customer->is_internal_customer : '0')); ?>
                 <?= Form::checkbox('cb_is_internal_customer', null, array('class' => 'cb-checked', 'data-input' => 'is_internal_customer')); ?>
                 <?= Form::label('Is internal customer', 'cb_is_internal_customer', array('class'=>'control-label')); ?>
 			</div>            
@@ -122,35 +127,21 @@
 			</div>        
 
             <div class="col-md-6">
-				<?= Form::label('Billing currency', 'billing_currency', array('class'=>'control-label')); ?>
-                <?= Form::input('billing_currency', Input::post('billing_currency', isset($customer) ? $customer->billing_currency : ''), 
+				<?php Form::label('Billing currency', 'billing_currency', array('class'=>'control-label')); ?>
+                <?php Form::input('billing_currency', Input::post('billing_currency', isset($customer) ? $customer->billing_currency : ''), 
                                 array('class' => 'col-md-4 form-control')); ?>
 			</div>
 		</div>
 
 		<div class="form-group">
             <div class="col-md-6">
-				<?= Form::label('Occupation', 'occupation', array('class'=>'control-label')); ?>
-                <?= Form::input('occupation', Input::post('occupation', isset($customer) ? $customer->occupation : ''), 
-                                array('class' => 'col-md-4 form-control')); ?>
-			</div>        
-
-            <div class="col-md-6">
 				<?= Form::label('Remarks', 'remarks', array('class'=>'control-label')); ?>
                 <?= Form::textarea('remarks', Input::post('remarks', isset($customer) ? $customer->remarks : ''), 
-                                    array('class' => 'col-md-4 form-control')); ?>
+                                    array('class' => 'col-md-4 form-control', 'rows' => 5)); ?>
 			</div>
 		</div>
     </div><!--/.col-md-6-->
 </div><!--/.row-->
-
-<div class="row">
-    <div class="col-md-6">
-    </div>
-
-    <div class="col-md-6">
-    </div>
-</div>
 
 <?= Form::hidden('fdesk_user', Input::post('fdesk_user', isset($customer) ? $customer->fdesk_user : $uid)); ?>
 
@@ -171,5 +162,4 @@
 <script>
     // see checkbox code in custom.js
 	// Date range picker for birth_date
- 
 </script>

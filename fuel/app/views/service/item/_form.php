@@ -17,6 +17,15 @@
     </div>
 
     <div class="form-group">
+        <div class="col-md-4">
+            <?= Form::label('Service type', 'service_type', array('class'=>'control-label')); ?>
+            <?= Form::select('service_type', Input::post('service_type', isset($service_item) ? $service_item->service_type : ''),
+                                    Model_Service_Type::listOptionsServiceType(),
+                                    array('class' => 'form-control')); ?>
+        </div>
+    </div>
+
+    <div class="form-group">
         <div class="col-md-2">
             <?= Form::label('Qty', 'qty', array('class'=>'control-label')); ?>
             <?= Form::input('qty', Input::post('qty', isset($service_item) ? $service_item->qty : 
@@ -52,8 +61,20 @@
     <hr>
 
     <div class="form-group">
-        <div class="col-md-6">
-            <?= Form::submit('submit', isset($service_item) ? 'Update item' : 'Add item', array('class' => 'btn btn-primary')); ?>
+        <div class="col-md-2">
+            <?= Form::submit('submit', isset($service_item) && !$service_item->is_new() ? 'Update' : 'Create', array('class' => 'btn btn-primary')); ?>
+        </div>
+
+        <div class="col-md-2">
+    <?php 
+        if (isset($service_item) && !$service_item->is_new()): ?>
+            <div class="pull-right btn-toolbar">
+                <div class="btn-group">
+                    <a href="<?= Uri::create('service/item/create/'.$service_item->id); ?>" class="btn btn-default">Duplicate</a>
+                </div>
+            </div>
+    <?php 
+        endif ?>
         </div>
     </div>
 

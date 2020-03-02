@@ -10,7 +10,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <div class="col-md-6">
-                <?= Form::checkbox('require_advance_pmt', Input::post('require_advance_pmt', isset($rental_setting) ? $rental_setting->require_advance_pmt : '0'), 
+                <?= Form::checkbox('require_advance_pmt', Input::post('require_advance_pmt', isset($hire_setting) ? $hire_setting->require_advance_pmt : '0'), 
                                         array('class' => 'cb-checked')); ?>
                 <?= Form::label('Require advance payment', 'require_advance_pmt', array('class'=>'control-label')); ?>
             </div>
@@ -18,16 +18,16 @@
 
         <div class="form-group">
             <div class="col-md-6">
-                <?= Form::label('Advance percentage of total', 'rent_due_by', array('class'=>'control-label')); ?>
+                <?= Form::label('Advance as percentage of total', 'advance_as_percentage_of_total', array('class'=>'control-label')); ?>
                 <div class="input-group">
-                    <?= Form::input('rent_due_by', Input::post('rent_due_by', isset($rental_setting) ? $rental_setting->rent_due_by : ''), 
+                    <?= Form::input('advance_as_percentage_of_total', Input::post('advance_as_percentage_of_total', isset($hire_setting) ? $hire_setting->advance_as_percentage_of_total : ''), 
                                         array('class' => 'col-md-4 form-control')); ?>
                     <span class="input-group-addon">%</span>
                 </div>                                        
             </div>            
         </div>
 
-        <?= Form::hidden('fdesk_user', Input::post('fdesk_user', isset($property) ? $property->fdesk_user : $uid)); ?>
+        <?= Form::hidden('fdesk_user', Input::post('fdesk_user', isset($hire_setting) ? $hire_setting->fdesk_user : $uid)); ?>
 
         <hr>
 

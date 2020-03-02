@@ -33,7 +33,7 @@
             </div>            
         </div>
 
-        <?= Form::hidden('fdesk_user', Input::post('fdesk_user', isset($property) ? $property->fdesk_user : $uid)); ?>
+        <?= Form::hidden('fdesk_user', Input::post('fdesk_user', isset($rental_setting) ? $rental_setting->fdesk_user : $uid)); ?>
 
         <hr>
 

@@ -184,8 +184,9 @@ class Model_Facility_Booking extends Model_Soft
 
 	public static function listOptions($reg_no = false)
 	{
-		$items = DB::select('id','last_name','first_name', 'reg_no')
-						->from(self::$_table_name)
+		$items = DB::select('b.id','c.customer_name', 'reg_no')
+                        ->from(array(self::$_table_name, 'b'))
+                        ->join(array('customer', 'c'), 'INNER')->on('c.id', '=', 'b.customer_id')
 						//->where()
 						->execute()
 						->as_array();
@@ -193,7 +194,7 @@ class Model_Facility_Booking extends Model_Soft
 		$list_options = array();
 
 		foreach($items as $item) {
-			$list_options[$item['id']] = ucwords($item['first_name']) .' '. ucwords($item['last_name']);
+			$list_options[$item['id']] = ucwords($item['customer_name']);
 			if ($reg_no)
 				$list_options[$item['id']] .= '&ensp;&ndash;&ensp;#' . $item['reg_no'];
 		}

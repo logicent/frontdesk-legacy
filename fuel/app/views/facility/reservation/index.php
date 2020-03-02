@@ -20,7 +20,7 @@
 <table class="table table-hover datatable">
 	<thead>
 		<tr>
-			<th>Customer Name</th>
+			<th>Customer name</th>
 			<th>Status</th>
 			<th>Check-in</th>
 			<th>Pax (A/C)</th>

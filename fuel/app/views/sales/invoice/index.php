@@ -23,8 +23,8 @@
 			<th>Unit no.</th>
 			<th>Invoice no.</th>
 			<th>Due date</th>
-			<th>Amount due</th>
-			<th>Balance due</th>
+			<th class="text-right">Amount due</th>
+			<th class="text-right">Balance due</th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>
@@ -32,7 +32,7 @@
 <?php foreach ($sales_invoices as $item): ?>
 		<tr>
             <td><?= Html::anchor('sales/invoice/edit/'. $item->id, ucwords($item->customer_name), ['class' => 'clickable']) ?></td>
-			<td><?= $item->unit_name; ?></td>
+			<td><?= Model_Sales_invoice::getUnitName($item); ?></td>
 			<td><?= $item->invoice_num; ?></td>
 			<td><?= date('d-M-Y', strtotime($item->due_date)); ?></td>
 			<td class="text-right"><?= number_format($item->amount_due, 2); ?></td>

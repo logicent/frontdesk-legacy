@@ -29,11 +29,17 @@ class Controller_Unit_Type extends Controller_Authenticate
                     'inactive' => Input::post('inactive'),
                     'ota_mappings' => Input::post('ota_mappings'),
                     'amenities' => Input::post('amenities'),
-                    'image_path' => Input::post('image_path'),
+                    // 'image_path' => Input::post('image_path'),
                     'fdesk_user' => Input::post('fdesk_user'),
                     'max_persons' => Input::post('max_persons'),
                     'default_pax' => Input::post('default_pax'),
 				));
+
+                // upload and save the file
+				$file = Filehelper::upload();
+
+                if (!empty($file['saved_as']))
+                    $unit_type->image_path = 'uploads'.DS.$file['name'];
 
 				if ($unit_type and $unit_type->save())
 				{
@@ -82,10 +88,16 @@ class Controller_Unit_Type extends Controller_Authenticate
             $unit_type->inactive = Input::post('inactive');
             $unit_type->ota_mappings = Input::post('ota_mappings');
             $unit_type->amenities = Input::post('amenities');
-            $unit_type->image_path = Input::post('image_path');
+            // $unit_type->image_path = Input::post('image_path');
             $unit_type->fdesk_user = Input::post('fdesk_user');
             $unit_type->max_persons = Input::post('max_persons');
             $unit_type->default_pax = Input::post('default_pax');
+
+            // upload and save the file
+            $file = Filehelper::upload();
+
+            if (!empty($file['saved_as']))
+                $unit_type->image_path = 'uploads'.DS.$file['name'];
 
 			if ($unit_type->save())
 			{
@@ -104,6 +116,14 @@ class Controller_Unit_Type extends Controller_Authenticate
 		{
 			if (Input::method() == 'POST')
 			{
+                // upload and save the file
+                $file = Filehelper::upload();
+
+                if (!empty($file['saved_as']))
+                    $unit_type->image_path = 'uploads'.DS.$file['name'];
+                else 
+                    $unit_type->image_path = $val->validated('image_path');
+                                    
                 $unit_type->code = $val->validated('code');
 				$unit_type->name = $val->validated('name');
 				$unit_type->description = $val->validated('description');
@@ -154,4 +174,29 @@ class Controller_Unit_Type extends Controller_Authenticate
 
 	}
 
+    public function action_remove_img($id)
+	{
+		$unit_type = Model_Unit_Type::find($id);
+		if (!$unit_type) {
+			Session::set_flash('error', 'Unit type not found.');
+			Response::redirect('facilities/unit-type');
+		}
+        // unlink file
+        try 
+        {
+            File::delete(DOCROOT . $unit_type->image_path);
+        }
+        catch (Exception $e)
+        {
+            Session::set_flash('error', $e->getMessage());
+    		Response::redirect('unit/type/edit/' . $unit_type->id);
+        }
+
+		// remove image path
+		$unit_type->image_path = '';
+		if ($unit_type->save()) {
+			Session::set_flash('success', 'Saved unit type info.');
+		}
+		Response::redirect('unit/type/edit/' . $unit_type->id);
+	}
 }

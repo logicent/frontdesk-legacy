@@ -84,6 +84,29 @@ class Model_Service_Type extends Model
         ];
     }
 
+    public static function listOptionsServiceType()
+    {
+		$items = DB::select('st.id', 'st.name')
+                    ->from(array('service_types', 'st'))
+                    ->join(array('service_types', 'stp'), 'INNER')->on('stp.id', '=', 'st.parent_id')
+                    ->where([
+                        'st.enabled' => true,
+                        ['st.parent_id', '!=', 0]
+                    ])
+                    ->order_by('stp.name', 'ASC')
+                    ->order_by('st.name', 'ASC')
+                    ->execute()
+                    ->as_array();
+        
+		$list_options = array('' => '');
+
+		foreach($items as $item) {
+			$list_options[$item['id']] = $item['name'];
+        }
+        
+		return $list_options;
+    }
+
     public static function listOptionsParentServiceType()
     {
 		$items = DB::select('id','name')

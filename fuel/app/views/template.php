@@ -133,6 +133,7 @@
                                     <li><a href="<?= Uri::create('accounts/sales-receipt'); ?>">&emsp;Sales Receipt</a></li>
                                     <li><a href="<?= Uri::create('accounts/expenses'); ?>">&emsp;Expenses</a></li>
                                     <li><a href="<?= Uri::create('accounts/bank-deposit'); ?>">&emsp;Bank Deposit</a></li>
+                                    <!--<li><a href="<?= Uri::create('accounts/gift-voucher'); ?>">&emsp;Gift Vouchers</a></li>-->
                                 </ul>
                             </li>
                             <?php

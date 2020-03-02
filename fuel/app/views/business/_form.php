@@ -40,7 +40,7 @@
                 <?= Form::select('currency_symbol', Input::post('currency_symbol', isset($business) ? $business->currency_symbol : ''), 
                                 Model_Business::listOptionsCurrency(), 
                                 array('class' => 'col-md-4 form-control')); ?>
-            </div>            
+            </div>
 		</div>
     </div>
 
@@ -80,26 +80,30 @@
                 <?= Form::label('Logo path', 'business_logo', array('class'=>'control-label')); ?>
                 <div class="input-group">
                     <?= Form::input('business_logo', Input::post('business_logo', isset($business) ? $business->business_logo : ''),
-                            array('id' => 'logo_path', 'class' => 'col-md-4 form-control', 'readonly' => true)); ?>
-                    <span id="rm_img" class="input-group-addon">
-                        <?php 
-                        if ($business) :
-                            echo Html::anchor(Uri::create('business/remove_img/' . $business->id), '<i class="fa fa-trash-o text-red"></i>');
-                        endif ?>
+                                    array('id' => 'file_path', 'class' => 'col-md-4 form-control', 'readonly' => true)); ?>
+                <?php 
+                    if ($business) : ?>
+                    <span class="input-group-addon">
+                        <?= Html::anchor(Uri::create(false), '<i class="fa fa-plus-square-o text-info"></i>', array('id' => 'add_img')) ?>
                     </span>
+                    <span class="input-group-addon">
+                        <?= Html::anchor(Uri::create('business/remove_img/' . $business->id), '<i class="fa fa-trash-o text-red"></i>',
+                                        array('id' => 'del_img')) ?>
+                    </span>
+                <?php 
+                    endif ?>
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-        <!-- hide this in favor of input click to trigger file open dialog -->
-            <?= Form::file('uploaded_file', array('class' => 'col-md-12')); ?>
-
+            <?= Form::file('uploaded_file', array('class' => 'col-md-12', 'style' => 'display: none;')); ?>
             <div class="col-md-12">
                 <?php // Form::label('Upload image', 'upload_img', array('class'=>'control-label')); ?>
                 <br>
                 <div class="img-thumbnail">
-                    <?= Html::img(!empty($business->business_logo) ? $business->business_logo : 'http://placehold.it/240x120', array('class'=>'logo-img')); ?>
+                    <?= Html::img(!empty($business->business_logo) ? $business->business_logo : 'http://placehold.it/240x120', 
+                                array('class'=>'upload-img', 'style' => 'max-width: 370px;')); ?>
                 </div>
             </div>
         </div>
@@ -117,21 +121,3 @@
 </div>
 
 <?= Form::close(); ?>
-
-<script>
-    $('input[type=file]').change(function() {
-        //var filename = $(this).val().split('\\').pop();
-        // remove C:\fakepath that is added for security reasons
-        var filename = $(this).val().replace(/C:\\fakepath\\/i, '');
-        $('#logo_path').val(filename);
-    });
-    $('#rm_img').click(function(e){
-        $.post("<?= Uri::create(isset($business) ? '/business/remove_img/'.$business->id : '#'); ?>",
-            function(data) {
-                $('#logo_path').val('')
-                $('.logo-img').attr("src", "http://placehold.it/225x140");
-
-            });
-        e.preventDefault();
-    });
-</script>

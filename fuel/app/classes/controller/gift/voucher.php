@@ -5,22 +5,22 @@ class Controller_Gift_Voucher extends Controller_Authenticate
 	public function action_index()
 	{
 		$data['gift_vouchers'] = Model_Gift_Voucher::find('all');
-		$this->template->title = "Gift_vouchers";
+		$this->template->title = "Gift Voucher";
 		$this->template->content = View::forge('gift/voucher/index', $data);
 
 	}
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('gift/voucher');
+		is_null($id) and Response::redirect('accounts/gift-voucher');
 
 		if ( ! $data['gift_voucher'] = Model_Gift_Voucher::find($id))
 		{
-			Session::set_flash('error', 'Could not find gift_voucher #'.$id);
-			Response::redirect('gift/voucher');
+			Session::set_flash('error', 'Could not find gift voucher #'.$id);
+			Response::redirect('accounts/gift-voucher');
 		}
 
-		$this->template->title = "Gift_voucher";
+		$this->template->title = "Gift Voucher";
 		$this->template->content = View::forge('gift/voucher/view', $data);
 
 	}
@@ -45,14 +45,14 @@ class Controller_Gift_Voucher extends Controller_Authenticate
 
 				if ($gift_voucher and $gift_voucher->save())
 				{
-					Session::set_flash('success', 'Added gift_voucher #'.$gift_voucher->id.'.');
+					Session::set_flash('success', 'Added gift voucher #'.$gift_voucher->code.'.');
 
-					Response::redirect('gift/voucher');
+					Response::redirect('accounts/gift-voucher');
 				}
 
 				else
 				{
-					Session::set_flash('error', 'Could not save gift_voucher.');
+					Session::set_flash('error', 'Could not save gift voucher.');
 				}
 			}
 			else
@@ -61,19 +61,19 @@ class Controller_Gift_Voucher extends Controller_Authenticate
 			}
 		}
 
-		$this->template->title = "Gift_Vouchers";
+		$this->template->title = "Gift Voucher";
 		$this->template->content = View::forge('gift/voucher/create');
 
 	}
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('gift/voucher');
+		is_null($id) and Response::redirect('accounts/gift-voucher');
 
 		if ( ! $gift_voucher = Model_Gift_Voucher::find($id))
 		{
-			Session::set_flash('error', 'Could not find gift_voucher #'.$id);
-			Response::redirect('gift/voucher');
+			Session::set_flash('error', 'Could not find gift voucher #'.$id);
+			Response::redirect('accounts/gift-voucher');
 		}
 
 		$val = Model_Gift_Voucher::validate('edit');
@@ -90,14 +90,14 @@ class Controller_Gift_Voucher extends Controller_Authenticate
 
 			if ($gift_voucher->save())
 			{
-				Session::set_flash('success', 'Updated gift_voucher #' . $id);
+				Session::set_flash('success', 'Updated gift voucher #' . $gift_voucher->code);
 
-				Response::redirect('gift/voucher');
+				Response::redirect('accounts/gift-voucher');
 			}
 
 			else
 			{
-				Session::set_flash('error', 'Could not update gift_voucher #' . $id);
+				Session::set_flash('error', 'Could not update gift voucher #' . $id);
 			}
 		}
 
@@ -119,28 +119,28 @@ class Controller_Gift_Voucher extends Controller_Authenticate
 			$this->template->set_global('gift_voucher', $gift_voucher, false);
 		}
 
-		$this->template->title = "Gift_vouchers";
+		$this->template->title = "Gift Voucher";
 		$this->template->content = View::forge('gift/voucher/edit');
 
 	}
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('gift/voucher');
+		is_null($id) and Response::redirect('accounts/gift-voucher');
 
 		if ($gift_voucher = Model_Gift_Voucher::find($id))
 		{
 			$gift_voucher->delete();
 
-			Session::set_flash('success', 'Deleted gift_voucher #'.$id);
+			Session::set_flash('success', 'Deleted gift voucher #'.$id);
 		}
 
 		else
 		{
-			Session::set_flash('error', 'Could not delete gift_voucher #'.$id);
+			Session::set_flash('error', 'Could not delete gift voucher #'.$id);
 		}
 
-		Response::redirect('gift/voucher');
+		Response::redirect('accounts/gift-voucher');
 
 	}
 

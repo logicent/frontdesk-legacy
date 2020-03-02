@@ -2,7 +2,7 @@
 
 	<div class="form-group">
 		<div class="col-md-2">
-			<?= Form::label('Folio no.', 'invoice_num', array('class'=>'control-label')); ?>
+			<?= Form::label('Invoice no.', 'invoice_num', array('class'=>'control-label')); ?>
             <?= Form::input('invoice_num', Input::post('invoice_num', isset($sales_invoice) ? $sales_invoice->invoice_num : 
                             Model_Sales_Invoice::getNextSerialNumber()), 
                             array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
@@ -17,12 +17,11 @@
 		</div>
 
 		<div class="col-md-offset-4 col-md-4">
-			<?= Form::label('Customer', 'customer_name', array('class'=>'control-label')); ?>
-            <?= Form::input('customer_name', Input::post('customer_name', isset($sales_invoice) ? $sales_invoice->customer_name : ''), 
-                            array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
-            <?php /* Form::select('customer_list', Input::post('customer_list', isset($sales_invoice) ? $sales_invoice->customer_name : ''), 
+			<?= Form::label('Customer / Order ref.', 'customer_name', array('class'=>'control-label')); ?>
+            <?= Form::hidden('customer_name', Input::post('customer_name', isset($sales_invoice) ? $sales_invoice->customer_name : '')); ?>
+            <?= Form::select('customer_list', Input::post('customer_list', isset($sales_invoice) ? $sales_invoice->customer_name : ''), 
                             Model_Facility_Booking::listOptions(true), 
-                            array('class' => 'col-md-4 form-control', 'disabled' => true)); */ ?>
+                            array('class' => 'col-md-4 form-control', 'disabled' => isset($sales_invoice) ? true : false)); ?>
 		</div>
 	</div>
 
@@ -30,18 +29,18 @@
 		<div class="col-md-2">
 			<?= Form::label('Issue date', 'issue_date', array('class'=>'control-label')); ?>
             <?= Form::input('issue_date', Input::post('issue_date', isset($sales_invoice) ? $sales_invoice->issue_date : ''), 
-                            array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
+                            array('class' => 'col-md-4 form-control datepicker', 'readonly' => isset($sales_invoice) ? true : false)); ?>
 		</div>
 
 		<div class="col-md-2">
 			<?= Form::label('Due date', 'due_date', array('class'=>'control-label')); ?>
             <?= Form::input('due_date', Input::post('due_date', isset($sales_invoice) ? $sales_invoice->due_date : ''), 
-                            array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
+                            array('class' => 'col-md-4 form-control datepicker', 'readonly' => isset($sales_invoice) ? true : false)); ?>
 		</div>
 
 		<div class="col-md-offset-4 col-md-4">
 			<?= Form::label('Billing address', 'billing_address', array('class'=>'control-label')); ?>
-            <?= Form::textarea('billing_address', Input::post('billing_address', isset($sales_invoice) ? $sales_invoice->billing_address :  isset($booking) ? $booking->address : ''), 
+            <?= Form::textarea('billing_address', Input::post('billing_address', isset($sales_invoice) ? $sales_invoice->billing_address : ''), 
                                 array('class' => 'col-md-4 form-control', 'rows' => 2)); ?>
 		</div>
 	</div>
@@ -64,7 +63,7 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>Receipt No.</th>
+						<th>Receipt no.</th>
 						<th>Date</th>
 						<th>Description</th>
 						<th class="text-right">Amount</th>

@@ -25,7 +25,7 @@ class Controller_Service_Item extends Controller_Authenticate
 
 	}
 
-	public function action_create()
+	public function action_create($id = null)
 	{
 		if (Input::method() == 'POST')
 		{
@@ -64,7 +64,29 @@ class Controller_Service_Item extends Controller_Authenticate
 			}
 		}
 
-		$this->template->title = "Service_Items";
+        if ($id)
+        {
+            $copy_item = Model_Service_Item::find($id);
+
+            $service_item = Model_Service_Item::forge(array(
+                'code' => $copy_item->code,
+                'gl_account_id' => $copy_item->gl_account_id,
+                'description' => $copy_item->description,
+                'qty' => $copy_item->qty,
+                'unit_price' => $copy_item->unit_price,
+                'discount_percent' => $copy_item->discount_percent,
+                'fdesk_user' => $copy_item->fdesk_user,
+                'service_type' => $copy_item->service_type,
+                'billable' => $copy_item->billable,
+                'enabled' => $copy_item->enabled,
+            ));
+
+            Session::set_flash('info', 'Duplicate service item #' . $service_item->code);
+
+			$this->template->set_global('service_item', $service_item, false);
+        }
+
+		$this->template->title = "Service Item";
 		$this->template->content = View::forge('service/item/create');
 
 	}
@@ -83,7 +105,7 @@ class Controller_Service_Item extends Controller_Authenticate
 
 		if ($val->run())
 		{
-			$service_item->item = Input::post('code');
+			$service_item->code = Input::post('code');
 			$service_item->gl_account_id = Input::post('gl_account_id');
 			$service_item->description = Input::post('description');
 			$service_item->qty = Input::post('qty');
@@ -111,7 +133,7 @@ class Controller_Service_Item extends Controller_Authenticate
 		{
 			if (Input::method() == 'POST')
 			{
-				$service_item->item = $val->validated('code');
+				$service_item->code = $val->validated('code');
 				$service_item->gl_account_id = $val->validated('gl_account_id');
 				$service_item->description = $val->validated('description');
 				$service_item->qty = $val->validated('qty');
@@ -128,7 +150,7 @@ class Controller_Service_Item extends Controller_Authenticate
 			$this->template->set_global('service_item', $service_item, false);
 		}
 
-		$this->template->title = "Service_items";
+		$this->template->title = "Service Item";
 		$this->template->content = View::forge('service/item/edit');
 
 	}

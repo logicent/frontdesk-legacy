@@ -1,4 +1,4 @@
-<?= Form::open(array("class"=>"form-horizontal", "autocomplete" => "off")); ?>
+<?= Form::open(array("class"=>"form-horizontal", "autocomplete" => "off", "enctype"=>"multipart/form-data")); ?>
 
 <div class="row">
     <div class="col-md-6">
@@ -73,16 +73,51 @@
                 <?= Form::label('Inactive', 'cb_inactive', array('class'=>'control-label')); ?>
             </div>            
         </div>
+    </div>
 
-        <hr>
-
-        <?= Form::hidden('fdesk_user', Input::post('fdesk_user', isset($unit_type) ? $unit_type->fdesk_user : $uid)); ?>
-
+    <div class="col-md-6">
         <div class="form-group">
-            <div class="col-md-3">
-            <?= Form::submit('submit', isset($unit_type) ? 'Update' : 'Add', array('class' => 'btn btn-primary')); ?>
+            <div class="col-md-12">
+                <?= Form::label('Image path', 'image_path', array('class'=>'control-label')); ?>
+                <div class="input-group">
+                    <?= Form::input('image_path', Input::post('image_path', isset($unit_type) ? $unit_type->image_path : ''),
+                                    array('id' => 'file_path', 'class' => 'col-md-4 form-control', 'readonly' => true)); ?>
+                <?php 
+                    if ($unit_type) : ?>
+                    <span class="input-group-addon">
+                        <?= Html::anchor(Uri::create(false), '<i class="fa fa-plus-square-o text-info"></i>', array('id' => 'add_img')) ?>
+                    </span>
+                    <span class="input-group-addon">
+                        <?= Html::anchor(Uri::create('unit/type/remove_img/' . $unit_type->id), '<i class="fa fa-trash-o text-red"></i>',
+                                        array('id' => 'del_img')) ?>
+                    </span>
+                <?php 
+                    endif ?>
+                </div>
             </div>
         </div>
+
+        <div class="form-group">
+            <?= Form::file('uploaded_file', array('class' => 'col-md-12', 'style' => 'display: none;')); ?>
+            <div class="col-md-12">
+                <?= Form::label('Image preview', 'upload_img', array('class'=>'control-label')); ?>
+                <br>
+                <div class="img-thumbnail">
+                    <?= Html::img(!empty($unit_type->image_path) ? $unit_type->image_path : 'http://placehold.it/240x120', 
+                                array('class'=>'upload-img', 'style' => 'max-width: 570px;')); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<?= Form::hidden('fdesk_user', Input::post('fdesk_user', isset($unit_type) ? $unit_type->fdesk_user : $uid)); ?>
+
+<div class="form-group">
+    <div class="col-md-3">
+    <?= Form::submit('submit', isset($unit_type) ? 'Update' : 'Add', array('class' => 'btn btn-primary')); ?>
     </div>
 </div>
 

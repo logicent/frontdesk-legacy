@@ -70,7 +70,7 @@ body {
     margin-bottom: 0;
 }
 
-.btn.btn-primary, .btn.btn-default:not(.btn-xs) {
+.btn.btn-primary, .btn.btn-default:not(.btn-xs, .fc-listWeek-button) {
     display: inline-block;
     border-radius: 3px;
     padding: 7px 14px;
@@ -362,7 +362,42 @@ label {
 input.cb-checked {
     vertical-align: text-bottom;
     cursor: pointer;
+/* Fancy Styling */
+    /* position: absolute;
+    opacity: 0; */
+    /* cursor: pointer; */
+
 }
+/* START - NOT COMPLETE */
+/* .checkbox-label .checkbox-custom
+{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 24px;
+    width: 24px;
+    background-color: transparent;
+    border-radius: 5px;
+    border: 2px solid #ced8e4;
+}
+
+.checkbox-label .checkbox-custom:after
+{
+    position: absolute;
+    content: "";
+    left: 12px;
+    top: 12px;
+    height: 0px;
+    width: 0px;
+    border-radius: 5px;
+    border: solid #0098FF;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(0deg) scale(0);
+    -ms-transform: rotate(0deg) scale(0);
+    transform: rotate(0deg) scale(0);
+    opacity: 1;
+} */
+/* END - NOT COMPLETE */
 
 .panel {
     box-shadow: none;
@@ -392,3 +427,4 @@ input.cb-checked {
 /* .dash-panel {
     width: 50%;
 } */
+

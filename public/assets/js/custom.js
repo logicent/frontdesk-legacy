@@ -81,4 +81,57 @@ $(function() {
         }
         else $('#form_' + $(this).data('input')).val(0);
     });
+    
+// File Upload - TODO: add multiple file upload and preview functionality
+    $('#add_img').on('click', function(e) {
+        fileUpload = document.getElementById("form_uploaded_file");
+
+        if (fileUpload)
+            fileUpload.click();
+
+        // fileUploads = document.getElementById("form_uploads");
+        // if (fileUploads)
+        //     fileUploads.click();
+
+        return false;
+    });
+
+    $('#del_img').click(function(e) {
+        $.post($(this).attr('href'),
+            function(data) {
+                $('#file_path').val('')
+                $('.upload-img').attr("src", "http://placehold.it/225x140");
+            });
+        e.preventDefault();
+    });
+
+    $('#form_uploaded_file').on('change', function() {
+        //var filename = $(this).val().split('\\').pop();
+        // remove C:\fakepath that is added for security reasons
+        var filename = $(this).val().replace(/C:\\fakepath\\/i, '');
+        $('#file_path').val(filename);
+
+        // var file = document.getElementById('form_uploaded_file').files[0];
+        
+        // var preview = document.querySelector('.img-thumbnail');
+
+        // if (file) {
+        //     // $('#file_item').text(file.name);
+
+        //     var reader = new FileReader();
+        //     reader.onloadend = function() {
+        //         preview.src = reader.result;
+        //     }
+
+        //     if (file) {
+        //         reader.readAsDataURL(file);
+        //         $('#file_path').val(file.name);
+        //     }
+
+        //     // $('#attachment_summary').html('Added 1 attachment. <small>click Save above</small>');
+        //     $('#del_img').css('display', '');
+        // } else {
+        //     preview.src = '';
+        // }
+    });
 });
