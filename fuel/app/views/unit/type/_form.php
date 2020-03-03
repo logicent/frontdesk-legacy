@@ -89,7 +89,7 @@
                     </span>
                     <span class="input-group-addon">
                         <?= Html::anchor(Uri::create('unit/type/remove_img/' . $unit_type->id), '<i class="fa fa-trash-o text-red"></i>',
-                                        array('id' => 'del_img')) ?>
+                                        array('id' => 'del_img', 'data-ph' => 'http://placehold.it/240x120')) ?>
                     </span>
                 <?php 
                     endif ?>

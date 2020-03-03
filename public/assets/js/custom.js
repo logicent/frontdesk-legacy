@@ -102,10 +102,11 @@ $(function() {
     });
 
     $('#del_img').click(function(e) {
+        ph = $(this).data('ph');
         $.post($(this).attr('href'),
             function(data) {
                 $('#file_path').val('')
-                $('.upload-img').attr("src", "http://placehold.it/225x140");
+                $('.upload-img').attr("src", ph);
             });
         e.preventDefault();
     });

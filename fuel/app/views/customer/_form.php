@@ -1,7 +1,7 @@
-<?= Form::open(array("class"=>"form-horizontal", "autocomplete" => "off")); ?>
+<?= Form::open(array("class"=>"form-horizontal", "autocomplete" => "off", "enctype"=>"multipart/form-data")); ?>
 
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-8">
 		<div class="form-group">
 			<div class="col-md-6">
 				<?= Form::label('Full name', 'customer_name', array('class'=>'control-label')); ?>
@@ -9,12 +9,18 @@
                                                             array('class' => 'col-md-4 form-control')); ?>
 			</div>
             
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <?= Form::label('Title of Courtesy', 'title_of_courtesy', array('class'=>'control-label')); ?>
                 <?= Form::select('title_of_courtesy', Input::post('title_of_courtesy', isset($customer) ? $customer->title_of_courtesy : ''), 
                                 Model_Facility_Booking::$toc, 
                                 array('class' => 'col-md-4 form-control')); ?>
             </div>
+
+            <div class="col-md-3">
+                <?= Form::label('Sex', 'sex', array('class'=>'control-label')); ?>
+                <?= Form::select('sex', Input::post('sex', isset($customer) ? $customer->sex : ''), Model_Facility_Booking::$sex, 
+                                array('class' => 'col-md-4 form-control')); ?>
+            </div>            
 		</div>
 <!--
             <div class="col-md-6">
@@ -25,19 +31,22 @@
 			</div>
 -->      
 		<div class="form-group">
-            <div class="col-md-6">
-                <?= Form::label('Sex', 'sex', array('class'=>'control-label')); ?>
-                <?= Form::select('sex', Input::post('sex', isset($customer) ? $customer->sex : ''), Model_Facility_Booking::$sex, 
+            <div class="col-md-6"> 
+				<?= Form::label('Type', 'customer_type', array('class'=>'control-label')); ?>
+                <?= Form::select('customer_type', Input::post('customer_type', isset($customer) ? $customer->customer_type : ''), 
+                                Model_Customer::listOptionsCustomerType(), 
                                 array('class' => 'col-md-4 form-control')); ?>
-            </div>
-
+            </div>            
             <div class="col-md-6">
-			    <?= Form::label('Date of Birth', 'birth_date', array('class'=>'control-label')); ?>
-                <!-- <div class="input-group"> -->
-                    <?= Form::input('birth_date', Input::post('birth_date', isset($customer) ? $customer->birth_date : ''), 
-                                    array('class' => 'col-md-4 form-control datepicker')); ?>
-                    <!-- <span class="input-group-addon"><i class="fa fa-calendar"></i></span> -->
-                <!-- </div> -->
+                <?= Form::label('Date of Birth', 'birth_date', array('class'=>'control-label')); ?>
+                <!--<div class="input-group">-->
+                    <?= Form::input('birth_date', Input::post('birth_date', isset($customer) ? $customer->birth_date : ''),
+                                    array('class' => 'col-md-4 form-control datepicker', 'readonly' => true)); ?>
+                    <!--
+                    <span class="input-group-addon">
+                        <i class="fa fa-calendar text-default"></i>
+                    </span>
+                </div>-->
             </div>
         </div>
 
@@ -79,54 +88,83 @@
                 <?= Form::input('occupation', Input::post('occupation', isset($customer) ? $customer->occupation : ''), 
                                 array('class' => 'col-md-4 form-control')); ?>
 			</div>            
-        </div>        
-	</div><!--/.col-md-6-->
+        </div>
 
-    <!-- Right Side -->
-	<div class="col-md-6">
         <div class="form-group">
-            <div class="col-md-6"> 
-				<?= Form::label('Type', 'customer_type', array('class'=>'control-label')); ?>
-                <?= Form::select('customer_type[]', Input::post('customer_type', isset($customer) ? $customer->customer_type : ''), 
-                                Model_Customer::listOptionsCustomerType(), 
-                                array('class' => 'col-md-4 form-control select-from-list', 'multiple' => true)); ?>
-			</div>        
             <div class="col-md-6">
-				<?= Form::label('Account manager', 'account_manager', array('class'=>'control-label')); ?>
+                <?= Form::label('Account manager', 'account_manager', array('class'=>'control-label')); ?>
                 <?= Form::select('account_manager', Input::post('account_manager', isset($customer) ? $customer->account_manager : ''), 
                                 Model_User::listOptions(), 
                                 array('class' => 'col-md-4 form-control', 'id' => 'user_id')); ?>
-			</div>
-        </div>
-
-		<div class="form-group">
+            </div>
+            
             <div class="col-md-6">
 				<?= Form::label('Tax ID', 'tax_ID', array('class'=>'control-label')); ?>
                 <?= Form::input('tax_ID', Input::post('tax_ID', isset($customer) ? $customer->tax_ID : ''), 
                                 array('class' => 'col-md-4 form-control')); ?>
-			</div>
+            </div>
+        </div>
 
+        <div class="form-group">
             <div class="col-md-6">
                 <?= Form::hidden('inactive', Input::post('inactive', isset($customer) ? $customer->inactive : '0')); ?>
                 <?= Form::checkbox('cb_inactive', null, array('class' => 'cb-checked', 'data-input' => 'inactive')); ?>
                 <?= Form::label('Inactive', 'cb_inactive', array('class'=>'control-label')); ?>
-            </div>
-            
-            <div class="col-md-6">
+                <br>
                 <?= Form::hidden('is_internal_customer', Input::post('is_internal_customer', isset($customer) ? $customer->is_internal_customer : '0')); ?>
                 <?= Form::checkbox('cb_is_internal_customer', null, array('class' => 'cb-checked', 'data-input' => 'is_internal_customer')); ?>
-                <?= Form::label('Is internal customer', 'cb_is_internal_customer', array('class'=>'control-label')); ?>
-			</div>            
-        </div>
+                <?= Form::label('Is internal customer', 'cb_is_internal_customer', array('class'=>'control-label')); ?>                
+            </div>
 
-		<div class="form-group">
             <div class="col-md-6">
 				<?= Form::label('Bank account', 'bank_account', array('class'=>'control-label')); ?>
                 <?= Form::input('bank_account', Input::post('bank_account', isset($customer) ? $customer->bank_account : ''), 
                                 array('class' => 'col-md-4 form-control')); ?>
-			</div>        
+            </div>
+        </div>
 
-            <div class="col-md-6">
+	</div><!--/.col-md-6-->
+
+    <!-- Right Side -->
+	<div class="col-md-4">
+        <div class="form-group">
+            <div class="col-md-12">
+                <?= Form::file('uploaded_file', array('class' => '', 'style' => 'display: none;')); ?>
+                <?= Form::label('ID preview', 'upload_img', array('class'=>'control-label')); ?>
+                <br>
+                <div class="img-thumbnail">
+                    <?= Html::img(!empty($customer->ID_attachment) ? $customer->ID_attachment : 'http://placehold.it/360x110', 
+                                    array(
+                                        'class'=>'upload-img', 
+                                        'style' => 'max-width: 360px; max-height: 270px;'
+                                    )
+                                ); ?>
+                </div>
+            </div>
+        </div>
+
+		<div class="form-group">
+            <div class="col-md-12">
+                <?= Form::label('ID path', 'ID_attachment', array('class'=>'control-label')); ?>
+                <div class="input-group">
+                    <?= Form::input('ID_attachment', Input::post('ID_attachment', isset($customer) ? $customer->ID_attachment : ''),
+                                    array('id' => 'file_path', 'class' => 'col-md-4 form-control', 'readonly' => true)); ?>
+                <?php 
+                    if ($customer) : ?>
+                    <span class="input-group-addon">
+                        <?= Html::anchor(Uri::create(false), '<i class="fa fa-plus-square-o text-info"></i>', 
+                                        array('id' => 'add_img')) ?>
+                    </span>
+                    <span class="input-group-addon">
+                        <?= Html::anchor(Uri::create('unit/type/remove_img/' . $customer->id), '<i class="fa fa-trash-o text-red"></i>',
+                                        array('id' => 'del_img', 'data-ph' => 'http://placehold.it/360x110')) ?>
+                    </span>
+                <?php 
+                    endif ?>
+                </div>
+            </div>
+
+            <div class="col-md-12">
 				<?php Form::label('Billing currency', 'billing_currency', array('class'=>'control-label')); ?>
                 <?php Form::input('billing_currency', Input::post('billing_currency', isset($customer) ? $customer->billing_currency : ''), 
                                 array('class' => 'col-md-4 form-control')); ?>
@@ -134,11 +172,11 @@
 		</div>
 
 		<div class="form-group">
-            <div class="col-md-6">
+            <div class="col-md-12">
 				<?= Form::label('Remarks', 'remarks', array('class'=>'control-label')); ?>
                 <?= Form::textarea('remarks', Input::post('remarks', isset($customer) ? $customer->remarks : ''), 
                                     array('class' => 'col-md-4 form-control', 'rows' => 5)); ?>
-			</div>
+            </div>
 		</div>
     </div><!--/.col-md-6-->
 </div><!--/.row-->
