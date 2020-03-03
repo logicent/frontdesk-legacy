@@ -46,7 +46,6 @@ return array(
 	'facilities/rate-type' => 'rate/type',
 	'facilities/units'      => 'unit',
     'facilities/unit-type' => 'unit/type',
-    'facilities/unit-type/remove-img' => 'unit/type/remove_img',
     'facilities/property' => 'property',
     'facilities/property-type' => 'property/type',
 	'facilities/services'   => 'service/item',

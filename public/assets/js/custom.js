@@ -65,6 +65,11 @@ $(function() {
         }
     });
 
+    // Select2
+    $('.select-from-list').select2({
+        theme: "bootstrap"
+    });
+
     $('.cb-checked').click(
         function() {
             if ($(this).is(':checked')) // true

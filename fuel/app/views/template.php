@@ -23,31 +23,30 @@
         <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
         <meta name="theme-color" content="#ffffff">
         -->
-        <!-- Core CSS -->
-        <?= Asset::css(array(
+        <!-- CSS libraries/plugins -->
+        <?= Asset::css(
+            array(
                 '//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css',
+                '//cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css',
+                '//cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css',
                 '//www.fuelcdn.com/fuelux/3.17.0/css/fuelux.min.css',
-                'vendor/united.bootstrap.min.css',
-                'vendor/fuelux.min.css',
-                'vendor/datepicker.css',
                 '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
+                '//cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css',
+                'vendor/united.bootstrap.min.css',
+                'vendor/datepicker.css',
                 'vendor/fullcalendar.min.css',
                 'sb-admin.css', // SB Admin Scripts
                 'custom.css'
-                )); ?>
+            )); ?>
 
-        <!-- Page-Level Plugin CSS - Tables -->
-        <?= Asset::css(
-            '//cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css'
-        ); ?>
-
-        <!-- Core Scripts -->
-        <?= Asset::js(array(
-                'https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js',
+        <!-- JavaScript libraries/plugins -->
+        <?= Asset::js(
+            array(
+                // '//cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js',
                 '//code.jquery.com/jquery-3.4.1.js',
                 '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+                '//cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js',
                 '//www.fuelcdn.com/fuelux/3.17.0/js/fuelux.min.js',
-                'vendor/knockout-3.2.0.js',
                 'vendor/jquery.slugify.js',
                 'vendor/bootstrap-datepicker.js',
                 'plugins/metisMenu/jquery.metisMenu.js',
@@ -57,8 +56,7 @@
                 'vendor/fullcalendar.min.js',
                 'sb-admin.js', // SB Admin Scripts
                 'custom.js',
-                //cdnjs.cloudflare.com/ajax/libs/knockout/3.2.0/knockout-min.js
-        )); ?>
+            )); ?>
     </head>
 
     <body>

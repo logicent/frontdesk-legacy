@@ -72,7 +72,7 @@
             <div class="col-md-6">
                 <?= Form::label('ID country', 'ID_country', array('class'=>'control-label')); ?>
                 <?= Form::select('ID_country', Input::post('ID_country', isset($customer) ? $customer->ID_country : ''), 
-                                Model_Country::listOptions(true), array('class' => 'col-md-4 form-control')); ?>
+                                Model_Country::listOptions(true), array('class' => 'col-md-4 form-control select-from-list')); ?>
             </div>
             <div class="col-md-6">
 				<?= Form::label('Occupation', 'occupation', array('class'=>'control-label')); ?>
@@ -87,9 +87,9 @@
         <div class="form-group">
             <div class="col-md-6"> 
 				<?= Form::label('Type', 'customer_type', array('class'=>'control-label')); ?>
-                <?= Form::select('customer_type', Input::post('customer_type', isset($customer) ? $customer->customer_type : ''), 
+                <?= Form::select('customer_type[]', Input::post('customer_type', isset($customer) ? $customer->customer_type : ''), 
                                 Model_Customer::listOptionsCustomerType(), 
-                                array('class' => 'col-md-4 form-control')); ?>
+                                array('class' => 'col-md-4 form-control select-from-list', 'multiple' => true)); ?>
 			</div>        
             <div class="col-md-6">
 				<?= Form::label('Account manager', 'account_manager', array('class'=>'control-label')); ?>
