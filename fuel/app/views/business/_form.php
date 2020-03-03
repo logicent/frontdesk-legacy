@@ -88,7 +88,7 @@
                     </span>
                     <span class="input-group-addon">
                         <?= Html::anchor(Uri::create('business/remove_img/' . $business->id), '<i class="fa fa-trash-o text-red"></i>',
-                                        array('id' => 'del_img')) ?>
+                                        array('id' => 'del_img', 'data-ph' => 'http://placehold.it/240x120')) ?>
                     </span>
                 <?php 
                     endif ?>

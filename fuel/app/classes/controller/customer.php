@@ -65,7 +65,13 @@ class Controller_Customer extends Controller_Authenticate
                     // 'total_amount_billed' => Input::post('total_amount_billed'),
                     // 'total_amount_paid' => Input::post('total_amount_paid'),
                     // 'total_amount_not_billed' => Input::post('total_amount_not_billed'),
-				));
+                ));
+                
+                // upload and save the file
+				$file = Filehelper::upload();
+
+                if (!empty($file['saved_as']))
+                    $customer->ID_attachment = 'uploads'.DS.$file['name'];
 
 				if ($customer and $customer->save())
 				{
@@ -136,6 +142,12 @@ class Controller_Customer extends Controller_Authenticate
             // $customer->total_amount_paid = Input::post('total_amount_paid');
             // $customer->total_amount_not_billed = Input::post('total_amount_not_billed');
 
+            // upload and save the file
+            $file = Filehelper::upload();
+
+            if (!empty($file['saved_as']))
+                $customer->ID_attachment = 'uploads'.DS.$file['name'];
+
 			if ($customer->save())
 			{
 				Session::set_flash('success', 'Updated customer #' . $customer->customer_name);
@@ -153,6 +165,12 @@ class Controller_Customer extends Controller_Authenticate
 		{
 			if (Input::method() == 'POST')
 			{
+                // upload and save the file
+				$file = Filehelper::upload();
+
+                if (!empty($file['saved_as']))
+                    $customer->ID_attachment = 'uploads'.DS.$file['name'];
+
                 $customer->customer_name = $val->validated('customer_name');
                 $customer->customer_type = $val->validated('customer_type');
                 $customer->customer_group = $val->validated('customer_group');

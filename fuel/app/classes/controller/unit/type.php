@@ -123,7 +123,7 @@ class Controller_Unit_Type extends Controller_Authenticate
                     $unit_type->image_path = 'uploads'.DS.$file['name'];
                 else 
                     $unit_type->image_path = $val->validated('image_path');
-                                    
+
                 $unit_type->code = $val->validated('code');
 				$unit_type->name = $val->validated('name');
 				$unit_type->description = $val->validated('description');
