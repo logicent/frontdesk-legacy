@@ -51,13 +51,18 @@ class Controller_Lease extends Controller_Authenticate
 					'owner_id' => Input::post('owner_id'),
 					'property_id' => Input::post('property_id'),
 					'unit_id' => Input::post('unit_id'),
-					'attachments' => Input::post('attachments'),
 					'on_hold' => Input::post('on_hold'),
 					'on_hold_from' => Input::post('on_hold_from'),
 					'on_hold_to' => Input::post('on_hold_to'),
                     'remarks' => Input::post('remarks'),
                     'fdesk_user' => Input::post('fdesk_user'),
 				));
+
+                // upload and save the file
+				$file = Filehelper::upload();
+
+                if (!empty($file['saved_as']))
+                    $lease->attachments = 'uploads'.DS.$file['name'];
 
 				if ($lease and $lease->save())
 				{
@@ -113,13 +118,18 @@ class Controller_Lease extends Controller_Authenticate
 			$lease->owner_id = Input::post('owner_id');
 			$lease->property_id = Input::post('property_id');
 			$lease->unit_id = Input::post('unit_id');
-			$lease->attachments = Input::post('attachments');
 			$lease->on_hold = Input::post('on_hold');
 			$lease->on_hold_from = Input::post('on_hold_from');
 			$lease->on_hold_to = Input::post('on_hold_to');
             $lease->remarks = Input::post('remarks');
             $lease->fdesk_user = Input::post('fdesk_user');
 
+            // upload and save the file
+            $file = Filehelper::upload();
+
+            if (!empty($file['saved_as']))
+                $lease->attachments = 'uploads'.DS.$file['name'];
+            
 			if ($lease->save())
 			{
 				Session::set_flash('success', 'Updated lease #' . $lease->title);
@@ -137,6 +147,14 @@ class Controller_Lease extends Controller_Authenticate
 		{
 			if (Input::method() == 'POST')
 			{
+                // upload and save the file
+                $file = Filehelper::upload();
+
+                if (!empty($file['saved_as']))
+                    $lease->attachments = 'uploads'.DS.$file['name'];
+                else 
+                    $lease->attachments = $val->validated('attachments');
+
 				$lease->reference = $val->validated('reference');
 				$lease->title = $val->validated('title');
 				$lease->customer_id = $val->validated('customer_id');
@@ -154,7 +172,6 @@ class Controller_Lease extends Controller_Authenticate
 				$lease->owner_id = $val->validated('owner_id');
 				$lease->property_id = $val->validated('property_id');
 				$lease->unit_id = $val->validated('unit_id');
-				$lease->attachments = $val->validated('attachments');
 				$lease->on_hold = $val->validated('on_hold');
 				$lease->on_hold_from = $val->validated('on_hold_from');
 				$lease->on_hold_to = $val->validated('on_hold_to');

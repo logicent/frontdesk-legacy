@@ -1,4 +1,4 @@
-<?= Form::open(array("class"=>"form-horizontal", "autocomplete" => "off")); ?>
+<?= Form::open(array("class"=>"form-horizontal", "autocomplete" => "off", "enctype"=>"multipart/form-data")); ?>
 
 <div class="row">
 	<div class="col-md-6">
@@ -130,9 +130,23 @@
 
         <div class="form-group">
             <div class="col-md-12">
-                <?= Form::label('Attachment', 'attachments', array('class'=>'control-label')); ?>
-                <?= Form::input('attachments', Input::post('attachments', isset($lease) ? $lease->attachments : ''), 
-                                array('class' => 'col-md-8 form-control', 'readonly' => true)); ?>
+                <?= Form::label('Lease Agreement', 'attachments', array('class'=>'control-label')); ?>
+                <div class="input-group">
+                    <?= Form::input('attachments', Input::post('attachments', isset($lease) ? $lease->attachments : ''),
+                                    array('id' => 'file_path', 'class' => 'col-md-4 form-control', 'readonly' => true)); ?>
+                <?php 
+                    if ($lease) : ?>
+                    <span class="input-group-addon">
+                        <?= Html::anchor(Uri::create(false), '<i class="fa fa-plus-square-o text-info"></i>', 
+                                        array('id' => 'add_img')) ?>
+                    </span>
+                    <span class="input-group-addon">
+                        <?= Html::anchor(Uri::create('unit/type/remove_img/' . $lease->id), '<i class="fa fa-trash-o text-red"></i>',
+                                        array('id' => 'del_img', 'data-ph' => 'http://placehold.it/360x110')) ?>
+                    </span>
+                <?php 
+                    endif ?>
+                </div>
             </div>
         </div>
 
@@ -147,13 +161,13 @@
             <div class="col-md-6">
                 <?= Form::label('On hold from', 'on_hold_from', array('class'=>'control-label')); ?>
                 <?= Form::input('on_hold_from', Input::post('on_hold_from', isset($lease) ? $lease->on_hold_from : ''), 
-                                array('class' => 'col-md-4 form-control datepicker')); ?>
+                                array('class' => 'col-md-4 form-control on-hold datepicker')); ?>
             </div>
 
             <div class="col-md-6">
                 <?= Form::label('On hold to', 'on_hold_to', array('class'=>'control-label')); ?>
                 <?= Form::input('on_hold_to', Input::post('on_hold_to', isset($lease) ? $lease->on_hold_to : ''), 
-                                array('class' => 'col-md-4 form-control datepicker')); ?>
+                                array('class' => 'col-md-4 form-control on-hold datepicker')); ?>
             </div>
         </div>
         
@@ -184,10 +198,32 @@
 <?= Form::close(); ?>
 
 <script>
+    $(function() {
+    // On hold should toggle readonly for on hold dates
+        
+        $('#form_cb_on_hold').on('change', function (e)
+        {
+            checked = $('#form_on_hold').val();
+            
+            $('.on-hold').each(function () {
+                $(this).attr('disabled', checked == 1 ? false : true);
+            });
+        });
+
+        if ($('#form_on_hold').val() == '1')
+        {
+            $('.on-hold').each(function () {
+                $(this).attr('disabled', false);
+            });
+        } else {
+            $('.on-hold').each(function () {
+                $(this).attr('disabled', true);
+            });
+        }
+
 	// Date picker validations
 
     // Fetch dependent drop down list options
-    $(function() {
         $('#form_owner_id').on('change', function() { 
             $.ajax({
                 type: 'post',
