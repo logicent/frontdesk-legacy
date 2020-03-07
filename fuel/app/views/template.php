@@ -121,6 +121,7 @@
                                     <li><a href="<?= Uri::create('registers/booking'); ?>"><i class=""></i>&emsp;Booking</a></li>
                                     <li><a href="<?= Uri::create('registers/lease'); ?>"><i class=""></i>&emsp;Lease</a></li>
                                     <li><a href="<?= Uri::create('registers/customer'); ?>"><i class=""></i>&emsp;Customer</a></li>
+                                    <li><a href="<?= Uri::create('registers/employee'); ?>"><i class=""></i>&emsp;Employee</a></li>
                                     <li><a href="<?= Uri::create('registers/partner'); ?>"><i class=""></i>&emsp;Partner</a></li>
                                 </ul>
                             </li>

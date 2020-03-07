@@ -56,7 +56,7 @@
             <div class="col-md-6">
                 <?= Form::label('Billed amount', 'billed_amount', array('class'=>'control-label')); ?>
                 <?= Form::input('billed_amount', Input::post('billed_amount', isset($lease) ? $lease->billed_amount : ''), 
-                                array('class' => 'col-md-4 form-control')); ?>
+                                array('class' => 'col-md-4 form-control text-right')); ?>
             </div>
         </div>
 		<div class="form-group">
@@ -70,14 +70,14 @@
             <div class="col-md-6">
                 <?= Form::label('Deposit amount', 'deposit_amount', array('class'=>'control-label')); ?>
                 <?= Form::input('deposit_amount', Input::post('deposit_amount', isset($lease) ? $lease->deposit_amount : ''), 
-                                array('class' => 'col-md-4 form-control')); ?>
+                                array('class' => 'col-md-4 form-control require-deposit text-right')); ?>
             </div>
         </div>
 		<div class="form-group">
             <div class="col-md-6">
                 <?= Form::label('Deposit includes', 'deposit_includes', array('class'=>'control-label')); ?>
                 <?= Form::textarea('deposit_includes', Input::post('deposit_includes', isset($lease) ? $lease->deposit_includes : ''), 
-                                array('class' => 'col-md-8 form-control', 'rows' => 4)); ?>
+                                array('class' => 'col-md-8 form-control require-deposit', 'rows' => 4)); ?>
             </div>
         </div>
     </div>
@@ -199,8 +199,35 @@
 
 <script>
     $(function() {
-    // On hold should toggle readonly for on hold dates
+        // Calculate lease duration in months
+        var startDate = new Date($('#form_start_date').val());
+        var endDate = new Date($('#form_end_date').val());
+
+        var duration = (endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24 * 30);
         
+        $('#form_lease_period').val(parseInt(duration));
+
+    // On hold should toggle readonly for on hold dates
+        $('#form_cb_require_deposit').on('change', function (e)
+        {
+            checked = $('#form_require_deposit').val();
+            
+            $('.require-deposit').each(function () {
+                $(this).attr('disabled', checked == 1 ? false : true);
+            });
+        });
+
+        if ($('#form_require_deposit').val() == '1')
+        {
+            $('.require-deposit').each(function () {
+                $(this).attr('disabled', false);
+            });
+        } else {
+            $('.require-deposit').each(function () {
+                $(this).attr('disabled', true);
+            });
+        }
+
         $('#form_cb_on_hold').on('change', function (e)
         {
             checked = $('#form_on_hold').val();

@@ -1,38 +1,27 @@
 <div class="row">
 	<div class="col-md-6">
-		<h2>Listing <span class='text-muted'>Booking</span></h2>
+		<h2>Listing <span class='text-muted'>Booking</span>&ensp;
+		<span class="btn-group list-filters">
+            <?= Html::anchor('registers/booking', 
+                            'All', array('class' => "btn btn-sm btn-default", 'data-status' => '')); ?>
+            <?= Html::anchor('registers/booking/?status=' . Model_Facility_Booking::GUEST_STATUS_CHECKED_IN, 
+                            'Checked In', array('class' => "btn btn-sm btn-default", 'data-status' => Model_Facility_Booking::GUEST_STATUS_CHECKED_IN)); ?>
+            <?= Html::anchor('registers/booking/?status=' . Model_Facility_Booking::GUEST_STATUS_STAY_OVER, 
+                            'Stay Over', array('class' => 'btn btn-sm btn-default', 'data-status' => Model_Facility_Booking::GUEST_STATUS_STAY_OVER)); ?>
+            <?= Html::anchor('registers/booking/?status=' . Model_Facility_Booking::GUEST_STATUS_DUE_OUT, 
+                            'Due Out', array('class' => 'btn btn-sm btn-default', 'data-status' => Model_Facility_Booking::GUEST_STATUS_DUE_OUT)); ?>
+            <?= Html::anchor('registers/booking/?status=' . Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT, 
+                            'Checked Out', array('class' => 'btn btn-sm btn-default', 'data-status' => Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT)); ?>
+		</span>
+        </h2>
 	</div>
 
 	<div class="col-md-6">
+        <!-- <div class="button-group"> -->
+            <!-- <button form="fd_booking" formaction="<?= Uri::create('facility/booking/copy'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-copy"></i></button> -->
+        <!-- </div> -->
         <br>
         <?= Html::anchor('facility/booking/create', 'New', array('class' => 'pull-right btn btn-primary')); ?>
-		<!-- <div class="btn-group">
-			<label class="">Filter:&ensp;
-			    <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
-			      Status
-			      <span class="caret"></span>
-			    </button>
-			    <ul class="dropdown-menu">
-					<li><?php // echo Html::anchor('registers/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_STAY_OVER, 'Stay Over', array('class' => 'btn btn-sm btn-default')); ?></li>
-					<li><?php // echo Html::anchor('registers/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_CHECKED_IN, 'Checked In', array('class' => "btn btn-sm btn-default")); ?></li>
-					<li><?php // echo Html::anchor('registers/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_DUE_OUT, 'Due Out', array('class' => 'btn btn-sm btn-default')); ?></li>
-					<li><?php // echo Html::anchor('registers/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT, 'Checked Out', array('class' => 'btn btn-sm btn-default')); ?></li>
-			    </ul>
-			</label>
-	  	</div> -->
-		<div class="pull-right btn-group">
-			<!-- <div class="button-group"> -->
-				<!-- <button form="fd_booking" formaction="<?= Uri::create('facility/booking/copy'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-copy"></i></button> -->
-			<!-- </div> -->
-			<!-- <div class="button-group"> -->
-                <?= Html::anchor('registers/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_CHECKED_IN, 
-                                'Checked In', array('id' => 'cin_btn', 'class' => "btn btn-sm btn-default")); ?>
-				<!-- <?php // echo Html::anchor('registers/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_STAY_OVER, 'Stay Over', array('class' => 'btn btn-sm btn-default')); ?> -->
-				<!-- <?php //echo Html::anchor('registers/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_DUE_OUT, 'Due Out', array('class' => 'btn btn-sm btn-default')); ?> -->
-                <?= Html::anchor('registers/bookings/?status='.Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT, 
-                                'Checked Out', array('id' => 'cout_btn', 'class' => 'btn btn-sm btn-default')); ?>
-			<!-- </div> -->
-		</div>
 	</div>
 </div>
 <hr>
@@ -103,17 +92,14 @@
     });
     
     urlParam = window.location.href.slice(window.location.href.indexOf('?') + 1).split('=');
-    
-    if (urlParam[1] == 'CI') 
-    {
-        $('#cin_btn').removeClass('btn-default');
-        $('#cout_btn').addClass('btn-default');
-    }
-    
-    if (urlParam[1] == 'CO') 
-    {
-        $('#cin_btn').addClass('btn-default');
-        $('#cout_btn').removeClass('btn-default');
-    }
+
+    $('.filters a').each(function () {
+        if (urlParam[1] == $(this).data('status')) 
+        {
+            $(this).addClass('active');
+        }
+        else
+            $(this).removeClass('active');
+    });
     // Read a page's GET URL variables and return them as an associative array.
 </script>

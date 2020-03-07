@@ -111,9 +111,9 @@
                 <?= Form::checkbox('cb_inactive', null, array('class' => 'cb-checked', 'data-input' => 'inactive')); ?>
                 <?= Form::label('Inactive', 'cb_inactive', array('class'=>'control-label')); ?>
                 <br>
-                <?= Form::hidden('is_internal_customer', Input::post('is_internal_customer', isset($customer) ? $customer->is_internal_customer : '0')); ?>
-                <?= Form::checkbox('cb_is_internal_customer', null, array('class' => 'cb-checked', 'data-input' => 'is_internal_customer')); ?>
-                <?= Form::label('Is internal customer', 'cb_is_internal_customer', array('class'=>'control-label')); ?>                
+                <?php // Form::hidden('is_internal_customer', Input::post('is_internal_customer', isset($customer) ? $customer->is_internal_customer : '0')); ?>
+                <?php // Form::checkbox('cb_is_internal_customer', null, array('class' => 'cb-checked', 'data-input' => 'is_internal_customer')); ?>
+                <?php // Form::label('Is internal customer', 'cb_is_internal_customer', array('class'=>'control-label')); ?>                
             </div>
 
             <div class="col-md-6">
@@ -129,16 +129,17 @@
 	<div class="col-md-4">
         <div class="form-group">
             <div class="col-md-12">
-                <?= Form::file('uploaded_file', array('class' => '', 'style' => 'display: none;')); ?>
                 <?= Form::label('ID preview', 'upload_img', array('class'=>'control-label')); ?>
-                <br>
-                <div class="img-thumbnail">
-                    <?= Html::img(!empty($customer->ID_attachment) ? $customer->ID_attachment : 'http://placehold.it/360x110', 
-                                    array(
-                                        'class'=>'upload-img', 
-                                        'style' => 'max-width: 360px; max-height: 270px;'
-                                    )
-                                ); ?>
+                <div class="well text-center">
+                    <?= Form::file('uploaded_file', array('class' => '', 'style' => 'display: none;')); ?>
+                    <div class="img-wrapper">
+                        <?= Html::img(!empty($customer->ID_attachment) ? $customer->ID_attachment : 'http://placehold.it/360x110', 
+                                        array(
+                                            'class'=>'upload-img', 
+                                            'style' => 'max-width: 360px; max-height: 270px;'
+                                        )
+                                    ); ?>
+                    </div>
                 </div>
             </div>
         </div>

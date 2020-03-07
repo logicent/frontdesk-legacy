@@ -248,7 +248,8 @@ a.active {
 .btn-default {
     background-color: #f0f4f7;
     color: #36414c;
-    border-color: transparent;
+    /* border-color: transparent; */
+    border-color: #ced8e4;
 }
 
 .btn-link {
@@ -359,6 +360,10 @@ label {
     box-shadow: inset 0 1px 4px -1px rgba(96, 125, 159, 0.25);    
 }
 
+.form-control.datepicker {
+    padding: inherit;
+}
+
 input.cb-checked {
     vertical-align: text-bottom;
     cursor: pointer;
@@ -418,3 +423,25 @@ input.cb-checked {
     border-radius: 3px;
     height: 26px;
 }
+
+.well {
+    /* min-height: 20px; */
+    padding: 0;
+    margin-bottom: 0;
+    background-color: #fbfcfe;
+    border: 1px solid rgba(96, 125, 159, 0.25);
+    border-radius: 3px;
+    -webkit-box-shadow: inset 0 1px 4px -1px rgba(96, 125, 159, 0.25);
+    box-shadow: inset 0 1px 4px -1px rgba(96, 125, 159, 0.25);
+}
+
+.img-wrapper {
+    /* position: relative; */
+    height: 280px;
+}
+
+/* .img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+} */

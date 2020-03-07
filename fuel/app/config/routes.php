@@ -21,6 +21,7 @@ return array(
 	'registers/reservation' => 'facility/reservation',
 	'registers/booking'     => 'facility/booking',
 	'registers/customer'     => 'customer',
+	'registers/employee'     => 'employee',
 	'registers/lease'     => 'lease',
 	'registers/partner'     => 'partner',
 	// 'registers/folios'     => 'sales/invoice',

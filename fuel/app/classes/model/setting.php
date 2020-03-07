@@ -134,6 +134,26 @@ class Model_Setting extends \Orm\Model
                 //     'column' => self::SETTINGS_COLUMN_LEFT,
                 // ),
             ),
+            'employee' => array(
+                array(
+                    'id'     => 'employee_type',
+                    'label'  => 'Employee type',
+                    'route'  => 'settings/employee-type',
+                    'column' => self::SETTINGS_COLUMN_RIGHT,
+                ),
+                array(
+                    'id'     => 'department',
+                    'label'  => 'Department',
+                    'route'  => 'settings/department',
+                    'column' => self::SETTINGS_COLUMN_LEFT,
+                ),
+                array(
+                    'id'     => 'designation',
+                    'label'  => 'Designation',
+                    'route'  => 'settings/designation',
+                    'column' => self::SETTINGS_COLUMN_RIGHT,
+                ),
+            ),
             // permissions
             // roles
             // language text
