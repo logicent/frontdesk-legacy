@@ -233,4 +233,30 @@ class Controller_Customer extends Controller_Authenticate
 
 	}
 
+    public function action_remove_img($id)
+	{
+		$customer = Model_Customer::find($id);
+		if (!$customer) {
+			Session::set_flash('error', 'Customer not found.');
+			Response::redirect('registers/customer');
+		}
+        // unlink file
+        try 
+        {
+            File::delete(DOCROOT . $customer->ID_attachment);
+        }
+        catch (Exception $e)
+        {
+            Session::set_flash('error', $e->getMessage());
+    		Response::redirect('customer/edit/' . $customer->id);
+        }
+
+		// remove image path
+		$customer->ID_attachment = '';
+		if ($customer->save()) {
+			Session::set_flash('success', 'Saved customer info.');
+		}
+		Response::redirect('customer/edit/' . $customer->id);
+    }
+    
 }

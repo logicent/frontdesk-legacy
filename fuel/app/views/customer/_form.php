@@ -1,3 +1,16 @@
+<?php 
+    $img_ph = "images/photo-ph.jpg";
+    $img_src = '';
+    if (isset($customer)) :
+        if ($customer->ID_attachment) :
+            $img_src = $customer->ID_attachment;
+        else :
+            $img_src = "https://avatars.dicebear.com/v2/initials/{$customer->customer_name}.svg";
+        endif;
+    else :
+        $img_src = $img_ph;
+    endif ?>
+
 <?= Form::open(array("class"=>"form-horizontal", "autocomplete" => "off", "enctype"=>"multipart/form-data")); ?>
 
 <div class="row">
@@ -133,12 +146,12 @@
                 <div class="well text-center">
                     <?= Form::file('uploaded_file', array('class' => '', 'style' => 'display: none;')); ?>
                     <div class="img-wrapper">
-                        <?= Html::img(!empty($customer->ID_attachment) ? $customer->ID_attachment : 'http://placehold.it/360x110', 
-                                        array(
-                                            'class'=>'upload-img', 
-                                            'style' => 'max-width: 360px; max-height: 270px;'
-                                        )
-                                    ); ?>
+                        <?= Html::img($img_src, 
+                                array(
+                                    'class'=>'upload-img', 
+                                    'style' => 'max-width: 360px; max-height: 270px;'
+                                )
+                            ); ?>
                     </div>
                 </div>
             </div>
@@ -150,15 +163,15 @@
                 <div class="input-group">
                     <?= Form::input('ID_attachment', Input::post('ID_attachment', isset($customer) ? $customer->ID_attachment : ''),
                                     array('id' => 'file_path', 'class' => 'col-md-4 form-control', 'readonly' => true)); ?>
-                <?php 
-                    if ($customer) : ?>
                     <span class="input-group-addon">
-                        <?= Html::anchor(Uri::create(false), '<i class="fa fa-plus-square-o text-info"></i>', 
-                                        array('id' => 'add_img')) ?>
+                        <?= Html::anchor(Uri::create(false), '<i class="fa fa-plus-square-o"></i>', 
+                                        array('id' => 'add_img', 'class' => 'text-info')) ?>
                     </span>
+                <?php 
+                    if (isset($customer)) : ?>
                     <span class="input-group-addon">
-                        <?= Html::anchor(Uri::create('unit/type/remove_img/' . $customer->id), '<i class="fa fa-trash-o text-red"></i>',
-                                        array('id' => 'del_img', 'data-ph' => 'http://placehold.it/360x110')) ?>
+                        <?= Html::anchor(Uri::create('customer/remove_img/' . $customer->id), '<i class="fa fa-trash-o"></i>',
+                                        array('id' => 'del_img', 'class' => ' text-primary', 'data-ph' => $img_ph)) ?>
                     </span>
                 <?php 
                     endif ?>

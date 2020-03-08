@@ -75,7 +75,7 @@
                 </div>
 
                 <div class="col-md-6">
-                    <ul class="nav navbar-top-links">
+                    <ul class="nav navbar-top-links top-menu">
                         <li><a class="<?= Uri::segment(1) == 'dashboard' ? 'active' : '' ?>" href="<?= Uri::create('dashboard'); ?>"><i class="fa fa-lg fa-trello fa-fw text-info"></i>&ensp;Dashboard</a></li>
                         <li><a class="<?= Uri::segment(1) == 'calendar' ? 'active' : '' ?>" href="<?= Uri::create('calendar'); ?>"><i class="fa fa-lg fa-calendar-check-o fa-fw text-success"></i>&ensp;Calendar</a></li>
                         <li><a class="<?= Uri::segment(1) == 'reports' ? 'active' : '' ?>" href="<?= Uri::create('reports'); ?>"><i class="fa fa-lg fa-pie-chart fa-fw text-warning"></i>&ensp;Reports</a></li>
@@ -106,7 +106,9 @@
                                 <div id="sidebar-header" class="text-center">
                                     <?php if (!empty($business->business_logo)) : ?>
                                         <?= Html::anchor(Uri::create('/'),
-                                            Html::img($business->business_logo, ['style' => 'max-width: 220px']), [])
+                                            Html::img($business->business_logo, ['style' => 'max-width: 220px']), [
+                                                'class' => 'business-logo'
+                                            ])
                                         ?>
                                     <?php else : ?>
                                         <span class="lead"><?= isset($business) ? $business->trading_name : '' ?></span>
@@ -213,8 +215,8 @@
                 </div>
     <?php 
         endif; ?>
-                <div id="content" class="row content-pane">
-                    <div class="col-lg-12">
+                <div id="content" class="row">
+                    <div class="col-md-offset-1 col-md-10 content-pane">
                 <!-- Dashboard and Reports container -->
             <?php if (
                     Uri::segment(1) == '' ||
@@ -234,7 +236,7 @@
                             </div>
                         </div>  <!-- /.panel -->
             <?php endif; ?>
-                    </div>  <!-- /.col-lg-12  -->
+                    </div>  <!-- /.col-lg-10  -->
                 </div>  <!-- /.row -->
 
             </div>  <!-- /#page-wrapper -->

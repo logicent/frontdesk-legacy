@@ -117,27 +117,27 @@ $(function() {
         var filename = $(this).val().replace(/C:\\fakepath\\/i, '');
         $('#file_path').val(filename);
 
-        // var file = document.getElementById('form_uploaded_file').files[0];
+        var file = document.getElementById('form_uploaded_file').files[0];
         
-        // var preview = document.querySelector('.img-thumbnail');
+        var preview = document.querySelector('.upload-img');
+        
+        if (file) {
+            // $('#file_item').text(file.name);
 
-        // if (file) {
-        //     // $('#file_item').text(file.name);
+            var reader = new FileReader();
+            reader.onloadend = function() {
+                preview.src = reader.result;
+            }
 
-        //     var reader = new FileReader();
-        //     reader.onloadend = function() {
-        //         preview.src = reader.result;
-        //     }
+            if (file) {
+                reader.readAsDataURL(file);
+                $('#file_path').val(file.name);
+            }
 
-        //     if (file) {
-        //         reader.readAsDataURL(file);
-        //         $('#file_path').val(file.name);
-        //     }
-
-        //     // $('#attachment_summary').html('Added 1 attachment. <small>click Save above</small>');
-        //     $('#del_img').css('display', '');
-        // } else {
-        //     preview.src = '';
-        // }
+            // $('#attachment_summary').html('Added 1 attachment. <small>click Save above</small>');
+            $('#del_img').css('display', '');
+        } else {
+            preview.src = '';
+        }
     });
 });

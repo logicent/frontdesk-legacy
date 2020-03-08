@@ -321,7 +321,7 @@ label {
     background-color: #29333d;
 }
 
-#side-menu a.active {
+#side-menu a.active:not(.business-logo) {
     color: inherit;
     background-color: #1f2933;
 }
@@ -436,12 +436,17 @@ input.cb-checked {
 }
 
 .img-wrapper {
-    /* position: relative; */
     height: 280px;
 }
 
-/* .img {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-} */
+.top-menu {
+    margin-left: 74px;
+}
+
+.navbar-top-links {
+    margin-right: 130px;
+}
+
+.navbar-top-links li:last-child {
+    margin-right: 0;
+}

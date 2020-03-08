@@ -218,4 +218,29 @@ class Controller_Employee extends Controller_Authenticate
 
 	}
 
+    public function action_remove_img($id)
+	{
+		$employee = Model_Employee::find($id);
+		if (!$employee) {
+			Session::set_flash('error', 'Employee not found.');
+			Response::redirect('registers/employee');
+		}
+        // unlink file
+        try 
+        {
+            File::delete(DOCROOT . $employee->ID_attachment);
+        }
+        catch (Exception $e)
+        {
+            Session::set_flash('error', $e->getMessage());
+    		Response::redirect('employee/edit/' . $employee->id);
+        }
+
+		// remove image path
+		$employee->ID_attachment = '';
+		if ($employee->save()) {
+			Session::set_flash('success', 'Saved employee info.');
+		}
+		Response::redirect('employee/edit/' . $employee->id);
+	}
 }

@@ -1,3 +1,16 @@
+<?php 
+    $img_ph = "images/photo-ph.jpg";
+    $img_src ='';
+    if (isset($employee)) :
+        if ($employee->ID_attachment) :
+            $img_src = $employee->ID_attachment;
+        else :
+            $img_src = "https://avatars.dicebear.com/v2/initials/{$employee->employee_name}.svg";
+        endif;
+    else :
+        $img_src = $img_ph;
+    endif ?>
+    
 <?= Form::open(array("class"=>"form-horizontal", "autocomplete" => "off", "enctype"=>"multipart/form-data")); ?>
 
 <div class="row">
@@ -133,12 +146,12 @@
                 <div class="well text-center">
                     <?= Form::file('uploaded_file', array('class' => '', 'style' => 'display: none;')); ?>
                     <div class="img-wrapper">
-                        <?= Html::img(!empty($employee->ID_attachment) ? $employee->ID_attachment : "https://avatars.dicebear.com/v2/identicon/:seed.svg", 
-                                        array(
-                                            'class'=>'upload-img', 
-                                            'style' => 'max-width: 360px; max-height: 270px;'
-                                        )
-                                    ); ?>
+                        <?= Html::img($img_src, 
+                                array(
+                                    'class'=>'upload-img', 
+                                    'style' => 'max-width: 360px; max-height: 270px;'
+                                )
+                            ); ?>
                     </div>
                 </div>
             </div>
@@ -150,15 +163,15 @@
                 <div class="input-group">
                     <?= Form::input('ID_attachment', Input::post('ID_attachment', isset($employee) ? $employee->ID_attachment : ''),
                                     array('id' => 'file_path', 'class' => 'col-md-4 form-control', 'readonly' => true)); ?>
-                    <span class="input-group-addon">
-                        <?= Html::anchor(Uri::create(false), '<i class="fa fa-plus-square-o text-info"></i>', 
-                                        array('id' => 'add_img')) ?>
+                    <span class="input-group-addon btn-add-img">
+                        <?= Html::anchor(Uri::create(false), '<i class="fa fa-plus-square-o"></i>', 
+                                            array('id' => 'add_img', 'class' => 'text-info')) ?>
                     </span>
                 <?php 
                     if (isset($employee)) : ?>
                     <span class="input-group-addon">
-                        <?= Html::anchor(Uri::create('unit/type/remove_img/' . $employee->id), '<i class="fa fa-trash-o text-red"></i>',
-                                        array('id' => 'del_img', 'data-ph' => "https://avatars.dicebear.com/v2/{$employee->sex}/:seed.svg")) ?>
+                        <?= Html::anchor(Uri::create('employee/remove_img/' . $employee->id), '<i class="fa fa-trash-o text-red"></i>',
+                                        array('id' => 'del_img', 'class' => 'text-primary', 'data-ph' => $img_ph)) ?>
                     </span>
                 <?php 
                     endif ?>
