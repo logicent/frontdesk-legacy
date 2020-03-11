@@ -108,7 +108,7 @@ class Controller_Accounts_Bank_Account extends Controller_Authenticate
 				$bank_account->name = $val->validated('name');
 				$bank_account->account_number = $val->validated('account_number');
 				$bank_account->financial_institution = $val->validated('financial_institution');
-				$bank_account->starting_bal = $val->validated('starting_bal');
+				$bank_account->starting_bal = $val->validated('starting_bal', null);
 				$bank_account->starting_date = $val->validated('starting_date');
 				$bank_account->i_banking_na = $val->validated('i_banking_na');
 				$bank_account->last_statement_date = $val->validated('last_statement_date');

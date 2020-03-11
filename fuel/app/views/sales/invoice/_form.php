@@ -1,22 +1,22 @@
 <?= Form::open(array("class"=>"form-horizontal", "autocomplete" => "off")); ?>
 
 	<div class="form-group">
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<?= Form::label('Invoice no.', 'invoice_num', array('class'=>'control-label')); ?>
             <?= Form::input('invoice_num', Input::post('invoice_num', isset($sales_invoice) ? $sales_invoice->invoice_num : 
                             Model_Sales_Invoice::getNextSerialNumber()), 
                             array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
 		</div>
 
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<?= Form::label('Status', 'status', array('class'=>'control-label')); ?>
-			<?= Form::hidden('status', Input::post('status', isset($sales_invoice) ? $sales_invoice->status : '')); ?>
+			<?= Form::hidden('status', Input::post('status', isset($sales_invoice) ? $sales_invoice->status : Model_Sales_Invoice::INVOICE_STATUS_OPEN)); ?>
             <?= Form::select('status_list', Input::post('status_list', isset($sales_invoice) ? $sales_invoice->status : ''), 
                             Model_Sales_Invoice::$invoice_status, 
                             array('class' => 'col-md-4 form-control', 'disabled' => true)); ?>
 		</div>
 
-		<div class="col-md-offset-4 col-md-4">
+		<div class="col-md-6">
 			<?= Form::label('Customer / Order ref.', 'customer_name', array('class'=>'control-label')); ?>
             <?= Form::hidden('customer_name', Input::post('customer_name', isset($sales_invoice) ? $sales_invoice->customer_name : '')); ?>
             <?= Form::select('customer_list', Input::post('customer_list', isset($sales_invoice) ? $sales_invoice->customer_name : ''), 
@@ -26,19 +26,19 @@
 	</div>
 
 	<div class="form-group">
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<?= Form::label('Issue date', 'issue_date', array('class'=>'control-label')); ?>
             <?= Form::input('issue_date', Input::post('issue_date', isset($sales_invoice) ? $sales_invoice->issue_date : ''), 
                             array('class' => 'col-md-4 form-control datepicker', 'readonly' => isset($sales_invoice) ? true : false)); ?>
 		</div>
 
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<?= Form::label('Due date', 'due_date', array('class'=>'control-label')); ?>
             <?= Form::input('due_date', Input::post('due_date', isset($sales_invoice) ? $sales_invoice->due_date : ''), 
                             array('class' => 'col-md-4 form-control datepicker', 'readonly' => isset($sales_invoice) ? true : false)); ?>
 		</div>
 
-		<div class="col-md-offset-4 col-md-4">
+		<div class="col-md-6">
 			<?= Form::label('Billing address', 'billing_address', array('class'=>'control-label')); ?>
             <?= Form::textarea('billing_address', Input::post('billing_address', isset($sales_invoice) ? $sales_invoice->billing_address : ''), 
                                 array('class' => 'col-md-4 form-control', 'rows' => 2)); ?>
@@ -70,7 +70,7 @@
 					</tr>
 				</thead>
 				<tbody>
-            <?php 
+        <?php 
             if (isset($sales_invoice)) :
                 foreach ($sales_invoice->receipts as $item): ?>
                     <tr class="<?= $item->amount > 0 ? : 'strikeout text-muted' ?>">
@@ -79,8 +79,11 @@
                         <td><?= $item->description; ?></td>
                         <td class="text-right"><?= number_format($item->amount, 2); ?></td>
                     </tr>
-            <?php 
+        <?php 
                 endforeach;
+            else : ?>
+                    <tr id="no_data"><td class="text-muted text-center" colspan="4">No data</td></tr>
+        <?php
             endif ?>
 				</tbody>
 			</table>
@@ -94,7 +97,7 @@
 	<div class="row">
 		<div class="col-md-6">
             <div class="form-group">
-        		<div class="col-md-12">
+                <div class="col-md-12">
                     <?= Form::label('Notes', 'notes', array('class'=>'control-label')); ?>
                     <?= Form::textarea('notes', Input::post('notes', isset($sales_invoice) ? $sales_invoice->notes : ''), 
                                         array('class' => 'col-md-4 form-control', 'rows' => 5)); ?>
@@ -182,8 +185,8 @@
 
 <script>
 	$('#invoice_detail a').click(function (e) {
-	  e.preventDefault()
-	  $(this).tab('show')
+        e.preventDefault()
+        $(this).tab('show')
 	})
 
 	$('#invoice_detail a:first').tab('show')

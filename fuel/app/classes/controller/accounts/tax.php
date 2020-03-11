@@ -43,7 +43,7 @@ class Controller_Accounts_Tax extends Controller_Authenticate
 
 				if ($tax and $tax->save())
 				{
-					Session::set_flash('success', 'Added tax/charge #'.$tax->id.'.');
+					Session::set_flash('success', 'Added tax/charge #'.$tax->name.'.');
 
 					Response::redirect('accounts/taxes');
 				}
@@ -86,7 +86,7 @@ class Controller_Accounts_Tax extends Controller_Authenticate
 
 			if ($tax_charge->save())
 			{
-				Session::set_flash('success', 'Updated taxes and charges #' . $id);
+				Session::set_flash('success', 'Updated taxes and charges #' . $tax_charge->name);
 
 				Response::redirect('accounts/taxes');
 			}

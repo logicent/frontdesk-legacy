@@ -1,9 +1,9 @@
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-10">
 		<h2>Listing <span class='text-muted'>Reservation</span>&ensp;
             <span class="btn-group list-filters">
-            <?= Html::anchor('registers/reservation', 
-                            'All', array('class' => "btn btn-sm btn-default", 'data-status' => '')); ?>            
+                <?= Html::anchor('registers/reservation', 
+                            'All', array('class' => "btn btn-sm btn-default", 'data-status' => '')); ?>
                 <?= Html::anchor('registers/reservation/?status=' . Model_Facility_Reservation::RESERVATION_STATUS_OPEN, 
                                 'Open', array('data-status' => Model_Facility_Reservation::RESERVATION_STATUS_OPEN, 'class' => 'btn btn-sm btn-default')); ?>
                 <?= Html::anchor('registers/reservation/?status=' . Model_Facility_Reservation::RESERVATION_STATUS_BOOKED, 
@@ -30,7 +30,7 @@
         </h2>
 	</div>
 
-	<div class="col-md-6">
+	<div class="col-md-2">
         <br>
         <?= Html::anchor('facility/reservation/create', 'New', array('class' => 'pull-right btn btn-primary')); ?>
 	</div>

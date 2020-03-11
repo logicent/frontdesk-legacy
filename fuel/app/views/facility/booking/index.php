@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-10">
 		<h2>Listing <span class='text-muted'>Booking</span>&ensp;
 		<span class="btn-group list-filters">
             <?= Html::anchor('registers/booking', 
@@ -16,10 +16,7 @@
         </h2>
 	</div>
 
-	<div class="col-md-6">
-        <!-- <div class="button-group"> -->
-            <!-- <button form="fd_booking" formaction="<?= Uri::create('facility/booking/copy'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-copy"></i></button> -->
-        <!-- </div> -->
+	<div class="col-md-2">
         <br>
         <?= Html::anchor('facility/booking/create', 'New', array('class' => 'pull-right btn btn-primary')); ?>
 	</div>

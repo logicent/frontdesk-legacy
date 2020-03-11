@@ -1,18 +1,18 @@
 <?php echo Form::open(array("class"=>"form-horizontal", "autocomplete" => "off")); ?>
 
     <div class="form-group">
-        <div class="col-md-2">
+        <div class="col-md-3">
             <?php echo Form::label('Code', 'code', array('class'=>'control-label')); ?>
             <?php echo Form::input('code', Input::post('code', isset($payment_method) ? $payment_method->code : ''), 
-                                    array('class' => 'col-md-4 form-control')); ?>
+                                    array('class' => 'col-md-6 form-control')); ?>
         </div>
     </div>
 
     <div class="form-group">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <?php echo Form::label('Name', 'name', array('class'=>'control-label')); ?>
             <?php echo Form::input('name', Input::post('name', isset($payment_method) ? $payment_method->name : ''), 
-                                    array('class' => 'col-md-4 form-control')); ?>
+                                    array('class' => 'col-md-6 form-control')); ?>
         </div>
     </div>
 
@@ -37,7 +37,7 @@
     <hr>
 
 	<div class="form-group">
-		<div class="col-md-2">
+		<div class="col-md-3">
     		<?= Form::submit('submit', isset($payment_method) ? 'Update' : 'Add method', array('class' => 'btn btn-primary')); ?>
 		</div>
 	</div>

@@ -1,15 +1,21 @@
 <div class="row">
 	<div class="col-md-6">
-		<h2>Listing <span class='text-muted'>Sales Invoice</span></h2>
+        <h2>Listing <span class='text-muted'>Sales Invoice</span>&ensp;
+        <span class="btn-group list-filters">
+            <?= Html::anchor('accounts/sales-invoice', 
+                            'All', array('class' => "btn btn-sm btn-default", 'data-status' => '')); ?>
+            <?= Html::anchor('accounts/sales-invoice/?status=' . Model_Sales_Invoice::INVOICE_STATUS_OPEN, 'Open', 
+                            array('class' => 'btn btn-sm btn-default', 'data-status' => Model_Sales_Invoice::INVOICE_STATUS_OPEN)); ?>
+            <?= Html::anchor('accounts/sales-invoice/?status=' . Model_Sales_Invoice::INVOICE_STATUS_CLOSED, 'Closed', 
+                            array('class' => 'btn btn-sm btn-default', 'data-status' => Model_Sales_Invoice::INVOICE_STATUS_CLOSED)); ?>
+            <?= Html::anchor('accounts/sales-invoice/?status=' . Model_Sales_Invoice::INVOICE_STATUS_CANCELED, 'Canceled', 
+                            array('class' => 'btn btn-sm btn-default', 'data-status' => Model_Sales_Invoice::INVOICE_STATUS_CANCELED)); ?>
+		</span>
+    </h2>
 	</div>
 
 	<div class="col-md-6 text-right">
         <br>
-		<div class="btn-group">
-			<?= Html::anchor('accounts/sales-invoice/?status='.Model_Sales_Invoice::INVOICE_STATUS_OPEN, 'Open', array('class' => 'btn btn-default')); ?>
-			<?= Html::anchor('accounts/sales-invoice/?status='.Model_Sales_Invoice::INVOICE_STATUS_CLOSED, 'Closed', array('class' => 'btn btn-default')); ?>
-			<?= Html::anchor('accounts/sales-invoice/?status='.Model_Sales_Invoice::INVOICE_STATUS_CANCELED, 'Canceled', array('class' => 'btn btn-default')); ?>
-		</div>
 		<?= Html::anchor('sales/invoice/create', 'New', array('class' => 'btn btn-primary')); ?>
 	</div>
 </div>

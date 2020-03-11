@@ -1,7 +1,7 @@
 <?= Form::open(array("class"=>"form-horizontal", "autocomplete" => "off", "enctype"=>"multipart/form-data")); ?>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="form-group">
             <div class="col-md-12">
                 <?= Form::label('Business name', 'business_name', array('class'=>'control-label')); ?>
@@ -44,7 +44,7 @@
 		</div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="form-group">
             <div class="col-md-12">
                 <?= Form::label('Trading name', 'trading_name', array('class'=>'control-label')); ?>

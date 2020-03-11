@@ -2,7 +2,7 @@
 
 
     <div class="form-group">
-        <div class="col-md-3">
+        <div class="col-md-6">
             <?= Form::label('Code', 'code', array('class'=>'control-label')); ?>
             <?= Form::input('code', Input::post('code', isset($amenity) ? $amenity->code : ''),
                             array('class' => 'col-md-4 form-control', 'autofocus' => true)); ?>
@@ -10,7 +10,7 @@
     </div>
 
     <div class="form-group">
-        <div class="col-md-3">
+        <div class="col-md-6">
             <?= Form::label('Description', 'name', array('class'=>'control-label')); ?>
             <?= Form::textarea('name', Input::post('name', isset($amenity) ? $amenity->name : ''),
                                 array('class' => 'col-md-4 form-control', 'rows' => 4)); ?>
@@ -56,7 +56,7 @@
 
 <div class="form-group">
     <div class="col-md-6">
-        <?= Form::submit('submit', isset($amenity) ? 'Update' : 'Create amenity', array('class' => 'btn btn-primary')); ?>
+        <?= Form::submit('submit', isset($amenity) ? 'Update' : 'Add amenity', array('class' => 'btn btn-primary')); ?>
     </div>
 </div>
 

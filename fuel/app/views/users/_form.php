@@ -1,12 +1,12 @@
 <?= Form::open(array("class"=>"form-horizontal", "autocomplete" => "off")); ?>
 
     <div class="form-group">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <?= Form::label('Full name', 'fullname', array('class'=>'control-label')); ?>
             <?= Form::input('fullname', Input::post('fullname', isset($user->fullname) ? $user->fullname : ''), array('class' => 'col-md-4 form-control', 'autofocus' => true)); ?>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <?= Form::label('Group', 'group_id', array('class'=>'control-label')); ?>
             <?php
                 if (isset($user) && $ugroup->id < 5) :
@@ -19,20 +19,20 @@
     </div>
 
     <div class="form-group">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <?= Form::label('Username', 'username', array('class'=>'control-label')); ?>
             <?= Form::input('username', Input::post('username', isset($user) ? $user->username : ''), array('class' => 'col-md-4 form-control', 'readonly'=>isset($user) ? true : false)); ?>
         </div>
     </div>
 
     <div class="form-group">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <?= Form::label('New Password', 'password', array('class'=>'control-label')); ?>
             <?= Form::password('password', Input::post('password', ''), array('class' => 'col-md-4 form-control')); ?>
         </div>
 
         <?php if (isset($user)) : ?>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <?= Form::label('Old Password', 'old_password', array('class'=>'control-label')); ?>
             <?= Form::password('old_password', Input::post('old_password', ''), array('class' => 'col-md-4 form-control')); ?>
         </div>
@@ -40,19 +40,19 @@
     </div>
 
     <div class="form-group">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <?= Form::label('Email', 'email', array('class'=>'control-label')); ?>
             <?= Form::input('email', Input::post('email', isset($user) ? $user->email : ''), array('class' => 'col-md-4 form-control')); ?>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <?= Form::label('Mobile', 'mobile', array('class'=>'control-label')); ?>
             <?= Form::input('mobile', Input::post('mobile', isset($user->mobile) ? $user->mobile : ''), array('class' => 'col-md-4 form-control')); ?>
         </div>
     </div>
 
     <!-- <div class="form-group">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <label>
                 <input id="inactive" name="inactive" type="hidden" value="<?php //= isset($user) ? $user->inactive : '0'; ?>">
                 <?php /* Form::checkbox('activated_chk', Input::post('inactive',
@@ -66,12 +66,12 @@
     </div> -->
 
     <div class="form-group">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <?= Form::label('Last login', 'last_login', array('class'=>'control-label')); ?>
             <?= Form::input('last_login', Input::post('last_login', isset($user) ? date('d-M-Y H:m:s', $user->last_login) : ''), array('class' => 'col-md-4 form-control', 'readonly'=>true)); ?>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <?= Form::label('Previous login', 'previous_login', array('class'=>'control-label')); ?>
             <?= Form::input('previous_login', Input::post('previous_login', isset($user) ? date('d-M-Y H:m:s', $user->previous_login) : ''), array('class' => 'col-md-4 form-control', 'readonly'=>true)); ?>
         </div>

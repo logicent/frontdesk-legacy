@@ -14,23 +14,22 @@ return array(
 	'_root_'  => 'dashboard/index',  // The default route
 	'_404_'   => 'dashboard/404',    // The main 404 route
 
-	'login' => 'login/login',
+	'login' 				=> 'login/login',
 	'login/forgot-password' => 'login/lostpassword',
-	'logout' => 'login/logout',
+	'logout' 				=> 'login/logout',
 
 	'registers/reservation' => 'facility/reservation',
 	'registers/booking'     => 'facility/booking',
-	'registers/customer'     => 'customer',
-	'registers/employee'     => 'employee',
-	'registers/lease'     => 'lease',
+	'registers/customer'    => 'customer',
+	'registers/lease'     	=> 'lease',
 	'registers/partner'     => 'partner',
-	// 'registers/folios'     => 'sales/invoice',
+	// 'registers/folios'     		=> 'sales/invoice',
 	// 'registers/stayover/:date'   => 'facility/stayover/$1',
     // 'registers/nightaudit/:date' => 'facility/nightaudit/$1',
 
-    'lease/get-property-list-options' => 'lease/get_property_list_options',
-    'lease/get-owner-list-options' => 'lease/get_owner_list_options',
-    'lease/get-unit-list-options' => 'lease/get_unit_list_options',
+    'lease/get-property-list-options' 	=> 'lease/get_property_list_options',
+    'lease/get-owner-list-options' 		=> 'lease/get_owner_list_options',
+    'lease/get-unit-list-options' 		=> 'lease/get_unit_list_options',
 
 	'accounts/bank-account'    => 'accounts/bank/account',
 	'accounts/bank-deposit'    => 'accounts/bank/deposit',
@@ -43,18 +42,27 @@ return array(
 
     'accounts/payment/receipt/to-print/:id' => 'accounts/payment/receipt/to_print/$1',
 
-	'facilities/rates'      => 'rate',
-	'facilities/rate-type' => 'rate/type',
-	'facilities/units'      => 'unit',
-    'facilities/unit-type' => 'unit/type',
-    'facilities/property' => 'property',
-    'facilities/property-type' => 'property/type',
-	'facilities/services'   => 'service/item',
+	'hr/payslip'     			=> 'hr/payslip',
+	'hr/employee'     			=> 'hr/employee',
+	'hr/salary-structure'     	=> 'hr/salary-structure',
+	'hr/salary-component'     	=> 'hr/salary-component',
+	
+	'facilities/rates'      	=> 'rate',
+	'facilities/rate-type' 		=> 'rate/type',
+	'facilities/units'      	=> 'unit',
+    'facilities/unit-type' 		=> 'unit/type',
+    'facilities/property' 		=> 'property',
+    'facilities/property-type' 	=> 'property/type',
+	'facilities/services'   	=> 'service/item',
 	'facilities/service-type'   => 'service/type',
-	'facilities/amenities'  => 'facility/amenity',
+	'facilities/amenities'  	=> 'facility/amenity',
     
 	'settings/business-detail'  => 'business',
 	'settings/email-settings'   => 'email/settings',
+	'settings/employee-type'	=> 'hr/employment/type',
+	'settings/department'		=> 'hr/department',
+	'settings/designation'		=> 'hr/designation',
+
 	// 'settings/email-settings/edit/:id' => 'email/settings/edit/$1',
 	// 'settings/email-templates'  => 'email/template',
 	// 'settings/bank-accounts'    => 'bank/account',
@@ -64,12 +72,12 @@ return array(
 	// 'settings/permissions'      => 'permission',
 	// 'settings/roles'            => 'role',
 
-    'calendar/show-bookings'    => 'calendar/show_bookings',
+    'calendar/show-bookings'    	=> 'calendar/show_bookings',
     'calendar/show-reservations'    => 'calendar/show_reservations',
 
     'report-builder' => 'report/builder',
 
 	//'reports/:slug' => 'reports/$1',
-	'reports/show-daily-report' => 'reports/show_daily',
-	'reports/show-monthly-report' => 'reports/show_monthly',
+	'reports/show-daily-report' 	=> 'reports/show_daily',
+	'reports/show-monthly-report'	=> 'reports/show_monthly',
 );

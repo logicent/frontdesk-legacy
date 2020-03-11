@@ -1,4 +1,5 @@
 <?php
+
 class Controller_Dashboard extends Controller_Authenticate{
 
 	public function action_index()
@@ -9,25 +10,23 @@ class Controller_Dashboard extends Controller_Authenticate{
 			Session::set_flash('warning', 'Add your business information to complete setup.');
 			Response::redirect('business/create');
 		}
-        // find accommodation units only for now - later separate dashboard by service type and property
-        // $unit_types = Model_Unit_Type::find('all'); 
-        // $unit_types = Model_Unit_Type::find('all', array('where' => array('used_for' => 'A'))); 
+
         $unit_types = Model_Unit_Type::find('all', 
-                                                array(
-                                                    'related' => array(
-                                                        'units' => array(
-                                                            'order_by' => 'name'
-                                                        ), 
-                                                        'rates'
-                                                    ), 
-                                                'where' => array('used_for' => 'A', 'inactive' => false), 
-                                                'order_by' => 'name')
-                                            );
+											array(
+												'related' => array(
+													'units', 
+													'rates'
+												),
+												'where' => array('inactive' => false), 
+											)
+										);
         
-        $unitTypeHasUndefinedRate = false;
-        foreach ($unit_types as $unit_type) {
-            $unitTypeHasUndefinedRate = count($unit_type->rates) == 0;
-            if ($unitTypeHasUndefinedRate) {
+		$unit_type_has_undefined_rate = false;
+		
+		foreach ($unit_types as $unit_type) 
+		{
+            $unit_type_has_undefined_rate = count($unit_type->rates) == 0;
+            if ($unit_type_has_undefined_rate) {
                 Session::set_flash('warning', "Add facilities rate for {$unit_type->name}");
                 Response::redirect('facilities/rates');
             }
@@ -35,78 +34,20 @@ class Controller_Dashboard extends Controller_Authenticate{
         
 		$rates = Model_Rate::find('first');
 		if (!$rates) {
-			Session::set_flash('warning', 'Add your facilities rates to enable bookings.');
+			Session::set_flash('warning', 'Add your facilities rates to enable bookings and leasing.');
 			Response::redirect('facilities/rates');
 		}
 
-		// perform night audit
-		$last_audit = Model_Summary::find('last');
-		if ($last_audit) {
-			if ($last_audit->date !== date('Y-m-d'))
-				$data['audit_required'] = true;
-		}
-		else $data['audit_required'] = false;
+		$data = array();
+		
+		// get accommodation units stats
+		$data['accommodation'] = Model_Dashboard::get_accommodation_stats();
 
-		// perform stay over switch
-		$data['checkins'] = DB::select(DB::expr('COUNT(id) as total_ci'))
-										->from('facility_booking')
-										->where(DB::expr('DATE_FORMAT(checkin, "%Y-%m-%d")'), '=', date('Y-m-d'))
-										->where('status', '=', Model_Facility_Booking::GUEST_STATUS_CHECKED_IN)
-										->execute()->as_array();
-		$data['stayovers'] = DB::select(DB::expr('COUNT(id) as total_so'))
-										->from('facility_booking')
-										->where(DB::expr('DATE_FORMAT(checkin, "%Y-%m-%d")'), '!=', date('Y-m-d'))
-										->where('status', '=', Model_Facility_Booking::GUEST_STATUS_CHECKED_IN)
-										->execute()->as_array();
-		$data['checkouts'] = DB::select(DB::expr('COUNT(id) as total_co'))
-										->from('facility_booking')
-										->where(DB::expr('DATE_FORMAT(checkout, "%Y-%m-%d")'), '=', date('Y-m-d'))
-										->where('status', '=', Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT)
-										->execute()->as_array();
-		if ($data['stayovers'])
-			$data['rollover_required'] = true;
-		else $data['rollover_required'] = false;
+		// get rental units stats
+		$data['rental'] = Model_Dashboard::get_rental_stats();
 
-		$data['receipts'] = DB::select(DB::expr('COALESCE(SUM(amount), 0) as total_amount'))
-											->from('sales_payment')
-											->where('sales_payment.date', '=', date('Y-m-d'))
-											->execute()->as_array();
-
-		$data['expenses'] = DB::select(DB::expr('COALESCE(SUM(amount), 0) as total_amount'))
-											->from('expense')
-											->where('expense.date', '=', date('Y-m-d'))
-											->execute()->as_array();
-
-		$data['deposits'] = DB::select(DB::expr('COALESCE(SUM(amount), 0) as total_amount'))
-											->from('bank_deposit')
-											->where('bank_deposit.date', '=', date('Y-m-d'))
-											->execute()->as_array();
-
-		$data['units_occupied'] = DB::select(DB::expr('COUNT(id) as count'))
-										->from('unit')
-										->where('status', '=', Model_Unit::UNIT_STATUS_OCCUPIED)
-										->execute()->as_array();
-
-		$data['units_vacant'] = DB::select(DB::expr('COUNT(id) as count'))
-										->from('unit')
-										->where('status', '=', Model_Unit::UNIT_STATUS_VACANT)
-										->execute()->as_array();
-
-		$data['units_blocked'] = DB::select(DB::expr('COUNT(id) as count'))
-										->from('unit')
-										->where('status', '=', Model_Unit::UNIT_STATUS_BLOCKED)
-										->execute()->as_array();
-
-        $data['unit_types'] = $unit_types;
-
-		$data['customer_list'] = Model_Facility_Booking::find('all', array(
-                                    'related' => array('unit','bill'), 
-                                    'where' => array( 
-                                        array(
-                                            'status', '!=', Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT)
-                                        )
-                                    )
-                                );
+		// get hire units stats
+		$data['hire'] = Model_Dashboard::get_hire_stats();
 
 		$this->template->title = "Dashboard";
 		$this->template->content = View::forge('dashboard', $data);

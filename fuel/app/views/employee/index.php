@@ -5,7 +5,7 @@
 
 	<div class="col-md-6">
         <br>
-		<?= Html::anchor('employee/create', 'New', array('class' => 'btn btn-primary pull-right')); ?>    
+		<?= Html::anchor('hr/employee/create', 'New', array('class' => 'btn btn-primary pull-right')); ?>    
 	</div>
 </div>
 <hr>
@@ -41,6 +41,6 @@
 </table>
 
 <?php else: ?>
-<p>No Employee found..</p>
+<p>No Employee found.</p>
 
 <?php endif; ?>

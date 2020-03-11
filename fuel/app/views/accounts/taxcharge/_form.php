@@ -1,27 +1,27 @@
 <?php echo Form::open(array("class"=>"form-horizontal")); ?>
 
 <div class="form-group">
-    <div class="col-md-3">
+    <div class="col-md-6">
         <?= Form::label('Code', 'code', array('class'=>'control-label')); ?>
         <?= Form::input('code', Input::post('code', isset($tax_charge) ? $tax_charge->code : ''),
-                                                    array('class' => 'col-md-4 form-control')); ?>
+                                                    array('class' => 'col-md-6 form-control')); ?>
     </div>
 </div>
 
 <div class="form-group">
-    <div class="col-md-3">
+    <div class="col-md-6">
         <?= Form::label('Description', 'name', array('class'=>'control-label')); ?>
         <?= Form::input('name', Input::post('name', isset($tax_charge) ? $tax_charge->name : ''),
-                                                    array('class' => 'col-md-4 form-control')); ?>
+                                                    array('class' => 'col-md-6 form-control')); ?>
     </div>
 </div>
 
 <div class="form-group">
-    <div class="col-md-3">
+    <div class="col-md-6">
         <?= Form::label('Rate', 'rate', array('class'=>'control-label')); ?>
         <div class="input-group">
             <?= Form::input('rate', Input::post('rate', isset($tax_charge) ? $tax_charge->rate : ''),
-            array('class' => 'col-md-4 form-control')); ?>
+            array('class' => 'col-md-6 form-control')); ?>
             <span class="input-group-addon">%</span>
         </div>
     </div>
@@ -29,7 +29,7 @@
 
 <div class="form-group">
     <div class="col-md-6">
-        <?= Form::hidden('enabled', Input::post('enabled', isset($lease) ? $lease->enabled : '0')); ?>
+        <?= Form::hidden('enabled', Input::post('enabled', isset($tax_charge) ? $tax_charge->enabled : '0')); ?>
         <?= Form::checkbox('cb_enabled', null, array('class' => 'cb-checked', 'data-input' => 'enabled')); ?>
         <?= Form::label('Enabled', 'cb_enabled', array('class'=>'control-label')); ?>
     </div>

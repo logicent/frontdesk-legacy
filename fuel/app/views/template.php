@@ -123,7 +123,6 @@
                                     <li><a href="<?= Uri::create('registers/booking'); ?>"><i class=""></i>&emsp;Booking</a></li>
                                     <li><a href="<?= Uri::create('registers/lease'); ?>"><i class=""></i>&emsp;Lease</a></li>
                                     <li><a href="<?= Uri::create('registers/customer'); ?>"><i class=""></i>&emsp;Customer</a></li>
-                                    <li><a href="<?= Uri::create('registers/employee'); ?>"><i class=""></i>&emsp;Employee</a></li>
                                     <li><a href="<?= Uri::create('registers/partner'); ?>"><i class=""></i>&emsp;Partner</a></li>
                                 </ul>
                             </li>
@@ -139,6 +138,15 @@
                             </li>
                             <?php
                                 if ($ugroup->id == 6 || $ugroup->id == 5) : ?>
+                            <li>
+                                <a href="#"><i class="fa fa-lg fa-users fa-fw text-success"></i>&emsp;Payroll<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li><a href="<?= Uri::create('hr/payslip'); ?>"><i class=""></i>&emsp;Payslip</a></li>
+                                    <li><a href="<?= Uri::create('hr/employee'); ?>"><i class=""></i>&emsp;Employee</a></li>
+                                    <li><a href="<?= Uri::create('hr/salary-structure'); ?>"><i class=""></i>&emsp;Salary Structure</a></li>
+                                    <li><a href="<?= Uri::create('hr/salary-component'); ?>"><i class=""></i>&emsp;Salary Component</a></li>
+                                </ul>
+                            </li>
                             <li>
                                 <a href="#"><i class="fa fa-lg fa-building fa-fw text-danger"></i>&emsp;Facilities<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">

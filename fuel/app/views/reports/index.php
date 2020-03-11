@@ -24,7 +24,7 @@
 			<div class="panel-body">
             <?= Form::open(array("class"=>"form-horizontal", "method"=>"post", "action"=> Uri::create('reports/show-daily-report'), 'target'=>'_blank')); ?>
                 <div class="form-group">
-                    <div class="col-md-8">
+                    <div class="col-md-10">
                         <label for="rpt_name" class='control-label'>Select a report: </label>
                         <select class='form-control' id='rpt_name' name='rpt_name'>
                         <!-- <div class="list-group"> -->
@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <label for="rpt_date" class='control-label'>Date of: </label>
                         <input class='form-control datepicker' id='rpt_date' name='rpt_date' value="<?= strftime('%Y-%m-%d', time()); ?>">
                         <!--<div class="input-group date" id="dp3" data-date="<?= date('Y-m-d') ?>" data-date-format="yyyy-mm-dd">
@@ -49,7 +49,7 @@
                 <hr>
 
                 <div class="form-group">
-					<div class="col-md-4">
+					<div class="col-md-12">
 						<button class="btn btn-primary">Generate</button>
 						<!-- <a class="form-control btn btn-default" href="<?= Uri::create('reports/show'); ?>" target="_blank" >Generate</a> -->
 					</div>
@@ -65,7 +65,7 @@
 			<div class="panel-body">
             <?= Form::open(array("class"=>"form-horizontal", "method"=>"post", "action"=> Uri::create('reports/show-monthly-report'), 'target'=>'_blank')); ?>
                 <div class="form-group">
-                    <div class="col-md-8">
+                    <div class="col-md-10">
                         <label for="rpt_name" class='control-label'>Select a report: </label>
                         <select class='form-control' id='rpt_name' name='rpt_name' value="">
                         <!-- <div class="list-group"> -->
@@ -78,7 +78,7 @@
                 </div>
 
                 <div class="form-group">
-					<div class="col-md-4">
+					<div class="col-md-5">
 						<label for="rpt_period" class='control-label'>Month of: </label>
 						<input class='form-control dateperiod' id='rpt_period' name='rpt_period' value="<?= strftime('%Y-%m', time()); ?>">
                     </div>
@@ -87,7 +87,7 @@
                 <hr>
 
                 <div class="form-group">
-					<div class="col-md-4">
+					<div class="col-md-12">
 						<button class="btn btn-primary">Generate</button>
 					</div>
 				</div>

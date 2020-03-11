@@ -38,15 +38,13 @@
 				</div>
 			</td> -->
 		</tr>
-<?php endforeach; ?>
+    <?php 
+        endforeach;
+    else : ?>
+        <tr id="no_data"><td class="text-muted text-center" colspan="5">No data</td></tr>
+<?php
+    endif ?>
 	</tbody>
-
-<?php // else: ?>
-
-	<tbody>
-		<?php //= render('sales/invoice/item/_form'); ?>
-	</tbody>
-
 	<tfoot>
 		<tr>
 			<th colspan="5" class='text-right grandTotal'>
@@ -70,53 +68,5 @@
     </div>
 </div>
 
-<?php endif; ?>
-
 <script>
-	// function formatCurrency(value) {
-	//     return "$" + value.toFixed(2);
-	// }
-
-	// var DocLine = function() {
-	// 	var self = this;
-	// 	self.item_id = ko.observable();
-	// 	self.description = ko.observable();
-	// 	self.qty = ko.observable(1);
-	// 	self.unit_price = ko.observable(1);
-	// 	self.subtotal = ko.computed(function() {
-	// 		return self.description() ? self.price() * parseInt("0" + self.qty(), 10) : 0;
-	// 	});
-
-	// 	// Whenever the item changes, reset the line details
-	// 	self.item_id.subscribe(function() {
-	// 		self.description(undefined);
-	// 	});
-	// };
-
-	// var Doc = function() {
-	// 	// Stores an array of lines, and from these, can work out the grandTotal
-	// 	var self = this;
-	// 	self.lines = ko.observableArray([new DocLine()]); // Put one line in by default
-	// 	self.grandTotal = ko.computed(function() {
-	// 		var total = 0;
-	// 		$.each(self.lines(), function() { total += this.subtotal })
-	// 		return total;
-	// 	});
-
-	// 	// Operations
-	// 	self.addLine = function() { self.lines.push(new DocLine()) };
-	// 	self.removeLine = function(line) { self.lines.remove(line) };
-	// 	self.save = function() {
-	// 		var dataToSave = $.map(self.lines(), function(line) {
-	// 			return line.description() ? {
-	// 				description: line.description(),
-	// 				qty: line.qty()
-	// 			} : undefined
-	// 		});
-	// 		alert("Could now send this to server: " + JSON.stringify(dataToSave));
-	// 	};
-	// };
-
-	// ko.applyBindings(new Doc());
-
 </script>

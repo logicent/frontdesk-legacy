@@ -3,6 +3,11 @@ use Orm\Model;
 
 class Model_Lease extends Model
 {
+    const TENANT_STATUS_INCOMING = 'Incoming';
+    const TENANT_STATUS_ONGOING = 'Ongoing';
+    const TENANT_STATUS_OUTGOING = 'Outgoing';
+	const TENANT_STATUS_INACTIVE = 'Inactive';
+	
 	protected static $_properties = array(
 		'id',
 		'reference',
@@ -57,7 +62,14 @@ class Model_Lease extends Model
 			'key_to' => 'id',
 			'cascade_save' => false,
 			'cascade_delete' => false,
-		)
+		),
+		'bill' => array(
+			'key_from' => 'id',
+			'model_to' => 'Model_Sales_Invoice',
+			'key_to' => 'source_id',
+			'cascade_save' => true,
+			'cascade_delete' => true,
+		),		
     );
 
 	public static function validate($factory)
