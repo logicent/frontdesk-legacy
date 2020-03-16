@@ -40,4 +40,26 @@ class Model_Service_Item extends Model
 		$col_def = DB::list_columns(self::$_table_name, "$name");
 		return $col_def["$name"]['default'];
 	}
+
+    public static function listOptions($billable = true)
+    {
+		$items = DB::select('id', 'description')
+                    ->from(self::$_table_name)
+                    ->where([
+                        'enabled' => true,
+                        'billable' => $billable
+                    ])
+                    ->order_by('description', 'ASC')
+                    ->execute()
+                    ->as_array();
+        
+		$list_options = array('' => '');
+
+		foreach($items as $item) {
+			$list_options[$item['id']] = $item['description'];
+        }
+        
+		return $list_options;
+    }
+
 }

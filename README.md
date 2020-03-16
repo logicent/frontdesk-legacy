@@ -10,7 +10,7 @@
 
 ## Description
 
-FrontDesk is a modern property management system (PMS) for managed facility owners and companies that offer accommodation, rental and hiring services.
+FrontDesk is a modern property management system (PMS) for managed facility owners and establishments that offer accommodation, rental and hiring services.
 
 FrontDesk is built using PHP (FuelPHP) and JavaScript (jQuery) with Bootstrap 3 UI by SBAdmin2.
 

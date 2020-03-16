@@ -1,5 +1,5 @@
 <?php 
-    $img_ph = "images/photo-ph.jpg";
+    $img_ph = "images/camera.gif";
     $img_src ='';
     if (isset($employee)) :
         if ($employee->ID_attachment) :

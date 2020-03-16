@@ -10,8 +10,15 @@ foreach ($setting_modules as $setting_module) : ?>
 
     <div class="col-md-6">
         <div class="panel panel-default">
+            <!--<div class="panel-heading">
+                <div class="panel-title"><?= $setting_item['label'] ?></div>
+            </div>-->
             <div class="panel-body">
-                <a class="btn btn-lg btn-link" href="<?= Uri::create($setting_item['route']); ?>"><?= $setting_item['label'] ?></a>
+                <!--<i class="fa fa-fw fa-lg fa-<?= !empty($setting_item['icon']) ? $setting_item['icon'] : '' ?>"></i>-->
+                <a class="btn btn-lg btn-link" href="<?= Uri::create($setting_item['route']); ?>">
+                    <span><?= $setting_item['label'] ?></span>
+                </a>
+                <div class="small text-muted"><?= $setting_item['description'] ?></div>
             </div>
         </div>
     </div>
@@ -22,7 +29,11 @@ foreach ($setting_modules as $setting_module) : ?>
     <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-body">
-                <a class="btn btn-lg btn-link" href="<?= Uri::create($setting_item['route']); ?>"><?= $setting_item['label'] ?></a>
+                <!--<i class="fa fa-fw fa-lg fa-<?= !empty($setting_item['icon']) ? $setting_item['icon'] : '' ?>"></i>-->
+                <a class="btn btn-lg btn-link" href="<?= Uri::create($setting_item['route']); ?>">
+                    <span><?= $setting_item['label'] ?></span>
+                </a>
+                <div class="small text-muted"><?= $setting_item['description'] ?></div>
             </div>
         </div>
     </div>

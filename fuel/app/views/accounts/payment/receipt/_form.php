@@ -9,7 +9,7 @@
                                 $payment_receipt->receipt_number : Model_Accounts_Payment_Receipt::getNextSerialNumber()), 
                                 array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
 			</div>
-			<?= Form::hidden('bill_id', Input::post('bill_id', isset($payment_receipt) ? $payment_receipt->bill_id : isset($bill) ? $bill->id : '')); ?>
+			<?= Form::hidden('bill_id', Input::post('bill_id', isset($payment_receipt) ? $payment_receipt->bill_id : (isset($bill) ? $bill->id : ''))); ?>
 		</div>
 
 		<div class="col-md-3">
@@ -29,15 +29,15 @@
         <div class="col-md-3">
             <?= Form::label('Reference', 'reference', array('class'=>'control-label')); ?>
             <?= Form::input('reference', Input::post('reference', isset($payment_receipt) ? $payment_receipt->reference : ''), 
-                            array('class' => 'col-md-4 form-control')); ?>
+                            array('class' => 'col-md-4 form-control', 'autofocus' => true)); ?>
         </div>
     </div>
 
     <div class="form-group">
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<?= Form::label('Payer', 'payer', array('class'=>'control-label')); ?>
             <?= Form::input('payer', Input::post('payer', isset($payment_receipt) ? 
-                            $payment_receipt->payer : isset($bill) ? $bill->booking->customer_name : ''), 
+                            $payment_receipt->payer : (isset($bill) ? $bill->booking->customer_name : '')), 
                             array('class' => 'col-md-4 form-control')); ?>
 		</div>
 	</div>
@@ -45,9 +45,9 @@
 	<div class="form-group">
 		<div class="col-md-3">
 			<?= Form::label('Amount', 'amount', array('class'=>'control-label')); ?>
-            <?= Form::input('amount', Input::post('amount', isset($payment_receipt) ? $payment_receipt->amount : isset($bill) ? $bill->balance_due : '0.00'), 
+            <?= Form::input('amount', Input::post('amount', isset($payment_receipt) ? $payment_receipt->amount : (isset($bill) ? $bill->balance_due : '0.00')), 
                             array('class' => 'col-md-4 form-control text-right', 'readonly' => isset($payment_receipt) && 
-                            $payment_receipt->invoice->booking->status == 'CO' ? true : false, 'autofocus' => true)); ?>
+                            $payment_receipt->invoice->booking->status == 'CO' ? true : false)); ?>
 		</div>
 
 		<div class="col-md-3">
@@ -58,10 +58,10 @@
 	</div>
 
 	<div class="form-group">
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<?= Form::label('Description', 'description', array('class'=>'control-label')); ?>
             <?= Form::textarea('description', Input::post('description', isset($payment_receipt) ? $payment_receipt->description : 
-                            isset($bill) ? 'Accommodation for Unit no. ' . $bill->booking->unit->name : ''), 
+                            (isset($bill) ? 'Accommodation for Unit no. ' . $bill->booking->unit->name : '')), 
                             array('class' => 'col-md-4 form-control', 'rows' => 4)); ?>
 		</div>
 	</div>

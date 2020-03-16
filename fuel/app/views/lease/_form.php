@@ -135,7 +135,7 @@
                     <?= Form::input('attachments', Input::post('attachments', isset($lease) ? $lease->attachments : ''),
                                     array('id' => 'file_path', 'class' => 'col-md-4 form-control', 'readonly' => true)); ?>
                 <?php 
-                    if ($lease) : ?>
+                    if (isset($lease)) : ?>
                     <span class="input-group-addon">
                         <?= Html::anchor(Uri::create(false), '<i class="fa fa-plus-square-o text-info"></i>', 
                                         array('id' => 'add_img')) ?>

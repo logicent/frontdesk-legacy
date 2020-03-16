@@ -1,7 +1,7 @@
 <?= Form::open(array("class"=>"form-horizontal", "autocomplete" => "off")); ?>
 
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-8">
 		<div class="form-group">
 			<div class="col-md-6">
 				<?= Form::label('Full name', 'partner_name', array('class'=>'control-label')); ?>

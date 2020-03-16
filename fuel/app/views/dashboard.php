@@ -21,11 +21,11 @@
 </div>
 -->
 <div class="row">
-    <div class="col-md-offset-3 col-md-6">
+    <div class="col-md-12">
         <div id="dashboard_tabs" class="btn-group btn-group-justified">
-            <a id="accommodation-tab" data-toggle="tab" href="#accommodation" class="btn btn-default">Accommodation</a>
-            <a id="rental-tab" data-toggle="tab" href="#rental" class="btn btn-default">Rental</a>
-            <a id="hire-tab" data-toggle="tab" href="#hire" class="btn btn-default">Hire</a>
+            <a id="accommodation-tab" data-toggle="tab" href="#accommodation" class="btn btn-default"><?= strtoupper('Accommodation') ?></a>
+            <a id="rental-tab" data-toggle="tab" href="#rental" class="btn btn-default"><?= strtoupper('Rental') ?></a>
+            <a id="hire-tab" data-toggle="tab" href="#hire" class="btn btn-default"><?= strtoupper('Hire') ?></a>
         </div>
     </div>
 </div>
@@ -47,10 +47,10 @@
         e.preventDefault();
         $(this).tab('show');
         // remove active class
-        $('#dashboard_tabs a').not('active').removeClass('active');
+        $('#dashboard_tabs a').not('active').removeClass('active text-muted');
 	});
 
-	$('#dashboard_tabs a:first').tab('show').addClass('active');
+	$('#dashboard_tabs a:first').tab('show').addClass('active text-muted');
 
 // on change of selected stats_period dropdown list option fetch and refresh the stats values
 </script>

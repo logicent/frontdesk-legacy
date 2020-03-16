@@ -9,6 +9,33 @@ class Controller_Sales_Invoice_Item extends Controller_Authenticate
 
 	}
 
+	public function action_add_item()
+    {
+        if (Input::is_ajax())
+        {
+			$data['row_id'] = Input::post('last_row_id');
+
+            return $this->template->content = View::forge('sales/invoice/item/_form', $data);
+        }
+	}
+	
+	public function action_get_item()
+    {
+		$item = '';
+		
+        if (Input::is_ajax())
+        {
+            $item = Model_Service_Item::query()
+										->where(
+											array('id' => Input::post('item_id'))
+										)
+										->get_one()
+										->to_array();
+		}
+		
+		return json_encode($item);
+	}
+
 	public function action_create()
 	{
 		if (Input::method() == 'POST')

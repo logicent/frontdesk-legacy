@@ -216,6 +216,14 @@ table {
     border: 1px solid #d1d8dd;
 }
 
+.tab-content > .tab-pane.active > table {
+    border-top: none;
+}
+
+.nav.nav-tabs > li.active > a {
+    background-color: #f7fafc;
+}
+
 .table>thead>tr>th {
     /* vertical-align: bottom; */
     border-bottom: 1px solid #d1d8dd;
@@ -253,7 +261,7 @@ a.active {
 }
 
 .btn-link {
-    color: #337ab7;
+    color: #1f2933;
 }
 
 a:hover, a:focus {

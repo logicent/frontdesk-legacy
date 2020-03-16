@@ -1,7 +1,15 @@
 <?= Form::open(array("class"=>"form-horizontal", "autocomplete" => "off")); ?>
 
 	<div class="form-group">
-		<div class="col-md-3">
+        <div class="col-md-6">
+			<?= Form::label('Customer / Order ref.', 'customer_name', array('class'=>'control-label')); ?>
+            <?= Form::hidden('customer_name', Input::post('customer_name', isset($sales_invoice) ? $sales_invoice->customer_name : '')); ?>
+            <?= Form::select('customer_list', Input::post('customer_list', isset($sales_invoice) ? $sales_invoice->customer_name : ''), 
+                            Model_Facility_Booking::listOptions(true), 
+                            array('class' => 'col-md-4 form-control', 'disabled' => isset($sales_invoice) ? true : false)); ?>
+        </div>
+
+        <div class="col-md-3">
 			<?= Form::label('Invoice no.', 'invoice_num', array('class'=>'control-label')); ?>
             <?= Form::input('invoice_num', Input::post('invoice_num', isset($sales_invoice) ? $sales_invoice->invoice_num : 
                             Model_Sales_Invoice::getNextSerialNumber()), 
@@ -15,17 +23,15 @@
                             Model_Sales_Invoice::$invoice_status, 
                             array('class' => 'col-md-4 form-control', 'disabled' => true)); ?>
 		</div>
-
-		<div class="col-md-6">
-			<?= Form::label('Customer / Order ref.', 'customer_name', array('class'=>'control-label')); ?>
-            <?= Form::hidden('customer_name', Input::post('customer_name', isset($sales_invoice) ? $sales_invoice->customer_name : '')); ?>
-            <?= Form::select('customer_list', Input::post('customer_list', isset($sales_invoice) ? $sales_invoice->customer_name : ''), 
-                            Model_Facility_Booking::listOptions(true), 
-                            array('class' => 'col-md-4 form-control', 'disabled' => isset($sales_invoice) ? true : false)); ?>
-		</div>
 	</div>
 
 	<div class="form-group">
+        <div class="col-md-6">
+			<?= Form::label('Billing address', 'billing_address', array('class'=>'control-label')); ?>
+            <?= Form::textarea('billing_address', Input::post('billing_address', isset($sales_invoice) ? $sales_invoice->billing_address : ''), 
+                                array('class' => 'col-md-4 form-control', 'rows' => 2)); ?>
+        </div>
+                
 		<div class="col-md-3">
 			<?= Form::label('Issue date', 'issue_date', array('class'=>'control-label')); ?>
             <?= Form::input('issue_date', Input::post('issue_date', isset($sales_invoice) ? $sales_invoice->issue_date : ''), 
@@ -37,13 +43,9 @@
             <?= Form::input('due_date', Input::post('due_date', isset($sales_invoice) ? $sales_invoice->due_date : ''), 
                             array('class' => 'col-md-4 form-control datepicker', 'readonly' => isset($sales_invoice) ? true : false)); ?>
 		</div>
-
-		<div class="col-md-6">
-			<?= Form::label('Billing address', 'billing_address', array('class'=>'control-label')); ?>
-            <?= Form::textarea('billing_address', Input::post('billing_address', isset($sales_invoice) ? $sales_invoice->billing_address : ''), 
-                                array('class' => 'col-md-4 form-control', 'rows' => 2)); ?>
-		</div>
 	</div>
+
+    <br>
 
 	<ul id="invoice_detail" class="nav nav-tabs">
 		<li>
@@ -71,7 +73,7 @@
 				</thead>
 				<tbody>
         <?php 
-            if (isset($sales_invoice)) :
+            if (isset($sales_invoice) && !empty($sales_invoice->receipts)) :
                 foreach ($sales_invoice->receipts as $item): ?>
                     <tr class="<?= $item->amount > 0 ? : 'strikeout text-muted' ?>">
                         <td><?= Html::anchor('accounts/payment/receipt/edit/'.$item->id, $item->reference); ?></td>
@@ -93,6 +95,8 @@
     <?= Form::hidden('fdesk_user', Input::post('fdesk_user', isset($sales_invoice) ? $sales_invoice->fdesk_user : $uid)); ?>
     <?= Form::hidden('source', Input::post('source', isset($sales_invoice) ? $sales_invoice->source : '')); ?>
     <?= Form::hidden('source_id', Input::post('source_id', isset($sales_invoice) ? $sales_invoice->source_id : '')); ?>
+
+    <br>
 
 	<div class="row">
 		<div class="col-md-6">

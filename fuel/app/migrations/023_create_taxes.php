@@ -10,6 +10,7 @@ class Create_taxes
 			'id' => array('constraint' => 11, 'type' => 'int', 'auto_increment' => true, 'unsigned' => true),
 			'code' => array('constraint' => 20, 'type' => 'varchar'),
 			'name' => array('constraint' => 140, 'type' => 'varchar'),
+			'type' => array('constraint' => 140, 'type' => 'varchar'), // Fixed, Normal, Inclusive, Compound
             'rate' => array('type' => 'decimal'),
             'enabled' => array('type' => 'tinyint', 'default' => 1),
 			'fdesk_user' => array('constraint' => 11, 'type' => 'int'),

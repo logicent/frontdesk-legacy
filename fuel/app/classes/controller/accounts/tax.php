@@ -36,6 +36,7 @@ class Controller_Accounts_Tax extends Controller_Authenticate
 				$tax = Model_Accounts_Tax::forge(array(
 					'code' => Input::post('code'),
 					'name' => Input::post('name'),
+					'type' => Input::post('type'),
 					'rate' => Input::post('rate'),
                     'enabled' => Input::post('enabled'),
 					'fdesk_user' => Input::post('fdesk_user'),
@@ -80,6 +81,7 @@ class Controller_Accounts_Tax extends Controller_Authenticate
 		{
             $tax_charge->code = Input::post('code');
             $tax_charge->name = Input::post('name');
+            $tax_charge->type = Input::post('type');
             $tax_charge->rate = Input::post('rate');
             $tax_charge->enabled = Input::post('enabled');
             $tax_charge->fdesk_user = Input::post('fdesk_user');
@@ -103,6 +105,7 @@ class Controller_Accounts_Tax extends Controller_Authenticate
 			{
 				$tax_charge->code = $val->validated('code');
                 $tax_charge->name = $val->validated('name');
+                $tax_charge->type = $val->validated('type');
                 $tax_charge->rate = $val->validated('rate');
                 $tax_charge->enabled = $val->validated('enabled');
                 $tax_charge->fdesk_user = $val->validated('fdesk_user');

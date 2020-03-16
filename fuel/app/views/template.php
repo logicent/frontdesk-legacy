@@ -141,10 +141,10 @@
                             <li>
                                 <a href="#"><i class="fa fa-lg fa-users fa-fw text-success"></i>&emsp;Payroll<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
-                                    <li><a href="<?= Uri::create('hr/payslip'); ?>"><i class=""></i>&emsp;Payslip</a></li>
+                                    <!--<li><a href="<?= Uri::create('hr/payslip'); ?>"><i class=""></i>&emsp;Payslip</a></li>-->
                                     <li><a href="<?= Uri::create('hr/employee'); ?>"><i class=""></i>&emsp;Employee</a></li>
-                                    <li><a href="<?= Uri::create('hr/salary-structure'); ?>"><i class=""></i>&emsp;Salary Structure</a></li>
-                                    <li><a href="<?= Uri::create('hr/salary-component'); ?>"><i class=""></i>&emsp;Salary Component</a></li>
+                                    <!--<li><a href="<?= Uri::create('hr/salary-structure'); ?>"><i class=""></i>&emsp;Salary Structure</a></li>-->
+                                    <!--<li><a href="<?= Uri::create('hr/salary-component'); ?>"><i class=""></i>&emsp;Salary Component</a></li>-->
                                 </ul>
                             </li>
                             <li>

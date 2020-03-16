@@ -3,10 +3,16 @@ use Orm\Model;
 
 class Model_Accounts_Tax extends Model
 {
+	const TAX_TYPE_FIXED = 'Fixed';
+	const TAX_TYPE_NORMAL = 'Normal';
+	const TAX_TYPE_INCLUSIVE = 'Inclusive';
+	const TAX_TYPE_COMPOUND = 'Compound';
+
 	protected static $_properties = array(
         'id',
         'code',
         'name',
+        'type',
         'rate',
         'enabled',
         'fdesk_user',
@@ -38,4 +44,13 @@ class Model_Accounts_Tax extends Model
 		return $val;
 	}
 
+	public static function listOptionsTaxType()
+	{
+		return array(
+			self::TAX_TYPE_FIXED => self::TAX_TYPE_FIXED,
+			self::TAX_TYPE_NORMAL => self::TAX_TYPE_NORMAL,
+			self::TAX_TYPE_INCLUSIVE => self::TAX_TYPE_INCLUSIVE,
+			self::TAX_TYPE_COMPOUND => self::TAX_TYPE_COMPOUND,
+		);
+	}
 }
