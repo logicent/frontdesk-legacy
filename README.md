@@ -3,13 +3,13 @@
 * Version: 3.x
 * [Website](https://logicent.co)
 * [Demo](https://fdesk.demo.logicent.co)
-    Username: admin
-    Password: safdesk1
+    Username: `admin`
+    Password: `safdesk1`
+* [Support Forum](https://github.com/logicent/frontdesk/issues) for comments, discussion and community support
 <!-- [Release Documentation](https://github.com/logicent/frontdesk/docs) -->
 <!-- [Release API browser](https://github.com/logicent/frontdesk/) -->
 <!-- [Development branch Documentation](https://github.com/logicent/frontdesk/dev-docs) -->
 <!-- [Development branch API browser](https://github.com/logicent/frontdesk/dev-api) -->
-* [Support Forum](https://github.com/logicent/frontdesk/issues) for comments, discussion and community support
 
 ## Description
 
@@ -19,19 +19,19 @@ FrontDesk is built using PHP (FuelPHP) and JavaScript (jQuery) with Bootstrap 3 
 
 ## Installation
 
-### Setup via cli
+### Setup via CLI
 
 `git clone https://github.com/logicent/frontdesk.git <path/to/project>`
 
-#### composer install
-
 `cd <path/to/project>`
+
+*Note: Ensure composer is installed for this install task*
 
 `php oil refine install`
 
-create/modify db.php settings as needed under `fuel/app/config/`
+create/modify `db.php` settings as needed under `fuel/app/config/`
 
-run task to create database tables
+run tasks to create database tables
 
 `php oil refine migrate --packages=auth`
 
@@ -39,13 +39,13 @@ run task to create database tables
 
 `php oil refine migrate`
 
-run task to set/update default login 
+TODO: create task to set/update default login 
 
-run task to load default reports
+TODO: create task to load default reports
 
-### Setup (Post-install) via app UI 
+### Setup (post-install) via UI 
 
-`/settings`
+Go to sidebar navigation menu to:
 
 - add business detail
 
@@ -69,6 +69,6 @@ The FrontDesk development team is always looking for new team members, who are w
 
 You can apply for internship. Start by sending in pull-requests, work on outstanding feature requests or bugs, and become active in the #logicent GitHub issues. If your skills are up to scratch, we will notice you, and will ask you to become a team member.
 
-### Alumni
+<!-- ### Alumni -->
 
-* (none)
+<!-- * (none) -->
