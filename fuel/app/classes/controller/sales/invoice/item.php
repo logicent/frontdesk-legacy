@@ -15,7 +15,7 @@ class Controller_Sales_Invoice_Item extends Controller_Authenticate
         {
 			$data['row_id'] = Input::post('last_row_id');
 
-            return $this->template->content = View::forge('sales/invoice/item/_form', $data);
+            return View::forge('sales/invoice/item/_form', $data);
         }
 	}
 	

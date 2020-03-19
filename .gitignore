@@ -32,6 +32,8 @@ desktop.ini
 # dynamically generated files
 /fuel/app/logs/*/*/*
 /fuel/app/cache/*/*
+
+# config files specific to dev or deployment environment
 /fuel/app/config/crypt.php
 /fuel/app/config/email.php
 #/fuel/app/config/config.php

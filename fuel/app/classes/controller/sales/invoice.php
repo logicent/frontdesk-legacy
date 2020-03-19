@@ -126,7 +126,7 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 		}
 
 		$val = Model_Sales_Invoice::validate('edit');
-
+		// Debug::dump(Input::post()); exit;
 		if ($val->run())
 		{
 			$sales_invoice->invoice_num = Input::post('invoice_num');

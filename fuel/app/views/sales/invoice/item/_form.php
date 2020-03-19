@@ -1,5 +1,8 @@
 <tr id="SalesInvoiceItem_<?= $row_id ?>">
-	<td class="col-md-4 item">
+	<td class="text-center select-row">
+		<?= Form::checkbox($row_id, false, array('value' => isset($sales_invoice_item) ? $sales_invoice_item->item_id : '')) ?>
+	</td>
+	<td class="col-md-3 item">
 		<?= Form::select('item_id', Input::post('item_id', isset($sales_invoice_item) ? $sales_invoice_item->item_id : ''),
 						Model_Service_Item::listOptions(),
 						array('class' => 'input-sm form-control')); ?>

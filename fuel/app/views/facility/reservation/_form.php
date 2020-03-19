@@ -12,7 +12,8 @@
 
 			<div class="col-md-6">
 				<?= Form::label('Voucher no.', 'voucher_no', array('class'=>'control-label')); ?>
-				<?= Form::input('voucher_no', Input::post('voucher_no', isset($reservation) ? $reservation->voucher_no : 0), array('class' => 'col-md-4 form-control')); ?>
+                <?= Form::input('voucher_no', Input::post('voucher_no', isset($reservation) ? $reservation->voucher_no : 0), 
+                                array('class' => 'col-md-4 form-control')); ?>
 			</div>
 		</div>
 
@@ -21,8 +22,8 @@
                 <?= Form::label('Customer name', 'customer_id', array('class'=>'control-label')); ?>
                 <?= Form::hidden('customer_name', Input::post('customer_name', isset($reservation) ? $reservation->customer_name : '')) ?>
                 <?= Form::select('customer_id', Input::post('customer_id', isset($reservation) ? $reservation->customer_id : ''), 
-                        Model_Customer::listOptions([Model_Customer::CUSTOMER_TYPE_GUEST]), 
-                        array('class' => 'col-md-4 form-control', 'id' => 'customer_id')); ?>
+                                Model_Customer::listOptions([Model_Customer::CUSTOMER_TYPE_GUEST]), 
+                                array('class' => 'col-md-4 form-control', 'id' => 'customer_id')); ?>
             </div>
         </div>
 
@@ -47,14 +48,14 @@
 			<div class="col-md-8">
 				<?= Form::label('Rate type', 'rate_type', array('class'=>'control-label')); ?>
                 <?= Form::select('rate_type', Input::post('rate_type', isset($reservation) ? $reservation->rate_type : ''), 
-                                Model_Rate::listOptions( isset($reservation) ? $reservation->unit->type->id : isset($unit) ? $unit->unit_type : ''), 
+                                Model_Rate::listOptions( isset($reservation) ? $reservation->unit->type->id : (isset($unit) ? $unit->unit_type : '')), 
                                 array('class' => 'col-md-4 form-control', 'id' => 'rate_type')); ?>
 			</div>
 
 			<div class="col-md-4">
 				<?= Form::label('Unit no.', 'unit_id', array('class'=>'control-label')); ?>
                 <?= Form::select('unit_id', Input::post('unit_id', isset($reservation) ? $reservation->unit_id : ''), 
-                                Model_Unit::listOptions(isset($reservation) ? $reservation->unit_id : isset($unit) ? $unit->id : ''), 
+                                Model_Unit::listOptions(isset($reservation) ? $reservation->unit_id : (isset($unit) ? $unit->id : '')), 
                                 array('class' => 'col-md-4 form-control', 'id' => 'unit_id')); ?>
 			</div>
 		</div>
