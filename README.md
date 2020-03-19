@@ -11,11 +11,19 @@
 <!-- [Development branch Documentation](https://github.com/logicent/frontdesk/dev-docs) -->
 <!-- [Development branch API browser](https://github.com/logicent/frontdesk/dev-api) -->
 
+[![FrontDesk Dashboard](/public/images/fd-dashboard.png)](https://fdesk.demo.logicent.co)
+
 ## Description
 
 FrontDesk is a property management system (PMS) for facilities and establishments offering accommodation, rental and hiring services.
 
 FrontDesk is built using PHP (FuelPHP) and JavaScript (jQuery) with Bootstrap 3 UI by SBAdmin2.
+
+## Requirements
+
+- PHP 7.3 and php7.3-mbstring (PHP 7.2 should also work)
+- MySQL 5.7
+- Nginx _(sample nginx.conf included in project root)_
 
 ## Installation
 
