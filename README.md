@@ -80,3 +80,9 @@ You can apply for internship. Start by sending in pull-requests, work on outstan
 <!-- ### Alumni -->
 
 <!-- * (none) -->
+
+<!-- ## Sponsors -->
+<!-- Support FrontDesk by becoming a sponsor on [Patreon](https://www.patreon.com/frontdesk). Your logo will show up here with a link to your website. -->
+
+## License
+FrontDesk is released under the [MIT license](https://opensource.org/licenses/MIT).
