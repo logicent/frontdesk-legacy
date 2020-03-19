@@ -189,7 +189,7 @@
     <?php 
         if (Session::get_flash('error')): ?>
                 <div class="alert alert-danger alert-dismissable alert-popup">
-                    <h4>Some error(s) were ecountered:
+                    <h4>Some error(s) were encountered:
                         <span><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></span>
                     </h4>
                     <div class="alert-popup-detail">
@@ -201,7 +201,7 @@
     <?php 
         if (Session::get_flash('warning')): ?>
                 <div class="alert alert-warning alert-dismissable alert-popup">
-                    <h4>Some warning(s) were ecountered:
+                    <h4>Some warning(s) were encountered:
                         <span><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></span>
                     </h4>
                     <div class="alert-popup-detail">

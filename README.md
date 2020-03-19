@@ -17,7 +17,7 @@
 
 FrontDesk is a property management system (PMS) for facilities and establishments offering accommodation, rental and hiring services.
 
-FrontDesk is built using PHP (FuelPHP) and JavaScript (jQuery) with Bootstrap 3 UI by SBAdmin2.
+FrontDesk is built using PHP (FuelPHP 1.8.2) and JavaScript (jQuery 3.4.1) with customized SBAdmin2 (Bootstrap 3) admin template.
 
 ## Requirements
 
@@ -63,26 +63,24 @@ Go to sidebar navigation menu to:
 
 - add users
 
-## More information
+<!-- ## More information -->
 
-For more detailed information, see the [development wiki](https://github.com/logicent/frontdesk/wiki).
+<!-- For more detailed information, see the [development wiki](https://github.com/logicent/frontdesk/wiki). -->
 
 ## Development Team
 
 * Ken Mwai - Creator and Lead Developer/Maintainer ([@mwaigichuhi](https://twitter.com/mwaigichuhi))
 
-### Want to join?
+### Want to contribute?
 
-The FrontDesk development team is always looking for new team members, who are willing to help lift the solution to the next level, and have the commitment to not only produce awesome code, but also great documentation, and support to our users.
-
-You can apply for internship. Start by sending in pull-requests, work on outstanding feature requests or bugs, and become active in the #logicent GitHub issues. If your skills are up to scratch, we will notice you, and will ask you to become a team member.
+Thank you for considering contributing to FrontDesk. New contributors to improve the solution further or help provide support to issues are most welcome.
 
 <!-- ### Alumni -->
 
 <!-- * (none) -->
 
 <!-- ## Sponsors -->
-<!-- Support FrontDesk by becoming a sponsor on [Patreon](https://www.patreon.com/frontdesk). Your logo will show up here with a link to your website. -->
+<!-- Support FrontDesk by becoming a sponsor on [Patreon](https://www.patreon.com/frontdesk). Your logo will show up here with a link to your website. One-time donation is welcomed through PayPal. -->
 
 ## License
 FrontDesk is released under the [MIT license](https://opensource.org/licenses/MIT).
