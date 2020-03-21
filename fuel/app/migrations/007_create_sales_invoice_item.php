@@ -11,11 +11,11 @@ class Create_sales_invoice_item
 			'item_id' => array('constraint' => 11, 'type' => 'int'),
 			'invoice_id' => array('constraint' => 11, 'type' => 'int'),
 			'gl_account_id' => array('constraint' => 11, 'type' => 'int', 'null' => true),
-			'description' => array('type' => 'text'),
-			'qty' => array('type' => 'decimal'),
-			'unit_price' => array('type' => 'decimal'),
-			'discount_percent' => array('type' => 'double'),
-			'amount' => array('type' => 'decimal'),
+			'description' => array('type' => 'text', 'null' => true),
+			'qty' => array('constraint' => [12,4], 'type' => 'decimal'),
+			'unit_price' => array('constraint' => [12,4], 'type' => 'decimal'),
+			'discount_percent' => array('constraint' => [12,4], 'type' => 'decimal'),
+			'amount' => array('constraint' => [12,4], 'type' => 'decimal'),
 			'deleted_at' => array('type' => 'datetime', 'null' => true),
 
 		), array('id'));

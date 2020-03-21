@@ -15,8 +15,7 @@
 <?php 
     if ($sales_invoice_items):
         foreach ($sales_invoice_items as $row_id => $item) :
-			echo render('sales/invoice/item/_form', array('invoice_item' => $item, 'row_id' => $row_id)); ?>
-    <?php 
+			echo render('sales/invoice/item/_form', array('invoice_item' => $item, 'row_id' => $row_id));
         endforeach;
     else : ?>
         <tr id="no_data"><td class="text-muted text-center" colspan="5">No data</td></tr>
@@ -46,7 +45,6 @@
 			<th colspan="4" class="text-right"><span>Total</span></th>
 			<td class="text-right">
 				<span id="grand_total"></span>
-                <?php Form::input('total_amount', '', array('id' => 'subtotal_amount', 'readonly' => true)); ?>
 			</td>
 		</tr>
 	</tfoot>
@@ -111,14 +109,14 @@ $('#add_item').on('click',
 	function getLineInputs(el) 
 	{
 		el_table_row = el.closest('tr');
-		// el_item_description = el_table_row.find('td.description > input');
+		el_item_description = el_table_row.find('td.item > input.item-description');
 		el_item_qty = el_table_row.find('td.qty > input');
 		el_item_price = el_table_row.find('td.price > input');
 		el_item_total = el_table_row.find('td.item-total > input');
 
 		el_item_total_display = el_table_row.find('td.item-total > span');
 
-		return [el_item_qty, el_item_price, el_item_total, el_item_total_display];
+		return [el_item_qty, el_item_price, el_item_total, el_item_total_display, el_item_description];
 	}
 
 	// Re-calculate the Line item totals
@@ -164,8 +162,6 @@ $('#add_item').on('click',
 		$('#form_amount_due').val(sum_line_total.toFixed(2));
 		unpaidBalance = $('#form_amount_due').val() - $('#form_amount_paid').val();
 		$('#form_balance_due').val(unpaidBalance.toFixed(2));
-		// if (unpaidBalance > 0)
-		// show the Payment button
 		// $('#form_tax_total').val(sum_vat_amount.toFixed(2));
 	}
 
@@ -178,6 +174,7 @@ $('#item_detail').on('change', '#form_item_id',
 		linesTotal = getLineTotal($(this));
 		lineInputs = getLineInputs($(this));
 		docTotalInputs = getDocTotalInputs();
+		lineDesc = $(this).closest('.item-description');
 
 		$.ajax({
 			type: 'post',
@@ -192,6 +189,7 @@ $('#item_detail').on('change', '#form_item_id',
 				lineInputs[1].val(item.unit_price);
 				recalculateLineTotal(lineInputs[2], item, lineInputs[3]);
 				recalculateDocTotals(linesTotal, docTotalInputs);
+				lineDesc.val(item.description);
 			},
 			error: function(jqXhr, textStatus, errorThrown) {
 				console.log(errorThrown)
@@ -297,6 +295,5 @@ function displaySelectAllCheckboxIf() {
         el_checkbox_all.css('display', '');
     else
         el_checkbox_all.css('display', 'none');
-
 }
 </script>

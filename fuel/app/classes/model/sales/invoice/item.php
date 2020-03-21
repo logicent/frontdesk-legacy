@@ -20,11 +20,11 @@ class Model_Sales_Invoice_Item extends Model_Soft
 		$val = Validation::forge($factory);
 		$val->add_field('item_id', 'Item ID', 'required|valid_string[numeric]');
 		$val->add_field('invoice_id', 'Invoice no.', 'required|valid_string[numeric]');
-		$val->add_field('gl_account_id', 'GL Account ID', 'required|valid_string[numeric]');
-		$val->add_field('description', 'Description', 'required|max_length[255]');
+		$val->add_field('gl_account_id', 'GL Account ID', 'valid_string[numeric]');
+		$val->add_field('description', 'Description', 'max_length[140]');
 		$val->add_field('qty', 'Qty', 'required');
 		$val->add_field('unit_price', 'Unit Price', 'required');
-		$val->add_field('discount_percent', 'Discount Percent', 'required');
+		$val->add_field('discount_percent', 'Discount Percent', 'valid_string[numeric]');
 		$val->add_field('amount', 'Amount', 'required');
 
 		return $val;

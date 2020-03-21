@@ -153,9 +153,26 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 
 			// update Invoice Amounts if discounted
 			Model_Sales_Invoice::applyDiscountAmount($sales_invoice);
-
+			
 			if ($sales_invoice->save())
 			{
+				// save the line item(s)
+				for ($i=1; $i = count(Input::post('item_id')); $i++)
+				{
+					$sales_invoice_item = Model_Sales_Invoice_Item::forge(array(
+						'item_id' => Input::post("item_id")[$i],
+						'qty' => Input::post("qty")[$i],
+						'unit_price' => Input::post("unit_price")[$i],
+						'amount' => Input::post("amount")[$i],
+						'invoice_id' => $sales_invoice->id,
+						'discount_percent' => Input::post("discount_percent")[$i],
+						'gl_account_id' => null, // Input::post("gl_account_id")[$i],
+						'description' => Input::post("description")[$i],
+					));
+	
+					$sales_invoice_item->save();
+				}
+
 				Session::set_flash('success', 'Updated invoice #' . $id);
 
 				Response::redirect('accounts/sales-invoice');

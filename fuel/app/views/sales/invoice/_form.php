@@ -47,16 +47,16 @@
 
     <br>
 
-	<ul id="invoice_detail" class="nav nav-tabs">
+	<ul id="doc_detail" class="nav nav-tabs">
 		<li>
-			<a id="bills-tab" data-toggle="tab" href="#bills">Bills</a>
+			<a id="bills-tab" data-toggle="tab" href="#bills">Services</a>
 		</li>
 		<li>
 			<a id="receipts-tab" data-toggle="tab" href="#receipts">Receipts</a>
 		</li>
 	</ul>
     <!-- <br> -->
-	<div id="invoice_tabs" class="tab-content">
+	<div id="doc_tabs" class="tab-content">
 		<div id="bills" class="tab-pane fade">
 			<?= render('sales/invoice/item/index', array('sales_invoice_items' => isset($sales_invoice) ? $sales_invoice->items : array())); ?>
 		</div>
@@ -144,7 +144,7 @@
                             array('class' => 'col-md-4 form-control text-right', 'readonly' => true)); ?>
 
                     <?php Form::label('Discount Amount', 'disc_total', array('class'=>'control-label')); ?>
-                    <?php Form::input('disc_total', Input::post('disc_total', isset($sales_invoice) ? $sales_invoice->disc_total : 0), 
+                    <?= Form::hidden('disc_total', Input::post('disc_total', isset($sales_invoice) ? $sales_invoice->disc_total : 0), 
                                     array('class' => 'col-md-4 form-control text-right')); ?>
                 </div>
 
@@ -186,12 +186,12 @@
 <?= Form::close(); ?>
 
 <script>
-	$('#invoice_detail a').click(function (e) {
+	$('#doc_detail a').click(function (e) {
         e.preventDefault()
         $(this).tab('show')
 	})
 
-	$('#invoice_detail a:first').tab('show')
+	$('#doc_detail a:first').tab('show')
 </script>
 
 <script>
