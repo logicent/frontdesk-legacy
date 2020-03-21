@@ -13,7 +13,7 @@ class Controller_Sales_Invoice_Item extends Controller_Authenticate
     {
         if (Input::is_ajax())
         {
-			$data['row_id'] = Input::post('last_row_id');
+			$data['row_id'] = Input::post('next_row_id');
 
             return View::forge('sales/invoice/item/_form', $data);
         }

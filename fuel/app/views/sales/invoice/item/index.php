@@ -6,40 +6,16 @@
 			</th>
 			<th>Item</th>
 			<th>Qty</th>
-			<th>Price</th>
-			<th>Discount %</th>
-			<th>Amount</th>
+			<th>Price</th><!--
+			<th>Disc %</th>-->
+			<th class="text-right">Total</th>
 		</tr>
 	</thead>
 	<tbody id="item_detail">
 <?php 
     if ($sales_invoice_items):
-        foreach ($sales_invoice_items as $row_id => $item): ?>
-		<tr>
-			<td class="text-center select-row">
-				<?= Form::checkbox($row_id, false, array('value' => $item->id)) ?>
-			</td>
-			<td class="col-md-3 item">
-				<?= Form::select('item_id', Input::post('item_id', $item->item_id), Model_Service_Item::listOptions(), 
-								array('class' => 'input-sm form-control')); ?>
-				<?= Form::hidden('gl_account_id', Input::post('gl_account_id', $item->gl_account_id)) ?>				
-			</td>
-			<td class="col-md-2 qty">
-				<?= Form::input('qty', Input::post('qty', $item->qty), array('class' => 'input-sm form-control')); ?>
-			</td>
-			<td class='col-md-2 price'>
-				<?= Form::input('unit_price', Input::post('unit_price', $item->unit_price), 
-								array('class' => 'input-sm form-control text-right')); ?>
-			</td>
-			<td class="col-md-2">
-				<?= Form::input('discount_percent', Input::post('discount_percent', $item->discount_percent),
-								array('class' => 'input-sm form-control')); ?>
-			</td>
-			<td class='col-md-2 total'>
-				<?= Form::input('amount', Input::post('amount', $item->amount),
-								array('class' => 'input-sm form-control text-right', 'readonly' => true)); ?>
-			</td>
-		</tr>
+        foreach ($sales_invoice_items as $row_id => $item) :
+			echo render('sales/invoice/item/_form', array('invoice_item' => $item, 'row_id' => $row_id)); ?>
     <?php 
         endforeach;
     else : ?>
@@ -47,13 +23,30 @@
 <?php
     endif ?>
 	</tbody>
-	<tfoot>
-		<tr>
-			<th colspan="5" class='text-right'>
-                <span class="text-muted">Total:</span>
-			</th>
-			<td class='col-md-2'>
-                <?= Form::input('total_amount', '', array('id' => 'subtotal_amount', 'class' => 'input-sm form-control text-right', 'readonly' => true)); ?>
+	<tfoot id="item_summary">
+		<tr id="tr_subtotal">
+			<th colspan="4" class="text-right"><span>Subtotal</span></th>
+			<td class="text-right">
+				<span id="subtotal"></span>
+			</td>
+		</tr><!--
+		<tr id="tr_discount">
+			<th colspan="4" class="text-right"><span>Add Discount</span></th>
+			<td class="text-right">
+				<span id="discount"></span>
+			</td>
+		</tr>-->
+		<tr id="tr_tax_total">
+			<th colspan="4" class="text-right"><span>Tax</span></th>
+			<td class="text-right">
+				<span id="tax_total"></span>
+			</td>
+		</tr>
+		<tr id="tr_grand_total">
+			<th colspan="4" class="text-right"><span>Total</span></th>
+			<td class="text-right">
+				<span id="grand_total"></span>
+                <?php Form::input('total_amount', '', array('id' => 'subtotal_amount', 'readonly' => true)); ?>
 			</td>
 		</tr>
 	</tfoot>
@@ -61,12 +54,14 @@
 
 <div class="form-group">
     <div class="col-md-6">
-        <button id="add_item" data-url="add_item" class="btn btn-xs btn-default">Add item</button>
+        <button id="del_item" data-url="/accounts/sales-invoice/del-item" class="btn btn-sm btn-danger" style="display: none;">Delete item</button>
+        <button id="add_item" data-url="/accounts/sales-invoice/add-item" class="btn btn-sm btn-default">Add item</button>
     </div>
 
     <div class="col-md-6 text-right">
-        <?= Form::checkbox('amounts_tax_inc', Input::post('amounts_tax_inc', isset($sales_invoice) ? $sales_invoice->amounts_tax_inc : '0')); ?>
-        <?= Form::label('Amount is VAT incl.', 'amounts_tax_inc'); ?>
+        <?= Form::hidden('amounts_tax_inc', Input::post('amounts_tax_inc', isset($sales_invoice) ? $sales_invoice->amounts_tax_inc : '0')); ?>
+        <?= Form::checkbox('cb_amounts_tax_inc', null, array('class' => 'cb-checked', 'data-input' => 'amounts_tax_inc')); ?>
+        <?= Form::label('Amount is VAT incl.', 'cb_amounts_tax_inc', array('class'=>'control-label')); ?>		
     </div>
 </div>
 
@@ -77,13 +72,12 @@ $('#add_item').on('click',
 		last_row_id = el_table_body.find('tr').length
 
         $.ajax({
-            url: '/accounts/sales-invoice/add-item',
+            url: $(this).data('url'),
             type: 'post',
             data: {
-                'last_row_id': last_row_id
+                'next_row_id': last_row_id + 1
             },
             success: function(response) {
-				// console.log(response);
 				el_table_body.append(response);
 				
 				if (last_row_id == 1)
@@ -107,106 +101,124 @@ $('#add_item').on('click',
 		return false
     });
 
-    // Fetch dependent item detail
-	$('#item_detail').on('change', '#form_item_id', 
-		function() { 
-			if ($(this).val() == '')
-				return false;
+	function getLineTotal(el) 
+	{
+		el_tbody = el.closest('tbody');
 
-			el_tbody = $(this).closest('tbody');
-			el_doc_subtotal = el_tbody.find('td.total > input');
+		return el_tbody.find('.item-total > input');
+	}
 
-			el_table_row = $(this).closest('tr');
-			// el_item_description = el_table_row.find('td.description > input');
-			el_item_qty = el_table_row.find('td.qty > input');
-			el_item_price = el_table_row.find('td.price > input');
-			el_item_total = el_table_row.find('td.total > input');
+	function getLineInputs(el) 
+	{
+		el_table_row = el.closest('tr');
+		// el_item_description = el_table_row.find('td.description > input');
+		el_item_qty = el_table_row.find('td.qty > input');
+		el_item_price = el_table_row.find('td.price > input');
+		el_item_total = el_table_row.find('td.item-total > input');
 
-            $.ajax({
-                type: 'post',
-                url: '/accounts/sales-invoice/get-item',
-                data: {
-                    'item_id': $(this).val(),
-                },
-                success: function(item) 
-                {
-					// console.log(item);
-					item = JSON.parse(item);
-					// Re-calculate the Line item totals
-					el_item_qty.val(item.qty); // default is 1
-					el_item_price.val(item.unit_price);
-					el_item_total.val(item.unit_price * item.qty);
+		el_item_total_display = el_table_row.find('td.item-total > span');
 
-					// Re-calculate the Document totals
-					sum_item_total = sum_vat_amount = 0;
+		return [el_item_qty, el_item_price, el_item_total, el_item_total_display];
+	}
 
-					el_doc_subtotal.each(
-						function() {
-							item_total = $(this).val();
-							if (item_total == null)
-								return false;
+	// Re-calculate the Line item totals
+	function recalculateLineTotal(line, item, lineTotalDisplay) 
+	{
+		line.val(
+			(item.unit_price * item.qty).toFixed(2)
+		);
+		
+		lineTotalDisplay.text(line.val()); 
+	}
 
-							sum_item_total += parseFloat(item_total);
+	// Re-calculate the Document totals
+	function getDocTotalInputs() 
+	{
+		el_tfoot = $('tfoot#item_summary');
+		el_subtotal = el_tfoot.find('#subtotal');
+		el_taxtotal = el_tfoot.find('#tax_total');
+		el_grandtotal = el_tfoot.find('#grand_total');
 
-							// vat_amount = item_total * item.tax_rate / (1 + item.tax_rate);
-							// sum_vat_amount += parseFloat(vat_amount);
-						});
-					
-					$('#subtotal_amount').val(sum_item_total);
-					
-					// unpaidBalance = sum_item_total - $(sales_order.form_id + '-total_amount_paid').val();
-					// // if (unpaidBalance > 0)
-					// // show the Payment button
-					$('form_amount_due').val(sum_item_total.toFixed(2));
-					// $(sales_order.form_id + '-unpaid_balance').val(unpaidBalance.toFixed(2));
-					// $(sales_order.form_id + '-total_tax_amount').val(sum_vat_amount.toFixed(2));
-                },
-                error: function(jqXhr, textStatus, errorThrown) {
-                    console.log(errorThrown)
-                }
-            });
-        });
+		return [el_subtotal, el_taxtotal, el_grandtotal];
+	}
 
-// $(sales_order.table_id + ' tbody').on('change', 'td.item-qty input',
-//     function(e) {
-//         e.stopPropagation(); // !! DO NOT use return false it stops execution
+	function recalculateDocTotals(linesTotal, totals) 
+	{
+		sum_line_total = sum_vat_amount = 0;
 
-//         if ($(this).val() == '')
-//             return false;
+		linesTotal.each(
+			function() {
+				line_total = $(this).val();
+				if (line_total == '')
+					return false;
+				sum_line_total += parseFloat(line_total);
 
-//         el_table_row = $(this).closest('tr');
-//         el_input_item_rate = el_table_row.find('td.item-rate > input');
-//         el_input_item_tax = el_table_row.find('td.item-tax > input');
-//         el_input_item_qty = $(this);
-//         el_input_item_total = el_table_row.find('td.item-total > input');
-//         el_input_item_total.val(el_input_item_rate.val() * el_input_item_qty.val());
+				// vat_amount = item_total * item.tax_rate / (1 + item.tax_rate);
+				// sum_vat_amount += parseFloat(vat_amount);
+			});
 
-//         // Re-calculate the Document totals
-//         sum_item_total = sum_vat_amount = 0;
+		totals[0].text(sum_line_total.toFixed(2));
+		totals[1].text(0);
+		totals[2].text(sum_line_total.toFixed(2));
 
-//         $(sales_order.table_id + ' td.item-total > input').each(
-//             function() {
-//                 item_total = $(this).val();
-//                 if (item_total == null)
-//                     return false;
+		$('#form_amount_due').val(sum_line_total.toFixed(2));
+		unpaidBalance = $('#form_amount_due').val() - $('#form_amount_paid').val();
+		$('#form_balance_due').val(unpaidBalance.toFixed(2));
+		// if (unpaidBalance > 0)
+		// show the Payment button
+		// $('#form_tax_total').val(sum_vat_amount.toFixed(2));
+	}
 
-//                 sum_item_total += parseFloat(item_total);
+// fetch line item detail
+$('#item_detail').on('change', '#form_item_id', 
+	function() { 
+		if ($(this).val() == '')
+			return false;
 
-//                 vat_amount = item_total * el_input_item_tax.val() / (1 + el_input_item_tax.val());
-//                 sum_vat_amount += parseFloat(vat_amount);
-//             });
+		linesTotal = getLineTotal($(this));
+		lineInputs = getLineInputs($(this));
+		docTotalInputs = getDocTotalInputs();
 
-//         $(sales_order.form_id + '-total_amount_due').val(sum_item_total.toFixed(2));
-//         $(sales_order.form_id + '-unpaid_balance').val(sum_item_total.toFixed(2));
-//         $(sales_order.form_id + '-total_tax_amount').val(sum_vat_amount.toFixed(2));
-//         $(sales_order.form_id + '-total_amount_paid').val('0.00');
-//     });
+		$.ajax({
+			type: 'post',
+			url: '/accounts/sales-invoice/get-item',
+			data: {
+				'item_id': $(this).val(),
+			},
+			success: function(item) 
+			{
+				item = JSON.parse(item);
+				lineInputs[0].val(item.qty); // default is 1
+				lineInputs[1].val(item.unit_price);
+				recalculateLineTotal(lineInputs[2], item, lineInputs[3]);
+				recalculateDocTotals(linesTotal, docTotalInputs);
+			},
+			error: function(jqXhr, textStatus, errorThrown) {
+				console.log(errorThrown)
+			}
+		});
+	});
 
-$('#select_all_rows > input').on('click',
+// update line and doc totals if qty/price changes
+$('tbody#item_detail').on('change', 'td.qty input, td.price input',
+    function(e) {
+        if ($(this).val() == '')
+            return false;
+
+		linesTotal = getLineTotal($(this));
+		lineInputs = getLineInputs($(this));
+		docTotalInputs = getDocTotalInputs();
+
+		lineInputs[2].val((lineInputs[0].val() * lineInputs[1].val()).toFixed(2));
+		lineInputs[3].text(lineInputs[2].val());
+		recalculateDocTotals(linesTotal, docTotalInputs);
+    });
+
+$('#select_all_rows').on('click',
     function(e) {
         select_all_rows = $(this).is(':checked');
 
-        $('#items .select-row > input').each(
+        $('#item_detail .select-row > input').each(
             function(e) {
                 if (select_all_rows)
                     $(this).prop('checked', true);
@@ -215,73 +227,76 @@ $('#select_all_rows > input').on('click',
             });
 
         if (select_all_rows)
-            $('#items .del-row').css('display', '');
+            $('#del_item').css('display', '');
         else
-            $('#items .del-row').css('display', 'none');
+            $('#del_item').css('display', 'none');
     });
 
-// $(sales_order.table_id + ' tbody').on('click', '.select-row > input',
-//     function(e) {
-//         selected_row = $(this).is(':checked');
+$('tbody#item_detail').on('click', '.select-row > input',
+    function(e) {
+		selected_rows = $('.select-row > input:checked');
+		selected_row = $(this).is(':checked');
+		
+		if (selected_row)
+			$('#del_item').css('display', '');
+        else {
+			$('#select_all_rows').prop('checked', false);
+			if (selected_rows.length == 0)
+				$('#del_item').css('display', 'none');
+		}
+    });
 
-//         if (selected_row)
-//             $(sales_order.table_id + ' .del-row').css('display', '');
-//         else
-//             $(sales_order.table_id + ' .del-row').css('display', 'none');
-//     });
+$('#del_item').on('click',
+    function(e) {
+        $(this).css('display', 'none');
 
-// $(sales_order.table_id + ' .del-row').on('click',
-//     function(e) {
-//         $(this).css('display', 'none');
+        $('td.select-row > input:checked').each(
+            function(e) {
+                el_table_row = $(this).closest('tr');
 
-//         $(sales_order.table_id + ' td.select-row > input:checked').each(
-//             function(e) {
-//                 el_table_row = $(this).closest('tr');
+                // delete row if only added in table but not persisted in DB
+                if ($(this).val() == 'on') // strange value "on" set by default
+                {
+                    $(this).closest('tr').remove();
+                    // return false
+                } else
+                	// delete row from persisted DB table and also from html table
+					$.ajax({
+						url: $(this).data('url'),
+						type: 'post',
+						data: {
+							'id': $(this).val(),
+						},
+						success: function(response) {
+							el_table_row.remove();
+							// update totals fields
+						},
+						error: function(jqXhr, textStatus, errorThrown) {
+							console.log(errorThrown);
+						}
+					});
+            });
 
-//                 // delete row if only added in table but not persisted in DB
-//                 if ($(this).val() == 'on') // strange value "on" set by default
-//                 {
-//                     $(this).closest('tr').remove();
-//                     // return false
-//                 } else
-//                 // delete row from persisted DB table and also from html table
-//                     $.ajax({
-//                     url: sales_order.del_row_url,
-//                     type: 'post',
-//                     data: {
-//                         _csrf: yii.getCsrfToken(),
-//                         'id': $(this).val(),
-//                     },
-//                     success: function(response) {
-//                         el_table_row.remove();
-//                         // update totals fields
-//                     },
-//                     error: function(jqXhr, textStatus, errorThrown) {
-//                         console.log(errorThrown);
-//                     }
-//                 });
-//             });
+        el_checkbox_all = $('th.select-all-rows > input');
 
-//         el_checkbox_all = $(sales_order.table_id + ' th.select-all-rows > input');
+        el_checkbox_all.prop('checked', false);
 
-//         el_checkbox_all.prop('checked', false);
+        el_checkbox_all = $('th.select-all-rows > input');
 
-//         el_checkbox_all = $(sales_order.table_id + ' th.select-all-rows > input');
+        rowCount = $('tbody#item_detail > tr').length;
+        if (rowCount > 0)
+            el_checkbox_all.css('display', '');
+        else
+            el_checkbox_all.css('display', 'none');
+        // displaySelectAllCheckboxIf()
+    });
 
-//         rowCount = $(sales_order.table_id + ' tbody > tr').length;
-//         if (rowCount > 0)
-//             el_checkbox_all.css('display', '');
-//         else
-//             el_checkbox_all.css('display', 'none');
-//         // displaySelectAllCheckboxIf()
-//     });
+function displaySelectAllCheckboxIf() {
+    countItemRows = $('tbody#item_detail > tr').length;
+    if (countItemRows > 0)
+        el_checkbox_all.css('display', '');
+    else
+        el_checkbox_all.css('display', 'none');
 
-// function displaySelectAllCheckboxIf() {
-//     countItemRows = $(sales_order.table_id + ' tbody > tr').length;
-//     if (countItemRows > 0)
-//         el_checkbox_all.css('display', '');
-//     else
-//         el_checkbox_all.css('display', 'none');
-
-// }
+}
 </script>

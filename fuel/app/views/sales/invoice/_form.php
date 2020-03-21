@@ -133,32 +133,30 @@
 
             <div class="form-group">
                 <div class="col-md-6">
-                    <?= Form::label('Discount Amount', 'disc_total', array('class'=>'control-label')); ?>
-                    <?= Form::input('disc_total', Input::post('disc_total', isset($sales_invoice) ? $sales_invoice->disc_total : 0), 
-                                    array('class' => 'col-md-4 form-control text-right')); ?>
-                </div>
-
-                <?= Form::hidden('tax_total', Input::post('tax_total', isset($sales_invoice) ? $sales_invoice->tax_total : 0.0)); ?>
-
-                <div class="col-md-6">
                     <?= Form::label('Balance Due', 'balance_due', array('class'=>'control-label')); ?>
                     <?= Form::input('balance_due', Input::post('balance_due', isset($sales_invoice) ? $sales_invoice->balance_due : 0), 
                                     array('class' => 'col-md-4 form-control text-right text-red', 'readonly' => true)); ?>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-6">
-                    <?= Form::label('Paid Status', 'paid_status', array('class'=>'control-label')); ?>
-                    <?= Form::hidden('paid_status', Input::post('paid_status', isset($sales_invoice) ? $sales_invoice->paid_status : '')); ?>
-                    <?= Form::select('paid_status_list', Input::post('paid_status_list', isset($sales_invoice) ? $sales_invoice->paid_status : ''), 
-                            Model_Sales_Invoice::$invoice_paid_status, array('class' => 'col-md-4 form-control', 'disabled' => true)); ?>
                 </div>
 
                 <div class="col-md-6">
                     <?= Form::label('Advance Paid', 'advance_paid', array('class'=>'control-label')); ?>
                     <?= Form::input('advance_paid', Input::post('advance_paid', isset($sales_invoice) ? $sales_invoice->advance_paid : ''), 
                             array('class' => 'col-md-4 form-control text-right', 'readonly' => true)); ?>
+
+                    <?php Form::label('Discount Amount', 'disc_total', array('class'=>'control-label')); ?>
+                    <?php Form::input('disc_total', Input::post('disc_total', isset($sales_invoice) ? $sales_invoice->disc_total : 0), 
+                                    array('class' => 'col-md-4 form-control text-right')); ?>
+                </div>
+
+                <?= Form::hidden('tax_total', Input::post('tax_total', isset($sales_invoice) ? $sales_invoice->tax_total : 0.0)); ?>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    <?= Form::label('Paid Status', 'paid_status', array('class'=>'control-label')); ?>
+                    <?= Form::hidden('paid_status', Input::post('paid_status', isset($sales_invoice) ? $sales_invoice->paid_status : '')); ?>
+                    <?= Form::select('paid_status_list', Input::post('paid_status_list', isset($sales_invoice) ? $sales_invoice->paid_status : ''), 
+                            Model_Sales_Invoice::$invoice_paid_status, array('class' => 'col-md-4 form-control', 'disabled' => true)); ?>
                 </div>
             </div>
         </div>

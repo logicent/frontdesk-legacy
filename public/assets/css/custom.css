@@ -406,6 +406,11 @@ input.cb-checked {
     width: 50%;
 } */
 
+#item_summary th span {
+    /* font-weight: 600; */
+    font-size: 95%;
+}
+
 .select2-container--bootstrap .select2-selection--single, .select2-container--bootstrap .select2-selection--multiple {
     height: 38px;
     line-height: 20px;
@@ -470,6 +475,7 @@ input.cb-checked {
     color: #f0f4f7;
     border-color: #34404e;
 }
+
 /* .nav-tabs {
     border-bottom: none;
 }
@@ -486,3 +492,4 @@ input.cb-checked {
     background-color: #d4d4d4;
     border-color: #8c8c8c;
 } */
+
