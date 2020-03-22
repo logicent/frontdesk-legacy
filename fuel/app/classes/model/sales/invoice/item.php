@@ -13,7 +13,13 @@ class Model_Sales_Invoice_Item extends Model_Soft
 		'unit_price',
 		'discount_percent',
 		'amount',
+		'deleted_at'
 	);
+
+	protected static $_soft_delete = array(
+        //'deleted_field' => 'deleted',
+        'mysql_timestamp' => true,
+    );
 
 	public static function validate($factory)
 	{
@@ -38,7 +44,7 @@ class Model_Sales_Invoice_Item extends Model_Soft
 			'model_to' => 'Model_Sales_Invoice',
 			'key_to' => 'id',
 			'cascade_save' => true,
-			'cascade_delete' => true,
+			'cascade_delete' => false,
 		)
 	);
 

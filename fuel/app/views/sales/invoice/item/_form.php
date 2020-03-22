@@ -1,6 +1,8 @@
 <tr id="InvoiceItem_<?= $row_id ?>">
 	<td class="col-md-1 text-center select-row">
 		<?= Form::checkbox($row_id, false, array('value' => isset($invoice_item) ? $invoice_item->item_id : '')) ?>
+		<?= Form::hidden("id[$row_id]", Input::post('id', isset($invoice_item) ? $invoice_item->id : ''),
+						array('class' => 'item-id')); ?>
 	</td>
 
 	<td class="col-md-5 item">

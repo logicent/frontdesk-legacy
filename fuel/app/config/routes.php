@@ -40,9 +40,9 @@ return array(
 	'accounts/taxes'           => 'accounts/tax',
 	'accounts/payment-method'  => 'accounts/payment/method',
 
-	'accounts/sales-invoice/add-item'   => 'sales/invoice/item/add_item',
-	'accounts/sales-invoice/get-item'   => 'sales/invoice/item/get_item',
-	'accounts/sales-invoice/del-item'   => 'sales/invoice/item/del_item',
+	'accounts/sales-invoice/add-item'   => 'sales/invoice/item/create',
+	'accounts/sales-invoice/get-item'   => 'sales/invoice/item/read',
+	'accounts/sales-invoice/del-item'   => 'sales/invoice/item/delete',
 	
     'accounts/payment/receipt/to-print/:id' => 'accounts/payment/receipt/to_print/$1',
 

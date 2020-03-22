@@ -65,10 +65,10 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>Receipt no.</th>
-						<th>Date</th>
-						<th>Description</th>
-						<th class="text-right">Amount</th>
+						<th class="col-md-2">Receipt no.</th>
+						<th class="col-md-2">Date</th>
+						<th class="col-md-6">Description</th>
+						<th class="col-md-2 text-right">Amount</th>
 					</tr>
 				</thead>
 				<tbody>

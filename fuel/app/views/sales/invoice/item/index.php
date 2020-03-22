@@ -1,19 +1,19 @@
 <table id="items" class="table table-hover">
 	<thead>
 		<tr>
-			<th class="text-center">
+			<th class="col-md-1 text-center">
 				<?= Form::checkbox('select_all_rows', false, array('id' => 'select_all_rows')) ?>
 			</th>
-			<th>Item</th>
-			<th>Qty</th>
-			<th>Price</th><!--
+			<th class="col-md-5">Item</th>
+			<th class="col-md-2">Qty</th>
+			<th class="col-md-2">Price</th><!--
 			<th>Disc %</th>-->
-			<th class="text-right">Total</th>
+			<th class="col-md-2 text-right">Total</th>
 		</tr>
 	</thead>
 	<tbody id="item_detail">
 <?php 
-    if ($sales_invoice_items):
+	if ($sales_invoice_items) : 
         foreach ($sales_invoice_items as $row_id => $item) :
 			echo render('sales/invoice/item/_form', array('invoice_item' => $item, 'row_id' => $row_id));
         endforeach;
@@ -52,7 +52,7 @@
 
 <div class="form-group">
     <div class="col-md-6">
-        <button id="del_item" data-url="/accounts/sales-invoice/del-item" class="btn btn-sm btn-danger" style="display: none;">Delete item</button>
+        <button id="del_item" data-url="/accounts/sales-invoice/del-item" class="btn btn-sm btn-danger" style="display: none;">Delete</button>
         <button id="add_item" data-url="/accounts/sales-invoice/add-item" class="btn btn-sm btn-default">Add item</button>
     </div>
 
@@ -64,40 +64,42 @@
 </div>
 
 <script>
-$('#add_item').on('click',
-    function(e) {
-        el_table_body = $('#items').find('tbody')
-		last_row_id = el_table_body.find('tr').length
+$(window).on('load', function() 
+{
+	$('#add_item').on('click',
+		function(e) {
+			el_table_body = $('#items').find('tbody')
+			last_row_id = el_table_body.find('tr').length
 
-        $.ajax({
-            url: $(this).data('url'),
-            type: 'post',
-            data: {
-                'next_row_id': last_row_id + 1
-            },
-            success: function(response) {
-				el_table_body.append(response);
-				
-				if (last_row_id == 1)
-					$('#no_data').remove();
-				
-                el_checkbox_all = $('#select_all_rows > input');
+			$.ajax({
+				url: $(this).data('url'),
+				type: 'post',
+				data: {
+					'next_row_id': last_row_id + 1
+				},
+				success: function(response) {
+					el_table_body.append(response);
+					
+					if (last_row_id == 1)
+						$('#no_data').remove();
+					
+					el_checkbox_all = $('#select_all_rows > input');
 
-                rowCount = $('#item_detail ' + ' tbody > tr').length;
-                if (rowCount > 0)
-                    el_checkbox_all.css('display', '');
-                else
-				    el_checkbox_all.css('display', 'none');
-				
-                // displaySelectAllCheckboxIf()
-            },
-            error: function(jqXhr, textStatus, errorThrown) {
-                console.log(errorThrown);
-            }
+					rowCount = $('#item_detail ' + ' tbody > tr').length;
+					if (rowCount > 0)
+						el_checkbox_all.css('display', '');
+					else
+						el_checkbox_all.css('display', 'none');
+					
+					// displaySelectAllCheckboxIf()
+				},
+				error: function(jqXhr, textStatus, errorThrown) {
+					console.log(errorThrown);
+				}
+			});
+			// stops execution
+			return false
 		});
-		// stops execution
-		return false
-    });
 
 	function getLineTotal(el) 
 	{
@@ -165,135 +167,153 @@ $('#add_item').on('click',
 		// $('#form_tax_total').val(sum_vat_amount.toFixed(2));
 	}
 
-// fetch line item detail
-$('#item_detail').on('change', '#form_item_id', 
-	function() { 
-		if ($(this).val() == '')
-			return false;
+	// fetch line item detail
+	$('#item_detail').on('change', '#form_item_id', 
+		function() { 
+			if ($(this).val() == '')
+				return false;
 
-		linesTotal = getLineTotal($(this));
-		lineInputs = getLineInputs($(this));
-		docTotalInputs = getDocTotalInputs();
-		lineDesc = $(this).closest('.item-description');
+			linesTotal = getLineTotal($(this));
+			lineInputs = getLineInputs($(this));
+			docTotalInputs = getDocTotalInputs();
+			lineDesc = $(this).closest('.item-description');
 
-		$.ajax({
-			type: 'post',
-			url: '/accounts/sales-invoice/get-item',
-			data: {
-				'item_id': $(this).val(),
-			},
-			success: function(item) 
-			{
-				item = JSON.parse(item);
-				lineInputs[0].val(item.qty); // default is 1
-				lineInputs[1].val(item.unit_price);
-				recalculateLineTotal(lineInputs[2], item, lineInputs[3]);
-				recalculateDocTotals(linesTotal, docTotalInputs);
-				lineDesc.val(item.description);
-			},
-			error: function(jqXhr, textStatus, errorThrown) {
-				console.log(errorThrown)
+			$.ajax({
+				type: 'post',
+				url: '/accounts/sales-invoice/get-item',
+				data: {
+					'item_id': $(this).val(),
+				},
+				success: function(item) 
+				{
+					item = JSON.parse(item);
+					lineInputs[0].val(item.qty); // default is 1
+					lineInputs[1].val(item.unit_price);
+					recalculateLineTotal(lineInputs[2], item, lineInputs[3]);
+					recalculateDocTotals(linesTotal, docTotalInputs);
+					lineDesc.val(item.description);
+				},
+				error: function(jqXhr, textStatus, errorThrown) {
+					console.log(errorThrown)
+				}
+			});
+		});
+
+	// update line and doc totals if qty/price changes
+	$('tbody#item_detail').on('change', 'td.qty input, td.price input',
+		function(e) {
+			if ($(this).val() == '')
+				return false;
+
+			linesTotal = getLineTotal($(this));
+			lineInputs = getLineInputs($(this));
+			docTotalInputs = getDocTotalInputs();
+
+			lineInputs[2].val((lineInputs[0].val() * lineInputs[1].val()).toFixed(2));
+			lineInputs[3].text(lineInputs[2].val());
+			recalculateDocTotals(linesTotal, docTotalInputs);
+		});
+
+	$('#select_all_rows').on('click',
+		function(e) {
+			select_all_rows = $(this).is(':checked');
+
+			$('#item_detail .select-row > input').each(
+				function(e) {
+					if (select_all_rows)
+						$(this).prop('checked', true);
+					else
+						$(this).prop('checked', false);
+				});
+
+			if (select_all_rows)
+				$('#del_item').css('display', '');
+			else
+				$('#del_item').css('display', 'none');
+		});
+
+	$('tbody#item_detail').on('click', '.select-row > input',
+		function(e) {
+			selected_rows = $('.select-row > input:checked');
+			selected_row = $(this).is(':checked');
+			
+			if (selected_row)
+				$('#del_item').css('display', '');
+			else {
+				$('#select_all_rows').prop('checked', false);
+				if (selected_rows.length == 0)
+					$('#del_item').css('display', 'none');
 			}
 		});
-	});
 
-// update line and doc totals if qty/price changes
-$('tbody#item_detail').on('change', 'td.qty input, td.price input',
-    function(e) {
-        if ($(this).val() == '')
-            return false;
+	$('#del_item').on('click',
+		function(e) {
+			$(this).css('display', 'none');
 
-		linesTotal = getLineTotal($(this));
-		lineInputs = getLineInputs($(this));
-		docTotalInputs = getDocTotalInputs();
+			deleteUrl = $(this).data('url');
 
-		lineInputs[2].val((lineInputs[0].val() * lineInputs[1].val()).toFixed(2));
-		lineInputs[3].text(lineInputs[2].val());
-		recalculateDocTotals(linesTotal, docTotalInputs);
-    });
+			$('td.select-row > input:checked').each(
+				function(e) {
+					el_table_row = $(this).closest('tr');
+					el_id = el_table_row.find('td.select-row > .item-id');
+					
+					// delete row if only added in table but not persisted in DB
+					if (el_id.val() == '')
+					{
+						$(this).closest('tr').remove();
+					} 
+					else
+					{
+						// delete row from persisted DB table and also from html table
+						$.ajax({
+							url: deleteUrl,
+							type: 'post',
+							data: {
+								'id': el_id.val(),
+							},
+							success: function(response) {
+								el_table_row.remove();
 
-$('#select_all_rows').on('click',
-    function(e) {
-        select_all_rows = $(this).is(':checked');
+								// alert(response);
 
-        $('#item_detail .select-row > input').each(
-            function(e) {
-                if (select_all_rows)
-                    $(this).prop('checked', true);
-                else
-                    $(this).prop('checked', false);
-            });
+								// update totals fields
 
-        if (select_all_rows)
-            $('#del_item').css('display', '');
-        else
-            $('#del_item').css('display', 'none');
-    });
+								// linesTotal = getLineTotal($(this));
+								// lineInputs = getLineInputs($(this));
+								// docTotalInputs = getDocTotalInputs();
 
-$('tbody#item_detail').on('click', '.select-row > input',
-    function(e) {
-		selected_rows = $('.select-row > input:checked');
-		selected_row = $(this).is(':checked');
-		
-		if (selected_row)
-			$('#del_item').css('display', '');
-        else {
-			$('#select_all_rows').prop('checked', false);
-			if (selected_rows.length == 0)
-				$('#del_item').css('display', 'none');
-		}
-    });
+								// lineInputs[2].val((lineInputs[0].val() * lineInputs[1].val()).toFixed(2));
+								// lineInputs[3].text(lineInputs[2].val());
+								// recalculateDocTotals(linesTotal, docTotalInputs);								
+							},
+							error: function(jqXhr, textStatus, errorThrown) {
+								console.log(errorThrown);
+							}
+						});
+					}
+				});
 
-$('#del_item').on('click',
-    function(e) {
-        $(this).css('display', 'none');
+			el_checkbox_all = $('th.select-all-rows > input');
 
-        $('td.select-row > input:checked').each(
-            function(e) {
-                el_table_row = $(this).closest('tr');
+			el_checkbox_all.prop('checked', false);
 
-                // delete row if only added in table but not persisted in DB
-                if ($(this).val() == 'on') // strange value "on" set by default
-                {
-                    $(this).closest('tr').remove();
-                    // return false
-                } else
-                	// delete row from persisted DB table and also from html table
-					$.ajax({
-						url: $(this).data('url'),
-						type: 'post',
-						data: {
-							'id': $(this).val(),
-						},
-						success: function(response) {
-							el_table_row.remove();
-							// update totals fields
-						},
-						error: function(jqXhr, textStatus, errorThrown) {
-							console.log(errorThrown);
-						}
-					});
-            });
+			rowCount = $('tbody#item_detail > tr').length;
+			if (rowCount > 0)
+				el_checkbox_all.css('display', '');
+			else
+				el_checkbox_all.css('display', 'none');
+			// displaySelectAllCheckboxIf()
 
-        el_checkbox_all = $('th.select-all-rows > input');
+			// stops execution
+			return false;
+		});
 
-        el_checkbox_all.prop('checked', false);
-
-        el_checkbox_all = $('th.select-all-rows > input');
-
-        rowCount = $('tbody#item_detail > tr').length;
-        if (rowCount > 0)
-            el_checkbox_all.css('display', '');
-        else
-            el_checkbox_all.css('display', 'none');
-        // displaySelectAllCheckboxIf()
-    });
-
-function displaySelectAllCheckboxIf() {
-    countItemRows = $('tbody#item_detail > tr').length;
-    if (countItemRows > 0)
-        el_checkbox_all.css('display', '');
-    else
-        el_checkbox_all.css('display', 'none');
-}
+	function displaySelectAllCheckboxIf() {
+		countItemRows = $('tbody#item_detail > tr').length;
+		if (countItemRows > 0)
+			el_checkbox_all.css('display', '');
+		else
+			el_checkbox_all.css('display', 'none');
+	}
+});
 </script>

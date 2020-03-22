@@ -76,6 +76,22 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 
 				if ($sales_invoice and $sales_invoice->save())
 				{
+					// save the line item(s)
+					for ($i=1; $i < count(Input::post('item_id')); $i++)
+					{
+						$sales_invoice_item = Model_Sales_Invoice_Item::forge(array(
+							'item_id' => Input::post("item_id")[$i],
+							'qty' => Input::post("qty")[$i],
+							'unit_price' => Input::post("unit_price")[$i],
+							'amount' => Input::post("amount")[$i],
+							'invoice_id' => $sales_invoice->id,
+							'discount_percent' => Input::post("discount_percent")[$i],
+							'gl_account_id' => null, // Input::post("gl_account_id")[$i],
+							'description' => Input::post("description")[$i],
+						));
+						$sales_invoice_item->save();
+					}
+
 					Session::set_flash('success', 'Added invoice #'.$sales_invoice->id.'.');
 
 					Response::redirect('accounts/sales-invoice');
@@ -124,9 +140,9 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 			Session::set_flash('error', 'Could not find invoice #'.$id);
 			Response::redirect('accounts/sales-invoice');
 		}
-
+		
 		$val = Model_Sales_Invoice::validate('edit');
-		// Debug::dump(Input::post()); exit;
+		
 		if ($val->run())
 		{
 			$sales_invoice->invoice_num = Input::post('invoice_num');
@@ -157,19 +173,32 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 			if ($sales_invoice->save())
 			{
 				// save the line item(s)
-				for ($i=1; $i = count(Input::post('item_id')); $i++)
+				for ($i=1; $i < count(Input::post('item_id')); $i++)
 				{
-					$sales_invoice_item = Model_Sales_Invoice_Item::forge(array(
-						'item_id' => Input::post("item_id")[$i],
-						'qty' => Input::post("qty")[$i],
-						'unit_price' => Input::post("unit_price")[$i],
-						'amount' => Input::post("amount")[$i],
-						'invoice_id' => $sales_invoice->id,
-						'discount_percent' => Input::post("discount_percent")[$i],
-						'gl_account_id' => null, // Input::post("gl_account_id")[$i],
-						'description' => Input::post("description")[$i],
-					));
-	
+					if ( ! $sales_invoice_item = Model_Sales_Invoice_item::find($id) )
+					{
+						$sales_invoice_item = Model_Sales_Invoice_Item::forge(array(
+							'item_id' => Input::post("item_id")[$i],
+							'qty' => Input::post("qty")[$i],
+							'unit_price' => Input::post("unit_price")[$i],
+							'amount' => Input::post("amount")[$i],
+							'invoice_id' => $sales_invoice->id,
+							'discount_percent' => Input::post("discount_percent")[$i],
+							'gl_account_id' => null, // Input::post("gl_account_id")[$i],
+							'description' => Input::post("description")[$i],
+						));
+					}
+					else {
+						$sales_invoice_item->item_id = Input::post('item_id')[$i];
+						$sales_invoice_item->qty = Input::post('qty')[$i];
+						$sales_invoice_item->unit_price = Input::post('unit_price')[$i];
+						$sales_invoice_item->amount = Input::post('amount')[$i];
+						$sales_invoice_item->invoice_id = Input::post('invoice_id')[$i];
+						$sales_invoice_item->discount_percent = Input::post('discount_percent')[$i];
+						$sales_invoice_item->gl_account_id = null; // Input::post('gl_account_id')[$i];
+						$sales_invoice_item->description = Input::post('description')[$i];
+					}
+
 					$sales_invoice_item->save();
 				}
 
@@ -214,7 +243,7 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 
 			$this->template->set_global('sales_invoice', $sales_invoice, false);
 		}
-
+		
 		$this->template->title = "Invoices";
 		$this->template->content = View::forge('sales/invoice/edit');
 
