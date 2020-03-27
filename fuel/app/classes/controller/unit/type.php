@@ -154,22 +154,29 @@ class Controller_Unit_Type extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('facilities/unit-type');
 
-		if ($unit_type = Model_Unit_Type::find($id))
-		{
-			$unit = Model_Unit::find('first', array('where' => array('unit_type' => $id)));
-			if ($unit)
-				Session::set_flash('error', 'Unit type is already in use by Unit(s).');
+        if (Input::method() == 'POST')
+		{		
+			if ($unit_type = Model_Unit_Type::find($id))
+			{
+				$unit = Model_Unit::find('first', array('where' => array('unit_type' => $id)));
+				if ($unit)
+					Session::set_flash('error', 'Unit type is already in use by Unit(s).');
+				else
+				{
+					$unit_type->delete();
+					Session::set_flash('success', 'Deleted unit type #'.$id);
+				}
+			}
 			else
 			{
-				$unit_type->delete();
-				Session::set_flash('success', 'Deleted unit type #'.$id);
+				Session::set_flash('error', 'Could not delete unit type #'.$id);
 			}
 		}
 		else
 		{
-			Session::set_flash('error', 'Could not delete unit type #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
-
+		
 		Response::redirect('facilities/unit-type');
 
 	}

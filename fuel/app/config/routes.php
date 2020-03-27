@@ -17,6 +17,8 @@ return array(
 	'login' 				=> 'login/login',
 	'login/forgot-password' => 'login/lostpassword',
 	'logout' 				=> 'login/logout',
+	
+	'users/change-pwd' => 'users/change_password',
 
 	'registers/reservation' => 'facility/reservation',
 	'registers/booking'     => 'facility/booking',

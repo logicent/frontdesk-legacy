@@ -128,18 +128,24 @@ class Controller_Gift_Voucher extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('accounts/gift-voucher');
 
-		if ($gift_voucher = Model_Gift_Voucher::find($id))
-		{
-			$gift_voucher->delete();
+		if (Input::method() == 'POST')
+		{		
+			if ($gift_voucher = Model_Gift_Voucher::find($id))
+			{
+				$gift_voucher->delete();
 
-			Session::set_flash('success', 'Deleted gift voucher #'.$id);
+				Session::set_flash('success', 'Deleted gift voucher #'.$id);
+			}
+			else
+			{
+				Session::set_flash('error', 'Could not delete gift voucher #'.$id);
+			}
 		}
-
 		else
 		{
-			Session::set_flash('error', 'Could not delete gift voucher #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
-
+		
 		Response::redirect('accounts/gift-voucher');
 
 	}

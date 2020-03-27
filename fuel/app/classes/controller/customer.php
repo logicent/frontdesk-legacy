@@ -69,20 +69,26 @@ class Controller_Customer extends Controller_Authenticate
                 // upload and save the file
 				$file = Filehelper::upload();
 
-                if (!empty($file['saved_as']))
-                    $customer->ID_attachment = 'uploads'.DS.$file['name'];
+                try {
+                    if (!empty($file['saved_as']))
+                        $customer->ID_attachment = 'uploads'.DS.$file['name'];
 
-				if ($customer and $customer->save())
-				{
-					Session::set_flash('success', 'Added customer #'.$customer->customer_name.'.');
+                    if ($customer and $customer->save())
+                    {
+                        Session::set_flash('success', 'Added customer #'.$customer->customer_name.'.');
 
-					Response::redirect('registers/customer');
-				}
-
-				else
-				{
-					Session::set_flash('error', 'Could not save customer.');
-				}
+                        Response::redirect('registers/customer');
+                    }
+                    else
+                    {
+                        Session::set_flash('error', 'Could not save customer.');
+                    }
+                }
+                catch (Fuel\Core\Database_Exception $e)
+                {
+                    Session::set_flash('error', $e->getMessage());
+                    // throw $e;
+                }                
 			}
 			else
 			{
@@ -146,19 +152,25 @@ class Controller_Customer extends Controller_Authenticate
             if (!empty($file['saved_as']))
                 $customer->ID_attachment = 'uploads'.DS.$file['name'];
 
-			if ($customer->save())
-			{
-				Session::set_flash('success', 'Updated customer #' . $customer->customer_name);
+            try
+            {
+                if ($customer->save())
+                {
+                    Session::set_flash('success', 'Updated customer #' . $customer->customer_name);
 
-				Response::redirect('registers/customer');
-			}
-
-			else
-			{
-				Session::set_flash('error', 'Could not update customer #' . $id);
-			}
+                    Response::redirect('registers/customer');
+                }
+                else
+                {
+                    Session::set_flash('error', 'Could not update customer #' . $id);
+                }
+            }
+            catch (Fuel\Core\Database_Exception $e)
+            {
+                Session::set_flash('error', $e->getMessage());
+                // throw $e;
+            }
 		}
-
 		else
 		{
 			if (Input::method() == 'POST')
@@ -217,18 +229,24 @@ class Controller_Customer extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('registers/customer');
 
-		if ($customer = Model_Customer::find($id))
+        if (Input::method() == 'POST')
 		{
-			$customer->delete();
+            if ($customer = Model_Customer::find($id))
+            {
+                $customer->delete();
 
-			Session::set_flash('success', 'Deleted customer #'.$id);
-		}
-
+                Session::set_flash('success', 'Deleted customer #'.$id);
+            }
+            else
+            {
+                Session::set_flash('error', 'Could not delete customer #'.$id);
+            }
+        }
 		else
 		{
-			Session::set_flash('error', 'Could not delete customer #'.$id);
-		}
-
+			Session::set_flash('error', 'Delete is not allowed');
+        }
+        
 		Response::redirect('registers/customer');
 
 	}

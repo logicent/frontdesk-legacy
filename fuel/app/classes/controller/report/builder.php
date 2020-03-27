@@ -115,23 +115,28 @@ class Controller_Report_Builder extends Controller_Authenticate{
 
 		$this->template->title = "Report";
 		$this->template->content = View::forge('report/edit');
-
 	}
 
 	public function action_delete($id = null)
 	{
 		is_null($id) and Response::redirect('report-builder');
 
-		if ($report = Model_Report_Builder::find($id))
+		if (Input::method() == 'POST')
 		{
-			$report->delete();
+			if ($report = Model_Report_Builder::find($id))
+			{
+				$report->delete();
 
-			Session::set_flash('success', 'Deleted report #'.$id);
+				Session::set_flash('success', 'Deleted report #'.$id);
+			}
+			else
+			{
+				Session::set_flash('error', 'Could not delete report #'.$id);
+			}
 		}
-
 		else
 		{
-			Session::set_flash('error', 'Could not delete report #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
 
 		Response::redirect('report-builder');

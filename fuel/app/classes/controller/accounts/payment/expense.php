@@ -133,16 +133,23 @@ class Controller_Accounts_Payment_Expense extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('accounts/expenses');
 
-		if ($expense = Model_Accounts_Payment_Expense::find($id))
-		{
-			$expense->delete();
+		if (Input::method() == 'POST')
+		{			
+			if ($expense = Model_Accounts_Payment_Expense::find($id))
+			{
+				$expense->delete();
 
-			Session::set_flash('success', 'Deleted cash expense #'.$id);
+				Session::set_flash('success', 'Deleted cash expense #'.$id);
+			}
+
+			else
+			{
+				Session::set_flash('error', 'Could not delete cash expense #'.$id);
+			}
 		}
-
 		else
 		{
-			Session::set_flash('error', 'Could not delete cash expense #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
 
 		Response::redirect('accounts/expenses');

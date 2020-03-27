@@ -64,17 +64,24 @@ class Controller_Lease extends Controller_Authenticate
                 if (!empty($file['saved_as']))
                     $lease->attachments = 'uploads'.DS.$file['name'];
 
-				if ($lease and $lease->save())
-				{
-					Session::set_flash('success', 'Added lease #'.$lease->title.'.');
+				try {
+					if ($lease and $lease->save())
+					{
+						Session::set_flash('success', 'Added lease #'.$lease->title.'.');
 
-					Response::redirect('registers/lease');
-				}
+						Response::redirect('registers/lease');
+					}
 
-				else
-				{
-					Session::set_flash('error', 'Could not save lease.');
+					else
+					{
+						Session::set_flash('error', 'Could not save lease.');
+					}
 				}
+				catch (Fuel\Core\Database_Exception $e)
+				{
+					Session::set_flash('error', $e->getMessage());
+					// throw $e;
+				}				
 			}
 			else
 			{
@@ -129,18 +136,24 @@ class Controller_Lease extends Controller_Authenticate
 
             if (!empty($file['saved_as']))
                 $lease->attachments = 'uploads'.DS.$file['name'];
-            
-			if ($lease->save())
-			{
-				Session::set_flash('success', 'Updated lease #' . $lease->title);
+	 
+			try {
+				if ($lease->save())
+				{
+					Session::set_flash('success', 'Updated lease #' . $lease->title);
 
-				Response::redirect('registers/lease');
+					Response::redirect('registers/lease');
+				}
+				else
+				{
+					Session::set_flash('error', 'Could not update lease #' . $id);
+				}
 			}
-
-			else
+			catch (Fuel\Core\Database_Exception $e)
 			{
-				Session::set_flash('error', 'Could not update lease #' . $id);
-			}
+				Session::set_flash('error', $e->getMessage());
+				// throw $e;
+			}			
 		}
 
 		else
@@ -193,18 +206,25 @@ class Controller_Lease extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('registers/lease');
 
-		if ($lease = Model_Lease::find($id))
+		if (Input::method() == 'POST')
 		{
-			$lease->delete();
+			if ($lease = Model_Lease::find($id))
+			{
+				$lease->delete();
 
-			Session::set_flash('success', 'Deleted lease #'.$id);
+				Session::set_flash('success', 'Deleted lease #'.$id);
+			}
+
+			else
+			{
+				Session::set_flash('error', 'Could not delete lease #'.$id);
+			}
 		}
-
 		else
 		{
-			Session::set_flash('error', 'Could not delete lease #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
-
+		
 		Response::redirect('registers/lease');
 
 	}

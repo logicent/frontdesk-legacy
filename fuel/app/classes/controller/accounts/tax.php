@@ -125,16 +125,23 @@ class Controller_Accounts_Tax extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('accounts/taxes');
 
-		if ($tax = Model_Accounts_Tax::find($id))
+		if (Input::method() == 'POST')
 		{
-			$tax->delete();
+			if ($tax = Model_Accounts_Tax::find($id))
+			{
+				$tax->delete();
 
-			Session::set_flash('success', 'Deleted tax/charge #'.$id);
+				Session::set_flash('success', 'Deleted tax/charge #'.$id);
+			}
+
+			else
+			{
+				Session::set_flash('error', 'Could not delete tax/charge #'.$id);
+			}
 		}
-
 		else
 		{
-			Session::set_flash('error', 'Could not delete tax/charge #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
 
 		Response::redirect('accounts/taxes');

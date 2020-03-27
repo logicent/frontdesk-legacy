@@ -46,17 +46,23 @@ class Controller_Service_Item extends Controller_Authenticate
                     'enabled' => Input::post('enabled'),
 				));
 
-				if ($service_item and $service_item->save())
-				{
-					Session::set_flash('success', 'Added service item #'.$service_item->code.'.');
+				try {
+					if ($service_item and $service_item->save())
+					{
+						Session::set_flash('success', 'Added service item #'.$service_item->code.'.');
 
-					Response::redirect('facilities/services');
+						Response::redirect('facilities/services');
+					}
+					else
+					{
+						Session::set_flash('error', 'Could not save service item.');
+					}
 				}
-
-				else
+				catch (Fuel\Core\Database_Exception $e)
 				{
-					Session::set_flash('error', 'Could not save service item.');
-				}
+					Session::set_flash('error', $e->getMessage());
+					// throw $e;
+				}				
 			}
 			else
 			{
@@ -116,17 +122,24 @@ class Controller_Service_Item extends Controller_Authenticate
             $service_item->billable = Input::post('billable');
             $service_item->enabled = Input::post('enabled');
 
-			if ($service_item->save())
-			{
-				Session::set_flash('success', 'Updated service item #' . $service_item->code);
+			try {
+				if ($service_item->save())
+				{
+					Session::set_flash('success', 'Updated service item #' . $service_item->code);
 
-				Response::redirect('facilities/services');
-			}
+					Response::redirect('facilities/services');
+				}
 
-			else
-			{
-				Session::set_flash('error', 'Could not update service item #' . $id);
-			}
+				else
+				{
+					Session::set_flash('error', 'Could not update service item #' . $id);
+				}
+            }
+            catch (Fuel\Core\Database_Exception $e)
+            {
+                Session::set_flash('error', $e->getMessage());
+                // throw $e;
+            }				
 		}
 
 		else
@@ -159,22 +172,29 @@ class Controller_Service_Item extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('facilities/services');
 
-		if ($service_item = Model_Service_Item::find($id))
-		{
-			$sales_invoice_item = Model_Sales_Invoice_Item::find('first', array('where' => array('item_id' => $id)));
-			if ($sales_invoice_item)
-				Session::set_flash('error', 'Service item already in use by Invoice(s).');
+        if (Input::method() == 'POST')
+		{		
+			if ($service_item = Model_Service_Item::find($id))
+			{
+				$sales_invoice_item = Model_Sales_Invoice_Item::find('first', array('where' => array('item_id' => $id)));
+				if ($sales_invoice_item)
+					Session::set_flash('error', 'Service item already in use by Invoice(s).');
+				else
+				{
+					$service_item->delete();
+					Session::set_flash('success', 'Deleted service item #'.$id);
+				}
+			}
 			else
 			{
-				$service_item->delete();
-				Session::set_flash('success', 'Deleted service item #'.$id);
+				Session::set_flash('error', 'Could not delete service item #'.$id);
 			}
 		}
 		else
 		{
-			Session::set_flash('error', 'Could not delete service item #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
-
+		
 		Response::redirect('facilities/services');
 
 	}

@@ -119,18 +119,24 @@ class Controller_Property_Type extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('facilities/property-type');
 
-		if ($property_type = Model_Property_Type::find($id))
-		{
-			$property_type->delete();
+		if (Input::method() == 'POST')
+		{		
+			if ($property_type = Model_Property_Type::find($id))
+			{
+				$property_type->delete();
 
-			Session::set_flash('success', 'Deleted property type #'.$id);
+				Session::set_flash('success', 'Deleted property type #'.$id);
+			}
+			else
+			{
+				Session::set_flash('error', 'Could not delete property type #'.$id);
+			}
 		}
-
 		else
 		{
-			Session::set_flash('error', 'Could not delete property type #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
-
+		
 		Response::redirect('facilities/property-type');
 
 	}

@@ -45,7 +45,9 @@
 			<td class="text-right"><span class="<?= $item->balance_due > 0 ? 'text-red' : '' ?>"><?= number_format($item->balance_due, 2); ?></span></td>
 			<td class="text-center">
 				<?= Html::anchor('sales/invoice/view/'.$item->id, '<i class="fa fa-file-o fa-fw"></i>'); ?>
+				<?php if ($ugroup->id == 5) : ?>
 				<?= Html::anchor('sales/invoice/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>', array('class' => 'del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
+				<?php endif ?>
 			</td>
 		</tr>
 <?php endforeach; ?>

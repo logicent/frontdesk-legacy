@@ -54,6 +54,10 @@ class Mailhelper
         {
             Session::set_flash('error', e('Could not connect to SMTP. Contact your System administrator'));
         }
+        catch(Fuel\Core\FuelException $e)
+        {
+            Session::set_flash('error', e('Email message not sent: ' . $e->getMessage()));
+        } 
 
     }
 

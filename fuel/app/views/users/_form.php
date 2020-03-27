@@ -23,19 +23,21 @@
             <?= Form::label('Username', 'username', array('class'=>'control-label')); ?>
             <?= Form::input('username', Input::post('username', isset($user) ? $user->username : ''), array('class' => 'col-md-4 form-control', 'readonly'=>isset($user) ? true : false)); ?>
         </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-4">
-            <?= Form::label('New Password', 'password', array('class'=>'control-label')); ?>
-            <?= Form::password('password', Input::post('password', ''), array('class' => 'col-md-4 form-control')); ?>
-        </div>
 
         <?php if (isset($user)) : ?>
-        <div class="col-md-4">
-            <?= Form::label('Old Password', 'old_password', array('class'=>'control-label')); ?>
-            <?= Form::password('old_password', Input::post('old_password', ''), array('class' => 'col-md-4 form-control')); ?>
-        </div>
+            
+            <div class="col-md-4">
+                <br>
+                <?= Html::anchor('users/change-pwd/' . $user->id, 'Change Password', array('method' => 'post', 'class' => 'btn btn-sm btn-default')); ?>
+            </div>
+
+        <?php else: ?>
+
+            <div class="col-md-4">
+                <?= Form::label('New Password', 'password', array('class'=>'control-label')); ?>
+                <?= Form::password('password', Input::post('password', ''), array('class' => 'col-md-4 form-control')); ?>
+            </div>
+
         <?php endif; ?>
     </div>
 
@@ -50,20 +52,6 @@
             <?= Form::input('mobile', Input::post('mobile', isset($user->mobile) ? $user->mobile : ''), array('class' => 'col-md-4 form-control')); ?>
         </div>
     </div>
-
-    <!-- <div class="form-group">
-        <div class="col-md-4">
-            <label>
-                <input id="inactive" name="inactive" type="hidden" value="<?php //= isset($user) ? $user->inactive : '0'; ?>">
-                <?php /* Form::checkbox('activated_chk', Input::post('inactive',
-                                        isset($user) ? $user->inactive : null),
-                                        isset($user) && $user->inactive == 0 ? true : false,
-                                        array('class'=>'activated')
-                                    ); */ ?>
-                &ensp;Inactive
-            </label>
-        </div>
-    </div> -->
 
     <div class="form-group">
         <div class="col-md-4">

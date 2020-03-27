@@ -119,22 +119,29 @@ class Controller_Rate_Type extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('rate/type');
 
-		if ($rate_type = Model_Rate_Type::find($id))
-		{
-			$rate = Model_Rate::find('first', array('where' => array('rate_id' => $id)));
-			if ($rate)
-				Session::set_flash('error', 'Rate type is already in use by Rate(s).');
+		if (Input::method() == 'POST')
+		{		
+			if ($rate_type = Model_Rate_Type::find($id))
+			{
+				$rate = Model_Rate::find('first', array('where' => array('rate_id' => $id)));
+				if ($rate)
+					Session::set_flash('error', 'Rate type is already in use by Rate(s).');
+				else
+				{
+					$rate_type->delete();
+					Session::set_flash('success', 'Deleted rate type #'.$id);
+				}
+			}
 			else
 			{
-				$rate_type->delete();
-				Session::set_flash('success', 'Deleted rate type #'.$id);
+				Session::set_flash('error', 'Could not delete rate type #'.$id);
 			}
 		}
 		else
 		{
-			Session::set_flash('error', 'Could not delete rate type #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
-
+		
 		Response::redirect('facilities/rate-type');
 
 	}

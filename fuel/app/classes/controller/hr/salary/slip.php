@@ -152,18 +152,24 @@ class Controller_Hr_Salary_Slip extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('hr/salary/slip');
 
-		if ($hr_salary_slip = Model_Hr_Salary_Slip::find($id))
-		{
-			$hr_salary_slip->delete();
+        if (Input::method() == 'POST')
+		{				
+			if ($hr_salary_slip = Model_Hr_Salary_Slip::find($id))
+			{
+				$hr_salary_slip->delete();
 
-			Session::set_flash('success', 'Deleted Salary Slip'.$id);
+				Session::set_flash('success', 'Deleted Salary Slip'.$id);
+			}
+			else
+			{
+				Session::set_flash('error', 'Could not delete Salary Slip'.$id);
+			}
 		}
-
 		else
 		{
-			Session::set_flash('error', 'Could not delete Salary Slip'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
-
+		
 		Response::redirect('hr/salary/slip');
 
 	}

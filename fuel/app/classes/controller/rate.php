@@ -133,16 +133,22 @@ class Controller_Rate extends Controller_Authenticate{
 	{
 		is_null($id) and Response::redirect('rate');
 
-		if ($rate = Model_Rate::find($id))
+		if (Input::method() == 'POST')
 		{
-			$rate->delete();
+			if ($rate = Model_Rate::find($id))
+			{
+				$rate->delete();
 
-			Session::set_flash('success', 'Deleted room rate #'.$id);
+				Session::set_flash('success', 'Deleted room rate #'.$id);
+			}
+			else
+			{
+				Session::set_flash('error', 'Could not delete room rate #'.$id);
+			}
 		}
-
 		else
 		{
-			Session::set_flash('error', 'Could not delete room rate #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
 
 		Response::redirect('rate');

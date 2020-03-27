@@ -119,18 +119,25 @@ class Controller_Hr_Attendance extends Controller_Template
 	{
 		is_null($id) and Response::redirect('hr/attendance');
 
-		if ($hr_attendance = Model_Hr_Attendance::find($id))
+        if (Input::method() == 'POST')
 		{
-			$hr_attendance->delete();
+			if ($hr_attendance = Model_Hr_Attendance::find($id))
+			{
+				$hr_attendance->delete();
 
-			Session::set_flash('success', 'Deleted hr_attendance #'.$id);
+				Session::set_flash('success', 'Deleted hr_attendance #'.$id);
+			}
+
+			else
+			{
+				Session::set_flash('error', 'Could not delete hr_attendance #'.$id);
+			}
 		}
-
 		else
 		{
-			Session::set_flash('error', 'Could not delete hr_attendance #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
-
+	
 		Response::redirect('hr/attendance');
 
 	}

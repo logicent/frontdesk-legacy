@@ -70,7 +70,7 @@
                 <?= Form::input('phone_number', Input::post('phone_number', isset($business) ? $business->phone_number : ''),
                                                         array(
                                                             'class' => 'col-md-4 form-control', 
-                                                            'placeholder'=>'020-345 7890, 0700 001 990'
+                                                            'placeholder'=>'020-123 4567, 0712 345 678'
                                                         )); ?>
             </div>
         </div>

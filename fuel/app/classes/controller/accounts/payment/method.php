@@ -116,16 +116,22 @@ class Controller_Accounts_Payment_Method extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('accounts/payment-method');
 
-		if ($payment_method = Model_Accounts_Payment_Method::find($id))
+		if (Input::method() == 'POST')
 		{
-			$payment_method->delete();
+			if ($payment_method = Model_Accounts_Payment_Method::find($id))
+			{
+				$payment_method->delete();
 
-			Session::set_flash('success', 'Deleted payment method #'.$id);
+				Session::set_flash('success', 'Deleted payment method #'.$id);
+			}
+			else
+			{
+				Session::set_flash('error', 'Could not delete payment method #'.$id);
+			}
 		}
-
 		else
 		{
-			Session::set_flash('error', 'Could not delete payment method #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
 
 		Response::redirect('accounts/payment-method');

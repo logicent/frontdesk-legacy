@@ -202,18 +202,24 @@ class Controller_Hr_Employee extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('registers/employee');
 
-		if ($employee = Model_Employee::find($id))
+        if (Input::method() == 'POST')
 		{
-			$employee->delete();
+			if ($employee = Model_Employee::find($id))
+			{
+				$employee->delete();
 
-			Session::set_flash('success', 'Deleted employee #'.$id);
-		}
-
+				Session::set_flash('success', 'Deleted employee #'.$id);
+			}
+			else
+			{
+				Session::set_flash('error', 'Could not delete employee #'.$id);
+			}
+        }
 		else
 		{
-			Session::set_flash('error', 'Could not delete employee #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
-
+		
 		Response::redirect('registers/employee');
 
 	}

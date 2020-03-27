@@ -3,6 +3,10 @@ class Controller_Authenticate extends Controller_Template
 {
     private $driver = 'ormauth';
 
+    public $userid;
+    public $uname;
+    public $ugroup;
+
     public function before()
     {
         parent::before();
@@ -35,12 +39,14 @@ class Controller_Authenticate extends Controller_Template
             }
         }
 
-        list(, $userid) = Auth::get_user_id();
-        $this->template->set_global('uid', $userid, false);
-        $name = Auth::get_screen_name();
-        $this->template->set_global('uname', $name, false);
-        $group = Auth::get_groups();
-        $this->template->set_global('ugroup', $group[0][1], false);
+        list(, $this->userid) = Auth::get_user_id();
+        $this->template->set_global('uid', $this->userid, false);
+
+        $this->uname = Auth::get_screen_name();
+        $this->template->set_global('uname', $this->uname, false);
+
+        $this->ugroup = Auth::get_groups();
+        $this->template->set_global('ugroup', $this->ugroup[0][1], false);
 
         $business = Model_Business::find('first');
         //is_null($business) and Response::redirect('business/create'); // should go to installer/setup

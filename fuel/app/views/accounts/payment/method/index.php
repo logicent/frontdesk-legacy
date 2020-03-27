@@ -28,14 +28,9 @@
                 '<i class="fa fa-circle-o fa-fw text-danger"></i>Disabled' ?>
             </td>
             <td class="text-muted"><?= $item->code ?></td>
-            <td>
-                <div class="btn-toolbar">
-                    <div class="btn-group">
-                        <?= Html::anchor('accounts/payment/method/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>', 
-                                array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
-                    </div>
-                </div>
-            </td>
+			<td class="text-center">
+				<?= Html::anchor('accounts/payment/method/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>', array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
+			</td>
         </tr>
     <?php endforeach; ?>	
     </tbody>

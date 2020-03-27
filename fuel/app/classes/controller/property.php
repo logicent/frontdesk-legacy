@@ -52,17 +52,23 @@ class Controller_Property extends Controller_Authenticate
 					'remarks' => Input::post('remarks'),
 				));
 
-				if ($property and $property->save())
-				{
-					Session::set_flash('success', 'Added property #'.$property->name.'.');
+				try {
+					if ($property and $property->save())
+					{
+						Session::set_flash('success', 'Added property #'.$property->name.'.');
 
-					Response::redirect('facilities/property');
+						Response::redirect('facilities/property');
+					}
+					else
+					{
+						Session::set_flash('error', 'Could not save property.');
+					}
 				}
-
-				else
+				catch (Fuel\Core\Database_Exception $e)
 				{
-					Session::set_flash('error', 'Could not save property.');
-				}
+					Session::set_flash('error', $e->getMessage());
+					// throw $e;
+				}				
 			}
 			else
 			{
@@ -106,16 +112,23 @@ class Controller_Property extends Controller_Authenticate
 			$property->on_hold_to = Input::post('on_hold_to');
 			$property->remarks = Input::post('remarks');
 
-			if ($property->save())
-			{
-				Session::set_flash('success', 'Updated property #' . $property->name);
+			try {
+				if ($property->save())
+				{
+					Session::set_flash('success', 'Updated property #' . $property->name);
 
-				Response::redirect('facilities/property');
+					Response::redirect('facilities/property');
+				}
+
+				else
+				{
+					Session::set_flash('error', 'Could not update property #' . $id);
+				}
 			}
-
-			else
+			catch (Fuel\Core\Database_Exception $e)
 			{
-				Session::set_flash('error', 'Could not update property #' . $id);
+				Session::set_flash('error', $e->getMessage());
+				// throw $e;
 			}
 		}
 
@@ -155,16 +168,23 @@ class Controller_Property extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('facilities/property');
 
-		if ($property = Model_Property::find($id))
+		if (Input::method() == 'POST')
 		{
-			$property->delete();
+			if ($property = Model_Property::find($id))
+			{
+				$property->delete();
 
-			Session::set_flash('success', 'Deleted property #'.$id);
+				Session::set_flash('success', 'Deleted property #'.$id);
+			}
+
+			else
+			{
+				Session::set_flash('error', 'Could not delete property #'.$id);
+			}
 		}
-
 		else
 		{
-			Session::set_flash('error', 'Could not delete property #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
 
 		Response::redirect('facilities/property');

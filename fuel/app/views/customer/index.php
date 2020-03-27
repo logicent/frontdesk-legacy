@@ -32,8 +32,10 @@
             <td><?= $item->customer_type ?></td>
             <td><?= $item->customer_group ?></td>
 			<td class="text-center">
+            <?php if ($ugroup->id == 5) : ?>
 				<?= Html::anchor('customer/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-fw"></i>',
                                 array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
+            <?php endif ?>
 			</td>
 		</tr>
 <?php endforeach; ?>	

@@ -125,22 +125,29 @@ class Controller_Unit extends Controller_Authenticate{
 	{
 		is_null($id) and Response::redirect('facilities/units');
 
-		if ($unit = Model_Unit::find($id))
+		if (Input::method() == 'POST')
 		{
-			$booking = Model_Facility_Booking::find('first', array('where' => array('unit_id' => $id)));
-			if ($booking)
-				Session::set_flash('error', 'Can not delete Unit used in booking(s).');
+			if ($unit = Model_Unit::find($id))
+			{
+				$booking = Model_Facility_Booking::find('first', array('where' => array('unit_id' => $id)));
+				if ($booking)
+					Session::set_flash('error', 'Can not delete Unit used in booking(s).');
+				else
+				{
+					$unit->delete();
+					Session::set_flash('success', 'Deleted unit #'.$id);
+				}
+			}
 			else
 			{
-				$unit->delete();
-				Session::set_flash('success', 'Deleted unit #'.$id);
+				Session::set_flash('error', 'Could not delete unit #'.$id);
 			}
 		}
 		else
 		{
-			Session::set_flash('error', 'Could not delete unit #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
-
+		
 		Response::redirect('facilities/units');
 
 	}

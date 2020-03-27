@@ -32,8 +32,11 @@
             <td><?= Model_Partner::listOptionsPartnerType()[$item->partner_type] ?></td>
             <td><?= $item->partner_group ?></td>
 			<td class="text-center">
+            <?php if ($ugroup->id == 5) : ?>
 				<?= Html::anchor('partner/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-fw"></i>',
-                                array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
+                                array('method' => 'post',
+									'class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
+            <?php endif ?>
 			</td>
 		</tr>
 <?php endforeach; ?>	

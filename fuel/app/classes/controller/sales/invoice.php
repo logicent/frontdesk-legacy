@@ -74,33 +74,44 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 					'fdesk_user' => Input::post('fdesk_user'),
 				));
 
-				if ($sales_invoice and $sales_invoice->save())
+				try 
 				{
-					// save the line item(s)
-					for ($i=1; $i < count(Input::post('item_id')); $i++)
+					DB::start_transaction();
+
+					if ($sales_invoice and $sales_invoice->save())
 					{
-						$sales_invoice_item = Model_Sales_Invoice_Item::forge(array(
-							'item_id' => Input::post("item_id")[$i],
-							'qty' => Input::post("qty")[$i],
-							'unit_price' => Input::post("unit_price")[$i],
-							'amount' => Input::post("amount")[$i],
-							'invoice_id' => $sales_invoice->id,
-							'discount_percent' => Input::post("discount_percent")[$i],
-							'gl_account_id' => null, // Input::post("gl_account_id")[$i],
-							'description' => Input::post("description")[$i],
-						));
-						$sales_invoice_item->save();
+						// save the line item(s)
+						for ($i=1; $i < count(Input::post('item_id')); $i++)
+						{
+							$sales_invoice_item = Model_Sales_Invoice_Item::forge(array(
+								'item_id' => Input::post("item_id")[$i],
+								'qty' => Input::post("qty")[$i],
+								'unit_price' => Input::post("unit_price")[$i],
+								'amount' => Input::post("amount")[$i],
+								'invoice_id' => $sales_invoice->id,
+								'discount_percent' => Input::post("discount_percent")[$i],
+								'gl_account_id' => null, // Input::post("gl_account_id")[$i],
+								'description' => Input::post("description")[$i],
+							));
+							$sales_invoice_item->save();
+						}
+
+						DB::commit_transaction();
+						
+						Session::set_flash('success', 'Added invoice #'.$sales_invoice->id.'.');
+						Response::redirect('accounts/sales-invoice');
 					}
-
-					Session::set_flash('success', 'Added invoice #'.$sales_invoice->id.'.');
-
-					Response::redirect('accounts/sales-invoice');
+					else
+					{
+						Session::set_flash('error', 'Could not save invoice.');
+					}
 				}
-
-				else
+				catch (Fuel\Core\Database_Exception $e)
 				{
-					Session::set_flash('error', 'Could not save invoice.');
-				}
+					DB::rollback_transaction();
+					Session::set_flash('error', $e->getMessage());
+					// throw $e;
+				}				
 			}
 			else
 			{
@@ -117,14 +128,14 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 		$sales_invoice_item = Model_Sales_Invoice_Item::forge();
 		$this->template->set_global('sales_invoice_item', $sales_invoice_item, false);
 
-		// get billable and enabled item
+		// get default billable and enabled item
         $services = DB::select('id','code')
                         ->from('service_item')
                         ->where(array('billable' => true, 'enabled' => true))
                         ->execute()
                         ->as_array();
         
-		$this->template->set_global('serviceItems', json_encode($services), false);
+		$this->template->set_global('service_item', json_encode($services), false);
 
 		$this->template->title = "Invoices";
 		$this->template->content = View::forge('sales/invoice/create');
@@ -169,50 +180,61 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 
 			// update Invoice Amounts if discounted
 			Model_Sales_Invoice::applyDiscountAmount($sales_invoice);
+		
+			try {
+				DB::start_transaction();
 			
-			if ($sales_invoice->save())
-			{
-				// save the line item(s)
-				for ($i=1; $i < count(Input::post('item_id')); $i++)
+				if ($sales_invoice->save())
 				{
-					if ( ! $sales_invoice_item = Model_Sales_Invoice_item::find($id) )
+					// save the line item(s)
+					for ($i=1; $i < count(Input::post('item_id')); $i++)
 					{
-						$sales_invoice_item = Model_Sales_Invoice_Item::forge(array(
-							'item_id' => Input::post("item_id")[$i],
-							'qty' => Input::post("qty")[$i],
-							'unit_price' => Input::post("unit_price")[$i],
-							'amount' => Input::post("amount")[$i],
-							'invoice_id' => $sales_invoice->id,
-							'discount_percent' => Input::post("discount_percent")[$i],
-							'gl_account_id' => null, // Input::post("gl_account_id")[$i],
-							'description' => Input::post("description")[$i],
-						));
-					}
-					else {
-						$sales_invoice_item->item_id = Input::post('item_id')[$i];
-						$sales_invoice_item->qty = Input::post('qty')[$i];
-						$sales_invoice_item->unit_price = Input::post('unit_price')[$i];
-						$sales_invoice_item->amount = Input::post('amount')[$i];
-						$sales_invoice_item->invoice_id = Input::post('invoice_id')[$i];
-						$sales_invoice_item->discount_percent = Input::post('discount_percent')[$i];
-						$sales_invoice_item->gl_account_id = null; // Input::post('gl_account_id')[$i];
-						$sales_invoice_item->description = Input::post('description')[$i];
+						if ( ! $sales_invoice_item = Model_Sales_Invoice_item::find($id) )
+						{
+							$sales_invoice_item = Model_Sales_Invoice_Item::forge(array(
+								'item_id' => Input::post("item_id")[$i],
+								'qty' => Input::post("qty")[$i],
+								'unit_price' => Input::post("unit_price")[$i],
+								'amount' => Input::post("amount")[$i],
+								'invoice_id' => $sales_invoice->id,
+								'discount_percent' => Input::post("discount_percent")[$i],
+								'gl_account_id' => null, // Input::post("gl_account_id")[$i],
+								'description' => Input::post("description")[$i],
+							));
+						}
+						else {
+							$sales_invoice_item->item_id = Input::post('item_id')[$i];
+							$sales_invoice_item->qty = Input::post('qty')[$i];
+							$sales_invoice_item->unit_price = Input::post('unit_price')[$i];
+							$sales_invoice_item->amount = Input::post('amount')[$i];
+							$sales_invoice_item->invoice_id = Input::post('invoice_id')[$i];
+							$sales_invoice_item->discount_percent = Input::post('discount_percent')[$i];
+							$sales_invoice_item->gl_account_id = null; // Input::post('gl_account_id')[$i];
+							$sales_invoice_item->description = Input::post('description')[$i];
+						}
+
+						$sales_invoice_item->save();
 					}
 
-					$sales_invoice_item->save();
+					DB::commit_transaction();
+	
+					Session::set_flash('success', 'Updated invoice #' . $id);
 				}
-
-				Session::set_flash('success', 'Updated invoice #' . $id);
-
+				else
+				{
+					Session::set_flash('error', 'Could not update invoice #' . $id);
+				}
+				
 				Response::redirect('accounts/sales-invoice');
 			}
-
-			else
+			catch (Fuel\Core\Database_Exception $e)
 			{
-				Session::set_flash('error', 'Could not update invoice #' . $id);
+				DB::rollback_transaction();
+
+				Session::set_flash('error', $e->getMessage());
+				// throw $e;
 			}
 		}
-
 		else
 		{
 			if (Input::method() == 'POST')
@@ -255,19 +277,14 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 
 		if ($sales_invoice = Model_Sales_Invoice::find($id))
 		{
-			Session::set_flash('error', 'You must remove source booking to delete invoice.');
-
-			Response::redirect('registers/booking');
+	        $result = $sales_invoice->delete();
+			
+	        Session::set_flash('success', 'Deleted invoice #'.$id);
 		}
-
-		// else
-		// {
-		// 	Session::set_flash('error', 'Could not delete invoice #'.$id);
-		// }
-
-        // $sales_invoice->delete();
-
-        // Session::set_flash('success', 'Deleted invoice #'.$id);
+		else
+		{
+			Session::set_flash('error', 'Could not delete invoice #'.$id);
+		}
             
 		Response::redirect('accounts/sales-invoice');
 

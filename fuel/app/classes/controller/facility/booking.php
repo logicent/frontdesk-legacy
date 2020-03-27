@@ -277,32 +277,39 @@ class Controller_Facility_Booking extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('registers/booking');
 
-		if ($booking = Model_Facility_Booking::find($id))
+		if (Input::method() == 'POST')
 		{
-			try
+			if ($booking = Model_Facility_Booking::find($id))
 			{
-				// start a db transaction
-				// remove related invoice master/detail and cash receipts
-				$booking->bill->delete();
-				// change unit status to avoid orphaned status
-				$booking->unit->status = Model_Unit::UNIT_STATUS_VACANT;
-				$booking->unit->save();
-				// remove booking
-				$booking->delete();
+				try
+				{
+					// start a db transaction
+					// remove related invoice master/detail and cash receipts
+					$booking->bill->delete();
+					// change unit status to avoid orphaned status
+					$booking->unit->status = Model_Unit::UNIT_STATUS_VACANT;
+					$booking->unit->save();
+					// remove booking
+					$booking->delete();
 
-				Session::set_flash('success', 'Deleted succeeded #'.$booking->reg_no);
+					Session::set_flash('success', 'Deleted succeeded #'.$booking->reg_no);
 
+				}
+				catch (FuelException $e)
+				{// ORM encounters Model_Unit Primary Key error but it's a false error
+					Session::set_flash('success', 'Delete succeeded.');
+				}
 			}
-			catch (FuelException $e)
-			{// ORM encounters Model_Unit Primary Key error but it's a false error
-				Session::set_flash('success', 'Delete succeeded.');
+			else
+			{
+				Session::set_flash('error', 'Could not delete booking #'.$id);
 			}
 		}
 		else
 		{
-			Session::set_flash('error', 'Could not delete booking #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
-
+		
 		Response::redirect('registers/booking');
 	}
 

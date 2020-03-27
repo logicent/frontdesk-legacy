@@ -162,26 +162,33 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('accounts/sales-receipts');
 
-		if ($payment_receipt = Model_Accounts_Payment_Receipt::find($id))
-		{
-			// prepare transaction reversal amount
-			$reverse_amount = -1 * $payment_receipt->amount;
-			// unset the receipt amount
-			$payment_receipt->amount = 0;
-			if ($payment_receipt->save()) // save to preserve audit trail or soft_delete after save
+		if (Input::method() == 'POST')
+		{		
+			if ($payment_receipt = Model_Accounts_Payment_Receipt::find($id))
 			{
-				// update Invoice and Guest Card
-				Model_Accounts_Payment_Receipt::updateInvoiceSettlement($payment_receipt->invoice, $reverse_amount);
+				// prepare transaction reversal amount
+				$reverse_amount = -1 * $payment_receipt->amount;
+				// unset the receipt amount
+				$payment_receipt->amount = 0;
+				if ($payment_receipt->save()) // save to preserve audit trail or soft_delete after save
+				{
+					// update Invoice and Guest Card
+					Model_Accounts_Payment_Receipt::updateInvoiceSettlement($payment_receipt->invoice, $reverse_amount);
+				}
+				//if (is_null(Model_Accounts_Payment_Receipt::find($id)))
+					// updateInvoiceSettlement
+				Session::set_flash('success', 'Canceled cash receipt #'.$payment_receipt->receipt_number);
 			}
-			//if (is_null(Model_Accounts_Payment_Receipt::find($id)))
-				// updateInvoiceSettlement
-			Session::set_flash('success', 'Canceled cash receipt #'.$payment_receipt->receipt_number);
+			else
+			{
+				Session::set_flash('error', 'Could not cancel cash receipt #'.$id);
+			}
 		}
 		else
 		{
-			Session::set_flash('error', 'Could not cancel cash receipt #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
-
+		
 		Response::redirect('accounts/sales-receipts');
 
 	}

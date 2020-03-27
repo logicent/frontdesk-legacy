@@ -92,12 +92,6 @@ class Controller_Login extends Controller_Template
 		Response::redirect('dashboard');
 	}
 
-    public function action_change_password()
-    {
-        // reset the password for the current user
-        Auth::change_password('thisismynewpassword','thisismysecretpassword');
-    }
-
     // public function action_reset_password()
     // {
     //     // reset the password for the current user

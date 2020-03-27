@@ -125,18 +125,25 @@ class Controller_Hr_Department extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('hr/department');
 
-		if ($hr_department = Model_Hr_Department::find($id))
-		{
-			$hr_department->delete();
+        if (Input::method() == 'POST')
+		{		
+			if ($hr_department = Model_Hr_Department::find($id))
+			{
+				$hr_department->delete();
 
-			Session::set_flash('success', 'Deleted HR Department #'.$id);
+				Session::set_flash('success', 'Deleted HR Department #'.$id);
+			}
+
+			else
+			{
+				Session::set_flash('error', 'Could not delete HR Department #'.$id);
+			}
 		}
-
 		else
 		{
-			Session::set_flash('error', 'Could not delete HR Department #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
-
+		
 		Response::redirect('hr/department');
 
 	}

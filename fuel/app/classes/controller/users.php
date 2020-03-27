@@ -4,7 +4,7 @@ class Controller_Users extends Controller_Authenticate
 	public function action_index()
 	{
 		$data['users'] = Model_User::find('all', array('where' => array(
-									array('group_id', 'in', array(3,5,6)),
+									array('group_id', 'in', array(3,5)),
 								)));
 		$this->template->title = "Users";
 		$this->template->content = View::forge('users/index', $data);
@@ -25,6 +25,12 @@ class Controller_Users extends Controller_Authenticate
 
 	public function action_create()
 	{
+		if ($this->ugroup[0][1]->id == 3)
+		{
+			Session::set_flash('error', 'Create is not allowed');
+			Response::redirect('users');
+		}
+
 		if (Input::method() == 'POST')
 		{
 			$val = Model_User::validate('create');
@@ -81,6 +87,12 @@ class Controller_Users extends Controller_Authenticate
 			Response::redirect('users');
 		}
 
+		if ($user->group_id == 3)
+		{
+			Session::set_flash('error', 'Edit is not allowed');
+			Response::redirect('users');
+		}
+
 		$val = Model_User::validate('edit');
         
 		if ($val->run())
@@ -90,20 +102,16 @@ class Controller_Users extends Controller_Authenticate
                     Auth::update_user(
                         array(
 	                        'email' => Input::post('email'),
-	                        // 'password' => Input::post('password'),
-							// 'old_password' => Input::post('old_password'),
 	                        'group_id' => Input::post('group_id'),
-							array(
-								'fullname' => Input::post('fullname'),
-								// 'mobile' => Input::post('mobile'),
-							)
+							'fullname' => Input::post('fullname'),
+							'mobile' => Input::post('mobile'),
                         ),
                     );
                     Mailhelper::send(
-                                    Input::post('fullname'), 
-                                    Input::post('email'),
-                                    'FrontDesk: User Profile Updated',
-                                    'Hi,Your user account details have been updated.Administrator'
+							Input::post('fullname'), 
+							Input::post('email'),
+							'FrontDesk: User Profile Updated',
+							'Hi, Your user account details have been updated. Administrator'
                     );
                     Session::set_flash('success', e('Updated user '.Input::post('username').'.'));
 
@@ -127,37 +135,61 @@ class Controller_Users extends Controller_Authenticate
 				$user->old_password = $val->validated('old_password');
 				$user->group_id = $val->validated('group_id');
 				$user->email = $val->validated('email');
+				$user->fullname = $val->validated('fullname');
 
 				Session::set_flash('error', $val->error());
 			}
+
 			$this->template->set_global('user', $user, false);
 		}
+
 		$this->template->title = "Users";
 		$this->template->content = View::forge('users/edit');
 	}
 
+	public function action_change_password($id)
+    {
+		if (Input::is_ajax())
+		{
+			// reset the password for the current user
+			Auth::change_password(Input::post('new_password'), Input::post('old_password'));
+		}
+		else
+		{
+			Session::set_flash('error', 'Delete is not allowed');
+		}			
+	}
+	
 	public function action_delete($id = null)
 	{
 		is_null($id) and Response::redirect('users');
 
-		if ($user = Model_User::find($id))
-		{
-			try {
-                // MUST use softDelete only
-				Auth::delete_user($user->username);
-
-				Session::set_flash('success', 'Deleted user #'.$id);
-			}
-			catch (SimpleUserUpdateException $e)
+		if (Input::method() == 'POST')
+		{		
+			if ($user = Model_User::find($id))
 			{
-				Session::set_flash('error', 'Could not delete user #'.$id);
+				try {
+					// Auth::delete_user($user->username); // NOTE: does permanent delete
+					// MUST use softDelete only via user model
+					$user->delete();
+
+					Session::set_flash('success', 'Deleted user #'.$id);
+				}
+				catch (SimpleUserUpdateException $e)
+				{
+					Session::set_flash('error', 'Could not delete user #'.$id);
+				}
+			}
+			else
+			{
+				Session::set_flash('error', 'User not found #'.$id);
 			}
 		}
 		else
 		{
-			Session::set_flash('error', 'User not found #'.$id);
-        }
-        
+			Session::set_flash('error', 'Delete is not allowed');
+		}
+
 		Response::redirect('users');
 	}
 }

@@ -72,8 +72,10 @@
 			<td class="text-muted"><?= $item->unit->name . '-' . $item->res_no; ?></td>
 			<td class="text-center">
 				<!-- <?php //= Html::anchor('facility/reservation/view/'.$item->id, '<i class="glyphicon glyphicon-eye"></i>'); ?> -->
+            <?php if ($ugroup->id == 5) : ?>
 				<?= Html::anchor('facility/reservation/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>',
                                 array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
+            <? endif ?>
 			</td>
 		</tr>
 <?php endforeach; ?>

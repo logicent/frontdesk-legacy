@@ -189,23 +189,30 @@ class Controller_Facility_Reservation extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('registers/reservation');
 
-		if ($reservation = Model_Facility_Reservation::find($id))
+		if (Input::method() == 'POST')
 		{
-			try {
-				// delete relations
-				$reservation->delete();
-			}
-			catch (FuelException $e)
+			if ($reservation = Model_Facility_Reservation::find($id))
 			{
-				Session::set_flash('error', 'Could not delete reservation relations #' . $id);
+				try {
+					// delete relations
+					$reservation->delete();
+				}
+				catch (FuelException $e)
+				{
+					Session::set_flash('error', 'Could not delete reservation relations #' . $id);
+				}
+				Session::set_flash('success', 'Deleted reservation #'.$id);
 			}
-			Session::set_flash('success', 'Deleted reservation #'.$id);
+			else
+			{
+				Session::set_flash('error', 'Could not delete reservation #'.$id);
+			}
 		}
 		else
 		{
-			Session::set_flash('error', 'Could not delete reservation #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
-
+		
 		Response::redirect('registers/reservation');
 
 	}

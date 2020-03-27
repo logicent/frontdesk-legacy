@@ -58,17 +58,23 @@ class Controller_Partner extends Controller_Authenticate
                     // 'total_amount_not_billed' => Input::post('total_amount_not_billed'),
 				));
 
-				if ($partner and $partner->save())
-				{
-					Session::set_flash('success', 'Added partner #'.$partner->partner_name.'.');
+				try {
+					if ($partner and $partner->save())
+					{
+						Session::set_flash('success', 'Added partner #'.$partner->partner_name.'.');
 
-					Response::redirect('registers/partner');
+						Response::redirect('registers/partner');
+					}
+					else
+					{
+						Session::set_flash('error', 'Could not save partner.');
+					}
 				}
-
-				else
+				catch (Fuel\Core\Database_Exception $e)
 				{
-					Session::set_flash('error', 'Could not save partner.');
-				}
+					Session::set_flash('error', $e->getMessage());
+					// throw $e;
+				}				
 			}
 			else
 			{
@@ -118,16 +124,22 @@ class Controller_Partner extends Controller_Authenticate
             // $partner->total_amount_paid = Input::post('total_amount_paid');
             // $partner->total_amount_not_billed = Input::post('total_amount_not_billed');
 
-			if ($partner->save())
-			{
-				Session::set_flash('success', 'Updated partner #' . $partner->partner_name);
+			try {
+				if ($partner->save())
+				{
+					Session::set_flash('success', 'Updated partner #' . $partner->partner_name);
 
-				Response::redirect('registers/partner');
+					Response::redirect('registers/partner');
+				}
+				else
+				{
+					Session::set_flash('error', 'Could not update partner #' . $id);
+				}
 			}
-
-			else
+			catch (Fuel\Core\Database_Exception $e)
 			{
-				Session::set_flash('error', 'Could not update partner #' . $id);
+				Session::set_flash('error', $e->getMessage());
+				// throw $e;
 			}
 		}
 
@@ -173,16 +185,23 @@ class Controller_Partner extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('registers/partner');
 
-		if ($partner = Model_Partner::find($id))
+		if (Input::method() == 'POST')
 		{
-			$partner->delete();
+			if ($partner = Model_Partner::find($id))
+			{
+				$partner->delete();
 
-			Session::set_flash('success', 'Deleted partner #'.$id);
+				Session::set_flash('success', 'Deleted partner #'.$id);
+			}
+
+			else
+			{
+				Session::set_flash('error', 'Could not delete partner #'.$id);
+			}
 		}
-
 		else
 		{
-			Session::set_flash('error', 'Could not delete partner #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
 
 		Response::redirect('registers/partner');

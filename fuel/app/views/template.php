@@ -91,7 +91,8 @@
                                 <i class="fa fa-lg fa-user fa-fw text-muted"></i>  <i class="fa fa-caret-down"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-user">
-                                <li><a href="<?= Uri::create('users/edit/'.$uid) ?>"> My Account</a></li>
+                                <!--<li><a href="<?php Uri::create('users/change-pwd/'.$uid) ?>"> Change Password</a></li>-->
+                                <li><a href="<?= Uri::create('users/view/'.$uid) ?>"> My Account</a></li>
                                 <li class="divider"></li>
                                 <li><a href="<?= Uri::create('logout') ?>"> Log out</a></li>
                             </ul>   <!-- /.dropdown-user -->

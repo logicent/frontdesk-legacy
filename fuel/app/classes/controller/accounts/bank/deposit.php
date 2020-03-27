@@ -126,17 +126,24 @@ class Controller_Accounts_Bank_Deposit extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('accounts/bank-deposits');
 
-		if ($bank_deposit = Model_Accounts_Bank_Deposit::find($id))
-		{
-			$bank_deposit->delete();
+		if (Input::method() == 'POST')
+		{		
+			if ($bank_deposit = Model_Accounts_Bank_Deposit::find($id))
+			{
+				$bank_deposit->delete();
 
-			Session::set_flash('success', 'Deleted bank deposit #'.$id);
+				Session::set_flash('success', 'Deleted bank deposit #'.$id);
+			}
+			else
+			{
+				Session::set_flash('error', 'Could not delete bank deposit #'.$id);
+			}
 		}
 		else
 		{
-			Session::set_flash('error', 'Could not delete bank deposit #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
-
+		
 		Response::redirect('accounts/bank-deposits');
 	}
 }

@@ -128,22 +128,29 @@ class Controller_Accounts_Bank_Account extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('accounts/bank-accounts');
 
-		if ($bank_account = Model_Accounts_Bank_Account::find($id))
-		{
-			$deposit = Model_Accounts_Bank_Receipt::find('first', array('where' => array('bank_account_id' => $id)));
-			if ($deposit)
-				Session::set_flash('error', 'Account is already in use by Deposit(s).');
+		if (Input::method() == 'POST')
+		{		
+			if ($bank_account = Model_Accounts_Bank_Account::find($id))
+			{
+				$deposit = Model_Accounts_Bank_Receipt::find('first', array('where' => array('bank_account_id' => $id)));
+				if ($deposit)
+					Session::set_flash('error', 'Account is already in use by Deposit(s).');
+				else
+				{
+					$bank_account->delete();
+					Session::set_flash('success', 'Deleted bank account #'.$id);
+				}
+			}
 			else
 			{
-				$bank_account->delete();
-				Session::set_flash('success', 'Deleted bank account #'.$id);
+				Session::set_flash('error', 'Could not delete bank account #'.$id);
 			}
 		}
 		else
 		{
-			Session::set_flash('error', 'Could not delete bank account #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
-
+		
 		Response::redirect('accounts/bank-accounts');
 
 	}

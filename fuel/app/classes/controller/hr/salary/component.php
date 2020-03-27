@@ -134,18 +134,24 @@ class Controller_Hr_Salary_Component extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('hr/salary/component');
 
-		if ($hr_salary_component = Model_Hr_Salary_Component::find($id))
+		if (Input::method() == 'POST')
 		{
-			$hr_salary_component->delete();
+			if ($hr_salary_component = Model_Hr_Salary_Component::find($id))
+			{
+				$hr_salary_component->delete();
 
-			Session::set_flash('success', 'Deleted salary component'.$id);
+				Session::set_flash('success', 'Deleted salary component'.$id);
+			}
+			else
+			{
+				Session::set_flash('error', 'Could not delete salary component'.$id);
+			}
 		}
-
 		else
 		{
-			Session::set_flash('error', 'Could not delete salary component'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
-
+		
 		Response::redirect('hr/salary/component');
 
 	}

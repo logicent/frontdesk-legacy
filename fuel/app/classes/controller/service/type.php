@@ -128,16 +128,23 @@ class Controller_Service_Type extends Controller_Authenticate
 	{
 		is_null($id) and Response::redirect('facilities/service-type');
 
-		if ($service_type = Model_Service_Type::find($id))
-		{
-			$service_type->delete();
+        if (Input::method() == 'POST')
+		{		
+			if ($service_type = Model_Service_Type::find($id))
+			{
+				$service_type->delete();
 
-			Session::set_flash('success', 'Deleted service type #'.$id);
+				Session::set_flash('success', 'Deleted service type #'.$id);
+			}
+
+			else
+			{
+				Session::set_flash('error', 'Could not delete service type #'.$id);
+			}
 		}
-
 		else
 		{
-			Session::set_flash('error', 'Could not delete service type #'.$id);
+			Session::set_flash('error', 'Delete is not allowed');
 		}
 
 		Response::redirect('facilities/service-type');
