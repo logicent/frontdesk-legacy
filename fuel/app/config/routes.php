@@ -48,10 +48,10 @@ return array(
 	
     'accounts/payment/receipt/to-print/:id' => 'accounts/payment/receipt/to_print/$1',
 
-	'hr/payslip'     			=> 'hr/payslip',
 	'hr/employee'     			=> 'hr/employee',
-	'hr/salary-structure'     	=> 'hr/salary-structure',
-	'hr/salary-component'     	=> 'hr/salary-component',
+	'hr/payslip'     			=> 'hr/salary/slip',
+	'hr/salary-structure'     	=> 'hr/salary/structure',
+	'hr/salary-component'     	=> 'hr/salary/component',
 	
 	'facilities/rates'      	=> 'rate',
 	'facilities/rate-type' 		=> 'rate/type',

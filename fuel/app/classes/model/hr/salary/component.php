@@ -29,6 +29,8 @@ class Model_Hr_Salary_Component extends Model
 		),
 	);
 
+	protected static $_table_name = 'salary_component';
+
 	public static function validate($factory)
 	{
 		$val = Validation::forge($factory);

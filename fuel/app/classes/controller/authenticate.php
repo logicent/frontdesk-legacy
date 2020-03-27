@@ -48,6 +48,9 @@ class Controller_Authenticate extends Controller_Template
         $this->ugroup = Auth::get_groups();
         $this->template->set_global('ugroup', $this->ugroup[0][1], false);
 
+        $menus = Model_Menu::menu_list_items($this->ugroup[0][1]);
+        $this->template->set_global('menu_list', $menus, false);
+
         $business = Model_Business::find('first');
         //is_null($business) and Response::redirect('business/create'); // should go to installer/setup
 

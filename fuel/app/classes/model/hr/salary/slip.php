@@ -12,7 +12,7 @@ class Model_Hr_Salary_Slip extends Model
 		'start_date',
 		'end_date',
 		'status',
-		'date_posted',
+		'date_paid',
 		'date_due',
 		'payroll_period',
 		'total_deductions',
@@ -35,6 +35,8 @@ class Model_Hr_Salary_Slip extends Model
 		),
 	);
 
+	protected static $_table_name = 'salary_slip';
+
 	public static function validate($factory)
 	{
 		$val = Validation::forge($factory);
@@ -45,7 +47,7 @@ class Model_Hr_Salary_Slip extends Model
 		$val->add_field('start_date', 'Start Date', 'required');
 		$val->add_field('end_date', 'End Date', 'required');
 		$val->add_field('status', 'Status', 'required|max_length[255]');
-		$val->add_field('date_posted', 'Date Posted', 'required');
+		$val->add_field('date_paid', 'Date Paid', 'required');
 		$val->add_field('date_due', 'Date Due', 'required');
 		$val->add_field('payroll_period', 'Payroll Period', 'required|max_length[255]');
 		$val->add_field('total_deductions', 'Total Deductions', 'required');

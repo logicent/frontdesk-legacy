@@ -2,11 +2,11 @@
 
 namespace Fuel\Migrations;
 
-class Create_hr_salary_slips
+class Create_salary_slip
 {
 	public function up()
 	{
-		\DBUtil::create_table('hr_salary_slips', array(
+		\DBUtil::create_table('salary_slip', array(
 			'id' => array('type' => 'int', 'unsigned' => true, 'null' => false, 'auto_increment' => true, 'constraint' => '11'),
 			'code' => array('constraint' => '20', 'type' => 'varchar', '20' => true),
 			'name' => array('constraint' => '140', 'type' => 'varchar', '140' => true),
@@ -32,6 +32,6 @@ class Create_hr_salary_slips
 
 	public function down()
 	{
-		\DBUtil::drop_table('hr_salary_slips');
+		\DBUtil::drop_table('salary_slip');
 	}
 }

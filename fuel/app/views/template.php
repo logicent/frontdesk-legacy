@@ -116,59 +116,28 @@
                                     <?php endif ?>
                                 </div>
                             </li>
+                            <?php
+                            foreach ($menu_list as $menu_group) : 
+                                if (empty($menu_group) || !$menu_group['visible']) :
+                                    continue;
+                                endif;
+                            ?>
                             <li>
-                                <!-- Wait(ing) List -->
-                                <a href="#"><i class="fa fa-lg fa-book fa-fw text-default"></i>&emsp;Registers<span class="fa arrow"></span></a>
+                                <a href="#"><i class="fa fa-lg <?= $menu_group['icon'] ?> fa-fw text-default"></i>&emsp;<?= $menu_group['name'] ?><span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
-                                    <li><a href="<?= Uri::create('registers/reservation'); ?>"><i class=""></i>&emsp;Reservation</a></li>
-                                    <li><a href="<?= Uri::create('registers/booking'); ?>"><i class=""></i>&emsp;Booking</a></li>
-                                    <li><a href="<?= Uri::create('registers/lease'); ?>"><i class=""></i>&emsp;Lease</a></li>
-                                    <li><a href="<?= Uri::create('registers/customer'); ?>"><i class=""></i>&emsp;Customer</a></li>
-                                    <li><a href="<?= Uri::create('registers/partner'); ?>"><i class=""></i>&emsp;Partner</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-lg fa-money fa-fw text-success"></i>&emsp;Billing &amp; Payments<span class="fa arrow"></span></a>
-                                <ul class="nav nav-second-level">
-                                    <li><a href="<?= Uri::create('accounts/sales-invoice'); ?>"><i class=""></i>&emsp;Sales Invoice</a></li>
-                                    <li><a href="<?= Uri::create('accounts/sales-receipt'); ?>">&emsp;Sales Receipt</a></li>
-                                    <li><a href="<?= Uri::create('accounts/expenses'); ?>">&emsp;Expenses</a></li>
-                                    <li><a href="<?= Uri::create('accounts/bank-deposit'); ?>">&emsp;Bank Deposit</a></li>
-                                    <!--<li><a href="<?= Uri::create('accounts/gift-voucher'); ?>">&emsp;Gift Vouchers</a></li>-->
+                            <?php 
+                                foreach ($menu_group['items'] as $menu_item) : 
+                                    if (!$menu_item['visible']) :
+                                        continue;
+                                    endif;                                
+                                ?>
+                                    <li><a href="<?= Uri::create($menu_item['route']); ?>"><i class=""></i>&emsp;<?= $menu_item['label'] ?></a></li>
+                            <?php
+                                endforeach; ?>
                                 </ul>
                             </li>
                             <?php
-                                if ($ugroup->id == 6 || $ugroup->id == 5) : ?>
-                            <li>
-                                <a href="#"><i class="fa fa-lg fa-users fa-fw text-success"></i>&emsp;Payroll<span class="fa arrow"></span></a>
-                                <ul class="nav nav-second-level">
-                                    <!--<li><a href="<?= Uri::create('hr/payslip'); ?>"><i class=""></i>&emsp;Payslip</a></li>-->
-                                    <li><a href="<?= Uri::create('hr/employee'); ?>"><i class=""></i>&emsp;Employee</a></li>
-                                    <!--<li><a href="<?= Uri::create('hr/salary-structure'); ?>"><i class=""></i>&emsp;Salary Structure</a></li>-->
-                                    <!--<li><a href="<?= Uri::create('hr/salary-component'); ?>"><i class=""></i>&emsp;Salary Component</a></li>-->
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-lg fa-building fa-fw text-danger"></i>&emsp;Facilities<span class="fa arrow"></span></a>
-                                <ul class="nav nav-second-level">
-                                    <li><a href="<?= Uri::create('facilities/rates'); ?>"><i class=""></i>&emsp;Rates</a></li>
-                                    <li><a href="<?= Uri::create('facilities/rate-type'); ?>"><i class=""></i>&emsp;Rate Type</a></li>
-                                    <li><a href="<?= Uri::create('facilities/units'); ?>"><i class=""></i>&emsp;Units</a></li>
-                                    <li><a href="<?= Uri::create('facilities/unit-type'); ?>"><i class=""></i>&emsp;Unit Type</a></li>
-                                    <li><a href="<?= Uri::create('facilities/property'); ?>"><i class=""></i>&emsp;Property</a></li>
-                                    <li><a href="<?= Uri::create('facilities/services'); ?>"><i class=""></i>&emsp;Services</a></li>                                
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="<?= Uri::segment(1) == 'users' ? 'active' : '' ?>" href="<?= Uri::create('users'); ?>">
-                                    <i class="fa fa-lg fa-users fa-fw text-warning"></i>&emsp;Users</a>
-                            </li>
-                            <li>
-                                <a class="<?= Uri::segment(1) == 'settings' ? 'active' : '' ?>" href="<?= Uri::create('settings'); ?>">
-                                    <i class="fa fa-lg fa-cog fa-fw text-muted"></i>&emsp;Settings</a>
-                            </li>
-                            <?php
-                                endif; ?>
+                            endforeach; ?>
                         </ul>   <!-- /#side-menu -->
                     </div>  <!-- /.sidebar-collapse -->
                 </div>  <!-- /.navbar-static-side -->

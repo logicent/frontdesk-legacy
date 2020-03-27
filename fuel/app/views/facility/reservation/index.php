@@ -75,7 +75,7 @@
             <?php if ($ugroup->id == 5) : ?>
 				<?= Html::anchor('facility/reservation/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw"></i>',
                                 array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
-            <? endif ?>
+            <?php endif ?>
 			</td>
 		</tr>
 <?php endforeach; ?>

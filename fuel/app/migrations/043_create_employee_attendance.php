@@ -2,11 +2,11 @@
 
 namespace Fuel\Migrations;
 
-class Create_hr_attendances
+class Create_employee_attendance
 {
 	public function up()
 	{
-		\DBUtil::create_table('hr_attendances', array(
+		\DBUtil::create_table('employee_attendance', array(
 			'id' => array('type' => 'int', 'unsigned' => true, 'null' => false, 'auto_increment' => true, 'constraint' => '11'),
 			'employee_id' => array('constraint' => '11', 'null' => false, 'type' => 'int'),
 			'work_day' => array('null' => false, 'type' => 'date'),
@@ -19,6 +19,6 @@ class Create_hr_attendances
 
 	public function down()
 	{
-		\DBUtil::drop_table('hr_attendances');
+		\DBUtil::drop_table('employee_attendance');
 	}
 }
