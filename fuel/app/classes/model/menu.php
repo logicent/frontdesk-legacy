@@ -108,7 +108,7 @@ class Model_Menu extends \Orm\Model
                         'label'  => 'Payslip',
                         'route'  => 'hr/payslip',
                         // 'icon' => 'fa-users',
-                        'description' => 'Track employee salary payments data',
+                        'description' => 'Manage employee salary payments detail',
                         'visible' => true,
                     ),
                     array(
@@ -116,7 +116,15 @@ class Model_Menu extends \Orm\Model
                         'label'  => 'Employee Attendance',
                         'route'  => 'hr/employee-attendance',
                         // 'icon' => 'fa-users',
-                        'description' => 'Track employee attendance data',
+                        'description' => 'Capture employee attendance virtually or remotely',
+                        'visible' => false,
+                    ),
+                    array(
+                        'id'     => 'timesheets',
+                        'label'  => 'Timesheets',
+                        'route'  => 'hr/timesheets',
+                        // 'icon' => 'fa-users',
+                        'description' => 'Time tracking for employee tasks',
                         'visible' => false,
                     ),                    
                     array(
@@ -124,7 +132,7 @@ class Model_Menu extends \Orm\Model
                         'label'  => 'Employee',
                         'route'  => 'hr/employee',
                         // 'icon' => 'fa-users',
-                        'description' => 'Track employee master data',
+                        'description' => 'Manage employee master data',
                         'visible' => true,
                     ),
                     array(
@@ -132,7 +140,7 @@ class Model_Menu extends \Orm\Model
                         'label'  => 'Salary Structure',
                         'route'  => 'hr/salary-structure',
                         // 'icon' => 'fa-users',
-                        'description' => 'Create/update salary structures master data',
+                        'description' => 'Create/update salary structures to make payslips',
                         'visible' => false,
                     ),
                     array(
@@ -140,7 +148,7 @@ class Model_Menu extends \Orm\Model
                         'label'  => 'Salary Component',
                         'route'  => 'hr/salary-component',
                         // 'icon' => 'fa-users',
-                        'description' => 'Create/update salary components master data',
+                        'description' => 'Create/update salary components to make payslips or structures',
                         'visible' => true,
                     ),
                 )
@@ -156,7 +164,7 @@ class Model_Menu extends \Orm\Model
                         'label'  => 'Rates',
                         'route'  => 'facilities/rates',
                         // 'icon' => 'fa-users',
-                        'description' => 'Create property rates master data',
+                        'description' => 'Create property rates by designated use case',
                         'visible' => true,
                     ),
                     array(
@@ -164,7 +172,7 @@ class Model_Menu extends \Orm\Model
                         'label'  => 'Rate Type',
                         'route'  => 'facilities/rate-type',
                         // 'icon' => 'fa-users',
-                        'description' => 'Create property rate type master data',
+                        'description' => 'Create property rate type by designated use case',
                         'visible' => true,
                     ),
                     array(
@@ -172,7 +180,7 @@ class Model_Menu extends \Orm\Model
                         'label'  => 'Units',
                         'route'  => 'facilities/units',
                         // 'icon' => 'fa-users',
-                        'description' => 'Create property units master data',
+                        'description' => 'Create property units available for sale',
                         'visible' => true,
                     ),
                     array(
@@ -180,7 +188,7 @@ class Model_Menu extends \Orm\Model
                         'label'  => 'Unit Type',
                         'route'  => 'facilities/unit-type',
                         // 'icon' => 'fa-users',
-                        'description' => 'Create property unit type master data',
+                        'description' => 'Create property unit type by functional use',
                         'visible' => true,
                     ), 
                     array(
@@ -188,7 +196,7 @@ class Model_Menu extends \Orm\Model
                         'label'  => 'Property',
                         'route'  => 'facilities/property',
                         // 'icon' => 'fa-users',
-                        'description' => 'Track property master data',
+                        'description' => 'Manage property detail and related data',
                         'visible' => true,
                     ),
                     array(
@@ -196,7 +204,7 @@ class Model_Menu extends \Orm\Model
                         'label'  => 'Services',
                         'route'  => 'facilities/services',
                         // 'icon' => 'fa-users',
-                        'description' => 'Track services master data',
+                        'description' => 'List services offered and/or applicable rates',
                         'visible' => true,
                     ),                    
                 )

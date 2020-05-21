@@ -13,7 +13,10 @@
         "fuel/oil": "1.8.*",
         "fuel/orm": "1.8.*",
         "fuel/parser": "1.8.*",
-        "fuelphp/upload": "2.0.6"
+        "fuelphp/upload": "2.0.6",
+        "smodav/mpesa": "^5.1",
+        "safaricom/mpesa": "^1.0",
+        "mike42/escpos-php": "^3.0"
     },
     "require-dev": {
         "fuel/docs": "1.8.*"
@@ -39,6 +42,9 @@
     "scripts": {
         "post-install-cmd": [
             "php oil r install"
+        ],
+        "post-update-cmd": [
+            "SmoDav\\Mpesa\\Support\\Installer::install"
         ]
     },
     "minimum-stability": "stable"

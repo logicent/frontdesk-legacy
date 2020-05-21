@@ -7,7 +7,6 @@ class Controller_Hr_Salary_Slip extends Controller_Authenticate
 		$data['hr_salary_slips'] = Model_Hr_Salary_Slip::find('all');
 		$this->template->title = "Salary Slips";
 		$this->template->content = View::forge('hr/salary/slip/index', $data);
-
 	}
 
 	public function action_view($id = null)
@@ -54,7 +53,6 @@ class Controller_Hr_Salary_Slip extends Controller_Authenticate
 				if ($hr_salary_slip and $hr_salary_slip->save())
 				{
 					Session::set_flash('success', 'Added Salary Slip'.$hr_salary_slip->name.'.');
-
 					Response::redirect('hr/salary/slip');
 				}
 
@@ -71,7 +69,6 @@ class Controller_Hr_Salary_Slip extends Controller_Authenticate
 
 		$this->template->title = "Salary Slips";
 		$this->template->content = View::forge('hr/salary/slip/create');
-
 	}
 
 	public function action_edit($id = null)

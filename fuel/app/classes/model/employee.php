@@ -91,7 +91,7 @@ class Model_Employee extends Model
 						->from(self::$_table_name)
 						->where([
                             'inactive' => false,
-                            ['employee_type', 'in', $type]
+                            // ['employee_type', 'in', $type]
                         ])
 						->execute()
 						->as_array();

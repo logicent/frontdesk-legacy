@@ -8,9 +8,7 @@
         <?= Asset::css(
             array(
                 '//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css',
-                // 'vendor/yeti.bootstrap.min.css',
                 'vendor/united.bootstrap.min.css',
-                // '../font-awesome/css/font-awesome.css',
                 '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
                 'sb-admin.css', // SB Admin Scripts
                 'custom.css',
