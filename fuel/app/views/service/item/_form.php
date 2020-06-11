@@ -25,7 +25,7 @@
 
     <div class="form-group">
         <div class="col-md-3">
-            <?= Form::label('Qty', 'qty', array('class'=>'control-label')); ?>
+            <?= Form::label('Units', 'qty', array('class'=>'control-label')); ?>
             <?= Form::input('qty', Input::post('qty', isset($service_item) ? $service_item->qty : 
                             Model_Service_Item::getColumnDefault('qty')), 
                             array('class' => 'col-md-4 form-control')); ?>

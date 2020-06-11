@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-6">
-		<h2>Listing <span class='text-muted'>Sales Receipt</span></h2>
+		<h2>Listing <span class='text-muted'>Payments</span></h2>
 	</div>
 	<div class="col-md-6">
 		<br>
@@ -13,20 +13,20 @@
 <table class="table table-hover datatable">
 	<thead>
 		<tr>
-			<th>Reference</th>
+			<th>Receipt / Trans Ref.</th>
 			<th>Date</th>
 			<th>Payer</th>
-			<th>Amount</th>
+			<th class="text-right">Amount</th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>
 	<tbody>
 <?php foreach ($payment_receipts as $item): ?>
-		<tr class="<?php // $item->amount > 0 ? : 'strikeout text-muted' ?>">
+		<tr>
 			<td>
-                <?php // if ($item->amount > 0) : ?>
-					<?= Html::anchor('accounts/payment/receipt/edit/'.$item->id, $item->reference, ['class' => 'clickable']); ?>
-				<?php // endif; ?>
+				<?= Html::anchor('accounts/payment/receipt/edit/'.$item->id, 
+								$item->receipt_number . '&nbsp;/&nbsp;' . $item->reference, 
+								['class' => 'clickable']); ?>
             </td>
 			<td><?= date('d-M-Y', strtotime($item->date)); ?></td>
 			<td><?= $item->payer; ?></td>

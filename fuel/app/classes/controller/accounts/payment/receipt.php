@@ -8,7 +8,9 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 		$data['payment_receipts'] = Model_Accounts_Payment_Receipt::find(
                                         'all', 
                                         array(
-                                            'where' =>  array(array('deleted_at', '<>', '')), 
+                                            // 'where' =>  array(
+											// 	array('deleted_at', '<>', null)
+											// ), 
                                             'order_by' => array('receipt_number' => 'desc'), 
                                             'limit' => 1000)
                                         );
@@ -18,17 +20,15 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('accounts/sales-receipts');
+		is_null($id) and Response::redirect('accounts/sales-receipt');
 
 		if ( ! $data['payment_receipt'] = Model_Accounts_Payment_Receipt::find($id))
 		{
 			Session::set_flash('error', 'Could not find cash receipt #'.$id);
-			Response::redirect('accounts/sales-receipts');
+			Response::redirect('accounts/sales-receipt');
 		}
-
 		$this->template->title = "Receipts";
 		$this->template->content = View::forge('accounts/payment/receipt/view', $data);
-
 	}
 
 	public function action_create($bill_id = null)
@@ -39,7 +39,6 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 		if (Input::method() == 'POST')
 		{
 			$val = Model_Accounts_Payment_Receipt::validate('create');
-
 			if ($val->run())
 			{
                 // upload and save the file
@@ -50,7 +49,9 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
                 
 				$payment_receipt = Model_Accounts_Payment_Receipt::forge(array(
 					'receipt_number' => Input::post('receipt_number'),
-					'bill_id' => Input::post('bill_id'),
+					'type' => Input::post('type'),
+					'source' => Input::post('source'),
+					'source_id' => Input::post('source_id'),
 					'date' => Input::post('date'),
 					'payer' => Input::post('payer'),
 					'payment_method' => Input::post('payment_method'),
@@ -67,8 +68,17 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 				try {
 					if ($payment_receipt and $payment_receipt->save())
 					{
-						// update Invoice and Guest Card
-						Model_Accounts_Payment_Receipt::updateInvoiceSettlement($bill, $payment_receipt->amount);
+						// update Order/Invoice and Guest Card
+						if ($payment_receipt->source == Model_Sales_Invoice::INVOICE_SOURCE_LEASE)
+							$bill = Model_Lease::find($payment_receipt->source_id);
+						if ($payment_receipt->source == Model_Sales_Invoice::INVOICE_SOURCE_BOOKING)
+							$bill = Model_Facility_Booking::find($payment_receipt->source_id);
+						if ($payment_receipt->source == Model_Sales_Invoice::INVOICE_SOURCE_INVOICE)
+						{
+							$bill = Model_Sales_Invoice::find($payment_receipt->source_id);
+							Model_Accounts_Payment_Receipt::updateInvoiceSettlement($bill, $payment_receipt->amount);
+						}
+						// Check the source/type and update accordingly
 						Session::set_flash('success', 'Added cash receipt #'.$payment_receipt->receipt_number.'.');
 						Response::redirect('accounts/payment/receipt/view/'.$payment_receipt->id);
 					}
@@ -83,28 +93,27 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 				Session::set_flash('error', $val->error());
 			}
 		}
-
 		$this->template->title = "Receipts";
 		$this->template->content = View::forge('accounts/payment/receipt/create');
-
 	}
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('accounts/sales-receipts');
+		is_null($id) and Response::redirect('accounts/sales-receipt');
 
 		if ( ! $payment_receipt = Model_Accounts_Payment_Receipt::find($id))
 		{
 			Session::set_flash('error', 'Could not find cash receipt #'.$id);
-			Response::redirect('accounts/sales-receipts');
+			Response::redirect('accounts/sales-receipt');
 		}
 
 		$val = Model_Accounts_Payment_Receipt::validate('edit');
-
 		if ($val->run())
 		{
 			$payment_receipt->receipt_number = Input::post('receipt_number');
-			$payment_receipt->bill_id = Input::post('bill_id');
+			$payment_receipt->type = Input::post('type');
+			$payment_receipt->source = Input::post('source');
+			$payment_receipt->source_id = Input::post('source_id');
 			$payment_receipt->date = Input::post('date');
 			$payment_receipt->payer = Input::post('payer');
 			$payment_receipt->payment_method = Input::post('payment_method');
@@ -120,22 +129,21 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 			if ($payment_receipt->save())
 			{
 				Session::set_flash('success', 'Updated cash receipt #' . $payment_receipt->receipt_number);
-
-				Response::redirect('accounts/sales-receipts');
+				Response::redirect('accounts/sales-receipt');
 			}
-
 			else
 			{
 				Session::set_flash('error', 'Could not update cash receipt #' . $id);
 			}
 		}
-
 		else
 		{
 			if (Input::method() == 'POST')
 			{
 				$payment_receipt->receipt_number = $val->validated('receipt_number');
-				$payment_receipt->bill_id = $val->validated('bill_id');
+				$payment_receipt->type = $val->validated('type');
+				$payment_receipt->source = $val->validated('source');
+				$payment_receipt->source_id = $val->validated('source_id');
 				$payment_receipt->date = $val->validated('date');
 				$payment_receipt->payer = $val->validated('payer');
 				$payment_receipt->payment_method = $val->validated('payment_method');
@@ -150,17 +158,15 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 
 				Session::set_flash('error', $val->error());
 			}
-
 			$this->template->set_global('payment_receipt', $payment_receipt, false);
 		}
-
 		$this->template->title = "Receipts";
 		$this->template->content = View::forge('accounts/payment/receipt/edit');
 	}
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('accounts/sales-receipts');
+		is_null($id) and Response::redirect('accounts/sales-receipt');
 
 		if (Input::method() == 'POST')
 		{		
@@ -188,9 +194,7 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 		{
 			Session::set_flash('error', 'Delete is not allowed');
 		}
-		
-		Response::redirect('accounts/sales-receipts');
-
+		Response::redirect('accounts/sales-receipt');
 	}
 
 	public function action_to_print($id)

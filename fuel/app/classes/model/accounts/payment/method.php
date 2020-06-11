@@ -19,11 +19,11 @@ class Model_Accounts_Payment_Method extends Model
 	protected static $_observers = array(
 		'Orm\Observer_CreatedAt' => array(
 			'events' => array('before_insert'),
-			'mysql_timestamp' => false,
+			'mysql_timestamp' => true,
 		),
 		'Orm\Observer_UpdatedAt' => array(
 			'events' => array('before_save'),
-			'mysql_timestamp' => false,
+			'mysql_timestamp' => true,
 		),
 	);
 
@@ -42,16 +42,14 @@ class Model_Accounts_Payment_Method extends Model
 	{
 		$items = DB::select('code','name')
 						->from(self::$_table_name)
-                        // ->where(['inactive' => false])
+                        ->where(array('enabled' => true))
 						->execute()
 						->as_array();
 
-        $list_options = array('' => '');
-        
+		$list_options = array('' => '');
 		foreach($items as $item) {
 			$list_options[$item['code']] = $item['name'];
         }
-        
 		return $list_options;
 	}
 }

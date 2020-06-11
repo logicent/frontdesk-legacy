@@ -81,16 +81,19 @@ class Model_Unit_Type extends Model
 		)
     );
     
-    public static function listOptionsUsedFor()
+    public static function listOptionsUsedFor($business)
     {
-        // get from service type
-        return array(
-            // accommodation
-            'A' => 'Accommodation',
-            'R' => 'Rental',
-            // 'RR' => 'Rental Residential',
-            // 'RC' => 'Rental Commercial',
-            'H' => 'Hire',
-        );
+		// get from services in business
+		$services = array();
+		if ($business->service_accommodation)
+			$services[Model_Service_Type::SERVICE_TYPE_ACCOMMODATION] = 'Accommodation';
+		if ($business->service_rental)
+			$services[Model_Service_Type::SERVICE_TYPE_RENTAL] = 'Rental';
+            // 'RR' => 'Rental Residential'
+			// 'RC' => 'Rental Commercial'
+		if ($business->service_hire)
+			$services[Model_Service_Type::SERVICE_TYPE_HIRE] = 'Hire';
+		
+		return $services;
     }
 }

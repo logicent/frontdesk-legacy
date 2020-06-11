@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-6">
-        <h2>Listing <span class='text-muted'>Sales Invoice</span>&ensp;
+        <h2>Listing <span class='text-muted'>Invoices</span>&ensp;
         <span class="btn-group list-filters">
             <?= Html::anchor('accounts/sales-invoice', 
                             'All', array('class' => "btn btn-sm btn-default", 'data-status' => '')); ?>

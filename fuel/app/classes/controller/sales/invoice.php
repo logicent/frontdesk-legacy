@@ -19,12 +19,10 @@ class Controller_Sales_Invoice extends Controller_Authenticate
                                         'order_by' => array('invoice_num' => 'desc'), 
                                         'limit' => 1000));
 		}
-
 		$data['status'] = $status;
         
 		$this->template->title = "Invoices";
 		$this->template->content = View::forge('sales/invoice/index', $data);
-
 	}
 
 	public function action_view($id = null)
@@ -36,10 +34,8 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 			Session::set_flash('error', 'Could not find invoice #'.$id);
 			Response::redirect('accounts/sales-invoice');
 		}
-
 		$this->template->title = "Invoice";
 		$this->template->content = View::forge('sales/invoice/view', $data);
-
 	}
 
 	public function action_create($id = null)
@@ -77,27 +73,29 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 				try 
 				{
 					DB::start_transaction();
-
+					
 					if ($sales_invoice and $sales_invoice->save())
 					{
 						// save the line item(s)
-						for ($i=1; $i < count(Input::post('item_id')); $i++)
+						$item = Input::post('item');
+						// re-index array starting with 1 not 0 (resolves row_id mixup in UI)
+						$item = array_combine(range(1, count($item)), array_values($item));
+						$item_count = count($item);						
+						for ($i = 1; $i <= $item_count; $i++)
 						{
 							$sales_invoice_item = Model_Sales_Invoice_Item::forge(array(
-								'item_id' => Input::post("item_id")[$i],
-								'qty' => Input::post("qty")[$i],
-								'unit_price' => Input::post("unit_price")[$i],
-								'amount' => Input::post("amount")[$i],
+								'item_id' => $item[$i]['item_id'],
+								'qty' => $item[$i]['qty'],
+								'unit_price' => $item[$i]['unit_price'],
+								'amount' => $item[$i]['amount'],
 								'invoice_id' => $sales_invoice->id,
-								'discount_percent' => Input::post("discount_percent")[$i],
-								'gl_account_id' => null, // Input::post("gl_account_id")[$i],
-								'description' => Input::post("description")[$i],
+								'discount_percent' => $item[$i]['discount_percent'],
+								'gl_account_id' => null, // $item[$i]['gl_account_id'],
+								'description' => $item[$i]['description'],
 							));
 							$sales_invoice_item->save();
 						}
-
-						DB::commit_transaction();
-						
+						DB::commit_transaction();		
 						Session::set_flash('success', 'Added invoice #'.$sales_invoice->id.'.');
 						Response::redirect('accounts/sales-invoice');
 					}
@@ -118,7 +116,6 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 				Session::set_flash('error', $val->error());
 			}
 		}
-
         // !!! check the source and load correct model ref
 		// $booking = Model_Facility_Booking::find($id);
 		// $lease = Model_Lease::find($id);
@@ -133,13 +130,12 @@ class Controller_Sales_Invoice extends Controller_Authenticate
                         ->from('service_item')
                         ->where(array('billable' => true, 'enabled' => true))
                         ->execute()
-                        ->as_array();
-        
+						->as_array();
+
 		$this->template->set_global('service_item', json_encode($services), false);
 
 		$this->template->title = "Invoices";
 		$this->template->content = View::forge('sales/invoice/create');
-
 	}
 
 	public function action_edit($id = null)
@@ -183,54 +179,52 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 		
 			try {
 				DB::start_transaction();
-			
 				if ($sales_invoice->save())
 				{
 					// save the line item(s)
-					for ($i=1; $i < count(Input::post('item_id')); $i++)
+					$item = Input::post('item');
+					// re-index array starting with 1 not 0 (resolves row_id mixup in UI)
+					$item = array_combine(range(1, count($item)), array_values($item));
+					$item_count = count($item);
+					for ($i = 1; $i <= $item_count; $i++)
 					{
-						if ( ! $sales_invoice_item = Model_Sales_Invoice_item::find($id) )
+						if ( ! $sales_invoice_item = Model_Sales_Invoice_item::find($item[$i]['id']) )
 						{
 							$sales_invoice_item = Model_Sales_Invoice_Item::forge(array(
-								'item_id' => Input::post("item_id")[$i],
-								'qty' => Input::post("qty")[$i],
-								'unit_price' => Input::post("unit_price")[$i],
-								'amount' => Input::post("amount")[$i],
+								'item_id' => $item[$i]['item_id'],
+								'qty' => $item[$i]['qty'],
+								'unit_price' => $item[$i]['unit_price'],
+								'amount' => $item[$i]['amount'],
 								'invoice_id' => $sales_invoice->id,
-								'discount_percent' => Input::post("discount_percent")[$i],
-								'gl_account_id' => null, // Input::post("gl_account_id")[$i],
-								'description' => Input::post("description")[$i],
+								'discount_percent' => $item[$i]['discount_percent'],
+								'gl_account_id' => null, // $item[$i]['gl_account_id'],
+								'description' => $item[$i]['description'],
 							));
 						}
 						else {
-							$sales_invoice_item->item_id = Input::post('item_id')[$i];
-							$sales_invoice_item->qty = Input::post('qty')[$i];
-							$sales_invoice_item->unit_price = Input::post('unit_price')[$i];
-							$sales_invoice_item->amount = Input::post('amount')[$i];
-							$sales_invoice_item->invoice_id = Input::post('invoice_id')[$i];
-							$sales_invoice_item->discount_percent = Input::post('discount_percent')[$i];
-							$sales_invoice_item->gl_account_id = null; // Input::post('gl_account_id')[$i];
-							$sales_invoice_item->description = Input::post('description')[$i];
+							$sales_invoice_item->item_id = $item[$i]['item_id'];
+							$sales_invoice_item->qty = $item[$i]['qty'];
+							$sales_invoice_item->unit_price = $item[$i]['unit_price'];
+							$sales_invoice_item->amount = $item[$i]['amount'];
+							$sales_invoice_item->invoice_id = $sales_invoice->id;
+							$sales_invoice_item->discount_percent = $item[$i]['discount_percent'];
+							$sales_invoice_item->gl_account_id = null; // $item[$i]['gl_account_id'];
+							$sales_invoice_item->description = $item[$i]['description'];
 						}
-
 						$sales_invoice_item->save();
 					}
-
 					DB::commit_transaction();
-	
 					Session::set_flash('success', 'Updated invoice #' . $id);
 				}
 				else
 				{
 					Session::set_flash('error', 'Could not update invoice #' . $id);
 				}
-				
 				Response::redirect('accounts/sales-invoice');
 			}
 			catch (Fuel\Core\Database_Exception $e)
 			{
 				DB::rollback_transaction();
-
 				Session::set_flash('error', $e->getMessage());
 				// throw $e;
 			}
@@ -262,13 +256,10 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 
 				Session::set_flash('error', $val->error());
 			}
-
 			$this->template->set_global('sales_invoice', $sales_invoice, false);
 		}
-		
 		$this->template->title = "Invoices";
 		$this->template->content = View::forge('sales/invoice/edit');
-
 	}
 
 	public function action_delete($id = null)
@@ -277,18 +268,59 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 
 		if ($sales_invoice = Model_Sales_Invoice::find($id))
 		{
-	        $result = $sales_invoice->delete();
-			
+	        $result = $sales_invoice->delete();			
 	        Session::set_flash('success', 'Deleted invoice #'.$id);
 		}
 		else
 		{
 			Session::set_flash('error', 'Could not delete invoice #'.$id);
 		}
-            
 		Response::redirect('accounts/sales-invoice');
-
 	}
 
+	public function action_get_source_list_options()
+	{
+		$source = Input::post('source');
+		$listOptions = [];
 
+        if (Input::is_ajax());
+			switch ($source)
+			{
+				case 'Lease': 
+					$listOptions = Model_Lease::listOptions();
+				break;
+				case 'Booking':
+					$listOptions = Model_Facility_Booking::listOptions();
+				break;
+				default:
+			}
+        
+        return json_encode($listOptions);
+	}
+
+	public function action_get_source_info()
+	{
+		$source = Input::post('source');
+		$source_id = Input::post('source_id');
+
+		$data = [];
+
+        if (Input::is_ajax());
+			switch ($source)
+			{
+				case 'Lease': 
+					$lease = Model_Lease::find($source_id);
+					$data['customer_name'] = $lease->tenant->customer_name;
+					$data['email_address'] = $lease->tenant->email_address;
+				break;
+				case 'Booking':
+					$booking = Model_Facility_Booking::find($source_id);
+					$data['customer_name'] = $booking->customer->customer_name;
+					$data['email_address'] = $booking->customer->email_address;
+				break;
+				default:
+			}
+        
+        return json_encode($data);
+	}
 }

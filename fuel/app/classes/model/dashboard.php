@@ -2,11 +2,9 @@
 
 class Model_Dashboard extends \Orm\Model
 {
-
     public static function get_accommodation_stats()
     {
         $data = array();
-
         $unit_types = Model_Unit_Type::find('all', 
                                             array(
                                                 'related' => array(
@@ -92,7 +90,6 @@ class Model_Dashboard extends \Orm\Model
     public static function get_rental_stats()
     {
         $data = array();
-
         $unit_types = Model_Unit_Type::find('all', 
                                             array(
                                                 'related' => array(
@@ -162,7 +159,7 @@ class Model_Dashboard extends \Orm\Model
         $data['unit_types'] = $unit_types;
 
         $data['customer_list'] = Model_Lease::find('all', array(
-                                    'related' => array('customer','bill'), 
+                                    'related' => array('tenant','bill'), 
                                     // 'where' => array( 
                                     //     array(
                                     //         'status', '!=', Model_Lease::TENANT_STATUS_OUTGOING)
@@ -175,7 +172,6 @@ class Model_Dashboard extends \Orm\Model
     public static function get_hire_stats()
     {
         $data = array();
-
         $unit_types = Model_Unit_Type::find('all', 
                                             array(
                                                 'related' => array(
@@ -245,7 +241,7 @@ class Model_Dashboard extends \Orm\Model
         $data['unit_types'] = $unit_types;
 
         $data['customer_list'] = Model_Lease::find('all', array(
-                                    'related' => array('customer','bill'), 
+                                    'related' => array('tenant','bill'), 
                                     // 'where' => array( 
                                     //     array(
                                     //         'status', '!=', Model_Lease::TENANT_STATUS_OUTGOING)

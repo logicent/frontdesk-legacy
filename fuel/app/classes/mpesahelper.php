@@ -2,7 +2,6 @@
 
 class Mpesahelper
 {
-
     public $mpesa;
 
     public function __construct($slug)

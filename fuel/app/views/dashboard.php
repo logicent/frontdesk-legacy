@@ -23,23 +23,43 @@
 <div class="row">
     <div class="col-md-12">
         <div id="dashboard_tabs" class="btn-group btn-group-justified">
+        <?php if ($business->service_accommodation) : ?>
             <a id="accommodation-tab" data-toggle="tab" href="#accommodation" class="btn btn-default"><?= strtoupper('Accommodation') ?></a>
+        <?php endif ?>
+        <?php if ($business->service_rental) : ?>
             <a id="rental-tab" data-toggle="tab" href="#rental" class="btn btn-default"><?= strtoupper('Rental') ?></a>
+        <?php endif ?>
+        <?php if ($business->service_hire) : ?>
             <a id="hire-tab" data-toggle="tab" href="#hire" class="btn btn-default"><?= strtoupper('Hire') ?></a>
+        <?php endif ?>
+        <?php if ($business->service_sale) : ?>
+            <a id="hire-tab" data-toggle="tab" href="#sale" class="btn btn-default"><?= strtoupper('Sale') ?></a>
+        <?php endif ?>
         </div>
     </div>
 </div>
 
 <div id="dashboard_tab_panels" class="tab-content">
-    <div id="accommodation" class="tab-pane fade">
-        <?= render('dashboard_a', $accommodation); ?>
-    </div>
-    <div id="rental" class="tab-pane fade">
-        <?= render('dashboard_r', $rental); ?>
-    </div>
-    <div id="hire" class="tab-pane fade">
-        <?= render('dashboard_a', $hire); ?>
-    </div>
+    <?php if ($business->service_accommodation) : ?>
+        <div id="accommodation" class="tab-pane fade">
+            <?= render('dashboard_accommodation', $accommodation); ?>
+        </div>
+    <?php endif ?>
+    <?php if ($business->service_rental) : ?>
+        <div id="rental" class="tab-pane fade">
+            <?= render('dashboard_rental', $rental); ?>
+        </div>
+    <?php endif ?>
+    <?php if ($business->service_hire) : ?>
+        <div id="hire" class="tab-pane fade">
+            <?= render('dashboard_hire', $hire); ?>
+        </div>
+    <?php endif ?>
+    <?php if ($business->service_sale) : ?>
+        <div id="sale" class="tab-pane fade">
+            <?= render('dashboard_sale', $sale); ?>
+        </div>
+    <?php endif ?>
 </div>
 
 <script>

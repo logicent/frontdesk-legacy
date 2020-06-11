@@ -177,12 +177,6 @@
                     endif ?>
                 </div>
             </div>
-
-            <div class="col-md-12">
-				<?php Form::label('Billing currency', 'billing_currency', array('class'=>'control-label')); ?>
-                <?php Form::input('billing_currency', Input::post('billing_currency', isset($customer) ? $customer->billing_currency : ''), 
-                                array('class' => 'col-md-4 form-control')); ?>
-			</div>
 		</div>
 
 		<div class="form-group">

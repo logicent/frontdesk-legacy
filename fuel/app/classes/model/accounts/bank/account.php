@@ -27,10 +27,10 @@ class Model_Accounts_Bank_Account extends Model
 		$val->add_field('name', 'Name', 'required|max_length[140]');
 		$val->add_field('account_number', 'Account Number', 'required|max_length[20]');
 		$val->add_field('financial_institution', 'Financial Institution', 'required|max_length[140]');
-		$val->add_field('starting_bal', 'Starting Balance', 'valid_string[numeric]');
-		$val->add_field('starting_date', 'Starting Date', 'valid_date');
+		// $val->add_field('starting_bal', 'Starting Balance', 'valid_string[numeric]');
+		// $val->add_field('starting_date', 'Starting Date', 'valid_date');
 		//$val->add_field('i_banking_na', 'I Banking Na', 'required');
-		$val->add_field('last_statement_date', 'Last Statement Date', 'valid_date');
+		// $val->add_field('last_statement_date', 'Last Statement Date', 'valid_date');
 
 		return $val;
 	}

@@ -33,7 +33,7 @@
 			<?= Form::select('status', Input::post('status', isset($unit) ? $unit->status : Model_Unit::UNIT_STATUS_VACANT), Model_Unit::$unit_status, array('class' => 'col-md-4 form-control', 'readonly' => isset($unit) ? true : false)); ?>
 		</div>
 	</div>
-
+	<?php if ($business->service_accommodation) : ?>
 	<div class="form-group">
 		<div class="col-md-3">
 			<?= Form::label('HK status', 'hk_status', array('class'=>'control-label')); ?>
@@ -42,9 +42,8 @@
 							array('class' => 'col-md-4 form-control', 'readonly'=>isset($unit) ? true : false)); ?>
 		</div>
     </div>
-    
+	<?php endif ?>
     <hr>
-    
     <?= Form::hidden('fdesk_user', Input::post('fdesk_user', isset($property) ? $property->fdesk_user : $uid)); ?>
 
 	<div class="form-group">

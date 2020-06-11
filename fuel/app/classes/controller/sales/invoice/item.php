@@ -6,7 +6,6 @@ class Controller_Sales_Invoice_Item extends Controller_Authenticate
 	{
 		$sales_invoice_items = Model_Sales_Invoice_Item::find('all');
 		echo json_encode($sales_invoice_items);
-
 	}
 
 	public function action_create()
@@ -14,7 +13,6 @@ class Controller_Sales_Invoice_Item extends Controller_Authenticate
         if (Input::is_ajax())
         {
 			$data['row_id'] = Input::post('next_row_id');
-
             return View::forge('sales/invoice/item/_form', $data);
         }
 	}

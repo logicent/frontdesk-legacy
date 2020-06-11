@@ -1,6 +1,7 @@
 <table id="items" class="table table-hover">
 	<thead>
 		<tr>
+		<!-- TODO: hide this column if view mode -->
 			<th class="col-md-1 text-center">
 				<?= Form::checkbox('select_all_rows', false, array('id' => 'select_all_rows')) ?>
 			</th>
@@ -8,7 +9,7 @@
 			<th class="col-md-2">Qty</th>
 			<th class="col-md-2">Price</th><!--
 			<th>Disc %</th>-->
-			<th class="col-md-2 text-right">Total</th>
+			<th class="col-md-2 text-right">Amount</th>
 		</tr>
 	</thead>
 	<tbody id="item_detail">
@@ -22,27 +23,28 @@
 <?php
     endif ?>
 	</tbody>
-	<tfoot id="item_summary">
+	<tfoot id="item_summary" style="display: none">
 		<tr id="tr_subtotal">
-			<th colspan="4" class="text-right"><span>Subtotal</span></th>
+			<td rowspan="3" colspan="3" style="border-right: 1px solid #dddddd"></td>
+			<th class="text-right" style="border-right: 1px solid #dddddd"><span>Subtotal</span></th>
 			<td class="text-right">
 				<span id="subtotal"></span>
 			</td>
-		</tr><!--
+		</tr>
 		<tr id="tr_discount">
-			<th colspan="4" class="text-right"><span>Add Discount</span></th>
+			<th class="text-right" style="border-right: 1px solid #dddddd"><span>Discount</span></th>
 			<td class="text-right">
 				<span id="discount"></span>
 			</td>
-		</tr>-->
+		</tr>
 		<tr id="tr_tax_total">
-			<th colspan="4" class="text-right"><span>Tax</span></th>
+			<th class="text-right"><span>Vat</span></th>
 			<td class="text-right">
 				<span id="tax_total"></span>
 			</td>
 		</tr>
 		<tr id="tr_grand_total">
-			<th colspan="4" class="text-right"><span>Total</span></th>
+			<th class="text-right" style="border-right: 1px solid #dddddd"><span>Total</span></th>
 			<td class="text-right">
 				<span id="grand_total"></span>
 			</td>
@@ -50,17 +52,18 @@
 	</tfoot>
 </table>
 
+<!-- TODO: hide buttons if view mode -->
 <div class="form-group">
     <div class="col-md-6">
         <button id="del_item" data-url="/accounts/sales-invoice/del-item" class="btn btn-sm btn-danger" style="display: none;">Delete</button>
         <button id="add_item" data-url="/accounts/sales-invoice/add-item" class="btn btn-sm btn-default">Add item</button>
     </div>
-
+	<!--
     <div class="col-md-6 text-right">
-        <?= Form::hidden('amounts_tax_inc', Input::post('amounts_tax_inc', isset($sales_invoice) ? $sales_invoice->amounts_tax_inc : '0')); ?>
-        <?= Form::checkbox('cb_amounts_tax_inc', null, array('class' => 'cb-checked', 'data-input' => 'amounts_tax_inc')); ?>
-        <?= Form::label('Amount is VAT incl.', 'cb_amounts_tax_inc', array('class'=>'control-label')); ?>		
-    </div>
+        <?php Form::hidden('amounts_tax_inc', Input::post('amounts_tax_inc', isset($sales_invoice) ? $sales_invoice->amounts_tax_inc : '0')); ?>
+        <?php Form::checkbox('cb_amounts_tax_inc', null, array('class' => 'cb-checked', 'data-input' => 'amounts_tax_inc')); ?>
+        <?php Form::label('Amount is VAT incl.', 'cb_amounts_tax_inc', array('class'=>'control-label')); ?>		
+    </div>-->
 </div>
 
 <script>
@@ -69,8 +72,12 @@ $(window).on('load', function()
 	$('#add_item').on('click',
 		function(e) {
 			el_table_body = $('#items').find('tbody')
-			last_row_id = el_table_body.find('tr').length
-
+			last_row_id = el_table_body.find('tr').not('#no_data').length
+			has_no_data = el_table_body.find('tr#no_data').length == 1
+			
+			if (has_no_data)
+				$('#no_data').remove();
+			
 			$.ajax({
 				url: $(this).data('url'),
 				type: 'post',
@@ -79,10 +86,6 @@ $(window).on('load', function()
 				},
 				success: function(response) {
 					el_table_body.append(response);
-					
-					if (last_row_id == 1)
-						$('#no_data').remove();
-					
 					el_checkbox_all = $('#select_all_rows > input');
 
 					rowCount = $('#item_detail ' + ' tbody > tr').length;
@@ -90,7 +93,6 @@ $(window).on('load', function()
 						el_checkbox_all.css('display', '');
 					else
 						el_checkbox_all.css('display', 'none');
-					
 					// displaySelectAllCheckboxIf()
 				},
 				error: function(jqXhr, textStatus, errorThrown) {
@@ -104,7 +106,7 @@ $(window).on('load', function()
 	function getLineTotal(el) 
 	{
 		el_tbody = el.closest('tbody');
-
+		// fetch all line item amount column values
 		return el_tbody.find('.item-total > input');
 	}
 
@@ -152,7 +154,6 @@ $(window).on('load', function()
 				if (line_total == '')
 					return false;
 				sum_line_total += parseFloat(line_total);
-
 				// vat_amount = item_total * item.tax_rate / (1 + item.tax_rate);
 				// sum_vat_amount += parseFloat(vat_amount);
 			});
@@ -248,50 +249,44 @@ $(window).on('load', function()
 
 	$('#del_item').on('click',
 		function(e) {
+			e.preventDefault();
 			$(this).css('display', 'none');
-
 			deleteUrl = $(this).data('url');
+			el_table_body = $('#items').find('tbody')
 
 			$('td.select-row > input:checked').each(
 				function(e) {
 					el_table_row = $(this).closest('tr');
 					el_id = el_table_row.find('td.select-row > .item-id');
-					
-					// delete row if only added in table but not persisted in DB
-					if (el_id.val() == '')
+
+					// skip AJAX call if item does not exist in DB
+					if (el_id.val() != '')
 					{
-						$(this).closest('tr').remove();
-					} 
-					else
-					{
-						// delete row from persisted DB table and also from html table
 						$.ajax({
 							url: deleteUrl,
 							type: 'post',
 							data: {
 								'id': el_id.val(),
 							},
-							success: function(response) {
-								el_table_row.remove();
-
+							success: function(response) {							
 								// alert(response);
-
-								// update totals fields
-
-								// linesTotal = getLineTotal($(this));
-								// lineInputs = getLineInputs($(this));
-								// docTotalInputs = getDocTotalInputs();
-
-								// lineInputs[2].val((lineInputs[0].val() * lineInputs[1].val()).toFixed(2));
-								// lineInputs[3].text(lineInputs[2].val());
-								// recalculateDocTotals(linesTotal, docTotalInputs);								
 							},
 							error: function(jqXhr, textStatus, errorThrown) {
 								console.log(errorThrown);
 							}
 						});
 					}
+					// assumes delete is successful if exists in DB
+					el_table_row.remove();
 				});
+
+			// update totals fields
+			linesTotal = getLineTotal(el_table_body);
+			lineInputs = getLineInputs(el_table_body);
+			docTotalInputs = getDocTotalInputs();
+			lineInputs[2].val((lineInputs[0].val() * lineInputs[1].val()).toFixed(2));
+			lineInputs[3].text(lineInputs[2].val());
+			recalculateDocTotals(linesTotal, docTotalInputs);
 
 			el_checkbox_all = $('th.select-all-rows > input');
 

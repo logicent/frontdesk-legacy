@@ -37,7 +37,7 @@ class Controller_Lease extends Controller_Authenticate
 					'reference' => Input::post('reference'),
 					'title' => Input::post('title'),
 					'customer_id' => Input::post('customer_id'),
-					'status' => Input::post('status'),
+					'status' => Model_Lease::getStatus(Input::post('end_date')),
 					'date_leased' => Input::post('date_leased'),
 					'premise_use' => Input::post('premise_use'),
 					'lease_period' => Input::post('lease_period'),
@@ -68,10 +68,8 @@ class Controller_Lease extends Controller_Authenticate
 					if ($lease and $lease->save())
 					{
 						Session::set_flash('success', 'Added lease #'.$lease->title.'.');
-
 						Response::redirect('registers/lease');
 					}
-
 					else
 					{
 						Session::set_flash('error', 'Could not save lease.');
@@ -91,7 +89,6 @@ class Controller_Lease extends Controller_Authenticate
 
 		$this->template->title = "Leases";
 		$this->template->content = View::forge('lease/create');
-
 	}
 
 	public function action_edit($id = null)
@@ -111,7 +108,7 @@ class Controller_Lease extends Controller_Authenticate
 			$lease->reference = Input::post('reference');
 			$lease->title = Input::post('title');
 			$lease->customer_id = Input::post('customer_id');
-			$lease->status = Input::post('status');
+			$lease->status = Model_Lease::getStatus($lease->end_date);
 			$lease->date_leased = Input::post('date_leased');
 			$lease->premise_use = Input::post('premise_use');
 			$lease->lease_period = Input::post('lease_period');
@@ -135,13 +132,12 @@ class Controller_Lease extends Controller_Authenticate
             $file = Filehelper::upload();
 
             if (!empty($file['saved_as']))
-                $lease->attachments = 'uploads'.DS.$file['name'];
-	 
+				$lease->attachments = 'uploads'.DS.$file['name'];
+				
 			try {
 				if ($lease->save())
 				{
 					Session::set_flash('success', 'Updated lease #' . $lease->title);
-
 					Response::redirect('registers/lease');
 				}
 				else
@@ -155,7 +151,6 @@ class Controller_Lease extends Controller_Authenticate
 				// throw $e;
 			}			
 		}
-
 		else
 		{
 			if (Input::method() == 'POST')
@@ -193,7 +188,6 @@ class Controller_Lease extends Controller_Authenticate
 
 				Session::set_flash('error', $val->error());
 			}
-
 			$this->template->set_global('lease', $lease, false);
 		}
 
@@ -226,7 +220,6 @@ class Controller_Lease extends Controller_Authenticate
 		}
 		
 		Response::redirect('registers/lease');
-
 	}
 
     public function action_get_owner_list_options()

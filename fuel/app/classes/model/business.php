@@ -3,6 +3,10 @@ use Orm\Model;
 
 class Model_Business extends Model
 {
+	const BUSINESS_TYPE_PROPERTY_OWNER = 'PO';
+	const BUSINESS_TYPE_PROPERTY_AGENT = 'PA';
+	const BUSINESS_TYPE_PROPERTY_OWNER_AGENT = 'PO_A';
+
 	protected static $_properties = array(
 		'id',
 		'business_name',
@@ -10,6 +14,10 @@ class Model_Business extends Model
 		'address',
 		'tax_identifier',
 		'business_type',
+		'service_accommodation',
+		'service_rental',
+		'service_hire',
+		'service_sale',
 		'currency_symbol',
         'email_address',
         'phone_number',
@@ -38,9 +46,9 @@ class Model_Business extends Model
     public static function listOptionsType()
 	{
 		return array(
-            'PO'    => 'Property Owner',
-            'PA'    => 'Property Agent',
-            'POPA'  => 'Property Owner / Property Agent',
+            self::BUSINESS_TYPE_PROPERTY_OWNER	=> 'Property Owner',
+            self::BUSINESS_TYPE_PROPERTY_AGENT	=> 'Property Agent / Manager',
+            self::BUSINESS_TYPE_PROPERTY_OWNER_AGENT  => 'Property Owner & Agent',
         );
 	}
 

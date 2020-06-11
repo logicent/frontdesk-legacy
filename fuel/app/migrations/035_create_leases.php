@@ -18,7 +18,7 @@ class Create_leases
             'billed_period' => array('constraint' => 140, 'type' => 'varchar'),
             'billed_amount' => array('constraint' => '10,2', 'type' => 'decimal'),
             'require_deposit'   => array('type' => 'boolean'),
-            'deposit_amount'    => array('constraint' => '10,2', 'type' => 'decimal'),
+            'deposit_amount'    => array('constraint' => '10,2', 'type' => 'decimal', 'null' => true),
             'deposit_includes'  => array('null' => true, 'type' => 'text'),
             'start_date'    => array('type' => 'date'),
             'end_date'      => array('type' => 'date'),

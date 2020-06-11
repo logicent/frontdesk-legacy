@@ -20,6 +20,14 @@ class Controller_Business extends Controller_Authenticate
 			$business->email_address = Input::post('email_address');
 			$business->phone_number = Input::post('phone_number');
 
+			if ( $this->ugroup == 6)
+			{
+				$business->service_accommodation = Input::post('service_accommodation');
+				$business->service_rental = Input::post('service_rental');
+				$business->service_hire = Input::post('service_hire');
+				$business->service_sale = Input::post('service_sale');
+			}
+
 			try {
 				// upload and save the file
 				$file = Filehelper::upload();
@@ -68,6 +76,13 @@ class Controller_Business extends Controller_Authenticate
 				$business->email_address = $val->validated('email_address');
 				$business->phone_number = $val->validated('phone_number');
 
+				if ( $this->ugroup == 6)
+				{
+					$business->service_accommodation = $val->validated('service_accommodation');
+					$business->service_rental = $val->validated('service_rental');
+					$business->service_hire = $val->validated('service_hire');
+					$business->service_sale = $val->validated('service_sale');
+				}
 				Session::set_flash('error', $val->error());
 			}
 			$this->template->set_global('business', $business, false);
@@ -108,6 +123,10 @@ class Controller_Business extends Controller_Authenticate
 					'currency_symbol' => Input::post('currency_symbol'),
                     'email_address' => Input::post('email_address'),
                     'phone_number' => Input::post('phone_number'),
+					'service_accommodation' => Input::post('service_accommodation'),
+					'service_rental' => Input::post('service_rental'),
+					'service_hire' => Input::post('service_hire'),
+					'service_sale' => Input::post('service_sale'),
 				));
                 // upload and save the file
 				$file = Filehelper::upload();

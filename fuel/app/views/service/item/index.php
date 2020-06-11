@@ -16,7 +16,7 @@
 		<tr>
 			<th>Description</th>
 			<th>Status</th>
-			<th>Qty</th>
+			<th>Units</th>
 			<th>Unit price</th>
 			<th>Code</th>
 			<th>&nbsp;</th>

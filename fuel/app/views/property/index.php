@@ -2,14 +2,12 @@
 	<div class="col-md-6">
 		<h2>Listing <span class='text-muted'>Property</span></h2>
 	</div>
-
 	<div class="col-md-6">
         <br>
 		<?= Html::anchor('property/create', 'New', array('class' => 'btn btn-primary pull-right')); ?>    
 	</div>
 </div>
 <hr>
-
 <?php if ($properties): ?>
 <table class="table table-hover datatable">
 	<thead>
@@ -33,20 +31,22 @@
                 '<i class="fa fa-circle-o fa-fw text-danger"></i>Disabled' : 
                 '<i class="fa fa-circle-o fa-fw text-success"></i>Enabled' ?>
             </td>
-			<td><?= Model_Property_Type::listOptionsPropertyType()[$item->property_type]; ?></td>
-			<td><?= $item->owner ? $item->propertyOwner->customer_name : ''; ?></td>
-			<td><?= $item->map_location; ?></td>
-			<td><?= $item->property_ref; ?></td>
+			<!-- TODO: use $property->type->name -->
+			<td><?= $item->property_type ? $item->propertyType->name : '' ?></td>
+			<td><?= $item->owner ? $item->propertyOwner->customer_name : '' ?></td>
+			<td><?= $item->map_location ?></td>
+			<td><?= $item->property_ref ?></td>
 			<td class="text-center">
 				<?= Html::anchor('property/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-fw"></i>',
-                                array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>
+                                array(
+									'class' => 'text-muted del-btn', 
+									'onclick' => "return confirm('Are you sure?')")
+								) ?>
 			</td>
 		</tr>
 <?php endforeach; ?>	
     </tbody>
 </table>
-
 <?php else: ?>
 <p>No Property found.</p>
-
 <?php endif; ?>

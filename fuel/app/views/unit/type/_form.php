@@ -49,7 +49,7 @@
             <div class="col-md-4">
                 <?= Form::label('Used for', 'used_for', array('class'=>'control-label')); ?>
                 <?= Form::select('used_for', Input::post('used_for', isset($unit_type) ? $unit_type->used_for : ''),
-                                Model_Unit_Type::listOptionsUsedFor(),
+                                Model_Unit_Type::listOptionsUsedFor($business),
                                 array('class' => 'form-control')); ?>
             </div>
         </div>

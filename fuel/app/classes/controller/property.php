@@ -119,7 +119,6 @@ class Controller_Property extends Controller_Authenticate
 
 					Response::redirect('facilities/property');
 				}
-
 				else
 				{
 					Session::set_flash('error', 'Could not update property #' . $id);
@@ -131,7 +130,6 @@ class Controller_Property extends Controller_Authenticate
 				// throw $e;
 			}
 		}
-
 		else
 		{
 			if (Input::method() == 'POST')
@@ -155,13 +153,10 @@ class Controller_Property extends Controller_Authenticate
 
 				Session::set_flash('error', $val->error());
 			}
-
 			$this->template->set_global('property', $property, false);
 		}
-
 		$this->template->title = "Property";
 		$this->template->content = View::forge('property/edit');
-
 	}
 
 	public function action_delete($id = null)

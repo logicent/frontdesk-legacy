@@ -49,7 +49,7 @@ class Model_Setting extends \Orm\Model
 	protected static $_belongs_to = array(
 	);
 
-    public static function menu_list_items()
+    public static function menu_list_items($business, $ugroup)
     {
         return array(
             'business' => array(
@@ -57,17 +57,28 @@ class Model_Setting extends \Orm\Model
                     'id'     => 'business_detail',
                     'label'  => 'Business detail',
                     'route'  => 'settings/business-detail',
-                    'icon' => '',
+                    'icon' => 'info',
                     'description' => 'Set official contact info, trading name, logo and business type',
-                    'column' => self::SETTINGS_COLUMN_RIGHT,
+                    'column' => self::SETTINGS_COLUMN_LEFT,
+                    'visible' => true, // always TRUE
                 ),
                 array(
                     'id'     => 'bank_account',
                     'label'  => 'Bank account',
                     'route'  => 'accounts/bank-account',
-                    'icon' => '',
+                    'icon' => 'bank',
                     'description' => 'Add bank accounts used to make deposits and transfers',
-                    'column' => self::SETTINGS_COLUMN_LEFT,
+                    'column' => self::SETTINGS_COLUMN_RIGHT,
+                    'visible' => true, // always TRUE
+                ),
+                array( // Booking, Invoice, Payment
+                    'id'     => 'document_serial',
+                    'label'  => 'Document serial',
+                    'route'  => null, // '#accounts/doc-serial',
+                    'icon' => 'file-o',
+                    'description' => 'Set starting/next serial for documents',
+                    'column' => self::SETTINGS_COLUMN_RIGHT,
+                    'visible' => true, // always TRUE
                 ),
             ),
             'payments' => array(
@@ -77,7 +88,8 @@ class Model_Setting extends \Orm\Model
                     'route'  => 'accounts/taxes',
                     'icon' => 'percent',
                     'description' => 'Add taxes used to apply extra fees to invoices and bills',
-                    'column' => self::SETTINGS_COLUMN_RIGHT,
+                    'column' => self::SETTINGS_COLUMN_LEFT,
+                    'visible' => true, // always TRUE
                 ),
                 array(
                     'id'     => 'payment_method',
@@ -85,7 +97,8 @@ class Model_Setting extends \Orm\Model
                     'route'  => 'accounts/payment-method',
                     'icon' => 'money',
                     'description' => 'Add payment options used to receive and make settlements',
-                    'column' => self::SETTINGS_COLUMN_LEFT,
+                    'column' => self::SETTINGS_COLUMN_RIGHT,
+                    'visible' => true, // always TRUE
                 ),
             ),
             'property' => array(
@@ -93,17 +106,19 @@ class Model_Setting extends \Orm\Model
                     'id'     => 'property_type',
                     'label'  => 'Property type',
                     'route'  => 'facilities/property-type',
-                    'icon' => '',
+                    'icon' => '', // check online
                     'description' => 'List pre-defined and user-defined property types',
-                    'column' => self::SETTINGS_COLUMN_RIGHT,
+                    'column' => self::SETTINGS_COLUMN_LEFT,
+                    'visible' => $ugroup->id == 6, // always TRUE
                 ),
                 array(
                     'id'     => 'amenities',
                     'label'  => 'Amenities',
                     'route'  => 'facilities/amenities',
-                    'icon' => '',
+                    'icon' => '', // check online
                     'description' => 'List in-house and outdoor amenities available on premises',
-                    'column' => self::SETTINGS_COLUMN_LEFT,
+                    'column' => self::SETTINGS_COLUMN_RIGHT,
+                    'visible' => false, // always TRUE
                 ),
             ),
             'services' => array(
@@ -111,25 +126,37 @@ class Model_Setting extends \Orm\Model
                     'id'     => 'service_type',
                     'label'  => 'Service type',
                     'route'  => 'facilities/service-type',
-                    'icon' => '',
+                    'icon' => '', // check online
                     'description' => 'List pre-defined and user-defined service types',
-                    'column' => self::SETTINGS_COLUMN_RIGHT,
+                    'column' => self::SETTINGS_COLUMN_LEFT,
+                    'visible' => $ugroup->id == 6, // always TRUE
                 ),
                 array(
                     'id'     => 'accommodation',
                     'label'  => 'Accommodation',
                     'route'  => 'settings/accommodation',
-                    'icon' => '',
+                    'icon' => 'bed',
                     'description' => 'Set defaults for accommodation services',
-                    'column' => self::SETTINGS_COLUMN_LEFT,
+                    'column' => self::SETTINGS_COLUMN_RIGHT,
+                    'visible' =>  $business->service_accommodation,
                 ),
                 array(
                     'id'     => 'rental',
                     'label'  => 'Rental',
                     'route'  => 'settings/rental',
-                    'icon' => '',
+                    'icon' => 'building',
                     'description' => 'Set default values for rental services',
+                    'column' => self::SETTINGS_COLUMN_LEFT,
+                    'visible' =>  $business->service_rental,
+                ),
+                array(
+                    'id'     => 'landlord',
+                    'label'  => 'Landlord',
+                    'route'  => 'registers/landlord',
+                    'icon' => 'book',
+                    'description' => 'Set default landlord for single property owner',
                     'column' => self::SETTINGS_COLUMN_RIGHT,
+                    'visible' => $business->service_rental && ($business->business_type == Model_Business::BUSINESS_TYPE_PROPERTY_OWNER),
                 ),
                 array(
                     'id'     => 'hire',
@@ -138,16 +165,18 @@ class Model_Setting extends \Orm\Model
                     'icon' => '',
                     'description' => 'Set default values for hire services',
                     'column' => self::SETTINGS_COLUMN_LEFT,
-                ),                                
+                    'visible' =>  $business->service_hire,
+                ),
             ),
             'email' => array(
                 array(
                     'id'     => 'email_settings',
                     'label'  => 'Email settings',
                     'route'  => 'settings/email-settings',
-                    'icon' => '',
+                    'icon' => 'envelope-o',
                     'description' => 'Set the email SMTP config for sending mails',
                     'column' => self::SETTINGS_COLUMN_RIGHT,
+                    'visible' => true, // always TRUE
                 ),
                 // array(
                 //     'id'     => 'email_templates',
@@ -164,7 +193,8 @@ class Model_Setting extends \Orm\Model
                     'route'  => 'settings/employee-type',
                     'icon' => '',
                     'description' => 'List pre-defined and user-defined employment types',
-                    'column' => self::SETTINGS_COLUMN_RIGHT,
+                    'column' => self::SETTINGS_COLUMN_LEFT,
+                    'visible' => false, //  $business->hr_payroll
                 ),
                 array(
                     'id'     => 'department',
@@ -172,7 +202,8 @@ class Model_Setting extends \Orm\Model
                     'route'  => 'settings/department',
                     'icon' => '',
                     'description' => 'List pre-defined and user-defined departments',
-                    'column' => self::SETTINGS_COLUMN_LEFT,
+                    'column' => self::SETTINGS_COLUMN_RIGHT,
+                    'visible' => false, //  $business->hr_payroll
                 ),
                 array(
                     'id'     => 'designation',
@@ -180,7 +211,8 @@ class Model_Setting extends \Orm\Model
                     'route'  => 'settings/designation',
                     'icon' => '',
                     'description' => 'List common job titles and/or roles in the industry',
-                    'column' => self::SETTINGS_COLUMN_RIGHT,
+                    'column' => self::SETTINGS_COLUMN_LEFT,
+                    'visible' => false, //  $business->hr_payroll
                 ),
             ),
             // permissions

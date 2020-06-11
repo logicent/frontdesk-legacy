@@ -3,8 +3,9 @@ use Orm\Model_Soft;
 
 class Model_Sales_Invoice extends Model_Soft
 {
-    const INVOICE_SOURCE_BOOKING = 'BKG';
-    const INVOICE_SOURCE_LEASE = 'LSE';
+    const INVOICE_SOURCE_BOOKING = 'Booking';
+	const INVOICE_SOURCE_LEASE = 'Lease';
+	const INVOICE_SOURCE_INVOICE = 'Invoice';
 
 	const INVOICE_STATUS_OPEN = 'O';
 	const INVOICE_STATUS_CLOSED = 'C';
@@ -27,6 +28,8 @@ class Model_Sales_Invoice extends Model_Soft
 		self::INVOICE_PAID_STATUS_FULL_PAID => 'Fully paid',
 		self::INVOICE_PAID_STATUS_PLUS_PAID => 'Advance paid'
 	);
+
+	// public $customer_id;
 
 	protected static $_properties = array(
 		'id',
@@ -81,8 +84,8 @@ class Model_Sales_Invoice extends Model_Soft
 		$val->add_field('issue_date', 'Issue Date', 'required|valid_date');
 		$val->add_field('due_date', 'Due Date', 'valid_date');
 		$val->add_field('status', 'Status', 'required|valid_string[alpha]');
-		// $val->add_field('source', 'Source Doc', 'required');
-		// $val->add_field('source_id', 'Source ID', 'required');
+		$val->add_field('source', 'Source', 'required');
+		$val->add_field('source_id', 'Source Order Ref', 'required');
 		$val->add_field('customer_name', 'Customer Name', 'required|max_length[140]');
 		$val->add_field('amount_due', 'Amount Due', 'valid_string[]');
 		$val->add_field('amount_paid', 'Amount Paid', 'valid_string[]');
@@ -128,7 +131,7 @@ class Model_Sales_Invoice extends Model_Soft
 		'receipts' => array(
 			'key_from' => 'id',
 			'model_to' => 'Model_Accounts_Payment_Receipt',
-			'key_to' => 'bill_id',
+			'key_to' => 'source_id',
 			'cascade_save' => true,
 			'cascade_delete' => true,
 		),
@@ -236,5 +239,29 @@ class Model_Sales_Invoice extends Model_Soft
         $invoice->save(); // update the invoice
 
         return $invoice->unit_name;
-    }
+	}
+
+	public static function getSourceListOptions($source)
+	{
+		if (empty($source))
+			return array();
+		
+		if ($source == self::INVOICE_SOURCE_LEASE)
+			return Model_Lease::listOptions();
+	
+		if ($source == self::INVOICE_SOURCE_BOOKING)
+			return Model_Facility_Booking::listOptions();
+	}
+
+	public static function getSourceName($business)
+	{
+		$source= array('' => '&nbsp;');
+		if ($business->service_accommodation || $business->service_hire)
+			$source[self::INVOICE_SOURCE_BOOKING] = self::INVOICE_SOURCE_BOOKING;
+		
+		if ($business->service_rental || $business->service_sale)
+			$source[self::INVOICE_SOURCE_LEASE] = self::INVOICE_SOURCE_LEASE;
+		
+		return $source;
+	}
 }

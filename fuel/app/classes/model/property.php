@@ -45,7 +45,14 @@ class Model_Property extends Model
 			'key_to' => 'id',
 			'cascade_save' => false,
 			'cascade_delete' => false,
-		)
+		),
+		'propertyType' => array(
+			'key_from' => 'property_type',
+			'model_to' => 'Model_Property_Type',
+			'key_to' => 'code', // ensure this unique in DB
+			'cascade_save' => false,
+			'cascade_delete' => false,
+		)		
     );
     
     protected static $_has_many = array(

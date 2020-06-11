@@ -1,13 +1,11 @@
 <?php
 class Controller_Service_Type extends Controller_Authenticate
 {
-
 	public function action_index()
 	{
 		$data['service_types'] = Model_Service_Type::find('all');
 		$this->template->title = "Service_types";
 		$this->template->content = View::forge('service/type/index', $data);
-
 	}
 
 	public function action_view($id = null)
@@ -19,10 +17,8 @@ class Controller_Service_Type extends Controller_Authenticate
 			Session::set_flash('error', 'Could not find service type #'.$id);
 			Response::redirect('facilities/service-type');
 		}
-
 		$this->template->title = "Service_type";
 		$this->template->content = View::forge('service/type/view', $data);
-
 	}
 
 	public function action_create()
@@ -46,10 +42,8 @@ class Controller_Service_Type extends Controller_Authenticate
 				if ($service_type and $service_type->save())
 				{
 					Session::set_flash('success', 'Added service type #'.$service_type->code.'.');
-
 					Response::redirect('facilities/service-type');
 				}
-
 				else
 				{
 					Session::set_flash('error', 'Could not save service type.');
@@ -60,10 +54,8 @@ class Controller_Service_Type extends Controller_Authenticate
 				Session::set_flash('error', $val->error());
 			}
 		}
-
 		$this->template->title = "Service_Types";
 		$this->template->content = View::forge('service/type/create');
-
 	}
 
 	public function action_edit($id = null)
@@ -77,7 +69,6 @@ class Controller_Service_Type extends Controller_Authenticate
 		}
 
 		$val = Model_Service_Type::validate('edit');
-
 		if ($val->run())
 		{
 			$service_type->name = Input::post('name');
@@ -91,16 +82,13 @@ class Controller_Service_Type extends Controller_Authenticate
 			if ($service_type->save())
 			{
 				Session::set_flash('success', 'Updated service type #' . $service_type->code);
-
 				Response::redirect('facilities/service-type');
 			}
-
 			else
 			{
 				Session::set_flash('error', 'Could not update service type #' . $id);
 			}
 		}
-
 		else
 		{
 			if (Input::method() == 'POST')
@@ -115,13 +103,10 @@ class Controller_Service_Type extends Controller_Authenticate
 
 				Session::set_flash('error', $val->error());
 			}
-
 			$this->template->set_global('service_type', $service_type, false);
 		}
-
 		$this->template->title = "Service_types";
 		$this->template->content = View::forge('service/type/edit');
-
 	}
 
 	public function action_delete($id = null)
@@ -133,10 +118,8 @@ class Controller_Service_Type extends Controller_Authenticate
 			if ($service_type = Model_Service_Type::find($id))
 			{
 				$service_type->delete();
-
 				Session::set_flash('success', 'Deleted service type #'.$id);
 			}
-
 			else
 			{
 				Session::set_flash('error', 'Could not delete service type #'.$id);
@@ -146,9 +129,6 @@ class Controller_Service_Type extends Controller_Authenticate
 		{
 			Session::set_flash('error', 'Delete is not allowed');
 		}
-
 		Response::redirect('facilities/service-type');
-
 	}
-
 }

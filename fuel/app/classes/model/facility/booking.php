@@ -145,7 +145,7 @@ class Model_Facility_Booking extends Model_Soft
 	protected static $_table_name = 'facility_booking';
 
 	protected static $_has_one = array(
-		'customer' => array(
+		'guest' => array(
 			'key_from' => 'customer_id',
 			'model_to' => 'Model_Customer',
 			'key_to' => 'id',

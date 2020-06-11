@@ -7,22 +7,19 @@ class Controller_Accounts_Bank_Account extends Controller_Authenticate
 		$data['bank_accounts'] = Model_Accounts_Bank_Account::find('all');
 		$this->template->title = "Bank Accounts";
 		$this->template->content = View::forge('accounts/bank/account/index', $data);
-
 	}
 
 	public function action_view($id = null)
 	{
-		is_null($id) and Response::redirect('accounts/bank-accounts');
+		is_null($id) and Response::redirect('accounts/bank-account');
 
 		if ( ! $data['bank_account'] = Model_Accounts_Bank_Account::find($id))
 		{
 			Session::set_flash('error', 'Could not find bank account #'.$id);
-			Response::redirect('accounts/bank-accounts');
+			Response::redirect('accounts/bank-account');
 		}
-
 		$this->template->title = "Bank Accounts";
 		$this->template->content = View::forge('accounts/bank/account/view', $data);
-
 	}
 
 	public function action_create()
@@ -30,7 +27,6 @@ class Controller_Accounts_Bank_Account extends Controller_Authenticate
 		if (Input::method() == 'POST')
 		{
 			$val = Model_Accounts_Bank_Account::validate('create');
-
 			if ($val->run())
 			{
 				$bank_account = Model_Accounts_Bank_Account::forge(array(
@@ -43,16 +39,21 @@ class Controller_Accounts_Bank_Account extends Controller_Authenticate
 					'last_statement_date' => Input::post('last_statement_date'),
 				));
 
-				if ($bank_account and $bank_account->save())
-				{
-					Session::set_flash('success', 'Added bank account #'.$bank_account->account_number.'.');
-
-					Response::redirect('accounts/bank-accounts');
+				try {
+					if ($bank_account and $bank_account->save())
+					{
+						Session::set_flash('success', 'Added bank account #'.$bank_account->account_number.'.');
+						Response::redirect('accounts/bank-account');
+					}
+					else
+					{
+						Session::set_flash('error', 'Could not save bank account.');
+					}
 				}
-
-				else
+				catch (Fuel\Core\Database_Exception $e)
 				{
-					Session::set_flash('error', 'Could not save bank account.');
+					Session::set_flash('error', $e->getMessage());
+					// throw $e;
 				}
 			}
 			else
@@ -60,24 +61,21 @@ class Controller_Accounts_Bank_Account extends Controller_Authenticate
 				Session::set_flash('error', $val->error());
 			}
 		}
-
 		$this->template->title = "Bank Accounts";
 		$this->template->content = View::forge('accounts/bank/account/create');
-
 	}
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('accounts/bank-accounts');
+		is_null($id) and Response::redirect('accounts/bank-account');
 
 		if ( ! $bank_account = Model_Accounts_Bank_Account::find($id))
 		{
 			Session::set_flash('error', 'Could not find bank account #'.$id);
-			Response::redirect('accounts/bank-accounts');
+			Response::redirect('accounts/bank-account');
 		}
 
 		$val = Model_Accounts_Bank_Account::validate('edit');
-
 		if ($val->run())
 		{
 			$bank_account->name = Input::post('name');
@@ -88,19 +86,23 @@ class Controller_Accounts_Bank_Account extends Controller_Authenticate
 			$bank_account->i_banking_na = Input::post('i_banking_na');
 			$bank_account->last_statement_date = Input::post('last_statement_date');
 
-			if ($bank_account->save())
-			{
-				Session::set_flash('success', 'Updated bank account #' . $id);
-
-				Response::redirect('accounts/bank-accounts');
+			try {
+				if ($bank_account->save())
+				{
+					Session::set_flash('success', 'Updated bank account #' . $id);
+					Response::redirect('accounts/bank-account');
+				}
+				else
+				{
+					Session::set_flash('error', 'Could not update bank account #' . $id);
+				}
 			}
-
-			else
+			catch (Fuel\Core\Database_Exception $e)
 			{
-				Session::set_flash('error', 'Could not update bank account #' . $id);
+				Session::set_flash('error', $e->getMessage());
+				// throw $e;
 			}
 		}
-
 		else
 		{
 			if (Input::method() == 'POST')
@@ -115,18 +117,15 @@ class Controller_Accounts_Bank_Account extends Controller_Authenticate
 
 				Session::set_flash('error', $val->error());
 			}
-
 			$this->template->set_global('bank_account', $bank_account, false);
 		}
-
 		$this->template->title = "Bank Accounts";
 		$this->template->content = View::forge('accounts/bank/account/edit');
-
 	}
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('accounts/bank-accounts');
+		is_null($id) and Response::redirect('accounts/bank-account');
 
 		if (Input::method() == 'POST')
 		{		
@@ -150,10 +149,6 @@ class Controller_Accounts_Bank_Account extends Controller_Authenticate
 		{
 			Session::set_flash('error', 'Delete is not allowed');
 		}
-		
-		Response::redirect('accounts/bank-accounts');
-
+		Response::redirect('accounts/bank-account');
 	}
-
-
 }

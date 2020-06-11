@@ -10,6 +10,7 @@ class Create_property_types
 			'id' => array('type' => 'int', 'unsigned' => true, 'auto_increment' => true, 'constraint' => '11'),
 			'code' => array('constraint' => 20, 'type' => 'varchar'),
 			'name' => array('constraint' => 140, 'type' => 'varchar'),
+			'group' => array('constraint' => 3, 'type' => 'char'),
             'enabled' => array('type' => 'boolean', 'default' => 1, 'null' => true),
 			// 'discontinued' => array('constraint' => 1, 'type' => 'tinyint', 'default' => 0, 'null' => true),
 			'fdesk_user' => array('constraint' => 11, 'type' => 'int'),

@@ -3,6 +3,12 @@ use Orm\Model_Soft;
 
 class Model_Accounts_Payment_Receipt extends Model_Soft
 {
+	const PAYMENT_TYPE_ADVANCE = 'Advance'; // against Order (Lease/Booking)
+	const PAYMENT_TYPE_SETTLEMENT = 'Settlement'; // against Invoice amount due (partial or whole amount)
+	const PAYMENT_STATUS_RECEIVED = 'Received'; // processed payment against Order/Invoice as applicable
+	const PAYMENT_STATUS_CANCELED = 'Canceled'; // reversed payment against Order/Invoice as applicable
+	// const PAYMENT_STATUS_UNRECONCILED = 'Unreconciled';  // payment linked to Customer w/o Order/Invoice
+
 	public static $payment_type = array(
 		'Csh' => 'Cash',
 		'Mob' => 'Mobile Cash',
@@ -18,7 +24,9 @@ class Model_Accounts_Payment_Receipt extends Model_Soft
 	protected static $_properties = array(
 		'id',
 		'receipt_number',
-		'bill_id',
+		'type',
+		'source',
+		'source_id',
 		'date',
         'payer',
         'payment_method',
@@ -58,17 +66,19 @@ class Model_Accounts_Payment_Receipt extends Model_Soft
 	{
 		$val = Validation::forge($factory);
 		$val->add_field('receipt_number', 'Reference', 'required|valid_string[numeric]');
-		$val->add_field('bill_id', 'Bill No.', 'required|valid_string[numeric]');
+		$val->add_field('type', 'Type', 'required');
+		$val->add_field('source', 'Source', 'required');
+		$val->add_field('source_id', 'Source ref.', 'required|valid_string[numeric]');
 		$val->add_field('date', 'Date', 'required|valid_date');
-		$val->add_field('payer', 'Payer', 'required|max_length[140]');
-		$val->add_field('gl_account_id', 'Gl Account Id', 'valid_string[numeric]');
-		$val->add_field('amount', 'Amount', 'required|numeric_min[0]');
+		$val->add_field('payer', 'Payer', 'max_length[140]');
+		$val->add_field('gl_account_id', 'GL Account Id', 'valid_string[numeric]');
+		$val->add_field('amount', 'Amount', 'required|valid_string[numeric]');
 		$val->add_field('payment_method', 'Payment Method', 'required');
-		$val->add_field('reference', 'Payment Reference', 'valid_string[alpha]');
+		$val->add_field('reference', 'Payment Reference', 'valid_string[alphanumeric]');
 		$val->add_field('status', 'Status', 'required');
 		$val->add_field('tax_id', 'Tax Id', 'valid_string[numeric]');
 		$val->add_field('bank_account_id', 'Bank Account Id', 'valid_string[numeric]');
-		$val->add_field('description', 'Description', 'required|max_length[255]');
+		$val->add_field('description', 'Description', 'max_length[140]');
 		$val->add_field('attachment', 'Attachment', 'max_length[140]');
 
 		$val->set_message('numeric_min', 'Amount must be 0 or greater'); // preferrably greater than 0 in create mode
@@ -80,12 +90,26 @@ class Model_Accounts_Payment_Receipt extends Model_Soft
 
 	protected static $_belongs_to = array(
 		'invoice' => array(
-			'key_from' => 'bill_id',
+			'key_from' => 'source_id',
 			'model_to' => 'Model_Sales_Invoice',
 			'key_to' => 'id',
 			'cascade_save' => false,
 			'cascade_delete' => false,
 		),
+		'lease' => array(
+			'key_from' => 'source_id',
+			'model_to' => 'Model_Lease',
+			'key_to' => 'id',
+			'cascade_save' => false,
+			'cascade_delete' => false,
+		),
+		'booking' => array(
+			'key_from' => 'source_id',
+			'model_to' => 'Model_Facility_Booking',
+			'key_to' => 'id',
+			'cascade_save' => false,
+			'cascade_delete' => false,
+		),				
 	);
 
 	public static function updateInvoiceSettlement($bill, $amount_paid)
@@ -95,11 +119,10 @@ class Model_Accounts_Payment_Receipt extends Model_Soft
 		// advance paid reversal not working
 		// if ($bill->paid_status = Model_Sales_Invoice::INVOICE_PAID_STATUS_PLUS_PAID)
 		// 	$bill->advance_paid -= $amount_paid;
-
 		switch ($bill->balance_due)
 		{
 			case 0:
-				if ($bill->guest->status == Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT)
+				if ($bill->booking->status == Model_Facility_Booking::GUEST_STATUS_CHECKED_OUT)
 					$bill->status = Model_Sales_Invoice::INVOICE_STATUS_CLOSED;
 				$bill->paid_status = Model_Sales_Invoice::INVOICE_PAID_STATUS_FULL_PAID;
 				break;
@@ -121,10 +144,40 @@ class Model_Accounts_Payment_Receipt extends Model_Soft
 		$bill->save();
 	}
 
+	public static function getStatus()
+	{
+		return array(
+			self::PAYMENT_STATUS_RECEIVED => self::PAYMENT_STATUS_RECEIVED,
+			self::PAYMENT_STATUS_CANCELED => self::PAYMENT_STATUS_CANCELED,
+		);
+	}
+
+	public static function getSourceName($business, $type)
+	{
+		$source= array();
+		if ($type == self::PAYMENT_TYPE_ADVANCE)
+		{
+			if ($business->service_accommodation || $business->service_hire)
+				$source[Model_Sales_Invoice::INVOICE_SOURCE_BOOKING] = Model_Sales_Invoice::INVOICE_SOURCE_BOOKING;
+			
+			if ($business->service_rental || $business->service_sale)
+				$source[Model_Sales_Invoice::INVOICE_SOURCE_LEASE] = Model_Sales_Invoice::INVOICE_SOURCE_LEASE;
+		}
+		if ($type == self::PAYMENT_TYPE_SETTLEMENT)
+			$source['Invoice'] = Model_Sales_Invoice::INVOICE_SOURCE_INVOICE;
+
+		return $source;
+	}
+
 	public static function getNextSerialNumber()
 	{
 		if (self::find('last'))
 			return self::find('last')->receipt_number + 1;
 		else return 10001; // initial record
+	}
+
+	public static function listSourceOptions()
+	{
+		return array();
 	}
 }

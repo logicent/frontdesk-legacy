@@ -16,7 +16,6 @@ class Create_sales_invoice
             'source_id'     => ['constraint' => 11,     'type' => 'int'],
             'customer_name' => ['constraint' => 140,    'type' => 'varchar'],
 			'unit_name'     => ['constraint' => 140,    'type' => 'varchar'],
-			// 'property_id'   => ['constraint' => 11,     'type' => 'int',        'null' => true],
 			'amount_due'    => ['constraint' => [10,4], 'type' => 'decimal', 'default' => 0.0000],
 			'disc_total'    => ['constraint' => [15,4], 'type' => 'decimal', 'default' => 0.0000],
 			'tax_total'     => ['constraint' => [15,4], 'type' => 'decimal', 'default' => 0.0000],

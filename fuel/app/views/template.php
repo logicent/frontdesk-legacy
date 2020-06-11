@@ -121,11 +121,13 @@
                                 if (empty($menu_group) || !$menu_group['visible']) :
                                     continue;
                                 endif;
+                                if (!$menu_group['hide_menu_group_label']) :
                             ?>
                             <li>
                                 <a href="#"><i class="fa fa-lg <?= $menu_group['icon'] ?> fa-fw text-default"></i>&emsp;<?= $menu_group['name'] ?><span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                             <?php 
+                                endif;
                                 foreach ($menu_group['items'] as $menu_item) : 
                                     if (!$menu_item['visible']) :
                                         continue;
@@ -133,10 +135,13 @@
                                 ?>
                                     <li><a href="<?= Uri::create($menu_item['route']); ?>"><i class=""></i>&emsp;<?= $menu_item['label'] ?></a></li>
                             <?php
-                                endforeach; ?>
+                                endforeach; 
+                                if (!$menu_group['hide_menu_group_label']) :
+                                ?>
                                 </ul>
                             </li>
                             <?php
+                                endif;
                             endforeach; ?>
                         </ul>   <!-- /#side-menu -->
                     </div>  <!-- /.sidebar-collapse -->

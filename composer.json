@@ -19,7 +19,8 @@
         "mike42/escpos-php": "^3.0"
     },
     "require-dev": {
-        "fuel/docs": "1.8.*"
+        "fuel/docs": "1.8.*",
+        "kint-php/kint": "^3.3"
     },
     "suggest": {
         "dwoo/dwoo" : "Allow Dwoo templating with the Parser package",

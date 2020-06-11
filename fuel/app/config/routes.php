@@ -23,6 +23,9 @@ return array(
 	'registers/reservation' => 'facility/reservation',
 	'registers/booking'     => 'facility/booking',
 	'registers/customer'    => 'customer',
+	'registers/member'    	=> 'member',
+	'registers/tenant'    	=> 'tenant',
+	'registers/landlord'    => 'landlord',
 	'registers/lease'     	=> 'lease',
 	'registers/partner'     => 'partner',
 	// 'registers/folios'     		=> 'sales/invoice',
@@ -33,8 +36,12 @@ return array(
     'lease/get-owner-list-options' 		=> 'lease/get_owner_list_options',
     'lease/get-unit-list-options' 		=> 'lease/get_unit_list_options',
 
+	'accounts/sales-invoice/get-source-list-options' 		=> 'sales/invoice/get_source_list_options',
+	'accounts/sales-invoice/get-source-info' 		=> 'sales/invoice/get_source_info',
+	
 	'accounts/bank-account'    => 'accounts/bank/account',
 	'accounts/bank-deposit'    => 'accounts/bank/deposit',
+	'accounts/sales-order'   	=> 'sales/order',
 	'accounts/sales-invoice'   => 'sales/invoice',
 	'accounts/sales-receipt'   => 'accounts/payment/receipt',
 	'accounts/gift-voucher'    => 'gift/voucher',
@@ -42,6 +49,10 @@ return array(
 	'accounts/taxes'           => 'accounts/tax',
 	'accounts/payment-method'  => 'accounts/payment/method',
 
+	'accounts/sales-order/add-item'   => 'sales/order/item/create',
+	'accounts/sales-order/get-item'   => 'sales/order/item/read',
+	'accounts/sales-order/del-item'   => 'sales/order/item/delete',
+	
 	'accounts/sales-invoice/add-item'   => 'sales/invoice/item/create',
 	'accounts/sales-invoice/get-item'   => 'sales/invoice/item/read',
 	'accounts/sales-invoice/del-item'   => 'sales/invoice/item/delete',

@@ -55,6 +55,30 @@ class Model_Customer extends Model
 		),
 	);
 
+    protected static $_belongs_to = array(
+		'activeLeases' => array(
+			'key_from' => 'id',
+			'model_to' => 'Model_Lease',
+			'key_to' => 'customer_id',
+			'cascade_save' => false,
+			'cascade_delete' => false,
+        ),
+		// 'unitsLeased' => array(
+			// 'key_from' => 'customer_id',
+			// 'model_to' => 'Model_Unit',
+			// 'key_to' => 'id',
+			// 'cascade_save' => false,
+			// 'cascade_delete' => false,
+		// ),
+		// 'openBills' => array(
+			// 'key_from' => 'id',
+			// 'model_to' => 'Model_Sales_Invoice',
+			// 'key_to' => 'source_id',
+			// 'cascade_save' => true,
+			// 'cascade_delete' => true,
+		// ),
+    );
+
 	public static function validate($factory)
 	{
 		$val = Validation::forge($factory);
@@ -97,12 +121,13 @@ class Model_Customer extends Model
 						->from(self::$_table_name)
 						->where([
                             'inactive' => false,
-                            ['customer_type', 'in', $type]
+                            'customer_type' => $type
+                            // ['customer_type', 'in', $type]
                         ])
 						->execute()
 						->as_array();
         
-		$list_options = array('' => '');
+		$list_options = array('' => '&nbsp;');
 
 		foreach($items as $item) {
 			$list_options[$item['id']] = $item['customer_name'];

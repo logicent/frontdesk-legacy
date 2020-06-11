@@ -49,7 +49,7 @@ return [
             'id_validation_callback' => 'http://localhost:8080/mpesa-cb?secret=6vS4cgq8zk',
             'lnmo' => [
                 'paybill' => 174379,
-                'shortcode' => 174379,
+                'shortcode' => 5157173,
                 'passkey' => 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919',
                 'callback' => 'http://localhost:8080/mpesa-cb?secret=6vS4cgq8zk',
             ]
@@ -60,12 +60,12 @@ return [
             'key' => '',
             'secret' => '',
             'initiator' => 'apitest363',
-            'id_validation_callback' => 'http://example.com/callback?secret=some_secret_hash_key',
+            'id_validation_callback' => 'http://demo.app.logicent.co/mpesa-callback?secret=6vS4cgq8zk',
             'lnmo' => [
                 'paybill' => 174379,
-                'shortcode' => 174379,
+                'shortcode' => 5157173,
                 'passkey' => 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919',
-                'callback' => 'http://example.com/callback?secret=some_secret_hash_key',
+                'callback' => 'http://demo.app.logicent.co/mpesa-callback?secret=6vS4cgq8zk',
             ]
         ],
     ],

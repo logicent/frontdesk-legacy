@@ -169,7 +169,7 @@ ul > hr {
 }
 
 ul#side-menu > li {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .alert-popup {
@@ -295,12 +295,21 @@ label {
     padding-left: 0;
 }
 
+.navbar-top-links > li {
+    font-size: 16px;
+}
+
 /* .navbar-top-links > li:last-child {
     margin-right: 0;
 } */
 
 .text-muted {
     color: #8D99A6 !important;
+}
+
+.text-number {
+    font-weight: bold;
+    text-align: right;
 }
 
 .navbar-default {
@@ -453,7 +462,7 @@ input.cb-checked {
 }
 
 .navbar-top-links.top-menu {
-    margin-left: 100px;
+    margin-left: 95px;
 }
 
 .navbar-top-links:not(.top-menu) {
@@ -493,3 +502,6 @@ input.cb-checked {
     border-color: #8c8c8c;
 } */
 
+#items > tbody > tr > td > .select2-container--bootstrap .select2-selection--single, .select2-container--bootstrap .select2-selection--multiple {
+    height: 30px;
+}

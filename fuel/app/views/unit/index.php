@@ -21,7 +21,9 @@
 			<th>Name</th>
 			<th>Unit type</th>
 			<th>Status</th>
+			<?php if ($business->service_accommodation) : ?>
 			<th>HK Status</th>
+			<?php endif ?>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>
@@ -31,7 +33,9 @@
 			<td><?= Html::anchor('unit/edit/'.$item->id,  $item->type->alias . ' ' . $item->name, ['class' => 'clickable']); ?></td>
 			<td><?= $item->type->name; ?></td>
 			<td><span class=""><?= Model_Unit::$unit_status[$item->status] ?></span></td>
+			<?php if ($business->service_accommodation) : ?>
 			<td><?= Model_Unit::$hk_status[$item->hk_status] ?></td>
+			<?php endif ?>
 			<td class="text-center">
 				<?= Html::anchor('unit/delete/'.$item->id, '<i class="fa fa-trash-o fa-fw fa-fw"></i>',
                                 array('class' => 'text-muted del-btn', 'onclick' => "return confirm('Are you sure?')")); ?>

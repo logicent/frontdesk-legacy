@@ -1,5 +1,5 @@
-<h2 class="page-header"><span class='text-muted'>Receipt</span>&nbsp;
-<span><?= Html::anchor('accounts/sales-receipts', '<i class="fa fa-level-down fa-fw fa-rotate-180"></i> Back to List', array('class' => 'btn btn-default btn-xs')); ?></span>
+<h2 class="page-header"><span class='text-muted'>Payment</span>&nbsp;
+<span><?= Html::anchor('accounts/sales-receipt', '<i class="fa fa-level-down fa-fw fa-rotate-180"></i> Back to List', array('class' => 'btn btn-default btn-xs')); ?></span>
 </h2>
 <br>
 
@@ -12,7 +12,7 @@
 				<span class="input-group-addon">#</span>
 				<?= Form::input('reference', Input::post('reference', isset($payment_receipt) ? $payment_receipt->reference : Model_Accounts_Payment_Receipt::getNextSerialNumber()), array('class' => 'col-md-4 form-control', 'readonly' => true)); ?>
 			</div>
-			<?= Form::hidden('bill_id', Input::post('bill_id', isset($bill) ? $bill->id : $payment_receipt->bill_id)); ?>
+			<?= Form::hidden('source_id', Input::post('source_id', isset($bill) ? $bill->id : $payment_receipt->source_id)); ?>
 		</div>
 
 		<div class="col-md-2">
