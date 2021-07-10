@@ -36,7 +36,7 @@ class Model_Accounts_Payment_Receipt extends Model_Soft
 		'deleted_at'
 	);
 
-	protected static $_table_name = 'sales_payment';
+	protected static $_table_name = 'cash_receipt';
 
 	protected static $_soft_delete = array(
 		//'deleted_field' => 'deleted_at',

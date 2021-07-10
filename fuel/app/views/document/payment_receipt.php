@@ -1,6 +1,6 @@
 <div class="text-center">
     <?php if (!empty($business->business_logo)) : ?>
-        <?= Html::img($business->business_logo) ?>
+        <?= Html::img($business->business_logo, array('style' => 'width: 240px')) ?>
     <?php else : ?>
         <h1><?= $business->trading_name ?></h1>
     <?php endif ?>
@@ -12,7 +12,7 @@
 
 <div class="row">
     <div class="col-md-6 col-sm-6 col-xs-6">
-        <div><strong>No. :&emsp;</strong><span class="receipt-ID"><?= $receipt->reference; ?><span></div>
+        <div><strong>No. :&emsp;</strong><span class="receipt-ID"><?= $receipt->receipt_number; ?><span></div>
     </div>
     <div class="col-md-6 col-sm-6 col-xs-6">
         <div class="text-right"><strong>Date:&emsp;</strong><?= date('d-M-Y', strtotime($receipt->date)); ?></div>
@@ -34,16 +34,16 @@
 
 <div class="row">
     <div class="col-md-3 col-sm-3 col-xs-3">
-        <p><strong>Check-in:&emsp;</strong><?= date('d-M-Y H:i', strtotime($receipt->invoice->guest->checkin)); ?><span></p>
+        <p><strong>Check-in:&emsp;</strong><?= date('d-M-Y H:i', strtotime($receipt->invoice->booking->checkin)); ?><span></p>
     </div>
     <div class="col-md-3 col-sm-3 col-xs-3">
-        <p><strong>Check-out:&emsp;</strong><?= date('d-M-Y H:i', strtotime($receipt->invoice->guest->checkout)); ?></p>
+        <p><strong>Check-out:&emsp;</strong><?= date('d-M-Y H:i', strtotime($receipt->invoice->booking->checkout)); ?></p>
     </div>
     <div class="col-md-3 col-sm-3 col-xs-3">
-        <p class="text-right"><strong>Unit:&emsp;</strong><?= $receipt->invoice->guest->unit->name; ?><span></p>
+        <p class="text-right"><strong>Unit:&emsp;</strong><?= $receipt->invoice->booking->unit->name; ?><span></p>
     </div>
     <div class="col-md-3 col-sm-3 col-xs-3">
-        <p class="text-right"><strong>Rate / night:&emsp;</strong><?= number_format($receipt->invoice->guest->rate_amount, 2); ?></p>
+        <p class="text-right"><strong>Rate / night:&emsp;</strong><?= number_format($receipt->invoice->booking->rate_amount, 2); ?></p>
     </div>
 </div>
 <hr>

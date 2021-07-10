@@ -96,7 +96,7 @@ class Model_Customer extends Model
 		$items = DB::select('id','customer_name')
 						->from(self::$_table_name)
 						->where([
-                            'inactive' => false,
+                            // 'inactive' => false,
                             ['customer_type', 'in', $type]
                         ])
 						->execute()

@@ -265,7 +265,7 @@ class Controller_Sales_Invoice extends Controller_Authenticate
 
 			$this->template->set_global('sales_invoice', $sales_invoice, false);
 		}
-		
+
 		$this->template->title = "Invoices";
 		$this->template->content = View::forge('sales/invoice/edit');
 

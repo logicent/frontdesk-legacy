@@ -1,7 +1,7 @@
 $(function() {
     // hide all elements with the alert class
     if ($('.alert').length)
-        $('.alert').delay(5000).fadeOut();
+        $('.alert').delay(8000).fadeOut();
 
     $('.confirm').on('click', function(){
         bootbox.confirm("Are you sure?", function(result) {

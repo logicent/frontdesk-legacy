@@ -97,7 +97,7 @@
                     <?= Form::input('image_path', Input::post('image_path', isset($unit_type) ? $unit_type->image_path : ''),
                                     array('id' => 'file_path', 'class' => 'col-md-4 form-control', 'readonly' => true)); ?>
                 <?php 
-                    if ($unit_type) : ?>
+                    if (isset($unit_type)) : ?>
                     <span class="input-group-addon">
                         <?= Html::anchor(Uri::create(false), '<i class="fa fa-plus-square-o text-info"></i>', array('id' => 'add_img')) ?>
                     </span>

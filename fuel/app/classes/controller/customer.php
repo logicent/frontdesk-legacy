@@ -4,7 +4,13 @@ class Controller_Customer extends Controller_Authenticate
 
 	public function action_index()
 	{
-		$data['customers'] = Model_Customer::find('all');
+		$data['customers'] = Model_Customer::find('all',
+                                array(
+                                    'where' =>  array(array('inactive', '=', null)),
+                                    'order_by' => array('customer_name' => 'desc'),
+                                    // 'limit' => 1000
+                                )
+                            );
 		$this->template->title = "Customers";
 		$this->template->content = View::forge('customer/index', $data);
 
@@ -49,7 +55,7 @@ class Controller_Customer extends Controller_Authenticate
                     'mobile_phone' => Input::post('mobile_phone'),
                     'sex' => Input::post('sex'),
                     'title_of_courtesy' => Input::post('title_of_courtesy'),
-                    'birth_date' => Input::post('birth_date'),
+                    'birth_date' => !empty(Input::post('birth_date')) ? Input::post('birth_date') : null,
                     'first_billed' => Input::post('first_billed'),
                     'last_billed' => Input::post('last_billed'),
                     'credit_limit' => Input::post('credit_limit'),
@@ -130,7 +136,7 @@ class Controller_Customer extends Controller_Authenticate
             $customer->mobile_phone = Input::post('mobile_phone');
             $customer->sex = Input::post('sex');
             $customer->title_of_courtesy = Input::post('title_of_courtesy');
-            $customer->birth_date = Input::post('birth_date');
+            $customer->birth_date = !empty(Input::post('birth_date')) ? Input::post('birth_date') : null;
             $customer->first_billed = Input::post('first_billed');
             $customer->last_billed = Input::post('last_billed');
             $customer->credit_limit = Input::post('credit_limit');

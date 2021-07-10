@@ -43,8 +43,8 @@ class Controller_Property extends Controller_Authenticate
 					'property_type' => Input::post('property_type'),
 					'owner' => Input::post('owner'),
 					'property_ref' => Input::post('property_ref'),
-					'date_signed' => Input::post('date_signed'),
-					'date_released' => Input::post('date_released'),
+					'date_signed' => !empty(Input::post('date_signed')) ? Input::post('date_signed') : null,
+					'date_released' => !empty(Input::post('date_released')) ? Input::post('date_released') : null,
 					'inactive' => Input::post('inactive'),
 					'on_hold' => Input::post('on_hold'),
 					'on_hold_from' => Input::post('on_hold_from'),
@@ -104,8 +104,8 @@ class Controller_Property extends Controller_Authenticate
 			$property->property_type = Input::post('property_type');
 			$property->owner = Input::post('owner');
 			$property->property_ref = Input::post('property_ref');
-			$property->date_signed = Input::post('date_signed');
-			$property->date_released = Input::post('date_released');
+			$property->date_signed = !empty(Input::post('date_signed')) ? Input::post('date_signed') : null;
+			$property->date_released = !empty(Input::post('date_released')) ? Input::post('date_released') : null;
 			$property->inactive = Input::post('inactive');
 			$property->on_hold = Input::post('on_hold');
 			$property->on_hold_from = Input::post('on_hold_from');

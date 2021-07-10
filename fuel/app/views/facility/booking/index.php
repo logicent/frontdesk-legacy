@@ -49,10 +49,14 @@
                                     ucwords($item->customer->customer_name), ['class' => 'clickable']) ?></td>
 				<td><?= $item->reg_no; ?></td>
 				<td><?= $item->phone; ?></td>
-				<td><?= $item->unit->name; ?></td>
+				<td><?= !is_null($item->unit) ? $item->unit->name : null; ?></td>
 				<td><?= date('d-M-Y H:i', strtotime($item->checkin)); ?></td>
 				<td><?= date('d-M-Y H:i', strtotime($item->checkout)); ?></td>
-				<td class="text-right"><?= number_format(Model_Rate::find('first', ['where' => ['type_id' => $item->unit->type->id]])->charges, 2); ?></td>
+				<td class="text-right">
+					<?= !is_null($item->unit) ?
+						number_format(Model_Rate::find('first', ['where' => ['type_id' => $item->unit->type->id]])->charges, 2) :
+						null; ?>
+				</td>
 				<!-- <td><?php //echo $item->g_country->iso_code_2; ?></td> -->
 				<td class="text-center">
                     <?= Html::anchor('facility/booking/view/'.$item->id, '<i class="fa fa-eye fa-fw"></i>', ['class' => 'text-muted']); ?>

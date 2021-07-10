@@ -8,10 +8,11 @@ class Controller_Accounts_Payment_Receipt extends Controller_Authenticate
 		$data['payment_receipts'] = Model_Accounts_Payment_Receipt::find(
                                         'all', 
                                         array(
-                                            'where' =>  array(array('deleted_at', '<>', '')), 
+                                            // 'where' =>  array(array('deleted_at', '<>', null)), 
                                             'order_by' => array('receipt_number' => 'desc'), 
-                                            'limit' => 1000)
-                                        );
+                                            'limit' => 1000
+										)
+									);
 		$this->template->title = "Receipts";
 		$this->template->content = View::forge('accounts/payment/receipt/index', $data);
 	}

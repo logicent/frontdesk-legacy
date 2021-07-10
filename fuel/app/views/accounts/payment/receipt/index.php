@@ -25,7 +25,7 @@
 		<tr class="<?php // $item->amount > 0 ? : 'strikeout text-muted' ?>">
 			<td>
                 <?php // if ($item->amount > 0) : ?>
-					<?= Html::anchor('accounts/payment/receipt/edit/'.$item->id, $item->reference, ['class' => 'clickable']); ?>
+					<?= Html::anchor('accounts/payment/receipt/edit/'.$item->id, $item->receipt_number, ['class' => 'clickable']); ?>
 				<?php // endif; ?>
             </td>
 			<td><?= date('d-M-Y', strtotime($item->date)); ?></td>

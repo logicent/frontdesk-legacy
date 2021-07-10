@@ -36,7 +36,7 @@ class Controller_Rate extends Controller_Authenticate{
 
 				if ($rate and $rate->save())
 				{
-					Session::set_flash('success', 'Added room rate #'.$rate->room_type->name.' - '.$rate->rate_type->name);
+					Session::set_flash('success', 'Added room rate #'.$rate->unit_type->name.' - '.$rate->rate_type->name);
 
 					Response::redirect('rate');
 				}

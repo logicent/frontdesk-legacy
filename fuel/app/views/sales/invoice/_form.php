@@ -4,7 +4,7 @@
         <div class="col-md-6">
 			<?= Form::label('Customer / Order ref.', 'customer_name', array('class'=>'control-label')); ?>
             <?= Form::hidden('customer_name', Input::post('customer_name', isset($sales_invoice) ? $sales_invoice->customer_name : '')); ?>
-            <?= Form::select('customer_list', Input::post('customer_list', isset($sales_invoice) ? $sales_invoice->customer_name : ''), 
+            <?= Form::select('customer_list', Input::post('customer_list', isset($sales_invoice) ? $sales_invoice->booking->id : ''), 
                             Model_Facility_Booking::listOptions(true), 
                             array('class' => 'col-md-4 form-control', 'disabled' => isset($sales_invoice) ? true : false)); ?>
         </div>
@@ -76,7 +76,7 @@
             if (isset($sales_invoice) && !empty($sales_invoice->receipts)) :
                 foreach ($sales_invoice->receipts as $item): ?>
                     <tr class="<?= $item->amount > 0 ? : 'strikeout text-muted' ?>">
-                        <td><?= Html::anchor('accounts/payment/receipt/edit/'.$item->id, $item->reference); ?></td>
+                        <td><?= Html::anchor('accounts/payment/receipt/edit/'.$item->id, $item->receipt_number); ?></td>
                         <td><?= $item->date; ?></td>
                         <td><?= $item->description; ?></td>
                         <td class="text-right"><?= number_format($item->amount, 2); ?></td>

@@ -22,7 +22,7 @@
 -->
 <div class="row">
     <div class="col-md-12">
-        <div id="dashboard_tabs" class="btn-group btn-group-justified">
+        <div id="dashboard_tabs" class="btn-group"><!-- btn-group-justified -->
             <a id="accommodation-tab" data-toggle="tab" href="#accommodation" class="btn btn-default"><?= strtoupper('Accommodation') ?></a>
             <a id="rental-tab" data-toggle="tab" href="#rental" class="btn btn-default"><?= strtoupper('Rental') ?></a>
             <a id="hire-tab" data-toggle="tab" href="#hire" class="btn btn-default"><?= strtoupper('Hire') ?></a>
