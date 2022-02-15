@@ -1,3 +1,5 @@
+**_Note: This project has been archived in favor of logicent/propoint_**
+
 # FrontDesk (PMS)
 
 * Version: 3.x
