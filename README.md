@@ -1,4 +1,4 @@
-**_Note: This project has been archived in favor of logicent/propoint_**
+**_Note: This project has been archived in favor of https://github.com/logicent/propoint**
 
 # FrontDesk (PMS)
 
