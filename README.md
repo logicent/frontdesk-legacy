@@ -1,4 +1,4 @@
-**_Note: This project has been archived in favor of [logicent/propoint](https://github.com/logicent/propoint)_**
+**_Note: This project has been archived in favor of [logicent/frontier](https://github.com/logicent/frontier)_**
 
 # FrontDesk (PMS)
 
